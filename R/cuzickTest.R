@@ -20,7 +20,7 @@
 #' @title Testing against Ordered Alternatives (Cuzick's Test)
 #' @description
 #' Performs Cuzick's test for testing against ordered alternatives.
-#' 
+#'
 #' @details
 #' The null hypothesis, H\eqn{_0: \theta_1 = \theta_2 = \ldots = \theta_k}
 #' is tested against a simple order hypothesis,
@@ -28,12 +28,13 @@
 #' \theta_k,~\theta_1 < \theta_k}.
 #'
 #' The p-values are estimated from the standard normal distribution.
-#' 
+#'
 #' @template class-htest
 #' @template trendTests
 #' @references
 #' Cuzick, J. (1995). A wilcoxon-type test for trend.
 #' \emph{Statistics in Medicine}, 4, 87--90.
+#'
 #' @export cuzickTest
 cuzickTest <- function(x, ...) UseMethod("cuzickTest")
 
@@ -48,7 +49,7 @@ cuzickTest <- function(x, ...) UseMethod("cuzickTest")
 #' @importFrom stats pnorm complete.cases
 #' @export
 cuzickTest.default <-
-function(x, g, alternative = c("two.sided", "greater", "less"), 
+function(x, g, alternative = c("two.sided", "greater", "less"),
          scores = NULL, continuity = FALSE, ...)
 {
     if (is.list(x)) {
@@ -89,15 +90,15 @@ function(x, g, alternative = c("two.sided", "greater", "less"),
         if (k < 2)
             stop("all observations are in the same group")
     }
-    
+
     alternative <- match.arg(alternative)
     n <- length(x)
     if (n < 2)
         stop("not enough observations")
     ni <- tapply(x, g, length)
-    
+
     rx <- rank(x)
-    
+
     ## check for ties
     TIES <- FALSE
     TIES <- sum(table(rx) - 1) != 0
@@ -115,11 +116,11 @@ function(x, g, alternative = c("two.sided", "greater", "less"),
         }
     }
     T <- sum(Ri * li)
-    L <- sum(ni * li) 	
+    L <- sum(ni * li)
     eT <- L * (n + 1) / 2
 
     varT <- ((n + 1) / 12) * (n * sum(li^2 * ni) - L^2)
-	
+
     if (!continuity) {
         STAT <- (T - eT) / sqrt(varT)
     } else {
@@ -130,7 +131,7 @@ function(x, g, alternative = c("two.sided", "greater", "less"),
         }
     }
     ESTIMATE <- T
-	
+
     if (alternative == "two.sided"){
         PVAL <- 2 * min(pnorm(abs(STAT), lower.tail = FALSE), 0.5)
     } else if (alternative == "greater"){
@@ -138,7 +139,7 @@ function(x, g, alternative = c("two.sided", "greater", "less"),
     } else {
         PVAL <- pnorm(STAT)
     }
-	
+
     names(STAT) <- "z"
     names(ESTIMATE) <- "CU"
 
@@ -159,24 +160,24 @@ function(x, g, alternative = c("two.sided", "greater", "less"),
 #' @export
 cuzickTest.formula <-
     function(formula, data, subset, na.action,
-             alternative = c("two.sided", "greater", "less"), 
+             alternative = c("two.sided", "greater", "less"),
              scores = NULL, continuity = FALSE,  ...)
 {
     mf <- match.call(expand.dots=FALSE)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")
     alternative <- match.arg(alternative)
     if(is.null(scores)) scores <- NULL
     names(mf) <- NULL
-    y <- do.call("cuzickTest", c(as.list(mf), alternative = alternative, 
+    y <- do.call("cuzickTest", c(as.list(mf), alternative = alternative,
                                   scores = scores, continuity = continuity))
     y$data.name <- DNAME
     y

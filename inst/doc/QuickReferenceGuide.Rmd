@@ -48,7 +48,7 @@ FN in PMCMRplus    | PMCMR v4.1         | Meaning
 --------------------|--------------------|---------------------------------------------------------
 `cuzickTest` | -- | Cuzick test for testing independent samples against ordered alternatives
 `johnsonTest` | -- | Johnson-Mehrotra test for testing independent samples against ordered alternatives
-`jonckheereTest` | `jonckheere.test` | Jonckheere-Terpstrata test for testing k independent samples against ordered alternatives
+`jonckheereTest` | `jonckheere.test` | Jonckheere-Terpstra test for testing k independent samples against ordered alternatives
 `leTest` | -- | Le's test for testing k independent samples against ordered alternatives
 `spearmanTest` | -- | Spearman test for testing k independent samples against ordered alternatives
 `bwsTrendTest` | -- | Murakami's BWS Trend Test

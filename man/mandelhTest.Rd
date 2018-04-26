@@ -4,7 +4,7 @@
 \alias{mandelhTest}
 \alias{mandelhTest.default}
 \alias{mandelhTest.formula}
-\title{Mandel's h test according to E 651 ASTM}
+\title{Mandel's h test according to E 691 ASTM}
 \usage{
 mandelhTest(x, ...)
 
@@ -53,7 +53,7 @@ levels of the groups.}
 }
 }
 \description{
-The function calculates the 
+The function calculates the
  consistency statistics h and corresponding
  p-values for each group (lab) according to
 Practice E 691 ASTM.

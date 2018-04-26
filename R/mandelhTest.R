@@ -16,35 +16,35 @@
 ##
 ##
 #' @name mandelhTest
-#' @title Mandel's h test according to E 651 ASTM
-#' @description The function calculates the 
+#' @title Mandel's h test according to E 691 ASTM
+#' @description The function calculates the
 #'  consistency statistics h and corresponding
 #'  p-values for each group (lab) according to
 #' Practice E 691 ASTM.
 #'
 #' @template class-mandel
-#' 
+#'
 #' @seealso
-#' \code{\link{qmandelh}} \code{\link{pmandelh}} 
+#' \code{\link{qmandelh}} \code{\link{pmandelh}}
 #' @references
-#' 
+#'
 #' Practice E 691, 2005, \emph{Standard Practice for
 #' Conducting an Interlaboratory Study to Determine the
 #' Precision of a Test Method}, ASTM International.
-#' 
+#'
 #' @importFrom stats pt qt complete.cases sd
 #' @keywords htest
 #' @examples
 #' data(Pentosan)
 #' mandelhTest(value ~ lab, data=Pentosan, subset=(material == "A"))
-#' @export 
+#' @export
 mandelhTest <- function(x, ...) UseMethod("mandelhTest")
 
 #' @rdname mandelhTest
 #' @method mandelhTest default
 #' @aliases mandelhTest.default
 #' @template one-way-parms
-#' @export 
+#' @export
 mandelhTest.default <- function(x, g, ...)
 {
     if (is.list(x)) {
@@ -74,7 +74,7 @@ mandelhTest.default <- function(x, g, ...)
         if (k < 2)
             stop("all observations are in the same group")
     }
-	
+
     ## Cell averages
     xbar <- tapply(x, g, mean)
 
@@ -102,7 +102,7 @@ mandelhTest.default <- function(x, g, ...)
     ## two.sided upper quantile
     pval <- sapply(h, function(h)
         2 * min(0.5, pmandelh(q=abs(h), k=k, lower.tail=FALSE)))
-    
+
     METHOD <- "Mandel's h-test"
 
     ans <- list(method = METHOD,
@@ -128,10 +128,10 @@ mandelhTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

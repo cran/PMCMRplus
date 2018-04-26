@@ -1,5 +1,7 @@
-oldman
-donttest
-etc
 man-roxygen
+oldman
+etc
+donttest
 examples
+/R/williamsTest.R
+PMCMRplus.Rproj

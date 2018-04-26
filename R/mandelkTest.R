@@ -18,20 +18,20 @@
 ##
 ##
 #' @name mandelkTest
-#' @title Mandel's k test according to E 651 ASTM
-#' @description The function calculates the 
+#' @title Mandel's k test according to E 691 ASTM
+#' @description The function calculates the
 #'   consistency statistics k and corresponding
 #'   p-values for each group (lab) according to Practice E 691 ASTM.
 #' @seealso
 #' \code{\link{qmandelk}} \code{\link{pmandelk}}
-#' 
+#'
 #' @references
 #' Practice E 691, 2005, \emph{Standard Practice for
 #' Conducting an Interlaboratory Study to Determine the
 #' Precision of a Test Method}, ASTM International.
-#' 
+#'
 #' @template class-mandel
-#' 
+#'
 #' @importFrom stats complete.cases
 #' @importFrom stats sd
 #' @importFrom stats pf
@@ -45,7 +45,7 @@ mandelkTest <- function(x, ...) UseMethod("mandelkTest")
 
 #' @rdname mandelkTest
 #' @method mandelkTest default
-#' @aliases mandelkTest.default 
+#' @aliases mandelkTest.default
 #' @template one-way-parms
 #' @export
 mandelkTest.default <- function(x, g, ...)
@@ -77,7 +77,7 @@ mandelkTest.default <- function(x, g, ...)
         if (k < 2)
             stop("all observations are in the same group")
     }
-	
+
     ## Cell averages
     xbar <- tapply(x, g, mean)
 
@@ -94,7 +94,7 @@ mandelkTest.default <- function(x, g, ...)
 
     ## two.sided upper quantile
     pval <- pmandelk(q=abs(kstat), k=k, n =n, lower.tail=FALSE)
-    
+
     ##
     METHOD <- "Mandel's k-test"
 
@@ -121,10 +121,10 @@ mandelkTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

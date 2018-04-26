@@ -88,7 +88,7 @@ cuzickTest(x, g)
 ## Johnson-Mehrotra test
 johnsonTest(x, g)
 
-## Jonckheere-Terpstrata test
+## Jonckheere-Terpstra test
 jonckheereTest(x, g)
 
 ## Le's test

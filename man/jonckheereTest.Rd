@@ -4,7 +4,7 @@
 \alias{jonckheereTest}
 \alias{jonckheereTest.default}
 \alias{jonckheereTest.formula}
-\title{Testing against Ordered Alternatives (Jonckheere-Terpstrata Test)}
+\title{Testing against Ordered Alternatives (Jonckheere-Terpstra Test)}
 \usage{
 jonckheereTest(x, ...)
 
@@ -58,7 +58,7 @@ A list with class \code{"htest"} containing the following components:
 }
 }
 \description{
-Performs the Jonckheere-Terpstrata test for testing against ordered alternatives.
+Performs the Jonckheere-Terpstra test for testing against ordered alternatives.
 }
 \details{
 The null hypothesis, H\eqn{_0: \theta_1 = \theta_2 = \ldots = \theta_k}
@@ -69,7 +69,7 @@ H\eqn{_\mathrm{A}: \theta_1 \le \theta_2 \le \ldots \le
 The p-values are estimated from the standard normal distribution.
 }
 \note{
-\code{jonckheere.test(x, g, alternative = "two.sided", continuity = TRUE)} is
+\code{jonckheereTest(x, g, alternative = "two.sided", continuity = TRUE)} is
 equivalent to
 
 \code{cor.test(x, as.numeric(g), method = "kendall", alternative = "two.sided", continuity = TRUE)}
@@ -77,7 +77,7 @@ equivalent to
 \section{Source}{
 
 The code for the computation of the standard deviation
-for the Jonckheere-Terpstrata test in the presence of ties was taken from:\cr
+for the Jonckheere-Terpstra test in the presence of ties was taken from:\cr
 
 Kloke, J., McKean, J. (2016).
 npsm: Package for Nonparametric Statistical Methods using R.
@@ -101,7 +101,7 @@ cuzickTest(x, g)
 ## Johnson-Mehrotra test
 johnsonTest(x, g)
 
-## Jonckheere-Terpstrata test
+## Jonckheere-Terpstra test
 jonckheereTest(x, g)
 
 ## Le's test

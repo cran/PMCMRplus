@@ -15,7 +15,7 @@
 ##  A copy of the GNU General Public License is available at
 ##  http://www.r-project.org/Licenses/
 ##
-## Note: 
+## Note:
 ## jonckheere.test(x, g, alternative = "two.sided", continuity = TRUE)
 ##
 ## is equivalent to:
@@ -23,10 +23,10 @@
 ## alternative = "two.sided", continuity = TRUE)
 ##
 #' @name jonckheereTest
-#' @title Testing against Ordered Alternatives (Jonckheere-Terpstrata Test)
-#' 
+#' @title Testing against Ordered Alternatives (Jonckheere-Terpstra Test)
+#'
 #' @description
-#' Performs the Jonckheere-Terpstrata test for testing against ordered alternatives.
+#' Performs the Jonckheere-Terpstra test for testing against ordered alternatives.
 #' @details
 #' The null hypothesis, H\eqn{_0: \theta_1 = \theta_2 = \ldots = \theta_k}
 #' is tested against a simple order hypothesis,
@@ -34,17 +34,17 @@
 #' \theta_k,~\theta_1 < \theta_k}.
 #'
 #' The p-values are estimated from the standard normal distribution.
-#' 
+#'
 #' @note
-#' \code{jonckheere.test(x, g, alternative = "two.sided", continuity = TRUE)} is
+#' \code{jonckheereTest(x, g, alternative = "two.sided", continuity = TRUE)} is
 #' equivalent to
-#' 
+#'
 #' \code{cor.test(x, as.numeric(g), method = "kendall", alternative = "two.sided", continuity = TRUE)}
-#' 
+#'
 #' @section Source:
 #' The code for the computation of the standard deviation
-#' for the Jonckheere-Terpstrata test in the presence of ties was taken from:\cr
-#' 
+#' for the Jonckheere-Terpstra test in the presence of ties was taken from:\cr
+#'
 #' Kloke, J., McKean, J. (2016).
 #' npsm: Package for Nonparametric Statistical Methods using R.
 #' R package version 0.5. \url{https://CRAN.R-project.org/package=npsm}
@@ -87,7 +87,7 @@ jonckheereTest.default <-
         ## check incoming from formula
         if(is.null(x$alternative)){
             alternative <- "two.sided"
-        } else { 
+        } else {
             alternative <- x$alternative
         }
         if(is.null(x$continuity)) {
@@ -96,7 +96,7 @@ jonckheereTest.default <-
             continuity <- TRUE
         }
         x <- unlist(x)
-		
+
     }
     else {
         if (length(x) != length(g))
@@ -158,12 +158,12 @@ jonckheereTest.default <-
 	### check for ties
     TIES <- FALSE
     TIES <- (sum(table(rank(x)) - 1) > 0)
-	
+
     if(!TIES){
         s <- sqrt((n^2 * (2 * n + 3) - st) / 72)
-    
+
         S <- J - mu
- 
+
     } else {
         ## if ties are present, no continuity correction will be done
         warning("Ties are present. Jonckheere z was corrected for ties.")
@@ -171,7 +171,7 @@ jonckheereTest.default <-
         ## n : total sample size, nij group sizes
         ##
         ## taken from Kloke and McKean
-        ## function jonckheere of package npsm 
+        ## function jonckheere of package npsm
         ## see citation("npsm")
         ##
         nt <- as.vector(table(x))
@@ -181,7 +181,7 @@ jonckheereTest.default <-
         (36 * n * (n - 1) * (n - 2)) + (sum(nij * (nij - 1)) *
         sum(nt * (nt - 1)))/(8 * n * (n - 1)))
     }
-	
+
     ## Check for continuity correction
     ## like in Kendall's tau
     if (continuity){
@@ -189,18 +189,18 @@ jonckheereTest.default <-
     }
     STATISTIC <- S / s
     if (alternative == "two.sided") {
-        PVAL <- 2 * min(pnorm(abs(STATISTIC), lower.tail = FALSE), 0.5)		
+        PVAL <- 2 * min(pnorm(abs(STATISTIC), lower.tail = FALSE), 0.5)
     } else if (alternative == "greater") {
         PVAL <- pnorm(STATISTIC, lower.tail = FALSE)
     } else {
         PVAL <- pnorm(STATISTIC)
     }
-    ESTIMATES <- J 
+    ESTIMATES <- J
     names(ESTIMATES) <- "JT"
     names(STATISTIC) <- "Jonckheere z-value"
     RVAL <- list(statistic = STATISTIC,
                  p.value = PVAL,
-                 method = "Jonckheere-Terpstrata test",
+                 method = "Jonckheere-Terpstra test",
                  data.name = DNAME,
                  alternative = alternative,
                  estimates = ESTIMATES)
@@ -214,17 +214,17 @@ jonckheereTest.default <-
 #' @template one-way-formula
 #' @export
 jonckheereTest.formula <-
-function(formula, data, subset, na.action, alternative = c("two.sided", "greater", "less"), 
+function(formula, data, subset, na.action, alternative = c("two.sided", "greater", "less"),
          continuity = FALSE, ...)
 {
     mf <- match.call(expand.dots=FALSE)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

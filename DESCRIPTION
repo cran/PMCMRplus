@@ -2,8 +2,8 @@ Package: PMCMRplus
 Type: Package
 Title: Calculate Pairwise Multiple Comparisons of Mean Rank Sums
         Extended
-Version: 1.0.0
-Date: 2018-01-15
+Version: 1.0.1
+Date: 2018-04-26
 Author: Thorsten Pohlert
 Maintainer: Thorsten Pohlert <thorsten.pohlert@gmx.de>
 Description: For one-way layout experiments the one-way ANOVA can
@@ -41,6 +41,7 @@ Imports: mvtnorm (>= 1.0), multcompView, gmp, Rmpfr, SuppDists,
         kSamples (>= 1.2.7), BWStest (>= 0.2.1), MASS
 Suggests: xtable, graphics, knitr, rmarkdown, car, e1071, multcomp, pwr
 SystemRequirements: gmp (>= 4.2.3), mpfr (>= 3.0.0) | file README
+SystemRequirementsNote: see >> README
 VignetteBuilder: knitr, rmarkdown
 Classification/MSC-2010: 62J15, 62J10, 62G10, 62F03, 62G30
 NeedsCompilation: yes
@@ -48,6 +49,6 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 License: GPL (>= 3)
-Packaged: 2018-01-16 21:08:47 UTC; thorsten
+Packaged: 2018-04-26 19:38:14 UTC; thorsten
 Repository: CRAN
-Date/Publication: 2018-01-17 09:42:40 UTC
+Date/Publication: 2018-04-26 19:55:58 UTC

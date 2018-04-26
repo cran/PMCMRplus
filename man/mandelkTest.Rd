@@ -4,7 +4,7 @@
 \alias{mandelkTest}
 \alias{mandelkTest.default}
 \alias{mandelkTest.formula}
-\title{Mandel's k test according to E 651 ASTM}
+\title{Mandel's k test according to E 691 ASTM}
 \usage{
 mandelkTest(x, ...)
 
@@ -53,7 +53,7 @@ levels of the groups.}
 }
 }
 \description{
-The function calculates the 
+The function calculates the
   consistency statistics k and corresponding
   p-values for each group (lab) according to Practice E 691 ASTM.
 }
