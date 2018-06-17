@@ -1,6 +1,13 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.1.0}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item The function williamsTest including print and summary methods were added.
+    }
+  }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.0.1}{
   \subsection{BUGFIXES}{
     \itemize{
