@@ -1,5 +1,5 @@
-06395a3364e70c789c548aae51b01d09 *DESCRIPTION
-e8e4b0ae460e6d1c6a1121ebbf90fce4 *NAMESPACE
+a07fd6521338a6268b6eae839553d62a *DESCRIPTION
+7f2a75ad72825fcd1ec9ece98afe69d4 *NAMESPACE
 30e327c68251c1d8971238e33845f0dc *R/Cochran.R
 3e92025b89c1f313ec88a0842ce8cefe *R/Dgrubbs.R
 373dc8dd430a0c35384be531d7a92b2b *R/Grubbs.R
@@ -12,7 +12,7 @@ b612b247860b571a7809a55fe6e9705f *R/adKSampleTest.R
 f70d954df787925470aa285daa107cdf *R/algae.R
 3f2aa02ddda376c9d5f6fe13c1e6277e *R/bwsAllPairsTest.R
 2381bf5d682d975560b96fb714427f9b *R/bwsKSampleTest.R
-b9cdd832bd4042dd120ea730562fae12 *R/bwsManyOneTest.R
+93eeb730462127ad35688421b0e7adb3 *R/bwsManyOneTest.R
 f085b9e88d6131a730f8ef1171ed92c0 *R/bwsTrendTest.R
 60c7386f9de4c1cce12126a982eecb4d *R/chaAllPairsNashimotoTest.R
 75f79377bb375bf2d590474e0d9420e1 *R/chackoTest.R
@@ -74,7 +74,7 @@ de9a307d99506b145788e8d9bb3944e8 *R/powerOneWayTests.R
 906c4ee2069d47e0cfe39c5af8e935c0 *R/quadeAllPairsTest.R
 62e63a8a4d166fdcb29e8dfa7b58a515 *R/reviewers.R
 ea5fcf93f73fe459d33ef3e9711a9dd2 *R/scheffeTest.R
-ea7ab74b711f72ec8a08e3f6e6801c51 *R/shirleyWilliamsTest.R
+09fddfac10a9fd5f1255f1cc00ebb698 *R/shirleyWilliamsTest.R
 e0225d2b84c586740f6043571f0a3778 *R/skillingsMackTest.R
 ecfb9215604f4fb053b93f71378098e0 *R/spearmanTest.R
 ad604119bbf7f80d346e5c02eab382c1 *R/sysdata.rda
@@ -86,7 +86,7 @@ ad604119bbf7f80d346e5c02eab382c1 *R/sysdata.rda
 fb9335a031004992a74c0b65d8b36a69 *R/vanWaerdenAllPairsTest.R
 4da6c2fb12a3cbed089f976cf9d889f7 *R/vanWaerdenManyOneTest.R
 0098767d69a4a5d99122ed0260b7ad26 *R/vanWaerdenTest.R
-0956919b9cd1bf90e8459dbe9825ea37 *R/williamsTest.R
+5637bbf2dd33c1511d7f08c0a8cd4cf7 *R/williamsTest.R
 2494b9fdcabbb624f22decc12c0146b8 *build/vignette.rds
 183dbbfcd516f7a24d8cd5c415956520 *data/Pentosan.rda
 9ed0d79ed95075dcb9c28a59c80f47f0 *data/algae.rda
@@ -97,10 +97,10 @@ f1ce46786a3da630f1f86f59e95fb256 *demo/00Index
 05e28484e29851765b5c8917249f45bb *demo/algae.R
 9a4bc5ccc84eaa9bdbae5086c8455887 *demo/frdmcp.R
 6e1a8c08ef04c9a1eb65ec1ffb12a15b *demo/trout.R
-9710eec71956d0c04d05a00e447373cc *inst/NEWS.Rd
+e939e0c97fa1bd27178f5831b464d1a6 *inst/NEWS.Rd
 5e1e570338bfccca5bea8e5e03a0f01e *inst/README
 19e65df33140926516e388beda03a7c7 *inst/doc/QuickReferenceGuide.Rmd
-4ebb80581b8c4b04046679541701540e *inst/doc/QuickReferenceGuide.html
+d56c93006c69a2b3fbe9f769c20e0336 *inst/doc/QuickReferenceGuide.html
 d53efe31f619709db7afe02a2bad76b5 *man/Cochran.Rd
 844b2e2da8ebd8814e9d61675ee97f19 *man/Dgrubbs.Rd
 9944dfa1a4e4a37e979383d65e072490 *man/Grubbs.Rd
@@ -116,7 +116,7 @@ dfb387b9e258beeec0f1e8265ada1bcb *man/adManyOneTest.Rd
 2550251f0f09c37862b3ed5e389f9591 *man/barPlot.Rd
 7582ecd42fc313c07ca9a4f96a95ce57 *man/bwsAllPairsTest.Rd
 3ce2e52895730b2a6714bef7b61dca27 *man/bwsKSampleTest.Rd
-53aaca3251c8cc63bcc103848b45eed4 *man/bwsManyOneTest.Rd
+729602b4294fd643289cc10b5bcf68e2 *man/bwsManyOneTest.Rd
 cd602ba6fb80443ab8404afb132ed4b5 *man/bwsTrendTest.Rd
 051f6cff554425701e4c646b198684df *man/chaAllPairsNashimotoTest.Rd
 928042b012a7e6ea164d8a96535150d5 *man/chackoTest.Rd
@@ -175,7 +175,7 @@ c6951cd7673489c8d54f79ab57909eaf *man/qPCR.Rd
 825df3548d0969adc28d461f547126cc *man/quadeAllPairsTest.Rd
 5155c6ce5ff633122f9763c3529ab30c *man/reviewers.Rd
 3d4f0c6c95dc649f5eaa99470e541cdf *man/scheffeTest.Rd
-2dadbf5700ca4d5107fedd6a1a2ea997 *man/shirleyWilliamsTest.Rd
+2511e55c3e28aa4d2f30a2128cc3943b *man/shirleyWilliamsTest.Rd
 bd4c9b3e865c1ec36e45e00fde0c92b3 *man/skillingsMackTest.Rd
 f3fb155aef83baef2135978130f93a36 *man/spearmanTest.Rd
 2cdf98fa8df0040bd95f44e049d02365 *man/summary.PMCMR.Rd

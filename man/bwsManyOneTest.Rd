@@ -78,15 +78,15 @@ H\eqn{_i: F_0 = F_i} is tested in the two-tailed case against
 A\eqn{_i: F_0 \ne F_i, ~~ (1 \le i \le m)}.
 
 This function is a wrapper function that sequentially
-calls \code{\{link[BWStest]{bws_stat}} and \code{\{link[BWStest]{bws_cdf}}
+calls \code{\link[BWStest]{bws_stat}} and \code{\link[BWStest]{bws_cdf}}
 for each pair. For the default test method (\code{"BWS"}) the original
 Baumgartner-Weiß-Schindler test statistic B and its corresponding Pr(>|B|)
 is calculated. For \code{method == "BWS"} only a two-sided test is possible.
 
 For \code{method == "Murakami"} the modified BWS statistic
 denoted B* and its corresponding Pr(>|B*|) is computed by sequentially calling
-\code{\{link[BWStest]{murakami_stat}} and \code{\{link[BWStest]{murakami_cdf}}.
-For \code{method == "Murakami"} only  a two-sided test is possible.
+\code{\link[BWStest]{murakami_stat}} and \code{\link[BWStest]{murakami_cdf}}.
+For \code{method == "Murakami"} only a two-sided test is possible.
 
 If \code{alternative == "greater"} then the alternative, if one
 population is stochastically larger than the other is tested:

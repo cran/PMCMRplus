@@ -108,8 +108,7 @@
 #' Williams, D. A. (1972), The comparison of several dose levels with a zero
 #'   dose control. \emph{Biometrics}, 28, 519--531.
 #' @keywords htest
-#' @importFrom stats qt approx
-#' @importFrom utils data
+#' @importFrom stats qt approx var
 #' @examples
 #' ## Example from Sachs (1997, p. 402)
 #' x <- c(106, 114, 116, 127, 145,

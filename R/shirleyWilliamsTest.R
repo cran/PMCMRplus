@@ -21,12 +21,13 @@
 #' @description
 #' Performs Shirley's nonparametric equivalent of William's test
 #' for contrasting increasing dose levels of a treatment.
+#'
 #' @details
 #' The Shirley-William test is a non-parametric step-down trend test for testing several treatment levels
 #' with a zero control. Let there be \eqn{k} groups including the control and let
 #' the zero dose level be indicated with \eqn{i = 0} and the highest
 #' dose level with \eqn{i = m}, then the following \code{m = k - 1} hypotheses are tested:
-#' 
+#'
 #' \deqn{
 #' \begin{array}{ll}
 #' \mathrm{H}_{m}: \theta_0 = \theta_1 = \ldots = \theta_m, & \mathrm{A}_{m} = \theta_0 \le \theta_1 \le \ldots \theta_m, \theta_0 < \theta_m \\
@@ -38,153 +39,306 @@
 #'
 #' The procedure starts from the highest dose level (\eqn{m}) to the the lowest dose level (\eqn{1}) and
 #' stops at the first non-significant test. The consequent lowest effect dose
-#' is the treatment level of the previous test number.
-#'
-#' The p-values are estimated through an assymptotic boot-strap method. The p-values for H\eqn{_1}
-#' are calculated from the t distribution with infinite degree of freedom. This function has
+#' is the treatment level of the previous test number. This function has
 #' included the modifications as recommended by Williams (1986).
 #'
+#' If \code{method = "look-up"} is selected, the function does not return p-values. Instead the critical t-values
+#' as given in the tables of Williams (1972) for \eqn{\alpha = 0.05} (one-sided)
+#' are looked up according to the degree of freedoms (\eqn{v = \infty}) and the order number of the
+#' dose level (\eqn{i}) and (potentially) modified according to the given extrapolation
+#' coefficient \eqn{\beta}.
+#'
+#' Non tabulated values are linearly interpolated with the function
+#' \code{\link[stats]{approx}}.
+#'
+#' For the comparison of the first dose level (i = 1) with the control, the critical
+#' z-value from the standard normal distribution is used (\code{\link[stats]{Normal}}).
+#'
+#' If \code{method = "boot"}, the p-values are estimated through an assymptotic
+#' boot-strap method. The p-values for H\eqn{_1}
+#' are calculated from the t distribution with infinite degree of freedom.
+#'
 #' @note
+#' For \code{method = "look-up"}, only tests on the level of \eqn{\alpha = 0.05}
+#' can be performed for alternative hypotheses less or greater.
+#'
+#' For \code{method = "boot"} only the alternative \code{"two.sided"} can be calculated.
 #' One may increase the number of permutations to e.g. \code{nperm = 10000}
 #' in order to get more precise p-values. However, this will be on the expense of
 #' computational time.
-#' 
+#'
 #' @references
 #' Shirley, E., (1977), Nonparametric Equivalent of Williams Test for Contrasting Increasing
 #' Dose Levels of a Treatment. \emph{Biometrics}, 33, 386--389.
-#' 
+#'
 #' Williams, D.A. (1986), Note on Shirley's nonparametric test for comparing
 #' several dose levels with a zero-dose control. \emph{Biometrics} 42, 183--186.
-#' 
+#'
+#' @return
+#' Either a list with class \code{"williamsTest"} or al list with class \code{"PMCMR"}.
+#'
+#' The list with class \code{"williamsTest"}.
+#' \describe{
+#'  \item{method}{a character string indicating what type of test was performed.}
+#'  \item{data.name}{a character string giving the name(s) of the data.}
+#'  \item{statistic}{lower-triangle matrix of the estimated
+#' quantiles of the pairwise test statistics.}
+#'  \item{t.value}{lower-triangle matrix of the critical t\'-values for \eqn{\alpha = 0.05}.}
+#'  \item{df.residual}{the degree of freedom}
+#'  \item{alternative}{a character string describing the alternative hypothesis.}
+#' \item{model}{a data frame of the input data.}
+#' \item{dist}{a string that denotes the test distribution.}
+#' }
+#'
 #' @template class-PMCMR
+#'
 #' @seealso
-#' \code{\link{sample}}
+#' \code{\link{williamsTest}}
 #'
 #' @keywords htest nonparametric
 #' @concept StepDownTrendTest
 #' @concept DoseFinding
-#' 
-#' @examples
-#' ## Example from Sachs (1997, p. 402)
-#' x <- c(106, 114, 116, 127, 145,
-#' 110, 125, 143, 148, 151,
-#' 136, 139, 149, 160, 174)
-#' g <- gl(3,5)
-#' levels(g) <- c("0", "I", "II")
 #'
-#' ## Shirley-Williams Test
-#' shirleyWilliamsTest(x ~ g)
-#' 
+#' @examples
+#' ## Example from Shirley (1977)
+#' ## Reaction times of mice to stimuli to their tails.
+#' y <- c(2.4, 3, 3, 2.2, 2.2, 2.2, 2.2, 2.8, 2, 3,
+#' 2.8, 2.2, 3.8, 9.4, 8.4, 3, 3.2, 4.4, 3.2, 7.4, 9.8, 3.2, 5.8,
+#' 7.8, 2.6, 2.2, 6.2, 9.4, 7.8, 3.4, 7, 9.8, 9.4, 8.8, 8.8, 3.4,
+#' 9, 8.4, 2.4, 7.8)
+#' g <- gl(4, 10)
+#'
+#' \dontrun{
+#' ## two.sided test
+#' summary(shirleyWilliamsTest(y ~ g, method = "boot", alternative = "two.sided"))
+#' }
+#'
+#' ## one-sided test using look-up table
+#' shirleyWilliamsTest(y ~ g, alternative = "greater")
+#'
+#'
 #' @export
-shirleyWilliamsTest <- function(x, ...) UseMethod("shirleyWilliamsTest")
+shirleyWilliamsTest <-
+  function(x, ...)
+    UseMethod("shirleyWilliamsTest")
 
 #' @rdname shirleyWilliamsTest
 #' @aliases shirleyWilliamsTest.default
 #' @method shirleyWilliamsTest default
 #' @template one-way-parms
+#' @param alternative the alternative hypothesis. Defaults to \code{two.sided}
+#' @param method a character string specifying the test statistic to use.
+#' Defaults to \code{"look-up"} that uses published Table values of Williams (1972).
 #' @param nperm number of permutations for the assymptotic permutation test.
-#' Defaults to \code{1000}.
-#' @importFrom stats pt
+#' Defaults to \code{1000}. Ignored, if \code{method = "look-up"}.
+#' @importFrom stats qnorm approx
 #' @export
 shirleyWilliamsTest.default <-
-function(x, g, nperm=1000, ...){
-        ## taken from stats::kruskal.test
-        
+  function(x,
+           g,
+           alternative = c("two.sided", "greater", "less"),
+           method = c("look-up", "boot"),
+           nperm = 1E4,
+           ...) {
+    ## taken from stats::kruskal.test
+
     if (is.list(x)) {
-        if (length(x) < 2L)
-            stop("'x' must be a list with at least 2 elements")
-        DNAME <- deparse(substitute(x))
-        x <- lapply(x, function(u) u <- u[complete.cases(u)])
-        k <- length(x)
-        l <- sapply(x, "length")
-        if (any(l == 0))
-            stop("all groups must contain data")
-        g <- factor(rep(1 : k, l))
-        x <- unlist(x)
+      if (length(x) < 2L)
+        stop("'x' must be a list with at least 2 elements")
+      DNAME <- deparse(substitute(x))
+      x <- lapply(x, function(u)
+        u <- u[complete.cases(u)])
+      k <- length(x)
+      l <- sapply(x, "length")
+      if (any(l == 0))
+        stop("all groups must contain data")
+      g <- factor(rep(1:k, l))
+      alternative <- x$alternative
+      nperm <- x$nperm
+      method <- x$method
+      x <- unlist(x)
     }
     else {
-        if (length(x) != length(g))
-            stop("'x' and 'g' must have the same length")
-        DNAME <- paste(deparse(substitute(x)), "and",
-                       deparse(substitute(g)))
-        OK <- complete.cases(x, g)
-        x <- x[OK]
-        g <- g[OK]
-        if (!all(is.finite(g)))
-            stop("all group levels must be finite")
-        g <- factor(g)
-        k <- nlevels(g)
-        if (k < 2)
-            stop("all observations are in the same group")
+      if (length(x) != length(g))
+        stop("'x' and 'g' must have the same length")
+      DNAME <- paste(deparse(substitute(x)), "and",
+                     deparse(substitute(g)))
+      OK <- complete.cases(x, g)
+      x <- x[OK]
+      g <- g[OK]
+      if (!all(is.finite(g)))
+        stop("all group levels must be finite")
+      g <- factor(g)
+      k <- nlevels(g)
+      if (k < 2)
+        stop("all observations are in the same group")
+    }
+
+    alternative <- match.arg(alternative)
+    method <- match.arg(method)
+    if (method == "boot" & alternative != "two.sided") {
+      alternative <- "two.sided"
+      warning("As method is 'boot', alternative was set to 'two.sided'.")
+
+    } else if (alternative == "two.sided" & method != "boot") {
+      warning("As alternative is 'two.sided', method was set to 'boot'.")
+      method <- "boot"
+    }
+
+    xold <- x
+
+    if (method == "look-up" & alternative == "less") {
+      x <- -x
     }
 
     nj <- tapply(x, g, length)
     k <- nlevels(g)
+    kk <- k - 1
+    if (kk > 10)
+      stop("Critical t-values are only available for up to 10 dose levels.")
+    N <- sum(nj)
 
     ## comparisons
-    compfn <- function(x, ix, g, nj){
-        k <- length(nj)
-        ti <- rep(NA, k)
-        x <- x[ix]
-        for (i in 2:k){
-            N <- sum(nj[1:i])
-            r <- rank(x[1:N])
-            gg <- g[1:N]
-            Rj <- tapply(r, gg, mean)
-            t <- table(r)
-            names(t) <- NULL
-            T <- sum((t^3 - t) / (12 * (N - 1)))
-            Vi <- N * (N + 1) / 12 - T
-            u <- 2:i
-            j <- u
-            enum <- sapply(j, function(j) sum(nj[j:i] * Rj[j:i]))
-            denom <- sapply(j, function(j) sum(nj[j:i]))
-        
-            ti[i] <- (max(enum / denom) - Rj[1]) /
-                sqrt(Vi * (1/nj[i] + 1/nj[1]))
-            }
-        return(ti[2:k])
+    compfn <- function(x, ix, g, nj) {
+      k <- length(nj)
+      ti <- rep(NA, k)
+      x <- x[ix]
+      for (i in 2:k) {
+        N <- sum(nj[1:i])
+        r <- rank(x[1:N])
+        gg <- g[1:N]
+        Rj <- tapply(r, gg, mean)
+        t <- table(r)
+        names(t) <- NULL
+        T <- sum((t ^ 3 - t) / (12 * (N - 1)))
+        Vi <- N * (N + 1) / 12 - T
+        u <- 2:i
+        j <- u
+        enum <- sapply(j, function(j)
+          sum(nj[j:i] * Rj[j:i]))
+        denom <- sapply(j, function(j)
+          sum(nj[j:i]))
+
+        ti[i] <- (max(enum / denom) - Rj[1]) /
+          sqrt(Vi * (1 / nj[i] + 1 / nj[1]))
+      }
+      return(ti[2:k])
     }
 
-    N <- sum(nj)
     l <- 1:N
     STATISTIC <- compfn(x, l, g, nj)
 
-    ## permutation
-    mt <- matrix(NA, ncol=(k-1), nrow=nperm)
-    for(i in 1:nperm){
+    if (method == "boot") {
+      ## permutation
+      mt <- matrix(NA, ncol = (k - 1), nrow = nperm)
+      for (i in 1:nperm) {
         ix <- sample(l)
-        mt[i,] <- compfn(x, ix, g, nj)
+        mt[i, ] <- compfn(x, ix, g, nj)
+      }
+
+      ## pvalues
+      PVAL <- sapply(1:(k - 1), function(j) {
+        p <- (sum(mt[, j] <= -abs(STATISTIC[j])) +
+                (sum(mt[, j] >= abs(STATISTIC[j])))) / nperm
+        p
+      })
+
+      ## exact p-value from student t distribution
+      PVAL[1] <-
+        2 * min(0.5, pt(STATISTIC[1], df = Inf, lower.tail = FALSE))
+
+      STAT <- cbind(ctr = STATISTIC)
+      row.names(STAT) <- sapply(1:(k - 1), function(i)
+        paste0("mu", i))
+      P <- cbind(ctr = PVAL)
+      row.names(P) <- row.names(STAT)
+
+      DAT <- data.frame(x, g)
+      METH <- c("Shirley-Williams test")
+      ans <- list(
+        statistic = STAT,
+        p.value = P,
+        data = DAT,
+        method = METH,
+        data.name = DNAME,
+        alternative = "two.sided",
+        dist = "t",
+        p.adjust.method = "boot"
+      )
+      class(ans) <- "PMCMR"
+      return(ans)
+
+    } else {
+      ## Extrapolation function, see Williams, 1972, p. 530
+      extrapolFN <- function(Tki, beta, r, c) {
+        out <- Tki - 1E-2 * beta * (1 - r / c)
+        return(out)
+      }
+
+      ## load critical t values (are in sysdata.rda)
+      df <- 1E6  # Originally Inf
+      c <- nj[1]
+      r <- nj[2:k]
+      nrows <- nrow(williamsTab1$tk005)
+      Tkdf <- numeric(kk)
+      dft <- as.numeric(rownames(williamsTab1$tk005))
+      xx <- c(2:6, 8, 10)
+      for (i in 2:kk) {
+        if (i <= 6 | i == 8 | i == 10) {
+          ## here only df needs to be interpolated
+          yt <- williamsTab1$tk005[, paste0(i)]
+          yb <- williamsTab1$beta005[, paste0(i)]
+
+        } else {
+          yt <- sapply(1:nrows, function(j) {
+            approx(x = xx,
+                   y = williamsTab1$tk005[j,],
+                   xout = i)$y
+          })
+          yb <- sapply(1:nrows, function(j) {
+            approx(x = xx,
+                   y = williamsTab1$beta005[j,],
+                   xout = i)$y
+          })
+        }
+
+        tt <- approx(x = dft, y = yt, xout = df)$y
+        tb <- approx(x = dft, y = yb, xout = df)$y
+
+        Tkdf[i] <- extrapolFN(tt, tb, r[i], c)
+      }
+
+      ## Critical t_Inf value = z value for i = 1
+      Tkdf[1] <- qnorm(0.05, lower.tail = FALSE) ## greater
+
+      if (alternative == "less") {
+        STATISTIC <- -1 * STATISTIC
+        Tkdf <- -1 * Tkdf
+      }
+
+      ## Create output matrices
+      STAT <- cbind(ctr = STATISTIC)
+      row.names(STAT) <- sapply(1:(k - 1), function(i)
+        paste0("mu", i))
+      STATCRIT <- cbind(ctr = Tkdf)
+      row.names(STATCRIT) <- row.names(STAT)
+
+      DAT <- data.frame(xold, g)
+      METHOD <- c("Shirley-Williams test")
+      ans <- list(
+        method = METHOD,
+        data.name = DNAME,
+        t.value = STATCRIT,
+        statistic = STAT,
+        df.residual = Inf,
+        alternative = alternative,
+        dist = "t\'",
+        model = DAT
+      )
+      class(ans) <- "williams"
+      return(ans)
     }
-
-    ## pvalues
-    PVAL <- sapply(1:(k-1), function(j) {
-        p <- (sum(mt[,j] <= -abs(STATISTIC[j])) +
-              (sum(mt[,j] >= abs(STATISTIC[j]))))/nperm
-        p}
-        )
-
-    ## exact p-value from student t distribution
-    PVAL[1] <- 2 * min(0.5, pt(STATISTIC[1], df=Inf, lower.tail=FALSE))
-     
-    STAT <- cbind(ctr = STATISTIC)
-    row.names(STAT) <- sapply(1:(k-1), function(i) paste0("mu",i))
-    P <- cbind(ctr = PVAL)
-    row.names(P) <- row.names(STAT)
-    
-    DAT <- data.frame(x, g)
-    METH <- c("Shirley-Williams test")
-    ans <- list(statistic = STAT, 
-                p.value = P,
-                data = DAT,
-                method = METH,
-                data.name = DNAME,
-                alternative = "two.sided",
-                dist = "t",
-                p.adjust.method = "boot")
-    class(ans) <- "PMCMR"
-    ans
-}
+  }
 
 #' @rdname shirleyWilliamsTest
 #' @aliases shirleyWilliamsTest.formula
@@ -192,21 +346,40 @@ function(x, g, nperm=1000, ...){
 #' @template one-way-formula
 #' @export
 shirleyWilliamsTest.formula <-
-    function(formula, data, subset, na.action, nperm=1000,...)
-{
-    mf <- match.call(expand.dots=FALSE)
-    m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
+  function(formula,
+           data,
+           subset,
+           na.action,
+           alternative = c("two.sided", "greater", "less"),
+           method = c("look-up", "boot"),
+           nperm = 1E4,
+           ...)
+  {
+    mf <- match.call(expand.dots = FALSE)
+    m <-
+      match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
-   if(missing(formula) || (length(formula) != 3L))
-        stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
-    if(length(mf) > 2L)
-       stop("'formula' should be of the form response ~ group")
+
+    if (missing(formula) || (length(formula) != 3L))
+      stop("'formula' missing or incorrect")
+    mf <- eval(mf, parent.frame())
+    if (length(mf) > 2L)
+      stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")
+    alternative <- match.arg(alternative)
+    method <- match.arg(method)
     names(mf) <- NULL
-    y <- do.call("shirleyWilliamsTest", c(as.list(mf)))
+    y <-
+      do.call(
+        "shirleyWilliamsTest",
+        c(
+          as.list(mf),
+          alternative = alternative,
+          method = method,
+          nperm = nperm
+        )
+      )
     y$data.name <- DNAME
     y
-}
+  }

@@ -8,10 +8,12 @@
 \usage{
 shirleyWilliamsTest(x, ...)
 
-\method{shirleyWilliamsTest}{default}(x, g, nperm = 1000, ...)
+\method{shirleyWilliamsTest}{default}(x, g, alternative = c("two.sided",
+  "greater", "less"), method = c("look-up", "boot"), nperm = 10000, ...)
 
 \method{shirleyWilliamsTest}{formula}(formula, data, subset, na.action,
-  nperm = 1000, ...)
+  alternative = c("two.sided", "greater", "less"), method = c("look-up",
+  "boot"), nperm = 10000, ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -23,8 +25,13 @@ vectors.}
 corresponding elements of \code{"x"}.
 Ignored with a warning if \code{"x"} is a list.}
 
+\item{alternative}{the alternative hypothesis. Defaults to \code{two.sided}}
+
+\item{method}{a character string specifying the test statistic to use.
+Defaults to \code{"look-up"} that uses published Table values of Williams (1972).}
+
 \item{nperm}{number of permutations for the assymptotic permutation test.
-Defaults to \code{1000}.}
+Defaults to \code{1000}. Ignored, if \code{method = "look-up"}.}
 
 \item{formula}{a formula of the form \code{response ~ group} where
 \code{response} gives the data values and \code{group} a vector or
@@ -42,6 +49,21 @@ subset of observations to be used.}
 the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 }
 \value{
+Either a list with class \code{"williamsTest"} or al list with class \code{"PMCMR"}.
+
+The list with class \code{"williamsTest"}.
+\describe{
+ \item{method}{a character string indicating what type of test was performed.}
+ \item{data.name}{a character string giving the name(s) of the data.}
+ \item{statistic}{lower-triangle matrix of the estimated
+quantiles of the pairwise test statistics.}
+ \item{t.value}{lower-triangle matrix of the critical t\'-values for \eqn{\alpha = 0.05}.}
+ \item{df.residual}{the degree of freedom}
+ \item{alternative}{a character string describing the alternative hypothesis.}
+\item{model}{a data frame of the input data.}
+\item{dist}{a string that denotes the test distribution.}
+}
+
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
  \item{method}{a character string indicating what type of test was performed.}
@@ -77,27 +99,51 @@ dose level with \eqn{i = m}, then the following \code{m = k - 1} hypotheses are 
 
 The procedure starts from the highest dose level (\eqn{m}) to the the lowest dose level (\eqn{1}) and
 stops at the first non-significant test. The consequent lowest effect dose
-is the treatment level of the previous test number.
-
-The p-values are estimated through an assymptotic boot-strap method. The p-values for H\eqn{_1}
-are calculated from the t distribution with infinite degree of freedom. This function has
+is the treatment level of the previous test number. This function has
 included the modifications as recommended by Williams (1986).
+
+If \code{method = "look-up"} is selected, the function does not return p-values. Instead the critical t-values
+as given in the tables of Williams (1972) for \eqn{\alpha = 0.05} (one-sided)
+are looked up according to the degree of freedoms (\eqn{v = \infty}) and the order number of the
+dose level (\eqn{i}) and (potentially) modified according to the given extrapolation
+coefficient \eqn{\beta}.
+
+Non tabulated values are linearly interpolated with the function
+\code{\link[stats]{approx}}.
+
+For the comparison of the first dose level (i = 1) with the control, the critical
+z-value from the standard normal distribution is used (\code{\link[stats]{Normal}}).
+
+If \code{method = "boot"}, the p-values are estimated through an assymptotic
+boot-strap method. The p-values for H\eqn{_1}
+are calculated from the t distribution with infinite degree of freedom.
 }
 \note{
+For \code{method = "look-up"}, only tests on the level of \eqn{\alpha = 0.05}
+can be performed for alternative hypotheses less or greater.
+
+For \code{method = "boot"} only the alternative \code{"two.sided"} can be calculated.
 One may increase the number of permutations to e.g. \code{nperm = 10000}
 in order to get more precise p-values. However, this will be on the expense of
 computational time.
 }
 \examples{
-## Example from Sachs (1997, p. 402)
-x <- c(106, 114, 116, 127, 145,
-110, 125, 143, 148, 151,
-136, 139, 149, 160, 174)
-g <- gl(3,5)
-levels(g) <- c("0", "I", "II")
+## Example from Shirley (1977)
+## Reaction times of mice to stimuli to their tails.
+y <- c(2.4, 3, 3, 2.2, 2.2, 2.2, 2.2, 2.8, 2, 3,
+2.8, 2.2, 3.8, 9.4, 8.4, 3, 3.2, 4.4, 3.2, 7.4, 9.8, 3.2, 5.8,
+7.8, 2.6, 2.2, 6.2, 9.4, 7.8, 3.4, 7, 9.8, 9.4, 8.8, 8.8, 3.4,
+9, 8.4, 2.4, 7.8)
+g <- gl(4, 10)
 
-## Shirley-Williams Test
-shirleyWilliamsTest(x ~ g)
+\dontrun{
+## two.sided test
+summary(shirleyWilliamsTest(y ~ g, method = "boot", alternative = "two.sided"))
+}
+
+## one-sided test using look-up table
+shirleyWilliamsTest(y ~ g, alternative = "greater")
+
 
 }
 \references{
@@ -108,7 +154,7 @@ Williams, D.A. (1986), Note on Shirley's nonparametric test for comparing
 several dose levels with a zero-dose control. \emph{Biometrics} 42, 183--186.
 }
 \seealso{
-\code{\link{sample}}
+\code{\link{williamsTest}}
 }
 \concept{
 StepDownTrendTest

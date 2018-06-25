@@ -30,16 +30,16 @@
 #' A\eqn{_i: F_0 \ne F_i, ~~ (1 \le i \le m)}.
 #'
 #' This function is a wrapper function that sequentially
-#' calls \code{\{link[BWStest]{bws_stat}} and \code{\{link[BWStest]{bws_cdf}}
+#' calls \code{\link[BWStest]{bws_stat}} and \code{\link[BWStest]{bws_cdf}}
 #' for each pair. For the default test method (\code{"BWS"}) the original
 #' Baumgartner-Weiß-Schindler test statistic B and its corresponding Pr(>|B|)
 #' is calculated. For \code{method == "BWS"} only a two-sided test is possible.
 #'
 #' For \code{method == "Murakami"} the modified BWS statistic
 #' denoted B* and its corresponding Pr(>|B*|) is computed by sequentially calling
-#' \code{\{link[BWStest]{murakami_stat}} and \code{\{link[BWStest]{murakami_cdf}}.
-#' For \code{method == "Murakami"} only  a two-sided test is possible.
-#' 
+#' \code{\link[BWStest]{murakami_stat}} and \code{\link[BWStest]{murakami_cdf}}.
+#' For \code{method == "Murakami"} only a two-sided test is possible.
+#'
 #' If \code{alternative == "greater"} then the alternative, if one
 #' population is stochastically larger than the other is tested:
 #' H\eqn{_i: F_0 = F_i} against A\eqn{_i: F_0 \ge F_i, ~~ (1 \le i \le m)}.
@@ -47,10 +47,10 @@
 #' corresponding Pr(>B*) or Pr(<B*) is computed by sequentally calling
 #' \code{\{link[BWStest]{murakami_stat}} and \code{\{link[BWStest]{murakami_cdf}}
 #' with \code{flavor = 2}.
-#' 
+#'
 #' The p-values can be adjusted to account for Type I error
 #' inflation using any method as implemented in \code{\link{p.adjust}}.
-#' 
+#'
 #' @name bwsManyOneTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
@@ -58,14 +58,14 @@
 #' @references
 #' Baumgartner, W., Weiss, P., Schindler, H. (1998), A nonparametric test for the
 #' general two-sample problem, \emph{Biometrics} 54, 1129--1135.
-#' 
+#'
 #' Murakami, H. (2006) K-sample rank test based on modified Baumgartner statistic and its power
 #' comparison, \emph{J. Jpn. Comp. Statist.} 19, 1--13.
 #'
 #' Neuhäuser, M. (2001) One-side two-sample and trend tests based on a modified
 #' Baumgartner-Weiss-Schindler statistic.
 #' \emph{Journal of Nonparametric Statistics}, 13, 729--739.
-#' 
+#'
 #' @examples
 #' out <- bwsManyOneTest(weight ~ group, PlantGrowth, p.adjust="holm")
 #' summary(out)
@@ -76,7 +76,7 @@
 #' g <- gl(2, 20)
 #' summary(bwsManyOneTest(x ~ g, alternative = "less", p.adjust="none"))
 #' summary(bwsManyOneTest(x ~ g, alternative = "greater", p.adjust="none"))
-#' 
+#'
 #' \dontrun{
 #' ## Check with the implementation in package BWStest
 #' BWStest::bws_test(x=x[g==1], y=x[g==2], alternative = "less")
@@ -120,7 +120,7 @@ bwsManyOneTest.default <-
             stop("all groups must contain data")
         g <- factor(rep(1 : k, l))
                                         #
-        if (is.null(x$p.adjust.method)){ 
+        if (is.null(x$p.adjust.method)){
             p.adjust.method <- p.adjust.methods[1]
         } else {
             p.adjust.method <- x$p.adjust.method
@@ -148,13 +148,13 @@ bwsManyOneTest.default <-
     N <- length(x)
     if (N < 2)
         stop("not enough observations")
-    
+
     p.adjust.method <- match.arg(p.adjust.method)
     alternative <- match.arg(alternative)
     method <- match.arg(method)
-    
+
     n <- tapply(x, g, length)
-    
+
     ## Change method string
     if (alternative != "two.sided"){
         method <- "B2"
@@ -163,7 +163,7 @@ bwsManyOneTest.default <-
     } else if (method == "Neuhauser"){
         method <- "B1"
     }
-    
+
     METHOD <- switch(method,
                      "BWS" = c("BWS Two-Sample Test",
                                " for multiple comparisons with one control"),
@@ -171,7 +171,7 @@ bwsManyOneTest.default <-
                               " for multiple comparisons with one control"),
                      "B2" = c("Neuhauser's modified Two-Sample BWS Test",
                                      " for multiple comparisons with one control"))
-    
+
     stat <- switch(method,
                    "BWS" = sapply(2:k, function(j)
                        do.call("bws_stat",
@@ -179,7 +179,7 @@ bwsManyOneTest.default <-
                                     y = x[as.integer(g) == j])
                                )
                        ),
-                                  
+
                    "B1" = sapply(2:k, function(j)
                        do.call("murakami_stat",
                                list(x = x[as.integer(g) == 1],
@@ -187,7 +187,7 @@ bwsManyOneTest.default <-
                                     flavor = 1)
                                )
                        ),
-                   
+
                    "B2" = sapply(2:k, function(j)
                                             do.call("murakami_stat",
                                                     list(x = x[as.integer(g) == 1],
@@ -196,14 +196,14 @@ bwsManyOneTest.default <-
                                                     )
                                  )
                    )
-                                                   
+
    ## pval <- switch(method,
     if (method == "BWS") {
         pval <- do.call("bws_cdf",
                         list(b = stat, maxj = 3, lower=FALSE)
                         )
 
-    } else if (method == "B1"){ 
+    } else if (method == "B1"){
         pval <- sapply(2:k, function(j)
             do.call("murakami_cdf",
                     list(B = stat[j-1],
@@ -238,7 +238,7 @@ bwsManyOneTest.default <-
 
     ## adjust p-values
     pval <- p.adjust(pval, method = p.adjust.method)
-    
+
     ## Create matrices
     STAT <- cbind(stat)
     colnames(STAT) <- levels(g)[1]
@@ -246,7 +246,7 @@ bwsManyOneTest.default <-
     PVAL <- cbind(pval)
     colnames(PVAL) <- colnames(STAT)
     rownames(PVAL) <- rownames(STAT)
-                   
+
     ans <- list(method = METHOD,
                 data.name = DNAME,
                 p.value = PVAL,
@@ -274,10 +274,10 @@ bwsManyOneTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")
