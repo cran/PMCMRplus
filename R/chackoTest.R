@@ -1,7 +1,7 @@
 # chackoTest.R
 # Part of the R package: PMCMR
 #
-# Copyright (C) 2017 Thorsten Pohlert
+# Copyright (C) 2017, 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 #' @name chackoTest
 #'
 #' @title Testing against Ordered Alternatives (Chacko's Test)
-#' 
+#'
 #' @description
 #' Performs Chacko's test for testing against ordered alternatives.
 #'
@@ -30,26 +30,26 @@
 #' \theta_k,~\theta_1 < \theta_k}.
 #'
 #' The p-values are estimated from the chi-square distribution.
-#' 
+#'
 #' @template class-htest
-#' 
+#'
 #' @template trendTests
 #' @section Source:
 #' The source code for the application of the pool adjacent violators
 #' theorem to calculate the isotonic means
 #' was taken from the file \code{"pava.f"}, which is included in the
 #' package \pkg{Iso}:
-#' 
+#'
 #'  Rolf Turner (2015). Iso: Functions to Perform Isotonic Regression. R
 #'  package version 0.0-17. \url{https://CRAN.R-project.org/package=Iso}.
-#' 
+#'
 #' The file \code{"pava.f"} is a Ratfor modification of Algorithm AS 206.1:
-#' 
+#'
 #' Bril, G., Dykstra, R., Pillers, C., Robertson, T. (1984)
 #' Statistical Algorithms: Algorithm AS 206: Isotonic
-#' Regression in Two Independent Variables, \emph{Appl. Statist.},
-#' 34, 352--357.
-#' 
+#' Regression in Two Independent Variables, \emph{Appl. Statist.}
+#' \bold{34}, 352--357.
+#'
 #'  The Algorith AS 206 is available from StatLib
 #' \url{http://lib.stat.cmu.edu/apstat}. The Royal Statistical Society
 #' holds the copyright to these routines,
@@ -57,9 +57,9 @@
 #' no fee is charged.
 #'
 #' @references
-#' Chacko, V. J. (1963), Testing homogenity against ordered alternatives.
-#' \emph{Ann. Math. Statist.}, 34, 945--956.
-#' 
+#' Chacko, V. J. (1963) Testing homogeneity against ordered alternatives,
+#' \emph{Ann. Math. Statist.} \bold{34}, 945--956.
+#'
 #' @importFrom stats pchisq complete.cases
 #' @useDynLib 'PMCMRplus', .registration = TRUE, .fixes = "F_"
 #' @export
@@ -107,22 +107,22 @@ chackoTest.default <-
     k <- nlevels(g)
     N <- sum(ni)
     Rmean <- (N + 1) / 2
-    
+
     ## call to own pava
     Riso <- .Fortran("pava",
                      y=as.double(Ri),
                      w=as.double(ni),
                      kt = integer(k),
                      n = as.integer(k))$y
-    
-    T <- (12 / (N * (N +1))) * sum(ni * (Riso - Rmean)^2)	   
+
+    T <- (12 / (N * (N +1))) * sum(ni * (Riso - Rmean)^2)
     df <- k - 1
     PVAL <- pchisq(T, df = df, lower.tail = FALSE)
 
     METHOD <- paste("Chacko's test")
-    ans <- list(method = METHOD, data.name = DNAME, 
+    ans <- list(method = METHOD, data.name = DNAME,
                 p.value = PVAL,
-                statistic = c(H = T), 
+                statistic = c(H = T),
                 parameter = c(df = df),
                 alternative = "greater")
     class(ans) <- "htest"
@@ -141,10 +141,10 @@ chackoTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

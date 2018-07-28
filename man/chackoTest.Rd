@@ -75,8 +75,8 @@ The file \code{"pava.f"} is a Ratfor modification of Algorithm AS 206.1:
 
 Bril, G., Dykstra, R., Pillers, C., Robertson, T. (1984)
 Statistical Algorithms: Algorithm AS 206: Isotonic
-Regression in Two Independent Variables, \emph{Appl. Statist.},
-34, 352--357.
+Regression in Two Independent Variables, \emph{Appl. Statist.}
+\bold{34}, 352--357.
 
  The Algorith AS 206 is available from StatLib
 \url{http://lib.stat.cmu.edu/apstat}. The Royal Statistical Society
@@ -116,8 +116,8 @@ bwsTrendTest(x, g)
 
 }
 \references{
-Chacko, V. J. (1963), Testing homogenity against ordered alternatives.
-\emph{Ann. Math. Statist.}, 34, 945--956.
+Chacko, V. J. (1963) Testing homogeneity against ordered alternatives,
+\emph{Ann. Math. Statist.} \bold{34}, 945--956.
 }
 \seealso{
 \code{\link{kruskalTest}} and \code{\link{shirleyWilliamsTest}}

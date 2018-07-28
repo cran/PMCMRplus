@@ -2,7 +2,7 @@
 ##
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -73,13 +73,13 @@ print.powerOneWayPMCMR <- function(x, ...)
             g <- as.factor(g)
             sdE <- tapply(x$parms$sd, g, unique)
         }
-       
+
         ans <- data.frame(mu = x$mu,
                           n = x$n,
                           meanE = rep(unique(x$parms$mean), k),
                           sdE = sdE)
         print(ans)
-        
+
     } else if (x$errfn == "Lognormal"){
 
         if (length(x$parms$sdlog) == k){
@@ -95,7 +95,7 @@ print.powerOneWayPMCMR <- function(x, ...)
                           sdlogE = sdlogE)
         print(ans)
     } else if (x$errfn == "Cauchy"){
-        
+
         if (length(x$parms$scale) == k){
             scaleE = x$parms$scale
         } else if (length(x$parms$scale) == 1) {
@@ -103,7 +103,7 @@ print.powerOneWayPMCMR <- function(x, ...)
         } else if (all.equal(x$parms$scale)) {
             scaleE <- rep(unique(x$parms$scale),k)
         }
-  
+
         ans <- data.frame(mu = x$mu,
                           n = x$n,
                           locationE = rep(unique(x$parms$location), k),
@@ -117,7 +117,7 @@ print.powerOneWayPMCMR <- function(x, ...)
             scaleE <- rep(unique(x$parms$scale),k)
         } else if (all.equal(x$parms$scale)) {
             scaleE <- rep(unique(x$parms$scale),k)
-        } 
+        }
         ans <- data.frame(mu = x$mu,
                           n = x$n,
                           shapeE = rep(unique(x$parms$shape), k),
@@ -133,9 +133,9 @@ print.powerOneWayPMCMR <- function(x, ...)
                           n = x$n,
                           df = rep(unique(x$parms$df), k))
         print(ans)
-    }  
+    }
     message("\n")
-    inpDF <- data.frame(Value = (c(formatC(x$alpha, digits=2,format="f"), 
+    inpDF <- data.frame(Value = (c(formatC(x$alpha, digits=2,format="f"),
                                    formatC(c(x$replicates),
                                            format="d"))))
     rownames(inpDF) <- c("Nominal alpha:",

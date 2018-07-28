@@ -1,6 +1,6 @@
 ##  jonckheere.test.R
 ##
-##  Copyright (C) 2015-2017 Thorsten Pohlert
+##  Copyright (C) 2015-2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -45,16 +45,15 @@
 #' The code for the computation of the standard deviation
 #' for the Jonckheere-Terpstra test in the presence of ties was taken from:\cr
 #'
-#' Kloke, J., McKean, J. (2016).
-#' npsm: Package for Nonparametric Statistical Methods using R.
+#' Kloke, J., McKean, J. (2016)
+#' \CRANpkg{npsm}: Package for Nonparametric Statistical Methods using R.
 #' R package version 0.5. \url{https://CRAN.R-project.org/package=npsm}
 #'
 #' @references
-#' Jonckheere, A. R. (1954). A distribution-free k-sample test
-#' against ordered alternatives. \emph{Biometrica}, 41, 133–145.
+#' Jonckheere, A. R. (1954) A distribution-free k-sample test
+#' against ordered alternatives. \emph{Biometrica} \bold{41}, 133–145.
 #'
-#' Kloke, J., McKean, J. W. (2015).
-#' \emph{Nonparametric statistical methods using R}.
+#' Kloke, J., McKean, J. W. (2015) \emph{Nonparametric statistical methods using R}.
 #' Boca Raton, FL: Chapman & Hall/CRC.
 #' @template class-htest
 #' @template trendTests

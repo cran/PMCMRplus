@@ -101,13 +101,11 @@ mackWolfeTest(x=x, g=g, p=3)
 
 }
 \references{
-Chen, I.Y. (1991) Notes on the Mack-Wolfe and Chen-Wolfe
-Tests for Umbrella Alternatives.
-\emph{Biom. J.}, 33, 281--290.
+Chen, I. Y. (1991) Notes on the Mack-Wolfe and Chen-Wolfe
+Tests for Umbrella Alternatives, \emph{Biom. J.} \bold{33}, 281--290.
 
-Mack, G.A., Wolfe, D. A. (1981) K-sample rank tests for
-umbrella alternatives.
-\emph{J. Amer. Statist. Assoc.}, 76, 175--181.
+Mack, G. A., Wolfe, D. A. (1981) K-sample rank tests for
+umbrella alternatives, \emph{J. Amer. Statist. Assoc.} \bold{76}, 175--181.
 }
 \seealso{
 \code{\link{pnorm}}, \code{\link{sample}}.

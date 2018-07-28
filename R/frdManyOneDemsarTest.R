@@ -1,7 +1,7 @@
 ## frdManyOneDemsarTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -17,10 +17,10 @@
 ##  http://www.r-project.org/Licenses/
 ##
 ##  Literature:
-##  Eisinga, Heskes, Pelzer, Te Grotenhuis, 2017,   
+##  Eisinga, Heskes, Pelzer, Te Grotenhuis, 2017,
 ##  Exact p-values for pairwise comparison of
 ##  Friedman rank sums, with application to
-##  comparing classifiers, BMC Bioinformatics, January 2 2017                                           
+##  comparing classifiers, BMC Bioinformatics, January 2 2017
 ##
 
 #' @name frdManyOneDemsarTest
@@ -47,10 +47,10 @@
 #' The \eqn{p}-values are computed from the standard normal distribution.
 #' Any of the \eqn{p}-adjustment methods as included in \code{\link{p.adjust}}
 #' can be used for the adjustment of \eqn{p}-values.
-#' 
+#'
 #' @references
-#' J. Demsar (2006), Statistical comparisons of classifiers over multiple
-#'  data sets, \emph{Journal of Machine Learning Research}, 7, 1--30. 
+#' Demsar, J. (2006) Statistical comparisons of classifiers over multiple
+#'  data sets, \emph{Journal of Machine Learning Research} \bold{7}, 1--30.
 #'
 #' @concept FriedmanTest
 #' @concept Rank
@@ -60,7 +60,7 @@
 #' @seealso
 #' \code{\link{friedmanTest}}, \code{\link[stats]{friedman.test}},
 #' \code{\link{frdManyOneExactTest}}, \code{\link{frdManyOneNemenyiTest}}.
-#' 
+#'
 #' @template class-PMCMR
 #' @export
 frdManyOneDemsarTest <- function(y, ...) UseMethod("frdManyOneDemsarTest")
@@ -93,14 +93,14 @@ frdManyOneDemsarTest.default <-
         y <- as.vector(t(y))
     }
     else {
-        if (any(is.na(groups)) || any(is.na(blocks))) 
+        if (any(is.na(groups)) || any(is.na(blocks)))
             stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks))))) 
+        if (any(diff(c(length(y), length(groups), length(blocks)))))
             stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1)) 
+        if (any(table(groups, blocks) != 1))
                 stop("Not an unreplicated complete block design")
-        
-        DNAME <- paste(deparse(substitute(y)), ",", 
+
+        DNAME <- paste(deparse(substitute(y)), ",",
                        deparse(substitute(groups)), "and",
                        deparse(substitute(blocks)) )
         groups <- factor(groups)
@@ -109,7 +109,7 @@ frdManyOneDemsarTest.default <-
         n <- nlevels(blocks)
         GRPNAMES <- as.character(groups[1:k])
     }
-    
+
     ## Check arguments
     p.adjust.method <- match.arg(p.adjust.method)
     alternative <- match.arg(alternative)
@@ -139,10 +139,10 @@ frdManyOneDemsarTest.default <-
             }
     ## adjusted p-values
     PADJv <- p.adjust(PVALv, method = p.adjust.method)
-    
+
     LNAME <- GRPNAMES[2:k]
-    DIST <- "z" 
-    
+    DIST <- "z"
+
     ## build matrix
     PSTAT <- matrix(data=PSTATv, nrow = (k-1), ncol = 1,
                     dimnames = list(LNAME, GRPNAMES[1]))

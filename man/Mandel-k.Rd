@@ -5,7 +5,7 @@
 \alias{qmandelk}
 \alias{pmandelk}
 \alias{pmandelk}
-\title{Mandel's k distribution}
+\title{Mandel's k Distribution}
 \usage{
 qmandelk(p, k, n, lower.tail = TRUE, log.p = FALSE)
 
@@ -49,7 +49,7 @@ Applications. R package version 0.9-26-2.
 qmandelk(0.005, 7, 3, lower.tail=FALSE)
 }
 \references{
-Practice E 691, 2005, \emph{Standard Practice for
+Practice E 691 (2005) \emph{Standard Practice for
 Conducting an Interlaboratory Study to Determine the
 Precision of a Test Method}, ASTM International.
 }

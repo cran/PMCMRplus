@@ -89,7 +89,7 @@ anova(fit)
 summary(lsdTest(x, g))
 }
 \references{
-L. Sachs (1997) \emph{Angewandte Statistik}, New York: Springer.
+Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
 }
 \seealso{
 \code{\link{TDist}}, \code{\link{pairwise.t.test}}

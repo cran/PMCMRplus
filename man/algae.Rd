@@ -29,8 +29,8 @@ A dose-response experiment was conducted using Atrazine
  al. 1997) was applied to measure biomass.
 }
 \references{
-OECD (ed. 2006), \emph{Current approaches in the statistical analysis
-   of ecotoxicity data: A guidance to application - Annexes}. OECD Series
+OECD (ed. 2006) \emph{Current approaches in the statistical analysis
+   of ecotoxicity data: A guidance to application - Annexes}, OECD Series
  on testing and assessment, No. 54, (ENV/JM/MONO(2006)18/ANN).
 }
 \seealso{

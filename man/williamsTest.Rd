@@ -62,8 +62,8 @@ Performs Williams' test for contrasting increasing (decreasing) dose levels of a
 Williams' test is a step-down trend test for testing several treatment levels
 with a zero control in a one-factorial design with normally distributed
 errors of homogeneous variance. Let there be \eqn{k} groups including the control and let
-the zero dose level be indicated with \eqn{i = 0} and the highest
-dose level with \eqn{i = m}, then the following \eqn{m = k - 1} hypotheses are tested:
+the zero dose level be indicated with \eqn{i = 0} and the treatment
+levels indicated as \eqn{1 \le i \le m}, then the following \eqn{m = k - 1} hypotheses are tested:
 
 \deqn{
 \begin{array}{ll}
@@ -74,7 +74,7 @@ dose level with \eqn{i = m}, then the following \eqn{m = k - 1} hypotheses are t
 \end{array}
 }
 
-where \eqn{m} denotes the isotonic mean of the dose level group.
+where \eqn{m_i} denotes the isotonic mean of the \eqn{i}th dose level group.
 The procedure starts from the highest dose level (\eqn{m}) to the the lowest dose level (\eqn{1}) and
 stops at the first non-significant test. The consequent lowest effect dose
 is the treatment level of the previous test number.
@@ -85,15 +85,18 @@ are looked up according to the degree of freedoms (\eqn{v}) and the order number
 dose level (\eqn{i}) and (potentially) modified according to the given extrapolation
 coefficient \eqn{\beta}.
 
-Non tabulated values are linearly interpolated with the function
-\code{\link[stats]{approx}}.
+Non tabulated values are linearly interpolated as recommended by Williams (1972).
+The function \code{\link[stats]{approx}} is used.
 
 For the comparison of the first dose level (i = 1) with the control, the critical t-value
 from the Student t distribution is used (\code{\link[stats]{TDist}}).
 }
 \note{
 In the current implementation, only tests on the level of \eqn{\alpha = 0.05}
-can be performed.
+can be performed. The included extrapolation function assumes either
+a balanced design, or designs, where the number of replicates in the control excdeeds the number of replicates
+in the treatment levels. A warning message appears, if the following
+condition is not met, \eqn{1 \le n_0 / n_i \le 6} for \eqn{1 \le i \le m}.
 }
 \section{Source}{
 
@@ -132,12 +135,12 @@ williamsTest(x ~ g)
 
 }
 \references{
-Williams, D. A. (1971), A test for differences between treatment means
-  when several dose levels are compared with a zero dose control.
-  \emph{Biometrics}, 27, 103--17
+Williams, D. A. (1971) A test for differences between treatment means
+  when several dose levels are compared with a zero dose control,
+  \emph{Biometrics} \bold{27}, 103--117.
 
-Williams, D. A. (1972), The comparison of several dose levels with a zero
-  dose control. \emph{Biometrics}, 28, 519--531.
+Williams, D. A. (1972) The comparison of several dose levels with a zero
+  dose control, \emph{Biometrics} \bold{28}, 519--531.
 }
 \seealso{
 \code{\link[stats]{TDist}}, \code{\link[stats]{approx}}, \code{\link{print.williams}},

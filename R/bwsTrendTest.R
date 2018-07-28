@@ -21,7 +21,7 @@
 #' @description
 #' Performs Murakami's modified Baumgartner-Weiß-Schindler
 #' test for testing against ordered alternatives.
-#' 
+#'
 #' @details
 #' The null hypothesis, H\eqn{_0: F_1(u) = F_2(u) = \ldots = F_k(u) ~~ u \in R}
 #' is tested against a simple order hypothesis,
@@ -30,28 +30,30 @@
 #'
 #' The p-values are estimated through an assymptotic boot-strap method
 #' using the function \code{\link{sample}}.
-#' 
+#'
 #' @note
 #' One may increase the number of permutations to e.g. \code{nperm = 10000}
 #' in order to get more precise p-values. However, this will be on
 #' the expense of computational time.
-#' 
-#' @references
-#' Murakami, H. (2006) K-sample rank test based on modified
-#' Baumgartner statistic and its power comparison,
-#' \emph{J. Jpn. Comp. Statist.} 19, 1--13.
 #'
-#' Neuhäuser, M. (2001) One-side two-sample and trend tests based on a modified
-#' Baumgartner-Weiss-Schindler statistic.
-#' \emph{Journal of Nonparametric Statistics}, 13, 729--739.
+#' @inherit bwsManyOneTest references
+#'
+# @references
+# Murakami, H. (2006) K-sample rank test based on modified
+# Baumgartner statistic and its power comparison,
+# \emph{J. Jpn. Comp. Statist.} 19, 1--13.
+#
+# Neuhäuser, M. (2001) One-side two-sample and trend tests based on a modified
+# Baumgartner-Weiss-Schindler statistic.
+# \emph{Journal of Nonparametric Statistics}, 13, 729--739.
 #' @template class-htest
-#' 
+#'
 #' @seealso
 #' \code{\link{sample}}, \code{\link{bwsAllPairsTest}},
-#' \code{link{bwsManyOneTest}}.
+#' \code{\link{bwsManyOneTest}}.
 #'
 #' @keywords htest nonparametric
-#' 
+#'
 #' @template trendTests
 #' @export
 bwsTrendTest <- function(x, ...) UseMethod("bwsTrendTest")
@@ -122,14 +124,14 @@ function(x, g, nperm=1000, ...){
     o <- order(as.integer(g), Rij)
     STATISTIC <- bkstar.fn(Rij[o])
     names(STATISTIC) <- NULL
- 
+
     ## asymptotic bootstrap permutation
     mt <- sapply(1:nperm, function(i) {
         ix <- sample(Rij)
         o <- order(as.integer(g), ix)
         bkstar.fn(ix[o])
         })
-    
+
     ## pvalues
     PVAL <- length(mt[mt >= STATISTIC]) / nperm
 
@@ -156,10 +158,10 @@ bwsTrendTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

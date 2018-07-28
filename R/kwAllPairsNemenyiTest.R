@@ -1,7 +1,7 @@
 ## kwAllPairsNemenyiTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2014-2017 Thorsten Pohlert
+## Copyright (C) 2014-2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -18,11 +18,11 @@
 
 #' @rdname kwAllPairsNemenyiTest
 #' @title Nemenyi's All-Pairs Rank Comparison Test
-#' 
+#'
 #' @description
 #' Performs Nemenyi's non-parametric all-pairs comparison test
 #' for Kruskal-type ranked data.
-#' 
+#'
 #' @details
 #' For all-pairs comparisons in an one-factorial layout
 #' with non-normally distributed residuals Nemenyi's non-parametric test
@@ -37,12 +37,12 @@
 #' is selected, the p-values are computed from the chi-square distribution.
 #'
 #' @references
-#' P. Nemenyi (1963), \emph{Distribution-free Multiple Comparisons}.
+#' Nemenyi, P. (1963) \emph{Distribution-free Multiple Comparisons}.
 #'  Ph.D. thesis, Princeton University.
-#' 
-#' L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
 #'
-#' F. Wilcoxon, R. A. Wilcox (1964),
+#' Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
+#'
+#' Wilcoxon, F., Wilcox, R. A. (1964)
 #' \emph{Some rapid approximate statistical procedures}. Pearl River:
 #' Lederle Laboratories.
 #'
@@ -83,7 +83,7 @@ function(x, g, dist = c("Tukey","Chisquare"), ...){
                 stop("all groups must contain data")
             g <- factor(rep(1 : k, l))
             # Get distribution from formula call, defaults to Tukey
-            dist <- ifelse(!is.null(x$dist), x$dist, "Tukey") 
+            dist <- ifelse(!is.null(x$dist), x$dist, "Tukey")
             x <- unlist(x)
         }
         else {
@@ -113,12 +113,12 @@ function(x, g, dist = c("Tukey","Chisquare"), ...){
        	   pos <- 1
            tiesum <- 0
 	     while (pos <= n) {
-	       	val <- x.sorted[pos]  
+	       	val <- x.sorted[pos]
 			nt <- length(!is.na(x.sorted[x.sorted==val]))
 			pos <- pos + nt
 			 if (nt > 1){
 			     tiesum <- tiesum + nt^3  - nt
-			 }	     
+			 }
                 }
 		C <- 1 - tiesum / (n^3 - n)
         	C <- min(c(1,C))
@@ -128,7 +128,7 @@ function(x, g, dist = c("Tukey","Chisquare"), ...){
           METHOD <- "Nemenyi's all-pairs test with chi-square approximation"
           DIST <- "X^2"
          compare.stats <- function(i,j) {
-            dif <- abs(R.bar[i] - R.bar[j]) 
+            dif <- abs(R.bar[i] - R.bar[j])
             A <- n * (n+1) / 12
             B <- (1 / R.n[i] + 1 / R.n[j])
             chisqval <- dif^2 / (A * B)
@@ -180,10 +180,10 @@ function(formula, data, subset, na.action, dist = c("Tukey","Chisquare"), ...)
     mf <- mf[c(1L, m)]
     dist <- match.arg(dist)
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

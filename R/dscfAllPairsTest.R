@@ -1,7 +1,7 @@
 ## dscfAllPairsTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -37,20 +37,20 @@
 #'
 #' @seealso
 #' \code{\link{Tukey}}, \code{\link{pairwise.wilcox.test}}
-#' 
+#'
 #' @template class-PMCMR
 #'
 #' @references
-#' C. E. Douglas, A. M. Fligner A. (1991) On distribution-free multiple
+#' Douglas, C. E., Fligner, A. M. (1991) On distribution-free multiple
 #' comparisons in the one-way analysis of variance, \emph{Communications in
-#'  Statistics - Theory and Methods}, 20, 127--139.
+#'  Statistics - Theory and Methods} \bold{20}, 127--139.
 #'
-#' M. Dwass (1960) Some k-sample rank-order tests. In \emph{Contributions to
+#' Dwass, M. (1960) Some k-sample rank-order tests. In \emph{Contributions to
 #'   Probability and Statistics}, Edited by: I. Olkin,
 #' Stanford: Stanford University Press.
 #'
-#' R. G. D. Steel (1960) A rank sum test for comparing all pairs of
-#' treatments, \emph{Technometrics}, 2, 197--207
+#' Steel, R. G. D. (1960) A rank sum test for comparing all pairs of
+#' treatments, \emph{Technometrics} \bold{2}, 197--207
 #'
 #' @keywords htest nonparametric
 #' @concept RankTransformation
@@ -68,7 +68,7 @@ dscfAllPairsTest <- function(x, ...) UseMethod("dscfAllPairsTest")
 #' @export
 dscfAllPairsTest.default <-
 function(x, g, ...){
-    ## taken from stats::kruskal.test    
+    ## taken from stats::kruskal.test
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -108,7 +108,7 @@ function(x, g, ...){
         C
     }
 
-    ## function for pairwise comparisons    
+    ## function for pairwise comparisons
     compare.stats <-function(i, j){
         m <- n[j]
         nn <- n[i]
@@ -148,10 +148,10 @@ dscfAllPairsTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

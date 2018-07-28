@@ -78,8 +78,8 @@ the p-values are calculated from the standard normal distribution
 with any latter p-adjustment as available by \code{\link{p.adjust}}.
 }
 \references{
-OECD (ed. 2006), \emph{Current approaches in the statistical analysis
-of ecotoxicity data: A guidance to application}. OECD Series
+OECD (ed. 2006) \emph{Current approaches in the statistical analysis
+of ecotoxicity data: A guidance to application}, OECD Series
 on testing and assessment, No. 54.
 }
 \seealso{

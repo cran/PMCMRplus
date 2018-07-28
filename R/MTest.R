@@ -1,7 +1,7 @@
 ## MTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 #' with equal variances.
 #'
 #' This test is an extension of Hayter's OSRT
-#' (see \code{\link{osrtTest}} by
+#' (see \code{\link{osrtTest}}) by
 #' applying a simple order restriction of
 #' \eqn{\mu_{m'} - \mu_m \le \mu_j - \mu_i \le \
 #' \mu_{l'} - \mu_{l}} for any \eqn{l \le i \le m}
@@ -33,11 +33,12 @@
 #' \eqn{\mathrm{A}_{ij}: \mu_i < \mu_j$ for any $1 \le i < j \le k}.
 #'
 #' @template class-PMCMR
-#' 
-#' @references
-#' Nashimoto, K., Wright, F.T. (2005),
-#' Multiple comparison procedures for detecting differences
-#' in simply ordered means. \emph{Comput. Statist. Data Anal.} 48, 291--306.
+#'
+#' @inherit chaAllPairsNashimotoTest references
+# @references
+# Nashimoto, K., Wright, F.T. (2005),
+# Multiple comparison procedures for detecting differences
+# in simply ordered means. \emph{Comput. Statist. Data Anal.} 48, 291--306.
 #' @keywords htest
 #' @concept AllPairsComparison
 #' @importFrom stats ptukey
@@ -57,7 +58,7 @@ MTest <- function(x, ...) UseMethod("MTest")
 MTest.default <-
 function(x, g, ...){
         ## taken from stats::kruskal.test
-        
+
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -95,13 +96,13 @@ function(x, g, ...){
     s2in <- 1 / df * sum(s2i * (ni - 1))
 
     sigma <- sqrt(s2in)
-  
+
     STAT <- matrix(NA, ncol=k-1, nrow=k-1)
     for (i in 1:(k-1)){
         for(j in (i+1):k){
             u <- j
             m <- i:(u-1)
-            tmp <- sapply(m, function(m) (xi[u] - xi[m]) / 
+            tmp <- sapply(m, function(m) (xi[u] - xi[m]) /
                                          (sigma / sqrt(2) *
                                           sqrt(1 / ni[m] + 1 /ni[u])))
             STAT[j-1,i] <- max(tmp)
@@ -110,12 +111,12 @@ function(x, g, ...){
 
     colnames(STAT) <- levels(g)[1:(k-1)]
     rownames(STAT) <- levels(g)[2:k]
-    
+
     PVAL <- ptukey(STAT, nmeans = k, df = df, lower.tail=FALSE)
 
     colnames(PVAL) <- colnames(STAT)
     rownames(PVAL) <- rownames(STAT)
-        
+
     METHOD <- "Nashimoto-Wright M-Test for ordered means \n\t\t of normal data with equal variance"
     MODEL <- data.frame(x, g)
     DIST <- "q"
@@ -144,10 +145,10 @@ function(formula, data, subset, na.action, ...)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

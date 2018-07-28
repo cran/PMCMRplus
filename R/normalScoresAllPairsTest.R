@@ -1,6 +1,6 @@
 #  normalScoresAllPairsTest.R
 #
-#  Copyright (C) 2017 Thorsten Pohlert
+#  Copyright (C) 2017, 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -29,20 +29,20 @@
 #' A\eqn{_{ij}: F_i(x) \ne F_j(x), ~~ i \ne j}.
 #' For \code{p.adjust.method = "single-step"} the
 #' Tukey's studentized range distribution is used to calculate
-#' p-values (see \\code{\link{Tukey}}). Otherwise, the
+#' p-values (see \code{\link{Tukey}}). Otherwise, the
 #' t-distribution is used for the calculation of p-values
 #' with a latter p-value adjustment as
 #' performed by \code{\link{p.adjust}}.
-#' 
+#'
 #' @name normalScoresAllPairsTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
 #' @concept NormalScores
 #' @concept AllPairsComparison
 #' @references
-#' Lu, H., Smith, P. (1979). Distribution of normal scores statistic
+#' Lu, H., Smith, P. (1979) Distribution of normal scores statistic
 #' for nonparametric one-way analysis of variance.
-#' \emph{Journal of the American Statistical Association}, 74, 715--722.
+#' \emph{Journal of the American Statistical Association} \bold{74}, 715--722.
 #' @seealso
 #' \code{\link{normalScoresTest}}, \code{\link{normalScoresManyOneTest}}, \code{\link[SuppDists]{normOrder}}.
 #' @export
@@ -75,7 +75,7 @@ normalScoresAllPairsTest.default <-
             stop("all groups must contain data")
         g <- factor(rep(1 : k, l))
                                         #
-        if (is.null(x$p.adjust.method)){ 
+        if (is.null(x$p.adjust.method)){
             p.adjust.method <- p.adjust.methods[1]
         } else {
             p.adjust.method <- x$p.adjust.method
@@ -107,16 +107,16 @@ normalScoresAllPairsTest.default <-
     ## transform to xi-scores
     eij <- normOrder(n)
     zscores <- eij[r]
-    
+
     ei <- tapply(zscores, g, sum)
     ni <- tapply(zscores, g, length)
     s2 <- (1 / (n - 1)) * sum(zscores^2)
     STATISTIC <- (1 / s2) * sum(ei^2 / ni)
     PARAMETER <- k - 1
     Smn <- ei / ni
-    
+
     compare.stats <- function(i,j) {
-        dif <- abs(Smn[i] - Smn[j]) 
+        dif <- abs(Smn[i] - Smn[j])
         B <- (1 / ni[i] + 1 / ni[j])
         val <- dif / sqrt(s2 * (n-1-STATISTIC)/(n-k) * B)
         return(val)
@@ -126,7 +126,7 @@ normalScoresAllPairsTest.default <-
 
     if (p.adjust.method != "single-step"){
         compare.levels <- function(i,j) {
-            dif <- abs(Smn[i] - Smn[j]) 
+            dif <- abs(Smn[i] - Smn[j])
             B <- (1 / ni[i] + 1 / ni[j])
             val <- dif / sqrt(s2 * (n-1-STATISTIC)/(n-k) * B)
             pval <- 2 * pt(abs(val), df=n - k, lower.tail=FALSE)
@@ -139,7 +139,7 @@ normalScoresAllPairsTest.default <-
         names(PARMS) <- "df"
     } else {
         compare.tukey <- function(i,j) {
-            dif <- abs(Smn[i] - Smn[j]) 
+            dif <- abs(Smn[i] - Smn[j])
             B <- (1 / ni[i] + 1 / ni[j])
             qval <- sqrt(2) * dif / sqrt(s2 * (n-1-STATISTIC)/(n-k) * B)
             pval <- ptukey(abs(qval), nmeans = k, df=n - k, lower.tail=FALSE)
@@ -175,10 +175,10 @@ normalScoresAllPairsTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

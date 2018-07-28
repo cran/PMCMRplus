@@ -52,11 +52,11 @@ pageTest(reviewers, alternative = "greater")
 
 }
 \references{
-E. B. Page (1963), Ordered hypotheses for multiple treatments: A
-significance test for linear ranks. \emph{Journal of the
-American Statistical Association} 58, 216--230.
+Page, E. B. (1963) Ordered hypotheses for multiple treatments: A
+significance test for linear ranks, \emph{Journal of the
+American Statistical Association} \bold{58}, 216--230.
 
-L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
+Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 }
 \seealso{
 \code{\link{friedmanTest}}

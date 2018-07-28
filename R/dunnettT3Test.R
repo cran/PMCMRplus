@@ -1,7 +1,7 @@
 ## dunnettT3Test.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 #' @description
 #' Performs Dunnett's all-pairs comparison test for normally distributed
 #' data with unequal variances.
-#' 
+#'
 #' @template class-PMCMR
 #'
 #' @details
@@ -40,12 +40,12 @@
 #'
 #' @references
 #' C. W. Dunnett (1980) Pair wise multiple comparisons in the unequal
-#'  variance case. \emph{Journal of the American Statistical
-#'  Association}, 75, 796--800.
+#'  variance case, \emph{Journal of the American Statistical
+#'  Association} \bold{75}, 796--800.
 #'
 #' @keywords htest
 #' @concept allPairsComparisons
-#' 
+#'
 #' @examples
 #' set.seed(245)
 #' mn <- rep(c(1, 2^(1:4)), each=5)
@@ -75,7 +75,7 @@ dunnettT3Test <- function(x, ...) UseMethod("dunnettT3Test")
 dunnettT3Test.default <-
 function(x, g, ...){
         ## taken from stats::kruskal.test
-        
+
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -103,7 +103,7 @@ function(x, g, ...){
         if (k < 2)
             stop("all observations are in the same group")
     }
-    
+
     ## prepare dunnettT3 test
     ni <- tapply(x, g, length)
     n <- sum(ni)
@@ -111,14 +111,14 @@ function(x, g, ...){
     s2i <- tapply(x, g, var)
 
     s2in <- 1 / (n - k) * sum(s2i * (ni - 1))
-    
+
     compare.stats <- function(i,j) {
-        dif <- xi[i] - xi[j] 
+        dif <- xi[i] - xi[j]
         A <- (s2i[i] / ni[i] + s2i[j] / ni[j])
         tval <- dif / sqrt(A)
         return(tval)
     }
-    
+
     PSTAT <- pairwise.table(compare.stats,levels(g), p.adjust.method="none" )
 
     getDf <- function(i, j){
@@ -144,7 +144,7 @@ function(x, g, ...){
     df <- round(df, digits = 0) # round to integer
     pstat <- as.vector(PSTAT)
     pstat <- pstat[!is.na(pstat)]
-    
+
     for (i in 1:m){
         lo <- -rep(abs(pstat[i]), m)
         up <- rep(abs(pstat[i]), m)
@@ -183,10 +183,10 @@ function(formula, data, subset, na.action, ...)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

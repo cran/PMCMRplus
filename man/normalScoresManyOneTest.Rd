@@ -90,9 +90,9 @@ ans <- normalScoresManyOneTest(weight ~ group, data = PlantGrowth, p.adjust.meth
 summary(ans)
 }
 \references{
-Lu, H., Smith, P. (1979). Distribution of normal scores statistic
+Lu, H., Smith, P. (1979) Distribution of normal scores statistic
 for nonparametric one-way analysis of variance.
-\emph{Journal of the American Statistical Association}, 74, 715--722.
+\emph{Journal of the American Statistical Association} \bold{74}, 715--722.
 }
 \seealso{
 \code{\link{normalScoresTest}}, \code{\link{normalScoresAllPairsTest}}, \code{\link[SuppDists]{normOrder}}, \code{\link[mvtnorm]{pmvt}}.

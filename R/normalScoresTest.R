@@ -1,7 +1,7 @@
 # normalScoresTest.R
 # Part of the R package: PMCMR
 #
-# Copyright (C) 2017 Thorsten Pohlert
+# Copyright (C) 2017,2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 #
 #   Uses pNormScore and normOrder from package SuppDists
 #
-#   source: 
+#   source:
 #   package SuppDists
 
 #' @title Lu-Smith Normal Scores Test
@@ -38,10 +38,11 @@
 #' @seealso
 #' \code{\link{vanWaerdenTest}}, \code{\link{kruskalTest}},
 #' \code{\link[SuppDists]{pNormScore}}
-#' @references
-#' Lu, H., Smith, P. (1979). Distribution of normal scores statistic
-#' for nonparametric one-way analysis of variance.
-#' \emph{Journal of the American Statistical Association}, 74, 715--722.
+#' @inherit normalScoresAllPairsTest references
+# @references
+# Lu, H., Smith, P. (1979). Distribution of normal scores statistic
+# for nonparametric one-way analysis of variance.
+# \emph{Journal of the American Statistical Association}, 74, 715--722.
 #' @examples
 #' normalScoresTest(count ~ spray, data = InsectSprays)
 #' @export
@@ -89,14 +90,14 @@ normalScoresTest.default <-
     rij <- rank(x, ties.method = "random")
     eN <- normOrder(n)
     eij <- eN[rij]
-    Si <- tapply(eij, g, sum) 
+    Si <- tapply(eij, g, sum)
 
     ## Statistic
     STAT <- (n - 1) * 1 / sum(eN^2) * sum(Si^2 / ni)
     U <- sum(1 / ni)
 
     ## pvalue
-    PVAL <- pNormScore(STAT, k, n, U, lower.tail=FALSE)    
+    PVAL <- pNormScore(STAT, k, n, U, lower.tail=FALSE)
     PARMS <- c(k = k, n= n,U =U)
     METHOD <- paste("Normal Scores test")
 
@@ -118,10 +119,10 @@ normalScoresTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

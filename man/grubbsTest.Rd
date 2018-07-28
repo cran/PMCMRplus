@@ -72,8 +72,8 @@ labMeans <- tapply(dat$value, dat$lab, mean)
 grubbsTest(x = labMeans, alternative = "two.sided")
 }
 \references{
-Grubbs, F.E. (1950) Sample criteria for testing outlying observations.
-\emph{Ann. Math. Stat.} 21, 27--58.
+Grubbs, F. E. (1950) Sample criteria for testing outlying observations.
+\emph{Ann. Math. Stat.} \bold{21}, 27--58.
 
 Wilrich, P.-T. (2011) Critical values of Mandel's h and k,
 Grubbs and the Cochran test statistic. \emph{Adv. Stat. Anal.}.

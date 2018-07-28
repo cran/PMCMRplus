@@ -1,7 +1,7 @@
 # doubleGrubbsTest.R
 # Part of the R package: PMCMRplus
 #
-# Copyright (C) 2017 Thorsten Pohlert
+# Copyright (C) 2017, 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -125,10 +125,10 @@ doubleGrubbsTest <- function(x, alternative = c("two.sided", "greater", "less"),
         Q2 <- (yy - meany)^2
         D <- sum(Q2) / sum(Q)
     }
-    
+
     ## Get pvalue
     pval <- pdgrubbs(D, n, m, lower.tail = TRUE)
-    
+
     ans <- list(statistic = c("D*" = D),
                 p.value = pval,
                 data.name = DNAME,

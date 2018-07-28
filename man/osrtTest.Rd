@@ -59,9 +59,9 @@ with equal variances.
 osrtTest(weight ~ group, data = PlantGrowth)
 }
 \references{
-A. J. Hayter (1990) A One-Sided Studentised Range
-Test for Testing Against a Simple Ordered Alternative.
+Hayter, A. J.(1990) A One-Sided Studentised Range
+Test for Testing Against a Simple Ordered Alternative,
 \emph{Journal of the American Statistical Association}
-85, 778--785.
+\bold{85}, 778--785.
 }
 \keyword{htest}

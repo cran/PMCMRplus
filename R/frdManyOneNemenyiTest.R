@@ -1,7 +1,7 @@
 ## frdManyOneNemenyiTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C)  2017 Thorsten Pohlert
+## Copyright (C)  2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -16,13 +16,6 @@
 ##  A copy of the GNU General Public License is available at
 ##  http://www.r-project.org/Licenses/
 ##
-##  Literature:
-##  Eisinga, Heskes, Pelzer, Te Grotenhuis, 2017,   
-##  Exact p-values for pairwise comparison of
-##  Friedman rank sums, with application to
-##  comparing classifiers, BMC Bioinformatics, January 2 2017                   ##                       
-##
-
 #' @rdname frdManyOneNemenyiTest
 #' @title  Nemenyi's Many-to-One Test
 #' for Unreplicated Blocked Data
@@ -45,22 +38,22 @@
 #' A\eqn{_i: \theta_0 \ne \theta_i, ~~ (1 \le i \le m)}.
 #'
 #' The \eqn{p}-values are computed from the multivariate normal distribution.
-#' 
+#'
 #' @references
-#' Hollander M., Wolfe D. A., Chicken E. (2014),
+#' Hollander, M., Wolfe, D. A., Chicken, E. (2014),
 #' \emph{Nonparametric Statistical Methods}. 3rd ed. New York: Wiley. 2014.
-#' 
+#'
 #' Miller Jr., R. G. (1996), \emph{Simultaneous Statistical Inference}.
 #'  New York: McGraw-Hill.
-#' 
-#' Nemenyi P. (1963), \emph{Distribution-free Multiple Comparisons}.
+#'
+#' Nemenyi, P. (1963), \emph{Distribution-free Multiple Comparisons}.
 #'  Ph.D. thesis, Princeton University.
 #'
 #' Siegel, S., Castellan Jr., N. J. (1988), \emph{Nonparametric
 #'  Statistics for the Behavioral Sciences}. 2nd ed.
 #'  New York: McGraw-Hill.
-#' 
-#' Zarr J. H. (1999), \emph{Biostatistical Analysis}. 4th ed.
+#'
+#' Zarr, J. H. (1999), \emph{Biostatistical Analysis}. 4th ed.
 #' Upper Saddle River: Prentice-Hall.
 #'
 #' @concept FriedmanTest
@@ -72,7 +65,7 @@
 #' \code{\link{friedmanTest}}, \code{\link[stats]{friedman.test}},
 #' \code{\link{frdManyOneExactTest}}, \code{\link{frdManyOneDemsarTest}}
 #' \code{\link[mvtnorm]{pmvnorm}}
-#' 
+#'
 #' @template class-PMCMR
 #' @export
 frdManyOneNemenyiTest <- function(y, ...) UseMethod("frdManyOneNemenyiTest")
@@ -100,14 +93,14 @@ frdManyOneNemenyiTest.default <-
         y <- as.vector(t(y))
     }
     else {
-        if (any(is.na(groups)) || any(is.na(blocks))) 
+        if (any(is.na(groups)) || any(is.na(blocks)))
             stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks))))) 
+        if (any(diff(c(length(y), length(groups), length(blocks)))))
             stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1)) 
+        if (any(table(groups, blocks) != 1))
                 stop("Not an unreplicated complete block design")
-        
-        DNAME <- paste(deparse(substitute(y)), ",", 
+
+        DNAME <- paste(deparse(substitute(y)), ",",
                        deparse(substitute(groups)), "and",
                        deparse(substitute(blocks)) )
         groups <- factor(groups)
@@ -116,22 +109,22 @@ frdManyOneNemenyiTest.default <-
         n <- nlevels(blocks)
         GRPNAMES <- as.character(groups[1:k])
     }
-    
+
     ## Check arguments
     alternative <- match.arg(alternative)
 
     mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
     r <- t(apply(mat, 1L, rank))
-    
+
 
     METHOD <- c("Nemenyi-Wilcoxon-Wilcox-Miller many-to-one test",
                  " for a two-way balanced complete block design")
     df <- k-1
- 
+
     # correlation matrix for balanced design
     cr <- matrix(0.5 , ncol=df, nrow=df)
     diag(cr) <- 1.0
-    
+
     Ri <- colSums(r)
     compNem <- function(j){
         dif <- Ri[j] - Ri[1]
@@ -140,7 +133,7 @@ frdManyOneNemenyiTest.default <-
     }
     PSTATv <- rep(NA, df)
     for (j in 2:k) {PSTATv[j-1] <- compNem(j)}
-    
+
     if (alternative == "two.sided"){
         PADJv <- sapply(PSTATv, function(x)
             1 - pmvnorm(lower = -rep(abs(x), df),
@@ -156,9 +149,9 @@ frdManyOneNemenyiTest.default <-
             1 - pmvnorm(lower = rep(x, df),
                         upper = Inf,
                         corr = cr))
-    }							
-    LNAME <- GRPNAMES[2:k]	
-    DIST <- "z"			
+    }
+    LNAME <- GRPNAMES[2:k]
+    DIST <- "z"
     p.adjust.method = "single-step"
     ## build matrix
     PSTAT <- matrix(data=PSTATv, nrow = (k-1), ncol = 1,

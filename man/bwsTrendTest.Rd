@@ -103,17 +103,19 @@ bwsTrendTest(x, g)
 
 }
 \references{
-Murakami, H. (2006) K-sample rank test based on modified
-Baumgartner statistic and its power comparison,
-\emph{J. Jpn. Comp. Statist.} 19, 1--13.
+Baumgartner, W., Weiss, P., Schindler, H. (1998) A nonparametric test for the
+general two-sample problem, \emph{Biometrics} \bold{54}, 1129--1135.
+
+Murakami, H. (2006) K-sample rank test based on modified Baumgartner statistic and its power
+comparison, \emph{J. Jpn. Comp. Statist.} \bold{19}, 1--13.
 
 Neuhäuser, M. (2001) One-side two-sample and trend tests based on a modified
 Baumgartner-Weiss-Schindler statistic.
-\emph{Journal of Nonparametric Statistics}, 13, 729--739.
+\emph{Journal of Nonparametric Statistics} \bold{13}, 729--739.
 }
 \seealso{
 \code{\link{sample}}, \code{\link{bwsAllPairsTest}},
-\code{link{bwsManyOneTest}}.
+\code{\link{bwsManyOneTest}}.
 
 \code{\link{kruskalTest}} and \code{\link{shirleyWilliamsTest}}
 of the package \pkg{PMCMRplus},

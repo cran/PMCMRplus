@@ -22,15 +22,15 @@
 #'     for Grubbs distribution.
 #'
 #' @aliases qgrubbs pgrubbs
-#' 
+#'
 #' @references
-#' Grubbs, F.E. (1950) Sample criteria for testing outlying observations.
-#' \emph{Ann. Math. Stat.} 21, 27--58.
-#' 
+#' Grubbs, F. E. (1950) Sample criteria for testing outlying observations.
+#' \emph{Ann. Math. Stat.} \bold{21}, 27--58.
+#'
 #' Wilrich, P.-T. (2011) Critical values of Mandel's h and k,
 #' Grubbs and the Cochran test statistic. \emph{Adv. Stat. Anal.}.
 #' \url{http://dx.doi.org/10.1007/s10182-011-0185-y}.
-#' 
+#'
 #' @param p vector of probabilities.
 #' @param n total sample size.
 #' @return
@@ -59,9 +59,9 @@ qgrubbs <- function(p, n)
 #' @importFrom stats pbeta
 #' @keywords distribution
 #' @export
-pgrubbs <- function (q, n, lower.tail = TRUE) 
+pgrubbs <- function (q, n, lower.tail = TRUE)
 {
-    pval <- n * pbeta((1 + abs(q) * sqrt(n)/(n - 1))/2, (n - 2)/2, (n - 2)/2, 
+    pval <- n * pbeta((1 + abs(q) * sqrt(n)/(n - 1))/2, (n - 2)/2, (n - 2)/2,
                       lower.tail = FALSE,
                       log.p = FALSE)
     pval <- min(1, pval)

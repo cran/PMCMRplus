@@ -59,9 +59,9 @@ the \eqn{i}-th treatment level and the control.
 H\eqn{_i: \theta_0 = \theta_i} is tested in the two-tailed case against
 A\eqn{_i: \theta_0 \ne \theta_i, ~~ (1 \le i \le m)}.
 
-The exact \eqn{p}-values 
+The exact \eqn{p}-values
 are computed using the code of \code{"pexactfrsd.R"}
-that was a supplement to the publication of Eisinga et al. (2017). 
+that was a supplement to the publication of Eisinga et al. (2017).
 Additionally, any of the \eqn{p}-adjustment methods
 as included in \code{\link{p.adjust}} can be selected, for \eqn{p}-value
 adjustment.
@@ -96,7 +96,7 @@ adjustment.
  
 }
 \references{
-R. Eisinga, T. Heskes, B. Pelzer, M. Te Grotenhuis (2017),
+Eisinga, R., Heskes, T., Pelzer, B., Te Grotenhuis, M. (2017)
  Exact p-values for Pairwise Comparison of Friedman Rank Sums,
  with Application to Comparing Classifiers, \emph{BMC Bioinformatics}, 18:68.
 }

@@ -1,6 +1,6 @@
 #  vanWaerdenManyOneTest.R
 #
-#  Copyright (C) 2017 Thorsten Pohlert
+#  Copyright (C) 2017, 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -33,20 +33,22 @@
 #' t-distribution is used for the calculation of p-values
 #' with a latter p-value adjustment as
 #' performed by \code{\link{p.adjust}}.
-#' 
+#'
 #' @name vanWaerdenManyOneTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
 #' @concept NormalScores
 #' @concept ManyOneComparison
-#' @references
-#' W. J. Conover and R. L. Iman (1979)
-#' \emph{On multiple-comparisons procedures},
-#' Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
-#' 
-#' B. L. van der Waerden (1952) Order tests for the two-sample
-#' problem and their power, \emph{Indagationes Mathematicae}, 14, 453--458.
-#' 
+#'
+#' @inherit vanWaerdenAllPairsTest references
+# @references
+# W. J. Conover and R. L. Iman (1979)
+# \emph{On multiple-comparisons procedures},
+# Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
+#
+# B. L. van der Waerden (1952) Order tests for the two-sample
+# problem and their power, \emph{Indagationes Mathematicae}, 14, 453--458.
+#
 #' @seealso
 #' \code{\link{vanWaerdenTest}}, \code{\link{vanWaerdenAllPairsTest}},
 #' \code{\link[mvtnorm]{pmvt}}.
@@ -87,12 +89,12 @@ vanWaerdenManyOneTest.default <-
             stop("all groups must contain data")
         g <- factor(rep(1 : k, l))
 		#
-        if (is.null(x$p.adjust.method)){ 
+        if (is.null(x$p.adjust.method)){
             p.adjust.method <- p.adjust.methods[1]
         } else {
             p.adjust.method <- x$p.adjust.method
         }
-        if (is.null(x$alternative)){ 
+        if (is.null(x$alternative)){
             alternative <- "two.sided"
         } else {
             alternative <- x$alternative
@@ -116,14 +118,14 @@ vanWaerdenManyOneTest.default <-
     }
 
     p.adjust.method <- match.arg(p.adjust.method)
-    alternative <- match.arg(alternative)	
-	
+    alternative <- match.arg(alternative)
+
     n <- length(x)
     if (n < 2)
         stop("not enough observations")
     r <- rank(x)
 
-	
+
     # transform to z-scores
     zscores <- qnorm(r / (n+1))
     AJ <- tapply(zscores, g, sum)
@@ -140,9 +142,9 @@ vanWaerdenManyOneTest.default <-
         return(tval)
     }
 
-		
+
     pstat <- sapply(2:k, function(i) compare.stats(i))
-	
+
     if (p.adjust.method != "single-step"){
         if (alternative == "two.sided"){
             pval <- 2 * pt(abs(pstat), df=n-k, lower.tail = FALSE)
@@ -171,29 +173,29 @@ vanWaerdenManyOneTest.default <-
             }
         }
         if (alternative == "two.sided"){
-            padj <- sapply(pstat, function(x) 
+            padj <- sapply(pstat, function(x)
                 1 - pmvt(lower = -rep(abs(x), m),
                          upper = rep(abs(x), m),
                          df = df,
                          corr = cr))
         } else if (alternative == "greater"){
-            padj <- sapply(pstat, function(x) 
+            padj <- sapply(pstat, function(x)
                 1 - pmvt(lower = -Inf,
                          upper = rep(x, m),
                          df = df,
                          corr = cr))
         } else {
-            padj <- sapply(pstat, function(x) 
+            padj <- sapply(pstat, function(x)
                 1 - pmvt(lower = rep(x, m),
                          upper = Inf,
                          df = df,
-                         corr = cr))	
+                         corr = cr))
         }
     }
-    
+
     GRPNAME <- levels(g)
     PVAL <- cbind(padj)
-    PSTAT <- cbind(pstat)	
+    PSTAT <- cbind(pstat)
     colnames(PVAL) <- GRPNAME[1]
     colnames(PSTAT) <- GRPNAME[1]
     rownames(PVAL) <- GRPNAME[2:k]
@@ -222,10 +224,10 @@ vanWaerdenManyOneTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")
@@ -233,7 +235,7 @@ vanWaerdenManyOneTest.formula <-
     alternative <- match.arg(alternative)
     names(mf) <- NULL
     y <- do.call("vanWaerdenManyOneTest",
-                 c(as.list(mf), alternative = alternative, 
+                 c(as.list(mf), alternative = alternative,
                    p.adjust.method = p.adjust.method))
     y$data.name <- DNAME
     y

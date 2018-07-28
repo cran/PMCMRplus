@@ -1,6 +1,6 @@
 #  adManyOneTest.R
 #
-#  Copyright (C) 2017 Thorsten Pohlert
+#  Copyright (C) 2017, 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -32,14 +32,14 @@
 #' calls \code{adKSampleTest} for each pair.
 #' The calculated p-values for \code{Pr(>|T2N|)}
 #' can be adjusted to account for Type I error inflation
-#' using any method as implemented in \code{\link{p.adjust}}. 
+#' using any method as implemented in \code{\link{p.adjust}}.
 #' @name adManyOneTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
 #' @concept AllPairsComparison
-#' @references
-#' Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
-#' \emph{Journal of the American Statistical Association}, 82, 9118--924.
+#'
+#' @inherit adAllPairsTest references
+#'
 #' @seealso
 #' \code{\link{adKSampleTest}}, \code{\link{adAllPairsTest}},
 #' \code{\link[kSamples]{ad.pval}}.
@@ -77,7 +77,7 @@ adManyOneTest.default <-
             stop("all groups must contain data")
         g <- factor(rep(1 : k, l))
 		#
-        if (is.null(x$p.adjust.method)){ 
+        if (is.null(x$p.adjust.method)){
             p.adjust.method <- p.adjust.methods[1]
         } else {
             p.adjust.method <- x$p.adjust.method
@@ -101,7 +101,7 @@ adManyOneTest.default <-
     }
 
     p.adjust.method <- match.arg(p.adjust.method)
-    
+
     n <- length(x)
     if (n < 2)
         stop("not enough observations")
@@ -130,7 +130,7 @@ adManyOneTest.default <-
     STAT <- cbind(stat)
     colnames(STAT) <- colnames(PVAL)
     rownames(STAT) <- rownames(PVAL)
-    
+
     ans <- list(method = METHOD,
                 data.name = DNAME,
                 p.value = PVAL,
@@ -156,10 +156,10 @@ adManyOneTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

@@ -32,13 +32,13 @@ The data set contains 4 classifiers (blocks), i.e.
  across a large set of 69 genes in a biomarker data file.
 }
 \references{
-R. Eisinga, T Heskes, B. Pelzer, M. Te Grotenhuis (2017)
+Eisinga, R., Heskes, T., Pelzer, B., Te Grotenhuis, M. (2017)
  Exact p-values for pairwise comparison of Friedman rank sums,
  with application to comparing classifiers.
  \emph{BMC Bioinformatics}, 18:68.
 
- J. M. Ruijter et al. (2013) Evaluation of qPCR curve analysis
+ Ruijter, J. M. et al. (2013) Evaluation of qPCR curve analysis
  methods for reliable biomarker discovery: Bias, resolution,
- precision, and implications. \emph{Methods} 59, 32--46.
+ precision, and implications, \emph{Methods} \bold{59}, 32--46.
 }
 \keyword{datasets}

@@ -1,7 +1,7 @@
 ## qmandelk.R
 # Part of the R package: PMCMRplus
 #
-# Copyright (C) 2017 Thorsten Pohlert
+# Copyright (C) 2017, 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -17,17 +17,18 @@
 #  http://www.r-project.org/Licenses/
 #
 #' @name Mandel-k
-#' @title Mandel's k distribution
+#' @title Mandel's k Distribution
 #' @description Distribution function and quantile function
 #'     for Mandel's k distribution.
 #'
 #' @seealso \code{\link{mandelkTest}}
 #' @aliases qmandelk pmandelk
-#' 
-#' @references
-#' Practice E 691, 2005, \emph{Standard Practice for
-#' Conducting an Interlaboratory Study to Determine the
-#' Precision of a Test Method}, ASTM International.
+#'
+#' @inherit Mandel-h references
+# @references
+# Practice E 691, 2005, \emph{Standard Practice for
+# Conducting an Interlaboratory Study to Determine the
+# Precision of a Test Method}, ASTM International.
 #'
 #' @importFrom stats qf
 #' @param p vector of probabilities.
@@ -67,8 +68,8 @@ qmandelk <- function(p, k, n, lower.tail = TRUE, log.p = FALSE)
 #' @importFrom stats pbeta
 #' @keywords distribution
 #' @export
-pmandelk <- function (q, k, n, lower.tail = TRUE, log.p = FALSE) 
+pmandelk <- function (q, k, n, lower.tail = TRUE, log.p = FALSE)
 {
-    pbeta(q^2/k, (n - 1)/2, (k - 1) * (n - 1)/2, lower.tail = lower.tail, 
+    pbeta(q^2/k, (n - 1)/2, (k - 1) * (n - 1)/2, lower.tail = lower.tail,
         log.p = log.p)
 }

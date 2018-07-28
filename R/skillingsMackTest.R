@@ -1,7 +1,7 @@
-## friedmanTest.R
+## skillingsMackTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -34,12 +34,13 @@
 #' df = k - 1 degrees of freedom.
 #'
 #' @references
-#' Skillings, J.H. and Mack, G.A. (1981) On the use of a Friedman-type
-#' statistic in balanced and unbalanced block designs.
-#' Technometrics. 1981; 23:171–177.
+#' Skillings, J. H., Mack, G.A. (1981) On the use of a Friedman-type
+#' statistic in balanced and unbalanced block designs,
+#' \emph{Technometrics} \bold{23}, 171--177.
+#'
 #' @note
 #' The input vector/matrix \code{'y'} must contain \code{NA}.
-#' 
+#'
 #' @examples
 #' ## Example from Hollander and Wolfe 1999,
 #' ## originally appeared in Brady 1969.
@@ -58,10 +59,10 @@
 #' ## in the urine measured 2 hours after each treatment.
 #'  y <- matrix(c(
 #' 3.88, 5.64, 5.76, 4.25, 5.91, 4.33, 30.58, 30.14, 16.92,
-#' 23.19, 26.74, 10.91, 25.24, 33.52, 25.45, 18.85, 20.45, 
+#' 23.19, 26.74, 10.91, 25.24, 33.52, 25.45, 18.85, 20.45,
 #' 26.67, 4.44, 7.94, 4.04, 4.4, 4.23, 4.36, 29.41, 30.72,
 #' 32.92, 28.23, 23.35, 12, 38.87, 33.12, 39.15, 28.06, 38.23,
-#' 26.65),nrow=6, ncol=6, 
+#' 26.65),nrow=6, ncol=6,
 #' dimnames=list(1:6, LETTERS[1:6]))
 #' print(y)
 #' friedmanTest(y)
@@ -92,13 +93,13 @@ skillingsMackTest.default <- function(y, groups, blocks, ...)
         y <- as.vector(y)
     }
     else {
-      ##  if (any(is.na(groups)) || any(is.na(blocks))) 
+      ##  if (any(is.na(groups)) || any(is.na(blocks)))
       ##      stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks))))) 
+        if (any(diff(c(length(y), length(groups), length(blocks)))))
             stop("y, groups and blocks must have the same length")
-      ##  if (any(table(groups, blocks) != 1)) 
+      ##  if (any(table(groups, blocks) != 1))
       ##      stop("Not an unreplicated complete block design")
-        
+
         DNAME <- paste(deparse(substitute(y)), ",",
                        deparse(substitute(groups)), "and",
                        deparse(substitute(blocks)))
@@ -114,16 +115,16 @@ skillingsMackTest.default <- function(y, groups, blocks, ...)
     if(!ok){
         stop("vectors must all have the same length.")
     }
-    
+
     ## Nr of treatments in the j-th block
     ok <- complete.cases(y, blocks)
     k <- tapply(y[ok], blocks[ok], length)
 
     nb <- nlevels(blocks)
     ng <- nlevels(groups)
-    
+
     ## Friedman type ranking
-    y <- y[order(groups, blocks)] 
+    y <- y[order(groups, blocks)]
     Y <- matrix(y, nrow = nb, ncol = ng, byrow = FALSE)
     R <- Y
     for (j in 1:length(R[, 1])) R[j, ] <- rank(Y[j, ], na.last="keep")
@@ -158,14 +159,14 @@ skillingsMackTest.default <- function(y, groups, blocks, ...)
     for (i in (1: ng)){
         COV[i,i] <- tmp[i]
     }
-        
+
     ## Statistic , requires ginv of package MASS
     T <- t(A) %*% ginv(COV) %*% A
-    
+
     ## assymptotic chi-square
     df <- ng - 1
     PVAL <- pchisq(T, df = df, lower.tail=FALSE)
-    
+
     METHOD <- paste("Skillings-Mack test")
 
     ans <- list(p.value = PVAL,

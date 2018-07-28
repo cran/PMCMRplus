@@ -1,7 +1,7 @@
 # kwAllPairsConover.test.R
 # Part of the R package: PMCMR
 #
-# Copyright (C) 2015-2017 Thorsten Pohlert
+# Copyright (C) 2015-2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -18,11 +18,11 @@
 
 #' @name kwAllPairsConoverTest
 #' @title Conover's All-Pairs Rank Comparison Test
-#' 
+#'
 #' @description
 #' Performs Conover's non-parametric all-pairs comparison test
 #' for Kruskal-type ranked data.
-#' 
+#'
 #' @details
 #' For all-pairs comparisons in an one-factorial layout
 #' with non-normally distributed residuals Conover's non-parametric test
@@ -36,18 +36,18 @@
 #' from the studentized range distribution. Otherwise,
 #' the p-values are computed from the t-distribution using
 #' any of the p-adjustment methods as included in \code{\link{p.adjust}}.
-#' 
+#'
 #' @references
-#' W. J. Conover and R. L. Iman (1979), \emph{On multiple-comparisons
+#' Conover, W. J, Iman,  R. L. (1979) \emph{On multiple-comparisons
 #'  procedures}, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
-#' 
+#'
 #' @template class-PMCMR
 #' @keywords htest nonparametric
 #' @seealso
 #' \code{\link[stats]{Tukey}}, \code{\link[stats]{TDist}},
 #' \code{\link[stats]{p.adjust}}, \code{\link{kruskalTest}},
 #' \code{\link{kwAllPairsDunnTest}}, \code{\link{kwAllPairsNemenyiTest}}
-#' 
+#'
 #' @concept AllPairsComparisonTest
 #' @concept RankANOVA
 #' @example examples/kwAllPairsMC.R
@@ -69,7 +69,7 @@ kwAllPairsConoverTest <- function(x, ...) UseMethod("kwAllPairsConoverTest")
 kwAllPairsConoverTest.default <-
 function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
         ## taken from stats::kruskal.test
-        
+
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -109,12 +109,12 @@ function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
         pos <- 1
         tiesum <- 0
         while (pos <= n) {
-            val <- x.sorted[pos]  
+            val <- x.sorted[pos]
             nt <- length(!is.na(x.sorted[x.sorted==val]))
             pos <- pos + nt
             if (nt > 1){
                 tiesum <- tiesum + nt^3  - nt
-            }	     
+            }
         }
         C <- 1 - tiesum / (n^3 - n)
         C <- min(c(1,C))
@@ -134,7 +134,7 @@ function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
         S2 <-   ( 1 / (n - 1)) * (sum(x.rank^2) - (n * (((n + 1)^2) / 4)))
     }
     compare.stats <- function(i,j) {
-        dif <- R.bar[i] - R.bar[j] 
+        dif <- R.bar[i] - R.bar[j]
         B <- (1 / R.n[i] + 1 / R.n[j])
         D <- (n - 1 - H.cor) / (n - k)
         tval <- dif / sqrt(S2 * B * D)
@@ -144,16 +144,16 @@ function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
                             p.adjust.method="none" )
 
     compare.levels <- function(i,j) {
-        dif <- abs(R.bar[i] - R.bar[j]) 
+        dif <- abs(R.bar[i] - R.bar[j])
         B <- (1 / R.n[i] + 1 / R.n[j])
         D <- (n - 1 - H.cor) / (n - k)
         tval <- dif / sqrt(S2 * B * D)
         pval <- 2 * pt(abs(tval), df=n - k, lower.tail=FALSE)
         return(pval)
     }
-    
+
     if (p.adjust.method == "single-step"){
-  
+
         compare.tukey <- function(i,j) {
             dif <- abs(R.bar[i] - R.bar[j])
             B <- (1 / R.n[i] + 1 / R.n[j])
@@ -170,13 +170,13 @@ function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
         PARMS <- c(k, n - k)
         names(PARMS) <- c("nmeans", "df")
         DIST <- "q"
-        
+
     } else {
         PVAL <- pairwise.table(compare.levels,levels(g),
                                p.adjust.method=p.adjust.method )
         PARMS <- n - k
         names(PARMS) <- "df"
-        DIST <- "t" 
+        DIST <- "t"
     }
     MODEL <- data.frame(x, g)
     ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
@@ -200,10 +200,10 @@ function(formula, data, subset, na.action,
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

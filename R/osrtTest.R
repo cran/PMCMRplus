@@ -1,4 +1,4 @@
-#  Copyright (C) 2017 Thorsten Pohlert
+#  Copyright (C) 2017, 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -23,12 +23,12 @@
 #' @aliases osrtTest
 #'
 #' @template class-htest
-#' 
+#'
 #' @references
-#' A. J. Hayter (1990) A One-Sided Studentised Range
-#' Test for Testing Against a Simple Ordered Alternative.
+#' Hayter, A. J.(1990) A One-Sided Studentised Range
+#' Test for Testing Against a Simple Ordered Alternative,
 #' \emph{Journal of the American Statistical Association}
-#' 85, 778--785.
+#' \bold{85}, 778--785.
 #'
 #' @keywords htest
 #' @importFrom stats ptukey
@@ -72,13 +72,13 @@ function(x, g, ...)
         if (k < 2)
             stop("all observations are in the same group")
     }
-    
+
     xi <- tapply(x, g, mean)
     ni <- tapply(x, g, length)
     k <- nlevels(g)
     n <- length(x)
     df <- n - k
-    
+
     sigma2 <- 0
     c <- 0
     for (i in 1:k){
@@ -88,14 +88,14 @@ function(x, g, ...)
 	}
     }
     sigma <- sqrt(sigma2)
-    
+
     compare.stats <- function(j,i) {
-        dif <- xi[j] - xi[i] 
+        dif <- xi[j] - xi[i]
         A <- sigma / sqrt(2) * sqrt(1 / ni[i] + 1 / ni[j])
         qval <- abs(dif) / A
         return(qval)
     }
-    
+
     val <- pairwise.table(compare.stats,levels(g), p.adjust.method="none" )
     STAT <- max(val, na.rm=TRUE)
     PVAL <- ptukey(STAT, nmeans = k, df = df, lower.tail=FALSE)
@@ -121,10 +121,10 @@ osrtTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

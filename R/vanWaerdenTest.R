@@ -1,6 +1,6 @@
 ##  vanWaerden.test.R
 ##
-##  Copyright (C) 2015, 2016, 2017 Thorsten Pohlert
+##  Copyright (C) 2015-2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -28,19 +28,20 @@
 #' @note
 #' A tie correction is not applied in this function.
 #'
-#' @references
-#' W. J. Conover and R. L. Iman (1979)
-#' \emph{On multiple-comparisons procedures},
-#' Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
-#' 
-#' B. L. van der Waerden (1952) Order tests for the two-sample
-#' problem and their power, \emph{Indagationes Mathematicae}, 14, 453--458.
-#'
+#' @inherit vanWaerdenAllPairsTest references
+# @references
+# W. J. Conover and R. L. Iman (1979)
+# \emph{On multiple-comparisons procedures},
+# Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
+#
+# B. L. van der Waerden (1952) Order tests for the two-sample
+# problem and their power, \emph{Indagationes Mathematicae}, 14, 453--458.
+#
 #' @seealso
-#' \code{\link{kruskalTest}}, \code{\link{normalScoresTest}} 
+#' \code{\link{kruskalTest}}, \code{\link{normalScoresTest}}
 #' @examples
 #' vanWaerdenTest(count ~ spray, data = InsectSprays)
-#' 
+#'
 #' @keywords htest nonparametric
 #' @export
 vanWaerdenTest <- function(x, ...) UseMethod("vanWaerdenTest")
@@ -54,7 +55,7 @@ vanWaerdenTest <- function(x, ...) UseMethod("vanWaerdenTest")
 #' @export
 vanWaerdenTest.default <-
 function(x, g, ...)
-{    
+{
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")

@@ -1,7 +1,7 @@
 ## scheffeTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -34,15 +34,15 @@
 #' The p-values are computed from the F-distribution.
 #'
 #' @template class-PMCMR
-#' 
-#' @references
-#'  J. Bortz (1993) \emph{Statistik für Sozialwissenschaftler}. 4. Aufl.,
-#'  Berlin: Springer.
-#'  
-#'  L. Sachs (1997) \emph{Angewandte Statistik}, New York: Springer.
 #'
-#'  H. Scheffe (1953) A Method for Judging all Contrasts in the Analysis
-#'  of Variance. \emph{Biometrika} 40, 87--110.
+#' @references
+#'  Bortz, J. (1993) \emph{Statistik für Sozialwissenschaftler}. 4. Aufl.,
+#'  Berlin: Springer.
+#'
+#'  Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
+#'
+#'  Scheffe, H. (1953) A Method for Judging all Contrasts in the Analysis
+#'  of Variance, \emph{Biometrika} \bold{40}, 87--110.
 #' @concept AllPairsComparison
 #' @keywords htest
 #' @seealso
@@ -73,7 +73,7 @@ scheffeTest <- function(x, ...) UseMethod("scheffeTest")
 scheffeTest.default <-
 function(x, g, ...){
         ## taken from stats::kruskal.test
-        
+
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -109,16 +109,16 @@ function(x, g, ...){
     s2i <- tapply(x, g, var)
 
     s2in <- 1 / (n - k) * sum(s2i * (ni - 1))
-    
+
     compare.stats <- function(i,j) {
-        dif <- xi[i] - xi[j] 
+        dif <- xi[i] - xi[j]
         A <- s2in * (1 / ni[i] + 1 / ni[j]) * (k - 1)
         fval <- dif^2 / A
         return(fval)
     }
-    
+
     PSTAT <- pairwise.table(compare.stats,levels(g), p.adjust.method="none" )
-    
+
     PVAL <- pf(abs(PSTAT), df1 = (k - 1), df2 = (n - k), lower.tail = FALSE)
 
     MODEL <- data.frame(x, g)
@@ -143,10 +143,10 @@ function(formula, data, subset, na.action, ...)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

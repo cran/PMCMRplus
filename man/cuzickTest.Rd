@@ -102,8 +102,8 @@ bwsTrendTest(x, g)
 
 }
 \references{
-Cuzick, J. (1995). A wilcoxon-type test for trend.
-\emph{Statistics in Medicine}, 4, 87--90.
+Cuzick, J. (1995) A Wilcoxon-type test for trend, \emph{Statistics in Medicine}
+\bold{4}, 87--90.
 }
 \seealso{
 \code{\link{kruskalTest}} and \code{\link{shirleyWilliamsTest}}

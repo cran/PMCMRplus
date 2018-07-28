@@ -23,6 +23,6 @@ frdAllPairsExactTest(reviewers, p.adjust = "bonferroni")
 
 }
 \references{
-L. Sachs (1997) \emph{Angewandte Statistik}, New York: Springer.
+Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
 }
 \keyword{datasets}

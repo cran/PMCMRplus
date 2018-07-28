@@ -1,6 +1,6 @@
 ## leTest.R
-## 
-## Copyright (C) 2017 Thorsten Pohlert
+##
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 ##
 #' @name leTest
 #' @title Testing against Ordered Alternatives (Le's Test)
-#' 
+#'
 #' @description
 #' Performs Le's test for testing against ordered alternatives.
 #' @details
@@ -27,12 +27,12 @@
 #' \theta_k,~\theta_1 < \theta_k}.
 #'
 #' The p-values are estimated from the standard normal distribution.
-#' 
+#'
 #' @template class-htest
 #' @template trendTests
 #' @references
-#' Le, C. T. (1988). A new rank test against ordered alternatives
-#' in k-sample problems. \emph{Biometrical Journal}, 30, 87--92.
+#' Le, C. T. (1988) A new rank test against ordered alternatives
+#' in k-sample problems, \emph{Biometrical Journal} \bold{30}, 87--92.
 #' @export leTest
 leTest <- function(x, ...) UseMethod("leTest")
 
@@ -47,7 +47,7 @@ leTest.default <-
     function(x, g, alternative = c("two.sided", "greater", "less"),...)
 {
     ## taken from stats::kruskal.test
-        
+
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -111,7 +111,7 @@ leTest.default <-
 
     ## z value
     z <- W / sigma
-    
+
     if (alternative == "two.sided"){
         PVAL <- 2 * (min(0.5, pnorm(abs(z), lower.tail=FALSE)))
     } else if (alternative == "greater"){
@@ -119,14 +119,14 @@ leTest.default <-
     } else {
         PVAL <- pnorm(z)
     }
-	
+
 
     METHOD <- paste("Le's rank test for ordered alternatives")
-	
+
     ans <- list(method = METHOD,
                 data.name = DNAME,
                 p.value = PVAL,
-                statistic = c(z = z),  
+                statistic = c(z = z),
                 alternative = alternative,
                 estimate = c(W = W))
     class(ans) <- "htest"
@@ -139,17 +139,17 @@ leTest.default <-
 #' @template one-way-formula
 #' @export
 leTest.formula <-
-function(formula, data, subset, na.action, alternative = c("two.sided", "greater", "less"), 
+function(formula, data, subset, na.action, alternative = c("two.sided", "greater", "less"),
          ...)
 {
     mf <- match.call(expand.dots=FALSE)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

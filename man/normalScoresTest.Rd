@@ -65,9 +65,9 @@ one strict inequality. This function is basically a wrapper function to
 normalScoresTest(count ~ spray, data = InsectSprays)
 }
 \references{
-Lu, H., Smith, P. (1979). Distribution of normal scores statistic
+Lu, H., Smith, P. (1979) Distribution of normal scores statistic
 for nonparametric one-way analysis of variance.
-\emph{Journal of the American Statistical Association}, 74, 715--722.
+\emph{Journal of the American Statistical Association} \bold{74}, 715--722.
 }
 \seealso{
 \code{\link{vanWaerdenTest}}, \code{\link{kruskalTest}},

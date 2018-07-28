@@ -1,6 +1,6 @@
 ##  normalScoresManyOneTest.R
 ##
-##  Copyright (C) 2017 Thorsten Pohlert
+##  Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -33,16 +33,17 @@
 #' t-distribution is used for the calculation of p-values
 #' with a latter p-value adjustment as
 #' performed by \code{\link{p.adjust}}.
-#' 
+#'
 #' @name normalScoresManyOneTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
 #' @concept NormalScores
 #' @concept ManyOneComparison
-#' @references
-#' Lu, H., Smith, P. (1979). Distribution of normal scores statistic
-#' for nonparametric one-way analysis of variance.
-#' \emph{Journal of the American Statistical Association}, 74, 715--722.
+#' @inherit normalScoresAllPairsTest references
+# @references
+# Lu, H., Smith, P. (1979). Distribution of normal scores statistic
+# for nonparametric one-way analysis of variance.
+# \emph{Journal of the American Statistical Association}, 74, 715--722.
 #' @seealso
 #' \code{\link{normalScoresTest}}, \code{\link{normalScoresAllPairsTest}}, \code{\link[SuppDists]{normOrder}}, \code{\link[mvtnorm]{pmvt}}.
 #'
@@ -81,12 +82,12 @@ normalScoresManyOneTest.default <-
             stop("all groups must contain data")
         g <- factor(rep(1 : k, l))
 		#
-        if (is.null(x$p.adjust.method)){ 
+        if (is.null(x$p.adjust.method)){
             p.adjust.method <- p.adjust.methods[1]
         } else {
             p.adjust.method <- x$p.adjust.method
         }
-        if (is.null(x$alternative)){ 
+        if (is.null(x$alternative)){
             alternative <- "two.sided"
         } else {
             alternative <- x$alternative
@@ -110,13 +111,13 @@ normalScoresManyOneTest.default <-
     }
 
     p.adjust.method <- match.arg(p.adjust.method)
-    alternative <- match.arg(alternative)	
-	
+    alternative <- match.arg(alternative)
+
     n <- length(x)
     if (n < 2)
         stop("not enough observations")
     r <- rank(x, ties.method = "random")
-	
+
     # transform to z-scores
     eij <- normOrder(n)
     zscores <- eij[r]
@@ -134,9 +135,9 @@ normalScoresManyOneTest.default <-
         return(tval)
     }
 
-		
+
     pstat <- sapply(2:k, function(i) compare.stats(i))
-	
+
     if (p.adjust.method != "single-step"){
         if (alternative == "two.sided"){
             pval <- 2 * pt(abs(pstat), df=n-k, lower.tail = FALSE)
@@ -165,29 +166,29 @@ normalScoresManyOneTest.default <-
             }
         }
         if (alternative == "two.sided"){
-            padj <- sapply(pstat, function(x) 
+            padj <- sapply(pstat, function(x)
                 1 - pmvt(lower = -rep(abs(x), m),
                          upper = rep(abs(x), m),
                          df = df,
                          corr = cr))
         } else if (alternative == "greater"){
-            padj <- sapply(pstat, function(x) 
+            padj <- sapply(pstat, function(x)
                 1 - pmvt(lower = -Inf,
                          upper = rep(x, m),
                          df = df,
                          corr = cr))
         } else {
-            padj <- sapply(pstat, function(x) 
+            padj <- sapply(pstat, function(x)
                 1 - pmvt(lower = rep(x, m),
                          upper = Inf,
                          df = df,
-                         corr = cr))	
+                         corr = cr))
         }
     }
-    
+
     GRPNAME <- levels(g)
     PVAL <- cbind(padj)
-    PSTAT <- cbind(pstat)	
+    PSTAT <- cbind(pstat)
     colnames(PVAL) <- GRPNAME[1]
     colnames(PSTAT) <- GRPNAME[1]
     rownames(PVAL) <- GRPNAME[2:k]
@@ -216,10 +217,10 @@ normalScoresManyOneTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")
@@ -227,7 +228,7 @@ normalScoresManyOneTest.formula <-
     alternative <- match.arg(alternative)
     names(mf) <- NULL
     y <- do.call("normalScoresManyOneTest",
-                 c(as.list(mf), alternative = alternative, 
+                 c(as.list(mf), alternative = alternative,
                    p.adjust.method = p.adjust.method))
     y$data.name <- DNAME
     y

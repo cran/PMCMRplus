@@ -96,8 +96,8 @@ bwsTrendTest(x, g)
 
 }
 \references{
-Le, C. T. (1988). A new rank test against ordered alternatives
-in k-sample problems. \emph{Biometrical Journal}, 30, 87--92.
+Le, C. T. (1988) A new rank test against ordered alternatives
+in k-sample problems, \emph{Biometrical Journal} \bold{30}, 87--92.
 }
 \seealso{
 \code{\link{kruskalTest}} and \code{\link{shirleyWilliamsTest}}

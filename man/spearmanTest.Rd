@@ -96,8 +96,7 @@ bwsTrendTest(x, g)
 
 }
 \references{
-Kloke, J., McKean, J. W. (2015).
-\emph{Nonparametric statistical methods using R}.
+Kloke, J., McKean, J. W. (2015) \emph{Nonparametric statistical methods using R}.
 Boca Raton, FL: Chapman & Hall/CRC.
 }
 \seealso{

@@ -17,7 +17,7 @@
 #'  Sachs (1997), p. 671 ff.
 #'
 #' @references
-#'  L. Sachs (1997) \emph{Angewandte Statistik}, New York: Springer.
+#'  Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
 #'
 #' @examples
 #' data(reviewers)

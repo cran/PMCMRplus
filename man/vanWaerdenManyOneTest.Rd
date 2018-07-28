@@ -92,12 +92,11 @@ ans <- vanWaerdenManyOneTest(weight ~ group,
 summary(ans)
 }
 \references{
-W. J. Conover and R. L. Iman (1979)
-\emph{On multiple-comparisons procedures},
+Conover, W. J., Iman, R. L. (1979) \emph{On multiple-comparisons procedures},
 Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 
-B. L. van der Waerden (1952) Order tests for the two-sample
-problem and their power, \emph{Indagationes Mathematicae}, 14, 453--458.
+van der Waerden, B. L. (1952) Order tests for the two-sample
+problem and their power, \emph{Indagationes Mathematicae} \bold{14}, 453--458.
 }
 \seealso{
 \code{\link{vanWaerdenTest}}, \code{\link{vanWaerdenAllPairsTest}},

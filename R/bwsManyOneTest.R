@@ -45,7 +45,7 @@
 #' H\eqn{_i: F_0 = F_i} against A\eqn{_i: F_0 \ge F_i, ~~ (1 \le i \le m)}.
 #' The modified test-statistic B* according to Neuhäuser (2001) and its
 #' corresponding Pr(>B*) or Pr(<B*) is computed by sequentally calling
-#' \code{\{link[BWStest]{murakami_stat}} and \code{\{link[BWStest]{murakami_cdf}}
+#' \code{\link[BWStest]{murakami_stat}} and \code{\link[BWStest]{murakami_cdf}}
 #' with \code{flavor = 2}.
 #'
 #' The p-values can be adjusted to account for Type I error
@@ -56,15 +56,15 @@
 #' @keywords htest nonparametric
 #' @concept ManyOneComparison
 #' @references
-#' Baumgartner, W., Weiss, P., Schindler, H. (1998), A nonparametric test for the
-#' general two-sample problem, \emph{Biometrics} 54, 1129--1135.
+#' Baumgartner, W., Weiss, P., Schindler, H. (1998) A nonparametric test for the
+#' general two-sample problem, \emph{Biometrics} \bold{54}, 1129--1135.
 #'
 #' Murakami, H. (2006) K-sample rank test based on modified Baumgartner statistic and its power
-#' comparison, \emph{J. Jpn. Comp. Statist.} 19, 1--13.
+#' comparison, \emph{J. Jpn. Comp. Statist.} \bold{19}, 1--13.
 #'
 #' Neuhäuser, M. (2001) One-side two-sample and trend tests based on a modified
 #' Baumgartner-Weiss-Schindler statistic.
-#' \emph{Journal of Nonparametric Statistics}, 13, 729--739.
+#' \emph{Journal of Nonparametric Statistics} \bold{13}, 729--739.
 #'
 #' @examples
 #' out <- bwsManyOneTest(weight ~ group, PlantGrowth, p.adjust="holm")

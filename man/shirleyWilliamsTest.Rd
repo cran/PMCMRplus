@@ -147,11 +147,11 @@ shirleyWilliamsTest(y ~ g, alternative = "greater")
 
 }
 \references{
-Shirley, E., (1977), Nonparametric Equivalent of Williams Test for Contrasting Increasing
-Dose Levels of a Treatment. \emph{Biometrics}, 33, 386--389.
+Shirley, E., (1977) Nonparametric Equivalent of Williams Test for Contrasting Increasing
+Dose Levels of a Treatment, \emph{Biometrics} \bold{33}, 386--389.
 
-Williams, D.A. (1986), Note on Shirley's nonparametric test for comparing
-several dose levels with a zero-dose control. \emph{Biometrics} 42, 183--186.
+Williams, D. A. (1986) Note on Shirley's nonparametric test for comparing
+several dose levels with a zero-dose control, \emph{Biometrics} \bold{42}, 183--186.
 }
 \seealso{
 \code{\link{williamsTest}}

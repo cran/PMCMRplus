@@ -35,14 +35,15 @@
 #' from the studentized range distribution. Otherwise,
 #' the p-values are computed from the t-distribution using
 #' any of the p-adjustment methods as included in \code{\link{p.adjust}}.
-#' 
-#' @references
-#' W. J. Conover and R. L. Iman (1979), \emph{On multiple-comparisons
-#'  procedures}, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 #'
-#' W. J. Conover (1999), \emph{Practical nonparametric Statistics},
-#'  3rd. Edition, Wiley.
-#'
+#' @inherit durbinAllPairsTest references
+# @references
+# W. J. Conover and R. L. Iman (1979), \emph{On multiple-comparisons
+#  procedures}, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
+#
+# W. J. Conover (1999), \emph{Practical nonparametric Statistics},
+#  3rd. Edition, Wiley.
+#
 #' @keywords htest nonparametric
 #' @concept Friedman
 #' @concept Rank
@@ -84,13 +85,13 @@ frdAllPairsConoverTest.default <-
         y <- as.vector(t(y))
     }
     else {
-        if (any(is.na(groups)) || any(is.na(blocks))) 
+        if (any(is.na(groups)) || any(is.na(blocks)))
             stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks))))) 
+        if (any(diff(c(length(y), length(groups), length(blocks)))))
             stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1)) 
+        if (any(table(groups, blocks) != 1))
             stop("Not an unreplicated complete block design")
-        
+
         DNAME <- paste(deparse(substitute(y)), ",",
                        deparse(substitute(groups)), "and",
                        deparse(substitute(blocks)))
@@ -111,7 +112,7 @@ frdAllPairsConoverTest.default <-
     R.sum <- colSums(r)
     METHOD <- c("Conover's all-pairs test for a two-way",
                 " balanced complete block design")
-    
+
     ## re coded from Conover and Imam 1978
     m <- 1 # replicates set to 1
     S2 <- m / ( m * k -1 ) * (sum(r^2) - m * k * n *
@@ -129,9 +130,9 @@ frdAllPairsConoverTest.default <-
         }
         PSTAT <- pairwise.table(compare.stats,levels(groups),
                                 p.adjust.method="none")
-        
+
         compare.levels <- function(i,j) {
-            dif <- abs(R.sum[i] - R.sum[j]) 
+            dif <- abs(R.sum[i] - R.sum[j])
             tval <- dif / (sqrt(A) * sqrt(B))
             pval <- 2 * pt(q=abs(tval), df=(m * n * k - k - n + 1),
                            lower.tail=FALSE)
@@ -142,7 +143,7 @@ frdAllPairsConoverTest.default <-
         DIST <- "t"
         PARMS <- m * n * k - k - n + 1
         names(PARMS) <- "df"
-        
+
     } else {
         ## use Tukey distribution for multiple comparisons
         compare.stats <- function(i, j){
@@ -152,23 +153,23 @@ frdAllPairsConoverTest.default <-
         }
         PSTAT <- pairwise.table(compare.stats,levels(groups),
                                 p.adjust.method="none")
-        
+
         compare.levels <- function(i,j) {
-            dif <- abs(R.sum[i] - R.sum[j]) 
+            dif <- abs(R.sum[i] - R.sum[j])
             qval <- sqrt(2) * dif / (sqrt(A) * sqrt(B))
             pval <-  ptukey(q=qval, nmeans = k,
                             df= Inf,
                             lower.tail=FALSE)
             return(pval)
         }
-        
+
         PVAL <- pairwise.table(compare.levels, levels(groups),
                                p.adjust.method= "none")
         DIST <- "q"
         PARMS <- c(k, Inf)
         names(PARMS) <- c("nmeans", "df")
     }
-    
+
     colnames(PSTAT) <- GRPNAMES[1:(k-1)]
     rownames(PSTAT) <- GRPNAMES[2:k]
     colnames(PVAL) <- GRPNAMES[1:(k-1)]

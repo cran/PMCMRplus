@@ -1,7 +1,7 @@
 ## frdAllPairsMillerTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C)  2017 Thorsten Pohlert
+## Copyright (C)  2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -33,17 +33,17 @@
 #' A\eqn{_{ij}: \theta_i \ne \theta_j, ~~ i \ne j}.
 #'
 #' The \eqn{p}-values are computed from the chi-square distribution.
-#' 
+#'
 #' @references
-#' J. Bortz J, G. A. Lienert, K. Boehnke (1990), \emph{Verteilungsfreie
+#' Bortz J., Lienert, G. A., Boehnke, K. (1990) \emph{Verteilungsfreie
 #'    Methoden in der Biostatistik}. Berlin: Springer.
-#' 
-#' R. G. Miller Jr. (1996), \emph{Simultaneous statistical inference}.
+#'
+#' Miller Jr., R. G. (1996) \emph{Simultaneous statistical inference}.
 #'  New York: McGraw-Hill.
 #'
-#' E. L. Wike (2006), \emph{Data Analysis. A Statistical Primer for
+#' Wike, E. L. (2006), \emph{Data Analysis. A Statistical Primer for
 #'    Psychology Students}. New Brunswick: Aldine Transaction.
-#' 
+#'
 #' @keywords htest nonparametric
 #' @concept Friedman
 #' @concept Rank
@@ -78,13 +78,13 @@ frdAllPairsMillerTest.default <-
         y <- as.vector(t(y))
     }
     else {
-        if (any(is.na(groups)) || any(is.na(blocks))) 
+        if (any(is.na(groups)) || any(is.na(blocks)))
             stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks))))) 
+        if (any(diff(c(length(y), length(groups), length(blocks)))))
             stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1)) 
+        if (any(table(groups, blocks) != 1))
             stop("Not an unreplicated complete block design")
-            
+
         DNAME <- paste(deparse(substitute(y)), ",",
                        deparse(substitute(groups)), "and",
                        deparse(substitute(blocks)) )
@@ -94,11 +94,11 @@ frdAllPairsMillerTest.default <-
         n <- nlevels(blocks)
         GRPNAMES <- as.character(groups[1:k])
     }
-    
+
     mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
     r <- t(apply(mat, 1L, rank))
     R.mnsum <- colMeans(r)
-        
+
     compare.stats <- function(i,j) {
         dif <- abs(R.mnsum[i] - R.mnsum[j])
         qval <- dif / sqrt(k * (k + 1) / (6 * n))

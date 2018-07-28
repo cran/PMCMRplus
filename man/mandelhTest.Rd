@@ -4,7 +4,7 @@
 \alias{mandelhTest}
 \alias{mandelhTest.default}
 \alias{mandelhTest.formula}
-\title{Mandel's h test according to E 691 ASTM}
+\title{Mandel's h Test According to E 691 ASTM}
 \usage{
 mandelhTest(x, ...)
 
@@ -63,7 +63,7 @@ data(Pentosan)
 mandelhTest(value ~ lab, data=Pentosan, subset=(material == "A"))
 }
 \references{
-Practice E 691, 2005, \emph{Standard Practice for
+Practice E 691 (2005) \emph{Standard Practice for
 Conducting an Interlaboratory Study to Determine the
 Precision of a Test Method}, ASTM International.
 }

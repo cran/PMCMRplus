@@ -1,6 +1,6 @@
 ##  adAllPairsTest.R
 ##
-##  Copyright (C) 2017 Thorsten Pohlert
+##  Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #' @description Performs Anderson-Darling all-pairs comparison test.
 #' @details
 #' For all-pairs comparisons in an one-factorial layout
-#' with non-normally distributed residuals Anderson-Darling's 
+#' with non-normally distributed residuals Anderson-Darling's
 #' all-pairs comparison test can be used. A total of \eqn{m = k(k-1)/2}
 #' hypotheses can be tested. The null hypothesis
 #' H\eqn{_{ij}: F_i(x) = F_j(x)} is tested in the two-tailed test
@@ -32,21 +32,22 @@
 #' The calculated p-values for \code{Pr(>|T2N|)}
 #' can be adjusted to account for Type I error multiplicity
 #' using any method as implemented in \code{\link{p.adjust}}.
-#' 
+#'
 #' @name adAllPairsTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
 #' @concept AllPairsComparison
 #' @references
 #' Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
-#' \emph{Journal of the American Statistical Association}, 82, 9118--924.
+#' \emph{Journal of the American Statistical Association} \bold{82}, 918--924.
+#'
 #' @examples
 #' adKSampleTest(count ~ spray, InsectSprays)
 #'
 #' out <- adAllPairsTest(count ~ spray, InsectSprays, p.adjust="holm")
 #' summary(out)
 #' summaryGroup(out)
-#' 
+#'
 #' @seealso
 #' \code{\link{adKSampleTest}}, \code{\link{adManyOneTest}},
 #' \code{\link[kSamples]{ad.pval}}.
@@ -77,7 +78,7 @@ adAllPairsTest.default <-
             stop("all groups must contain data")
         g <- factor(rep(1 : k, l))
                                         #
-        if (is.null(x$p.adjust.method)){ 
+        if (is.null(x$p.adjust.method)){
             p.adjust.method <- p.adjust.methods[1]
         } else {
             p.adjust.method <- x$p.adjust.method
@@ -103,7 +104,7 @@ adAllPairsTest.default <-
     n <- length(x)
     if (n < 2)
         stop("not enough observations")
-    
+
     p.adjust.method <- match.arg(p.adjust.method)
 
     ##   DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(g)))
@@ -147,10 +148,10 @@ adAllPairsTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

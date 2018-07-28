@@ -1,7 +1,7 @@
 ## uryWigginsHochbergTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 #' @description
 #' Performs Ury-Wiggins and Hochberg's all-pairs comparison test
 #' for normally distributed data with unequal variances.
-#' 
+#'
 #' @template class-PMCMR
 #'
 #' @details
@@ -34,7 +34,7 @@
 #' against the alternative
 #' A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
 #'
-#' 
+#'
 #' The p-values are computed from the t-distribution. The type of test depends
 #' on the selected p-value adjustment method (see also \code{\link{p.adjust}}):
 #' \describe{
@@ -43,17 +43,17 @@
 #' }
 #'
 #' @references
-#' Y. Hochberg (1976) A Modification of the T-Method of Multiple
+#' Hochberg, Y. (1976) A Modification of the T-Method of Multiple
 #' Comparisons for a One-Way Layout With Unequal Variances,
-#' \emph{Journal of the American Statistical Association}, 71, 200--203.
-#'  
-#' H. Ury and A. D. Wiggins (1971) Large Sample and Other
+#' \emph{Journal of the American Statistical Association} \bold{71}, 200--203.
+#'
+#' Ury, H. and Wiggins, A. D. (1971) Large Sample and Other
 #' Multiple Comparisons Among Means, \emph{British Journal of
-#' Mathematical and Statistical Psychology}, 24, 174--194.
+#' Mathematical and Statistical Psychology} \bold{24}, 174--194.
 #'
 #' @keywords htest
 #' @concept allPairsComparisons
-#' 
+#'
 #' @examples
 #' set.seed(245)
 #' mn <- rep(c(1, 2^(1:4)), each=5)
@@ -86,7 +86,7 @@ uryWigginsHochbergTest <- function(x, ...) UseMethod("uryWigginsHochbergTest")
 uryWigginsHochbergTest.default <-
 function(x, g, p.adjust.method = p.adjust.methods, ...){
         ## taken from stats::kruskal.test
-        
+
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -117,7 +117,7 @@ function(x, g, p.adjust.method = p.adjust.methods, ...){
     }
 
     p.adjust.method = match.arg(p.adjust.method)
-    
+
     ## prepare uryWigginsHochberg test
     ni <- tapply(x, g, length)
     n <- sum(ni)
@@ -125,18 +125,18 @@ function(x, g, p.adjust.method = p.adjust.methods, ...){
     s2i <- tapply(x, g, var)
 
     s2in <- 1 / (n - k) * sum(s2i * (ni - 1))
-    
+
     compare.stats <- function(i,j) {
-        dif <- xi[i] - xi[j] 
+        dif <- xi[i] - xi[j]
         A <- (s2i[i] / ni[i] + s2i[j] / ni[j])
         tval <- dif / sqrt(A)
         return(tval)
     }
-    
+
     PSTAT <- pairwise.table(compare.stats,levels(g), p.adjust.method="none" )
 
     compare.levels <- function(i,j) {
-        dif <- xi[i] - xi[j] 
+        dif <- xi[i] - xi[j]
         A <- (s2i[i] / ni[i] + s2i[j] / ni[j])
         tval <- dif / sqrt(A)
         df <- A^2 / (s2i[i]^2 / (ni[i]^2 * (ni[i] - 1)) +
@@ -176,17 +176,17 @@ function(formula, data, subset, na.action,
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")
     names(mf) <- NULL
-    
+
     p.adjust.method = match.arg(p.adjust.method)
-    
+
     y <- do.call("uryWigginsHochbergTest", c(as.list(mf),
                                    p.adjust.method = p.adjust.method))
     y$data.name <- DNAME

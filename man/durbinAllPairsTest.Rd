@@ -72,10 +72,10 @@ ncol=7, nrow=7, byrow=FALSE, dimnames=list(1:7, LETTERS[1:7]))
 durbinAllPairsTest(y)
 }
 \references{
-W. J. Conover and R. L. Iman (1979), \emph{On multiple-comparisons
+Conover, W. J., Iman, R. L. (1979) \emph{On multiple-comparisons
  procedures}, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 
-W. J. Conover (1999), \emph{Practical nonparametric Statistics},
+Conover, W. J. (1999) \emph{Practical nonparametric Statistics},
 3rd. Edition, Wiley.
 }
 \seealso{

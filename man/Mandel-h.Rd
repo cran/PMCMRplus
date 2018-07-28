@@ -5,7 +5,7 @@
 \alias{qmandelh}
 \alias{pmandelh}
 \alias{pmandelh}
-\title{Mandel's h distribution}
+\title{Mandel's h Distribution}
 \usage{
 qmandelh(p, k, lower.tail = TRUE, log.p = FALSE)
 
@@ -45,7 +45,7 @@ Applications. R package version 0.9-26-2.
 qmandelh(p = 0.005/2, k = 7, lower.tail=FALSE)
 }
 \references{
-Practice E 691, 2005, \emph{Standard Practice for
+Practice E 691 (2005) \emph{Standard Practice for
 Conducting an Interlaboratory Study to Determine the
 Precision of a Test Method}, ASTM International.
 }

@@ -1,7 +1,7 @@
 ## manyOneUTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -37,8 +37,8 @@
 #' @template class-PMCMR
 #'
 #' @references
-#' OECD (ed. 2006), \emph{Current approaches in the statistical analysis
-#' of ecotoxicity data: A guidance to application}. OECD Series
+#' OECD (ed. 2006) \emph{Current approaches in the statistical analysis
+#' of ecotoxicity data: A guidance to application}, OECD Series
 #' on testing and assessment, No. 54.
 #' @seealso
 #' \code{\link{wilcox.test}}, \code{\link{pmvnorm}}, \code{\link{Normal}}
@@ -61,10 +61,10 @@ manyOneUTest <- function(x, ...) UseMethod("manyOneUTest")
 #' @importFrom stats complete.cases
 #' @export
 manyOneUTest.default <-
-    function(x, g, alternative = c("two.sided", "greater", "less"), 
+    function(x, g, alternative = c("two.sided", "greater", "less"),
              p.adjust.method = c("single-step", p.adjust.methods),...){
         ## taken from stats::kruskal.test
-        
+
         if (is.list(x)) {
             stop("'x' must be a list with at least 2 elements")
             DNAME <- deparse(substitute(x))
@@ -118,7 +118,7 @@ manyOneUTest.default <-
             C
         }
 
-    # function for pairwise comparisons with one control   
+    # function for pairwise comparisons with one control
         compare.stats <-function(i){
             n1 <- n[1]
             n2 <- n[i]
@@ -140,7 +140,7 @@ manyOneUTest.default <-
 
         # compute values
 	pstat <- sapply(2:k, function(i) compare.stats(i))
-	
+
 	if (p.adjust.method != "single-step"){
 	    # use normal approximation, possibly with p.adjust other than
             # single-step
@@ -154,7 +154,7 @@ manyOneUTest.default <-
             }
             padj <- p.adjust(pval, method = p.adjust.method)
 	} else {
-            
+
 	 ## use function pmvnorm of package mvtnorm
             m <- k - 1
             # correlation matrix
@@ -182,20 +182,20 @@ manyOneUTest.default <-
                 }
             }
             if (alternative == "two.sided"){
-                padj <- sapply(pstat, function(x) 
+                padj <- sapply(pstat, function(x)
                     1 - pmvnorm(lower = -rep(abs(x), m),
                                 upper = rep(abs(x), m),
                                 corr = cr))
             } else if (alternative == "greater"){
-                padj <- sapply(pstat, function(x) 
+                padj <- sapply(pstat, function(x)
                     1 - pmvnorm(lower = -Inf,
                                 upper = rep(x, m),
                                 corr = cr))
             } else {
-                padj <- sapply(pstat, function(x) 
+                padj <- sapply(pstat, function(x)
                     1 - pmvnorm(lower = rep(x, m),
                                 upper = Inf,
-                                corr = cr))	
+                                corr = cr))
             }
         }
 
@@ -206,11 +206,11 @@ manyOneUTest.default <-
 	colnames(PVAL) <- GRPNAMES[1]
 	rownames(PSTAT) <- GRPNAMES[2:k]
 	rownames(PVAL) <- GRPNAMES[2:k]
-	
+
 	DIST <- "z"
 
-        METHOD <- paste("Wilcoxon, Mann, Whittney U-test\n", 
-		           "\tfor multiple comparisons with one control", 
+        METHOD <- paste("Wilcoxon, Mann, Whittney U-test\n",
+		           "\tfor multiple comparisons with one control",
 						sep="")
         MODEL <- data.frame(x, g)
         ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
@@ -234,17 +234,17 @@ manyOneUTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")
     alternative <- match.arg(alternative)
     p.adjust.method <- match.arg(p.adjust.method)
     names(mf) <- NULL
-    y <- do.call("manyOneUTest", c(as.list(mf), alternative = alternative, 
+    y <- do.call("manyOneUTest", c(as.list(mf), alternative = alternative,
                                   p.adjust.method = p.adjust.method))
     y$data.name <- DNAME
     y

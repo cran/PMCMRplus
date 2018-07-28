@@ -109,10 +109,10 @@ ans <- kwManyOneNdwTest(weight ~ group, data = PlantGrowth,
 summary(ans)
 }
 \references{
-O. J. Dunn (1964). Multiple comparisons using rank sums.
-\emph{Technometrics}, 6, 241-252.
+Dunn, O. J. (1964) Multiple comparisons using rank sums,
+\emph{Technometrics} \emph{6}, 241--252.
 
-S. Siegel, N. J. Castellan Jr. (1988), \emph{Nonparametric Statistics
+Siegel, S., Castellan Jr., N. J. (1988) \emph{Nonparametric Statistics
  for The Behavioral Sciences}. New York: McGraw-Hill.
 }
 \seealso{

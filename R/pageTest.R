@@ -1,7 +1,7 @@
 ## pageTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -18,19 +18,19 @@
 
 #' @name pageTest
 #' @title Page Rank Sum Test
-#' 
+#'
 #' @description
 #' Performs Page's ordered aligned rank sum test.
 #'
 #' @template class-htest
 #'
 #' @references
-#' E. B. Page (1963), Ordered hypotheses for multiple treatments: A
-#' significance test for linear ranks. \emph{Journal of the
-#' American Statistical Association} 58, 216--230.
+#' Page, E. B. (1963) Ordered hypotheses for multiple treatments: A
+#' significance test for linear ranks, \emph{Journal of the
+#' American Statistical Association} \bold{58}, 216--230.
 #'
-#' L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
-#' 
+#' Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
+#'
 #' @examples
 #' ## Sachs (1997), pp. 671 ff.
 #' ## 9 reviewers (blocks)
@@ -67,11 +67,11 @@ pageTest.default <-
             GRPNAMES <- colnames(y)
         }
         else {
-            if (any(is.na(groups)) || any(is.na(blocks))) 
+            if (any(is.na(groups)) || any(is.na(blocks)))
                 stop("NA's are not allowed in groups or blocks")
-            if (any(diff(c(length(y), length(groups), length(blocks))))) 
+            if (any(diff(c(length(y), length(groups), length(blocks)))))
                 stop("y, groups and blocks must have the same length")
-            if (any(table(groups, blocks) != 1)) 
+            if (any(table(groups, blocks) != 1))
                 stop("Not an unreplicated complete block design")
 
             DNAME <- paste(deparse(substitute(y)), ",",
@@ -94,8 +94,8 @@ pageTest.default <-
         L <- sum(R.sum * 1:k)
         eL <- n * k * (k + 1)^2 / 4
         varL <- n * k^2 * (k + 1) * (k^2 - 1) / 144
-      
-        METHOD <- paste("Page's ordered aligned rank sum test")    
+
+        METHOD <- paste("Page's ordered aligned rank sum test")
         STAT <- (L - eL - 1/2) / sqrt(varL)
 
         if (alternative == "two.sided"){

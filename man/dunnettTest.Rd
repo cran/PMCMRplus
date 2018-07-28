@@ -85,11 +85,11 @@ summary(dunnettTest(x, g, alternative = "greater"))
 
 }
 \references{
-Dunnett, C. W. (1955), A multiple comparison procedure for comparing several
-  treatments with a control. \emph{Journal of the American Statistical Association},
-  50, 1096–1121.
+Dunnett, C. W. (1955) A multiple comparison procedure for comparing several
+  treatments with a control. \emph{Journal of the American Statistical Association}
+  \bold{50}, 1096–1121.
 
- OECD (ed. 2006), \emph{Current approaches in the statistical analysis
+ OECD (ed. 2006) \emph{Current approaches in the statistical analysis
    of ecotoxicity data: A guidance to application - Annexes}. OECD Series
    on testing and assessment, No. 54.
 }

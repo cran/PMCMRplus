@@ -51,7 +51,7 @@ test statistic is assymptotically chi-squared distributed.
 Consequently, the default test distribution is \code{dist = "Chisquare"}.
 
 If \code{dist = "FDist"} is selected, than the approach of
-Conover and Imam (1981) is performed. 
+Conover and Imam (1981) is performed.
 The Friedman Test using the \eqn{F}-distribution leads to
 the same results as doing an two-way Analysis of Variance without
 interaction on rank transformed data.
@@ -111,11 +111,11 @@ summary(aov(y ~ g + Error(b), data = dataf))
 
 }
 \references{
-W. J. Conover, R. L. Iman (1981), Rank transformations as a bridge
+Conover, W. J., Iman, R. L. (1981) Rank transformations as a bridge
  between parametric and nonparametric statistics, \emph{The American
-   Statistician} 35, 124--129.
- 
- L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
+   Statistician} \bold{35}, 124--129.
+
+ Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 }
 \seealso{
 \code{\link{friedman.test}}

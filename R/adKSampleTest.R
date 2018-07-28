@@ -1,6 +1,6 @@
 ## adKSampleTest.R
-## 
-## Copyright (C) 2017 Thorsten Pohlert
+##
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -17,10 +17,10 @@
 ##
 #' @name adKSampleTest
 #' @title Anderson-Darling k-Sample Test
-#' 
+#'
 #' @description
 #' Performs Anderson-Darling k-sample test.
-#' 
+#'
 #' @details
 #' The null hypothesis, H\eqn{_0: F_1 = F_2 = \ldots = F_k}
 #' is tested against the alternative,
@@ -32,8 +32,10 @@
 #' The p-values are estimated with the extended empirical function
 #' as implemented in \code{\link[kSamples]{ad.pval}} of
 #' the package \pkg{kSamples}.
-#' 
+#'
 #' @template class-htest
+#'
+#' @inherit adAllPairsTest references
 #'
 #' @seealso
 #' \code{\link{adAllPairsTest}}, \code{\link{adManyOneTest}},
@@ -53,10 +55,11 @@
 #'   x = x <- c(x, y, z))
 #'
 #' adKSampleTest(x ~ g, datf)
-#' 
-#' @references
-#' Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
-#' \emph{Journal of the American Statistical Association}, 82, 9118--924.
+#'
+# @references
+# Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
+# \emph{Journal of the American Statistical Association} \bold{82}, 918--924.
+#'
 #' @export adKSampleTest
 adKSampleTest <- function(x, ...) UseMethod("adKSampleTest")
 
@@ -71,7 +74,7 @@ adKSampleTest.default <-
     function(x, g, ...)
 {
     ## taken from stats::kruskal.test
-        
+
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -106,13 +109,13 @@ adKSampleTest.default <-
     ix <- order(as.character(g))
     g <- g[ix]
     x <- x[ix]
-    
+
     ## prepare
     n <- tapply(x, g, length)
     N <- sum(n)
 
 #    ## Function ADstat without ties
-#    ADstat <- function(x, g){      
+#    ADstat <- function(x, g){
 #        o <- rank(x)
 #        ## local variables
 #        M <- matrix(NA, ncol=N, nrow=k)
@@ -122,11 +125,11 @@ adKSampleTest.default <-
 #            M[i,] <- sapply(Z, function(z)
 #                length(o[g == lev[i] & o <= z]))
 #        }
-#        
+#
 #        tmp1 <- 0
 #        j <- 1:(N-1)
 #        for (i in 1:k){
-#            tmp2 <- sum( (N * M[i,j] - j * n[i])^2 / (j * (N - j)))            # 
+#            tmp2 <- sum( (N * M[i,j] - j * n[i])^2 / (j * (N - j)))            #
 #            tmp1 <- tmp1 + 1/n[i] * tmp2
 #        }
 #        AsqkN <- 1/N * tmp1
@@ -150,7 +153,7 @@ adKSampleTest.default <-
         }
 
         l <- sapply(1:L, function(j) sum(f[,j]))
-        
+
         tmp <- rep(NA,k)
         for (i in 1:k){
             tm <- 0
@@ -162,11 +165,11 @@ adKSampleTest.default <-
                     (Bj * (N - Bj)))
             }
             tmp[i] <- tm
-        } 
+        }
         AsqkN <- sum(1/n * tmp)
         return(AsqkN)
     }
-    
+
     ## Check for ties
     ## ties <- sum(table(x) - 1)
 
@@ -175,7 +178,7 @@ adKSampleTest.default <-
 #    } else {
     AsqkN <- ADstatV1(x, g)
 #    }
-    
+
     ## Calculate varAsqkN
     H <- sum(1/n)
     h <- sum(1/(1:(N-1)))
@@ -183,7 +186,7 @@ adKSampleTest.default <-
     for (i in 1:(N-2)){
         G <- G + sum( 1 / ((N - i) * (i+1):(N-1)))
     }
-    
+
     ## coefficients
     a <- (4 * G - 6) * (k - 1) + (10 - 6 * G) * H
     b <- (2 * G - 4) * k^2 + 8 * h * k +
@@ -195,13 +198,13 @@ adKSampleTest.default <-
 
     varAsqkN <- (a * N^3 + b * N^2 + c * N + d) /
         ((N - 1) * (N - 2) * (N- 3))
-    
+
     m <- k - 1
     TkN <- (AsqkN - m) / sqrt(varAsqkN)
 
     ## p-value from package kSample
     PVAL <- ad.pval(tx=TkN, m=m, version=1)
-    
+
     ## Interpolation coefficients according to
     ## Scholz and Stephens, Tab 2, p. 920
  ###   alpha <- c(0.25, 0.1, 0.05, 0.025, 0.01)
@@ -222,9 +225,9 @@ adKSampleTest.default <-
 ##        gt.TkN <- length(t.AA[t.AA > TkN])
 ##        PVAL <- gt.TkN / replicates
 ##    }
-##    
+##
     METHOD <- paste("Anderson-Darling k-sample test")
-	
+
     ans <- list(method = METHOD,
                 data.name = DNAME,
                 p.value = PVAL,
@@ -247,10 +250,10 @@ function(formula, data, subset, na.action, ...)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

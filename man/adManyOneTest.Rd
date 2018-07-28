@@ -89,7 +89,7 @@ summary(ans)
 }
 \references{
 Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
-\emph{Journal of the American Statistical Association}, 82, 9118--924.
+\emph{Journal of the American Statistical Association} \bold{82}, 918--924.
 }
 \seealso{
 \code{\link{adKSampleTest}}, \code{\link{adAllPairsTest}},

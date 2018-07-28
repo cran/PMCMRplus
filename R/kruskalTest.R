@@ -1,7 +1,7 @@
 # kruskal_R
 # Part of the R package: PMCMR
 #
-# Copyright (C) 2017 Thorsten Pohlert
+# Copyright (C) 2017, 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -18,10 +18,10 @@
 #
 #   Uses pKruskalWallis of package SuppDists
 #
-#   source: 
+#   source:
 #   W. J. Conover, R. L. Iman (1981) Rank transformations
 #   as a bridge between parametric and nonparametric statistics,
-#   The American Statistician 35 (3), 124--129.  
+#   The American Statistician 35 (3), 124--129.
 
 #' @title Kruskal-Wallis Rank Sum Test
 #' @description
@@ -32,7 +32,7 @@
 #' the H\eqn{_0: F_1(x) = F_2(x) = \ldots = F_k(x)} against
 #' the H\eqn{_\mathrm{A}: F_i (x) \ne F_j(x)~ (i \ne j)} with at least
 #' one strict inequality.
-#' 
+#'
 #' As the Kruskal-Wallis H-statistic is assymptotically
 #' chi-squared distributed with \eqn{v = k - 1} degree
 #' of freedom, the default test distribution is consequently
@@ -43,21 +43,23 @@
 #' \pkg{SuppDists}. For \code{dist = "FDist"}
 #' the proposed method of Conover and Imam (1981) is used, which is
 #' equivalent to a one-way ANOVA F-test using rank transformed data
-#' (see examples). 
+#' (see examples).
 #'
-#' @references
-#'  W. J. Conover, R. L. Iman (1981) Rank transformations as a bridge
-#'  between parametric and nonparametric statistics, \emph{The American
-#'    Statistician} 35, 124--129.
-#'  
-#'  L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
+#' @inherit friedmanTest references
+#'
+# @references
+#  W. J. Conover, R. L. Iman (1981) Rank transformations as a bridge
+#  between parametric and nonparametric statistics, \emph{The American
+#    Statistician} 35, 124--129.
+#
+#  L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
 #'
 #' @seealso
 #'  \code{\link{kruskal.test}}, \code{\link[SuppDists]{pKruskalWallis}},
 #'  \code{\link{Chisquare}}, \code{\link{FDist}}
 #'
 #' @template class-htest
-#' 
+#'
 #' @examples
 #' ## Hollander & Wolfe (1973), 116.
 #' ## Mucociliary efficiency from the rate of removal of dust in normal
@@ -142,7 +144,7 @@ kruskalTest.default <-
     R.n <- tapply(!is.na(x), g, length)
     k <- nlevels(g)
     n <- sum(R.n)
-    
+
     getties <- function(x) {
         n <- length(x)
         t <- table(x)
@@ -150,7 +152,7 @@ kruskalTest.default <-
         C <- min(1, C)
         return(C)
     }
-		
+
 
     C <- getties(x.rank)
     if (C != 1) warning("Ties are present. Quantiles were corrected for ties.")
@@ -165,7 +167,7 @@ kruskalTest.default <-
         names(PSTAT) <- "chi-squared"
         names(PARMS) <- "df"
     } else if (dist == "KruskalWallis"){
-        
+
         ## pKruskalWallis from package SuppDists
         U <- sum(1 / R.n)
         c <- k
@@ -176,7 +178,7 @@ kruskalTest.default <-
                                lower.tail = FALSE)
         names(PSTAT) <- "H"
         names(PARMS) <- c("k", "U", "N")
-        
+
     } else {
         ## F distribution
         N <- n
@@ -210,10 +212,10 @@ kruskalTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

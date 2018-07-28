@@ -1,7 +1,7 @@
 ## goreTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 #' @name goreTest
 #' @param y a numeric vector of data values.
 #' @param groups a vector or factor object giving the group for the
-#'          corresponding elements of \code{"y"}. 
+#'          corresponding elements of \code{"y"}.
 #' @param blocks a vector or factor object giving the group for the
 #'          corresponding elements of \code{"y"}.
 #' @template class-htest
@@ -38,7 +38,8 @@
 #' @references
 #' Gore, A. P. (1975) Some nonparametric tests and selection
 #' procedures for main effects in two-way layouts.
-#' \emph{Ann. Inst. Stat. Math.} 27, 487--500.
+#' \emph{Ann. Inst. Stat. Math.} \bold{27}, 487--500.
+#'
 #' @keywords htest nonparametric
 #' @seealso
 #' \code{\link{friedmanTest}}, \code{\link{skillingsMackTest}},
@@ -67,21 +68,22 @@
 #' 97,C,Heavy
 #' 108,C,Heavy")
 #' con <- textConnection(X)
-#' x <- read.table(con, header=FALSE,sep=",")
+#' x <- read.table(con, header=FALSE, sep=",")
+#' close(con)
 #' colnames(x) <- c("Yield", "Variety", "SoilType")
-#' goreTest(y=x$Yield, groups=x$Variety, blocks=x$SoilType)
+#' goreTest(y = x$Yield, groups = x$Variety, blocks = x$SoilType)
 #' @importFrom stats pchisq
 #' @export
 goreTest <- function(y, groups, blocks)
 {
     DNAME <- paste(deparse(substitute(y)), ",",
                    deparse(substitute(groups)), "and",
-                   deparse(substitute(blocks))) 
-    if (any(is.na(groups)) || any(is.na(blocks))) 
+                   deparse(substitute(blocks)))
+    if (any(is.na(groups)) || any(is.na(blocks)))
         stop("NA's are not allowed in groups or blocks")
-    if (any(diff(c(length(y), length(groups), length(blocks))))) 
+    if (any(diff(c(length(y), length(groups), length(blocks)))))
         stop("y, groups and blocks must have the same length")
-    if (any(is.na(y))) 
+    if (any(is.na(y)))
         stop("NA's are not allowed in y")
 
     groups <- factor(groups)
@@ -143,7 +145,7 @@ goreTest <- function(y, groups, blocks)
                             tmp <- tmp + phi.fn(Xijk[k] - Xiijl[l])
                         }
                     }
-                    U[i] <- U[i] + tmp / (nij * niij) 
+                    U[i] <- U[i] + tmp / (nij * niij)
                 }
             }
         }
@@ -153,7 +155,7 @@ goreTest <- function(y, groups, blocks)
         (sum((U - (v - 1) * b / 2)^2 / qi) -
          sum((U - (v - 1) * b / 2) / qi)^2 / qstar)
     df <- v - 1
-    
+
     PVAL <- pchisq(S, df = df, lower.tail=FALSE)
     METHOD <- paste(c("Gore test with multiple observations per cell"))
 

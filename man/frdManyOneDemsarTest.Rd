@@ -96,8 +96,8 @@ can be used for the adjustment of \eqn{p}-values.
  
 }
 \references{
-J. Demsar (2006), Statistical comparisons of classifiers over multiple
- data sets, \emph{Journal of Machine Learning Research}, 7, 1--30.
+Demsar, J. (2006) Statistical comparisons of classifiers over multiple
+ data sets, \emph{Journal of Machine Learning Research} \bold{7}, 1--30.
 }
 \seealso{
 \code{\link{friedmanTest}}, \code{\link[stats]{friedman.test}},

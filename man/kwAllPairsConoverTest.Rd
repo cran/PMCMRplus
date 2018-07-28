@@ -96,7 +96,7 @@ ans <- kwAllPairsNemenyiTest(count ~ spray, data = InsectSprays)
 summary(ans)
 }
 \references{
-W. J. Conover and R. L. Iman (1979), \emph{On multiple-comparisons
+Conover, W. J, Iman,  R. L. (1979) \emph{On multiple-comparisons
  procedures}, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 }
 \seealso{

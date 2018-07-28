@@ -1,7 +1,7 @@
 ## Dgrubbs.R
 # Part of the R package: PMCMRplus
 #
-# Copyright (C) 2017 Thorsten Pohlert
+# Copyright (C) 2017, 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -21,15 +21,15 @@
 #' @description Distribution function for Grubbs D* distribution.
 #'
 #' @aliases pdgrubbs
-#' 
+#'
 #' @references
-#' Grubbs, F.E. (1950) Sample criteria for testing outlying observations.
-#' \emph{Ann. Math. Stat.} 21, 27--58.
-#' 
+#' Grubbs, F.E. (1950) Sample criteria for testing outlying observations,
+#' \emph{Ann. Math. Stat.} \bold{21}, 27--58.
+#'
 #' Wilrich, P.-T. (2011) Critical values of Mandel's h and k,
-#' Grubbs and the Cochran test statistic. \emph{Adv. Stat. Anal.}.
+#' Grubbs and the Cochran test statistic, \emph{Adv. Stat. Anal.}.
 #' \url{http://dx.doi.org/10.1007/s10182-011-0185-y}.
-#' 
+#'
 #' @param q vector of quantiles.
 #' @param n total sample size.
 #' @param m number of Monte-Carlo replicates. Defaults to \code{10,000}.
@@ -62,7 +62,7 @@ pdgrubbs <- function(q, n, m = 1E4, lower.tail = TRUE, log.p = FALSE)
                  n = as.integer(n[i]),
                  m = as.integer(m[i]),
                  p = as.double(0))$p)
-                    
+
     if (lower.tail){
         p <- 1 - p
     }

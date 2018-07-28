@@ -1,7 +1,7 @@
 ## print.mandel.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ print.mandel <- function(x, ...)
     }
     if(grepl("h", x$method)){
         P <- "Pr(>|h|)"
- 
+
     } else {
         P <- "Pr(>k)"
     }
@@ -47,7 +47,7 @@ print.mandel <- function(x, ...)
     message("Nr. of replicates: ", x$n)
     symp <- symnum(x$p.value, corr=FALSE,
                    cutpoints = c(0,  .001,.01,.05, .1, 1),
-                   symbols = c("***","**","*","."," "))    
+                   symbols = c("***","**","*","."," "))
     out <- data.frame(format.pval(x$p.value), symp)
     rownames(out) <- x$grouplev
     colnames(out) <- c(P,"")

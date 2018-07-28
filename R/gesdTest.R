@@ -1,7 +1,7 @@
 ## gesdTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -21,10 +21,10 @@
 #' Performs Rosner's generalized extreme studentized deviate
 #' procedure to detect up-to \code{maxr} outliers in a
 #' univariate sample that follows an approximately normal distribution.
-#' 
+#'
 #' @references
-#' Rosner, B. (1983), Percentage Points for a Generalized ESD
-#' Many-Outlier Procedure, \emph{Technometrics}, 25, 165--172.
+#' Rosner, B. (1983) Percentage Points for a Generalized ESD
+#' Many-Outlier Procedure, \emph{Technometrics} \bold{25}, 165--172.
 #'
 #' @examples
 #' ## Taken from Rosner (1983):
@@ -44,7 +44,7 @@
 #'
 #' ## summary method
 #' summary(out)
-#' 
+#'
 #' @importFrom stats qt
 #' @importFrom stats sd
 #' @keywords htest univariate
@@ -61,7 +61,7 @@ gesdTest <- function(x, maxr){
     } else if (n <15) {
         warning("Due to sample-size, results are 'not reasonable'")
     }
-        
+
     if(maxr > n){
         stop("Number of potential outliers > sample-size. Reduce 'maxr'")
     }
@@ -127,7 +127,7 @@ print.gesdTest <- function(x, ...)
 #' @export
 summary.gesdTest <- function(object, ...)
 {
-    
+
     cat("\n\t", object$method, "\n\n")
     n <- length(object$p.value)
 
@@ -143,11 +143,11 @@ summary.gesdTest <- function(object, ...)
         }
         outl[i] <- tmp
     }
-    
+
     df <- data.frame(outl, object$statistic,
                      format.pval(object$p.value), symp)
     colnames(df) <- c("i", "R", "Pr(>|R|)", "")
-    
+
     cat("Outliers tested:\n")
     print(df)
     cat("\nalternative hypothesis: ", object$alternative, "\n")

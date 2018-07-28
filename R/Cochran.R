@@ -1,7 +1,7 @@
 ## qcochran.R
 # Part of the R package: PMCMRplus
 #
-# Copyright (C) 2017 Thorsten Pohlert
+# Copyright (C) 2017, 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -22,15 +22,15 @@
 #'     for Cochran's distribution.
 #'
 #' @aliases qcochran
-#' 
+#'
 #' @references
 #' Cochran, W.G. (1941) The distribution of the largest of a set of estimated
-#' variances as a fraction of their total. \emph{Ann. Eugen.} 11, 47--52.
+#' variances as a fraction of their total. \emph{Ann. Eugen.} \bold{11}, 47--52.
 #'
 #' Wilrich, P.-T. (2011) Critical values of Mandel's h and k,
 #' Grubbs and the Cochran test statistic. \emph{Adv. Stat. Anal.}.
 #' \url{http://dx.doi.org/10.1007/s10182-011-0185-y}.
-#' 
+#'
 #' @param p vector of probabilities.
 #' @param k number of groups.
 #' @param n (average) sample size of the k groups.
@@ -52,13 +52,13 @@ qcochran <- function(p, k, n, lower.tail = TRUE, log.p = FALSE)
     if (log.p){
         p <- exp(p)
     }
-    
+
     if (!lower.tail){
         pp <- (1 - p) / k
     } else {
         pp <- p / k
     }
- 
+
     C <- 1 / (1 + (k - 1) * qf(p = pp,
                                df1=(k-1) * (n-1),
                                df2 = n-1,
@@ -74,14 +74,14 @@ qcochran <- function(p, k, n, lower.tail = TRUE, log.p = FALSE)
 #' @importFrom stats pf
 #' @keywords distribution
 #' @export
-pcochran <-function (q, k, n, lower.tail = TRUE, log.p = FALSE) 
+pcochran <-function (q, k, n, lower.tail = TRUE, log.p = FALSE)
 {
     qF <- (1 / q - 1) / (k - 1)
     pval <- 1 - k * pf(q = qF,
                        df1 = (k - 1) * (n - 1),
                        df2 = n - 1,
                        lower.tail=TRUE)
-    
+
     if (!lower.tail) {
         pval <- 1 - pval
     }

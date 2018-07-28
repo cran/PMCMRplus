@@ -81,13 +81,13 @@ anova(fit)
 summary(scheffeTest(x, g))
 }
 \references{
-J. Bortz (1993) \emph{Statistik für Sozialwissenschaftler}. 4. Aufl.,
+Bortz, J. (1993) \emph{Statistik für Sozialwissenschaftler}. 4. Aufl.,
  Berlin: Springer.
- 
- L. Sachs (1997) \emph{Angewandte Statistik}, New York: Springer.
 
- H. Scheffe (1953) A Method for Judging all Contrasts in the Analysis
- of Variance. \emph{Biometrika} 40, 87--110.
+ Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
+
+ Scheffe, H. (1953) A Method for Judging all Contrasts in the Analysis
+ of Variance, \emph{Biometrika} \bold{40}, 87--110.
 }
 \seealso{
 \code{\link{FDist}}, \code{\link{tukeyTest}}

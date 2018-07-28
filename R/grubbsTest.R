@@ -1,7 +1,7 @@
 # grubbsTest.R
 # Part of the R package: PMCMRplus
 #
-# Copyright (C) 2017 Thorsten Pohlert
+# Copyright (C) 2017, 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@
 #' The p-value is computed with the function \code{\link{pgrubbs}}.
 #' @param x a numeric vector of data.
 #' @param alternative the alternative hypothesis.
-#' Defaults to \code{"two.sided"}. 
+#' Defaults to \code{"two.sided"}.
 #' @template class-htest
 #' @inherit Grubbs references
 #' @keywords htest
@@ -83,14 +83,14 @@ grubbsTest <- function(x, alternative = c("two.sided", "greater", "less")){
     Mean <- mean(x)
     S <- sd(x)
     n <- length(x)
-    
+
     if (alternative == "two.sided"){
         MxAbs <- max(abs(x - Mean))
         G <- MxAbs / S
         pval <- min(1, 2 * pgrubbs(G, n, lower.tail=FALSE))
         i <- which(MxAbs == abs(x-Mean))
         val <- x[i]
-        
+
     } else if (alternative == "greater"){
         val <- max(x)
         G <- (val - Mean) / S
@@ -107,7 +107,7 @@ grubbsTest <- function(x, alternative = c("two.sided", "greater", "less")){
 
     names(val) <- NULL
     names(i) <- NULL
-    
+
     ans <- list(
         method = "Grubbs single outlier test",
         alternative = alternative,

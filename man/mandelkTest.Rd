@@ -4,7 +4,7 @@
 \alias{mandelkTest}
 \alias{mandelkTest.default}
 \alias{mandelkTest.formula}
-\title{Mandel's k test according to E 691 ASTM}
+\title{Mandel's k Test According to E 691 ASTM}
 \usage{
 mandelkTest(x, ...)
 
@@ -62,7 +62,7 @@ data(Pentosan)
 mandelkTest(value ~ lab, data=Pentosan, subset=(material == "A"))
 }
 \references{
-Practice E 691, 2005, \emph{Standard Practice for
+Practice E 691 (2005) \emph{Standard Practice for
 Conducting an Interlaboratory Study to Determine the
 Precision of a Test Method}, ASTM International.
 }

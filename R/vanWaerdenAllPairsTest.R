@@ -1,6 +1,6 @@
 ##  vanWaerdenAllPairsTest.R
 ##
-##  Copyright (C) 2015-2017 Thorsten Pohlert
+##  Copyright (C) 2015-2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -34,19 +34,18 @@
 #' t-distribution is used for the calculation of p-values
 #' with a latter p-value adjustment as
 #' performed by \code{\link{p.adjust}}.
-#' 
+#'
 #' @name vanWaerdenAllPairsTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
 #' @concept NormalScores
 #' @concept AllPairsComparison
 #' @references
-#' W. J. Conover and R. L. Iman (1979)
-#' \emph{On multiple-comparisons procedures},
+#' Conover, W. J., Iman, R. L. (1979) \emph{On multiple-comparisons procedures},
 #' Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
-#' 
-#' B. L. van der Waerden (1952) Order tests for the two-sample
-#' problem and their power, \emph{Indagationes Mathematicae}, 14, 453--458.
+#'
+#' van der Waerden, B. L. (1952) Order tests for the two-sample
+#' problem and their power, \emph{Indagationes Mathematicae} \bold{14}, 453--458.
 #' @seealso
 #' \code{\link{vanWaerdenTest}}, \code{\link{vanWaerdenManyOneTest}},
 #' \code{\link[SuppDists]{normOrder}}.
@@ -80,7 +79,7 @@ vanWaerdenAllPairsTest.default <-
             stop("all groups must contain data")
         g <- factor(rep(1 : k, l))
                                         #
-        if (is.null(x$p.adjust.method)){ 
+        if (is.null(x$p.adjust.method)){
             p.adjust.method <- p.adjust.methods[1]
         } else {
             p.adjust.method <- x$p.adjust.method
@@ -117,9 +116,9 @@ vanWaerdenAllPairsTest.default <-
     STATISTIC <- (1 / s2) * sum(AJ^2 / NJ)
     PARAMETER <- k - 1
     A.mn <- AJ / NJ
-    
+
     compare.stats <- function(i,j) {
-        dif <- abs(A.mn[i] - A.mn[j]) 
+        dif <- abs(A.mn[i] - A.mn[j])
         B <- (1 / NJ[i] + 1 / NJ[j])
         tval <- dif / sqrt(s2 * (n-1-STATISTIC)/(n-k) * B)
         return(tval)
@@ -129,7 +128,7 @@ vanWaerdenAllPairsTest.default <-
 
     if (p.adjust.method != "single-step"){
         compare.levels <- function(i,j) {
-            dif <- abs(A.mn[i] - A.mn[j]) 
+            dif <- abs(A.mn[i] - A.mn[j])
             B <- (1 / NJ[i] + 1 / NJ[j])
             tval <- dif / sqrt(s2 * (n-1-STATISTIC)/(n-k) * B)
             pval <- 2 * pt(abs(tval), df=n - k, lower.tail=FALSE)
@@ -142,7 +141,7 @@ vanWaerdenAllPairsTest.default <-
         names(PARMS) <- "df"
     } else {
         compare.tukey <- function(i,j) {
-            dif <- abs(A.mn[i] - A.mn[j]) 
+            dif <- abs(A.mn[i] - A.mn[j])
             B <- (1 / NJ[i] + 1 / NJ[j])
             qval <- sqrt(2) * dif / sqrt(s2 * (n-1-STATISTIC)/(n-k) * B)
             pval <- ptukey(abs(qval), nmeans = k, df=n - k, lower.tail=FALSE)
@@ -178,10 +177,10 @@ vanWaerdenAllPairsTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

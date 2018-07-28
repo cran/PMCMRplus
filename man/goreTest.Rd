@@ -64,14 +64,15 @@ X <-c("130,A,Light
 97,C,Heavy
 108,C,Heavy")
 con <- textConnection(X)
-x <- read.table(con, header=FALSE,sep=",")
+x <- read.table(con, header=FALSE, sep=",")
+close(con)
 colnames(x) <- c("Yield", "Variety", "SoilType")
-goreTest(y=x$Yield, groups=x$Variety, blocks=x$SoilType)
+goreTest(y = x$Yield, groups = x$Variety, blocks = x$SoilType)
 }
 \references{
 Gore, A. P. (1975) Some nonparametric tests and selection
 procedures for main effects in two-way layouts.
-\emph{Ann. Inst. Stat. Math.} 27, 487--500.
+\emph{Ann. Inst. Stat. Math.} \bold{27}, 487--500.
 }
 \seealso{
 \code{\link{friedmanTest}}, \code{\link{skillingsMackTest}},

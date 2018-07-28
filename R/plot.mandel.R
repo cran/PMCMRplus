@@ -1,7 +1,7 @@
 ## plot.mandel
 ## Part of the R package: PMCMRplut
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
 #' @seealso
 #' \code{demo(Pentosan)}
 #' @examples
-#' ## 
+#' ##
 #' \dontrun{
 #' data(Pentosan)
 #' md <- mandelkTest(value ~ lab, Pentosan, subset = (material == "B"))
@@ -40,7 +40,7 @@
 #' }
 #' @importFrom graphics text
 #' @importFrom graphics barplot
-#' @importFrom graphics abline 
+#' @importFrom graphics abline
 #' @export
 plot.mandel <- function(x, alpha = 0.005, ...)
 {
@@ -50,16 +50,16 @@ plot.mandel <- function(x, alpha = 0.005, ...)
 
     m <- match.call(expand.dots=TRUE)
     m <- as.list(m)
-        
+
     ## delete not needed stuff from m
     m[[1]] <- NULL
     m$x <- NULL
     m$alpha <- NULL
-    
+
     ## Check, whether h or k test
     is.hTest <- grepl(pattern="h", x$method)
     statistics <- x$statistics
-    
+
     ## critical h or k value
     if (is.hTest) {
         k <- length(x$grouplev)
@@ -76,7 +76,7 @@ plot.mandel <- function(x, alpha = 0.005, ...)
 
     ylmx <- 1.2 * max(abs(statistics), crit)
     ylmn <-  ifelse(is.hTest, -ylmx, 0)
-        
+
     names.arg <- x$grouplev
     main <- x$method
     inp <- list(height = statistics,
@@ -98,6 +98,6 @@ plot.mandel <- function(x, alpha = 0.005, ...)
          labels = txt,
          pos = 3,
          offset = 0.5)
-    
+
     invisible(x)
 }

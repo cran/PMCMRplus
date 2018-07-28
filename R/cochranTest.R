@@ -1,7 +1,7 @@
 # cochranTest.R
 # Part of the R package: PMCMR
 #
-##  Copyright (C) 2017 Thorsten Pohlert
+##  Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@
 #'
 #' @template class-htest
 #' @inherit Cochran references
-#' 
+#'
 #' @seealso
 #' \code{\link[stats]{bartlett.test}}, \code{\link[stats]{fligner.test}}.
 #' @keywords htest
@@ -87,7 +87,7 @@ cochranTest.default <- function(x, g, alternative = c("greater", "less"), ...)
     alternative <- match.arg(alternative)
     Ssq <- tapply(x, g, var)
     n <- length(x)
-    
+
     if (alternative == "greater"){
         method <- "Cochran test for outlying variance"
         TSsq <- max(Ssq)
@@ -110,7 +110,7 @@ cochranTest.default <- function(x, g, alternative = c("greater", "less"), ...)
                          n = n / k,
                          lower.tail = TRUE)
     }
-    
+
     ans <- list(method = method,
                 alternative = alternative,
                 statistic = c("C" = C),
@@ -134,10 +134,10 @@ cochranTest.formula <- function(formula, data, subset, na.action,
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

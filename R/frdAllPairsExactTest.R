@@ -1,7 +1,7 @@
 ## frdAllPairsExactTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 ##  http://www.r-project.org/Licenses/
 ##
 ##  Literature:
-##  Eisinga, Heskes, Pelzer, Te Grotenhuis, 2017,   
+##  Eisinga, Heskes, Pelzer, Te Grotenhuis, 2017,
 ##  Exact p-values for pairwise comparison of Friedman rank sums, with application to
 ##  comparing classifiers, BMC Bioinformatics, January 2 2017
 
@@ -37,15 +37,15 @@
 #' in the two-tailed case against the alternative,
 #' A\eqn{_{ij}: \theta_i \ne \theta_j, ~~ i \ne j}.
 #'
-#' The exact \eqn{p}-values 
+#' The exact \eqn{p}-values
 #' are computed using the code of \code{"pexactfrsd.R"}
-#' that was a supplement to the publication of Eisinga et al. (2017). 
+#' that was a supplement to the publication of Eisinga et al. (2017).
 #' Additionally, any of the \eqn{p}-adjustment methods
 #' as included in \code{\link{p.adjust}} can be selected, for \eqn{p}-value
 #' adjustment.
-#' 
+#'
 #' @references
-#' R. Eisinga, T. Heskes, B. Pelzer, M. Te Grotenhuis (2017),
+#' Eisinga, R., Heskes, T., Pelzer, B., Te Grotenhuis, M. (2017)
 #'  Exact p-values for Pairwise Comparison of Friedman Rank Sums,
 #'  with Application to Comparing Classifiers, \emph{BMC Bioinformatics}, 18:68.
 #'
@@ -53,11 +53,11 @@
 #' @concept Friedman
 #' @concept Rank
 #' @concept AllPairs
-#' 
+#'
 #' @section Source:
 #' The function \code{frdAllPairsExactTest} uses the code
 #' of the file \code{pexactfrsd.R} that was a supplement to:\cr
-#' 
+#'
 #' R. Eisinga, T. Heskes, B. Pelzer, M. Te Grotenhuis (2017),
 #'  Exact p-values for Pairwise Comparison of Friedman Rank Sums,
 #'  with Application to Comparing Classifiers, \emph{BMC Bioinformatics}, 18:68.
@@ -98,13 +98,13 @@ frdAllPairsExactTest.default <-
         y <- as.vector(t(y))
     }
     else {
-        if (any(is.na(groups)) || any(is.na(blocks))) 
+        if (any(is.na(groups)) || any(is.na(blocks)))
             stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks))))) 
+        if (any(diff(c(length(y), length(groups), length(blocks)))))
             stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1)) 
+        if (any(table(groups, blocks) != 1))
             stop("Not an unreplicated complete block design")
-            
+
         DNAME <- paste(deparse(substitute(y)), ",",
                        deparse(substitute(groups)), "and",
                        deparse(substitute(blocks)) )
@@ -119,7 +119,7 @@ frdAllPairsExactTest.default <-
     p.adjust.method = match.arg(p.adjust.method)
     mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
     r <- t(apply(mat, 1L, rank))
- 
+
     METHOD <- c("Eisinga, Heskes, Pelzer & Te Grotenhuis all-pairs test",
                 " with exact p-values for a two-way",
                 " balanced complete block design")
@@ -138,7 +138,7 @@ frdAllPairsExactTest.default <-
     padj <- p.adjust(pval, method = p.adjust.method, n = (k * (k - 1) / 2))
     PVAL <- matrix(NA, ncol = (k - 1), nrow = (k -1 ))
     PVAL[!is.na(PSTAT)] <- padj
-    DIST <- "D"	
+    DIST <- "D"
     colnames(PSTAT) <- GRPNAMES[1:(k-1)]
     rownames(PSTAT) <- GRPNAMES[2:k]
     colnames(PVAL) <- GRPNAMES[1:(k-1)]

@@ -78,7 +78,7 @@ fit <- aov(x ~ g)
 shapiro.test(residuals(fit))
 bartlett.test(x ~ g) # var1 != varN
 anova(fit)
-summary(dunnettT3Test(x, g))
+summary(gamesHowellTest(x, g))
 }
 \seealso{
 \code{\link{ptukey}}

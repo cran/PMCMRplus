@@ -1,7 +1,7 @@
 ## gamesHowellTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@
 #' @concept allPairsComparisons
 #'
 #' @template class-PMCMR
-#' 
+#'
 #' @examples
 #' set.seed(245)
 #' mn <- rep(c(1, 2^(1:4)), each=5)
@@ -52,7 +52,7 @@
 #' shapiro.test(residuals(fit))
 #' bartlett.test(x ~ g) # var1 != varN
 #' anova(fit)
-#' summary(dunnettT3Test(x, g))
+#' summary(gamesHowellTest(x, g))
 #' @importFrom stats ptukey
 #' @importFrom stats complete.cases
 #' @importFrom stats var
@@ -67,7 +67,7 @@ gamesHowellTest <- function(x, ...) UseMethod("gamesHowellTest")
 gamesHowellTest.default <-
 function(x, g, ...){
         ## taken from stats::kruskal.test
-        
+
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -103,18 +103,18 @@ function(x, g, ...){
     s2i <- tapply(x, g, var)
 
     s2in <- 1 / (n - k) * sum(s2i * (ni - 1))
-    
+
     compare.stats <- function(i,j) {
-        dif <- xi[i] - xi[j] 
+        dif <- xi[i] - xi[j]
         A <- (s2i[i] / ni[i] + s2i[j] / ni[j])
         qval <- dif / sqrt(A) * sqrt(2)
         return(qval)
     }
-    
+
     PSTAT <- pairwise.table(compare.stats,levels(g), p.adjust.method="none" )
 
     compare.levels <- function(i,j) {
-        dif <- xi[i] - xi[j] 
+        dif <- xi[i] - xi[j]
         A <- (s2i[i] / ni[i] + s2i[j] / ni[j])
         qval <- dif / sqrt(A) * sqrt(2)
         df <- A^2 / (s2i[i]^2 / (ni[i]^2 * (ni[i] - 1)) +
@@ -122,7 +122,7 @@ function(x, g, ...){
         pval <- ptukey(abs(qval), nmeans = k, df = df, lower.tail = FALSE)
         return(pval)
     }
-    
+
     PVAL <-  pairwise.table(compare.levels, levels(g), p.adjust.method="none")
 
     MODEL <- data.frame(x, g)
@@ -147,10 +147,10 @@ function(formula, data, subset, na.action, ...)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

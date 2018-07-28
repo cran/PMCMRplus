@@ -1,7 +1,7 @@
 ## mackWolfeTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #' @title Mack-Wolfe Test for Umbrella Alternatives
 #' @description
 #' Performs Mack-Wolfe non-parametric test for umbrella alternatives.
-#' 
+#'
 #' @details
 #' In dose-finding studies one may assume an increasing treatment
 #' effect with increasing dose level. However, the test
@@ -30,14 +30,14 @@
 #' The scope of the Mack-Wolfe Test is to test for umbrella alternatives
 #' for either a known or unknown point \eqn{p} (i.e. dose-level),
 #' where the peak (umbrella point) is present.
-#' 
+#'
 #' H\eqn{_i: \theta_0 = \theta_i = \ldots = \theta_k} is tested
 #' against the alternative A\eqn{_i: \theta_1 \le \ldots \theta_p \ge
 #' \theta_k} for some \eqn{p}, with at least one strict inequality.
 #'
 #' If \code{p = NULL} (peak unknown), the upper-tail \eqn{p}-value is computed
 #' via an asymptotic bootstrap permutation test.
-#' 
+#'
 #' If an integer value for \code{p} is given (peak known), the
 #' upper-tail \eqn{p}-value is computed from the standard normal
 #' distribution (\code{\link{pnorm}}).
@@ -46,16 +46,14 @@
 #' One may increase the number of permutations to e.g. \code{nperm = 10000}
 #' in order to get more precise p-values. However, this will be on
 #' the expense of computational time.
-#' 
-#' @references
-#' Chen, I.Y. (1991) Notes on the Mack-Wolfe and Chen-Wolfe
-#' Tests for Umbrella Alternatives.
-#' \emph{Biom. J.}, 33, 281--290.
 #'
-#' Mack, G.A., Wolfe, D. A. (1981) K-sample rank tests for
-#' umbrella alternatives.
-#' \emph{J. Amer. Statist. Assoc.}, 76, 175--181.
-#' 
+#' @references
+#' Chen, I. Y. (1991) Notes on the Mack-Wolfe and Chen-Wolfe
+#' Tests for Umbrella Alternatives, \emph{Biom. J.} \bold{33}, 281--290.
+#'
+#' Mack, G. A., Wolfe, D. A. (1981) K-sample rank tests for
+#' umbrella alternatives, \emph{J. Amer. Statist. Assoc.} \bold{76}, 175--181.
+#'
 #' @template class-htest
 #' @examples
 #' ## Example from Table 6.10 of Hollander and Wolfe (1999).
@@ -68,7 +66,7 @@
 #' g <- as.ordered(rep(c(0, 100, 333, 1000, 3333, 10000), each=3))
 #' plot(x ~ g)
 #' mackWolfeTest(x=x, g=g, p=3)
-#' 
+#'
 #' @concept TrendTest
 #' @concept Rank
 #' @keywords htest nonparametric
@@ -93,7 +91,7 @@ mackWolfeTest <- function(x, ...) UseMethod("mackWolfeTest")
 mackWolfeTest.default <-
     function(x, g, p = NULL, nperm=1000,...)
 {
-    ## taken from stats::kruskal.test        
+    ## taken from stats::kruskal.test
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -123,7 +121,7 @@ mackWolfeTest.default <-
         if (k < 2)
             stop("all observations are in the same group")
     }
-        
+
     ## check p
     if (!is.null(p)){
         if (p > k){
@@ -136,12 +134,12 @@ mackWolfeTest.default <-
     ## rank the data
     Rij <- rank(x)
     n <- tapply(x, g, length)
- 
+
     ## U statistic
     Ustat.fn <- function(Rij, g, k){
         lev <- levels(g)
         U <- diag(k)
-        
+
         .fn <- function(Ri, Rj){
             tmp <- sum(
                 unlist(
@@ -179,13 +177,13 @@ mackWolfeTest.default <-
                 }
             }
         }
-        return(tmp1 + tmp2) 
+        return(tmp1 + tmp2)
     }
 
     ## N1 and N2 function
     N1.fn <- function(p, n) sum(n[1:p])
     N2.fn <- function(p, n) sum(n[p:k])
-    
+
     ## E0(At)
     meanAt <- function(p, n){
         N1 <- N1.fn(p, n)
@@ -206,9 +204,9 @@ mackWolfeTest.default <-
         return(var0)
     }
 
- 
+
     if (!is.null(p)){
-        
+
         ## This is Mack-Wolfe Test for known p
         ## check for ties
         if(sum(table(x) - 1) > 0){
@@ -226,7 +224,7 @@ mackWolfeTest.default <-
         names(STAT) <- NULL
         names(STAT) <- "z"
         PVAL <- pnorm(STAT, lower.tail=FALSE)
-        
+
     } else {
         ## This is Chen's modified version for unknown p
         U <- Ustat.fn(Rij, g, k)
@@ -256,7 +254,7 @@ mackWolfeTest.default <-
       ##  N <- sum(n)
       ##  for(s in (2:(k-2))){
       ##      for(t in ((s+1):(k-1))){
-      ##          
+      ##
       ##          tmp0 <- 0
       ##          for (i in (2:s)){
       ##              tmp0 <- tmp0 + (n[i] * Ni[i-1] + (Ni[i] + 1))
@@ -270,18 +268,18 @@ mackWolfeTest.default <-
       ##          for (i in (s:t)){
       ##              n[i] * Ni[i-1] * (Ni[i] + 1) + Ni[s-1] * (Ni[t] - Ni[s-1]) * (N + 1)
       ##          }
-      ##          
+      ##
       ##          cov0[(s-1),(t-1)] <- (tmp0 + tmp1 - tmp2) / 12 * sqrt(var0[s] * var0[t])
       ##          cov0[(t-1),(s-1)] <- cov0[(s-1),(t-1)]
       ##      }
       ##  }
-      ##  
+      ##
       ##  PVAL <-   1 - pmvnorm(lower = -rep(abs(STAT), k-1),
       ##                        upper = rep(abs(STAT), k-1),
       ##                        sigma = cov0)
-              
+
   ##  }
-  
+
     ans <- list(method = METHOD,
                 data.name = DNAME,
                 p.value = PVAL,
@@ -306,7 +304,7 @@ mackWolfeTest.formula <-
     mf[[1L]] <- quote(stats::model.frame)
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

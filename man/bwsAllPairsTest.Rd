@@ -72,7 +72,7 @@ against the alternative
 A\eqn{_{ij}: F_i(x) \ne F_j(x), ~~ i \ne j}.
 
 This function is a wrapper function that sequentially
-calls \code{\{link[BWStest]{bws_test}} for each pair.
+calls \code{\link[BWStest]{bws_test}} for each pair.
 The default test method (\code{"BWS"}) is the original
 Baumgartner-Weiß-Schindler test statistic B. For
 \code{method == "Murakami"} it is the modified BWS statistic
@@ -88,11 +88,11 @@ summaryGroup(out)
 
 }
 \references{
-Baumgartner, W., Weiss, P., Schindler, H. (1998), A nonparametric test for the
-general two-sample problem, \emph{Biometrics} 54, 1129--1135.
+Baumgartner, W., Weiss, P., Schindler, H. (1998) A nonparametric test for the
+general two-sample problem, \emph{Biometrics} \bold{54}, 1129--1135.
 
 Murakami, H. (2006) K-sample rank test based on modified Baumgartner statistic and its power
-comparison, \emph{J. Jpn. Comp. Statist.} 19, 1--13.
+comparison, \emph{J. Jpn. Comp. Statist.} \bold{19}, 1--13.
 }
 \seealso{
 \code{\link[BWStest]{bws_test}}.

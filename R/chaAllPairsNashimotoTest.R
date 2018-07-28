@@ -1,7 +1,7 @@
 ## chaAllPairsNashimotoTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
 ##  http://www.r-project.org/Licenses/
 
 #' @title All-Pairs Comparisons for Simply Ordered Mean Ranksums
-#' 
+#'
 #' @description
 #' Performs Nashimoto and Wright's all-pairs comparison procedure
 #' for simply ordered mean ranksums (NPY' test and NPT' test).
 #' According to the authors, bove procedures shall only be
-#' applied after Chacko's test (see \code{\link{chackoTest}} indicates
+#' applied after Chacko's test (see \code{\link{chackoTest}}) indicates
 #' global significance.
 #'
 #' The modified procedure uses the property of a simple order,
@@ -45,13 +45,13 @@
 #' However, any method as available by \code{\link{p.adjust.methods}} can
 #' be selected for the adjustment of p-values estimated from
 #' the standard normal distribution.
-#' 
+#'
 #' @name chaAllPairsNashimotoTest
 #' @references
-#' Nashimoto, K., Wright, F.T., (2005), Multiple comparison procedures
+#' Nashimoto, K., Wright, F.T., (2005) Multiple comparison procedures
 #' for detecting differences in simply ordered means.
-#' \emph{Comput. Statist. Data Anal.} 48, 291--306.
-#' 
+#' \emph{Comput. Statist. Data Anal.} \bold{48}, 291--306.
+#'
 #' @keywords htest nonparametric
 #' @concept AllPairsComparisons
 #' @concept OrderedAlternatives
@@ -123,9 +123,9 @@ function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
     k <- nlevels(g)
     n <- length(x)
     df <- Inf
-    
+
     sigma <- sqrt(n * (n + 1) / 12)
-  
+
     STAT <- matrix(NA, ncol=k-1, nrow=k-1)
     for (i in 1:(k-1)){
         for(j in (i+1):k){
@@ -136,16 +136,16 @@ function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
                     (Ri[u] - Ri[m]) / (sqrt(2) * sigma *
                                        sqrt(1 / ni[m] + 1 /ni[u]))
                 } else {
-                    (Ri[u] - Ri[m]) / 
+                    (Ri[u] - Ri[m]) /
                         (sigma / sqrt(2) * sqrt(1 / ni[m] + 1 /ni[u]))
                 }
             })
             STAT[j-1,i] <- max(tmp)
         }
     }
-   
+
     colnames(STAT) <- levels(g)[1:(k-1)]
-    rownames(STAT) <- levels(g)[2:k]    
+    rownames(STAT) <- levels(g)[2:k]
 
     if (p.adjust.method == "single-step"){
         PVAL <- ptukey(STAT, nmeans = (k-1),
@@ -183,10 +183,10 @@ function(formula, data, subset, na.action,
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

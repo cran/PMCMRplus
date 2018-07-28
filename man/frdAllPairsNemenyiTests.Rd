@@ -62,15 +62,15 @@ The \eqn{p}-values are computed from the studentized range distribution.
  ##
  y <- matrix(c(
  3.88, 5.64, 5.76, 4.25, 5.91, 4.33, 30.58, 30.14, 16.92,
- 23.19, 26.74, 10.91, 25.24, 33.52, 25.45, 18.85, 20.45, 
+ 23.19, 26.74, 10.91, 25.24, 33.52, 25.45, 18.85, 20.45,
  26.67, 4.44, 7.94, 4.04, 4.4, 4.23, 4.36, 29.41, 30.72,
  32.92, 28.23, 23.35, 12, 38.87, 33.12, 39.15, 28.06, 38.23,
- 26.65),nrow=6, ncol=6, 
+ 26.65),nrow=6, ncol=6,
  dimnames=list(1:6, LETTERS[1:6]))
  print(y)
  friedmanTest(y)
- 
- ## Eisinga et al. 2017 
+
+ ## Eisinga et al. 2017
  frdAllPairsExactTest(y=y, p.adjust = "bonferroni")
 
  ## Conover's test
@@ -81,19 +81,22 @@ The \eqn{p}-values are computed from the studentized range distribution.
 
  ## Miller et al.
  frdAllPairsMillerTest(y=y)
+
+ ## Siegel-Castellan
+ frdAllPairsSiegelTest(y=y, p.adjust = "bonferroni")
+
 }
 \references{
-J. Demsar (2006), Statistical comparisons of classifiers over multiple
- data sets, \emph{Journal of Machine Learning Research}, 7, 1--30. 
+Demsar, J. (2006) Statistical comparisons of classifiers over multiple
+ data sets, \emph{Journal of Machine Learning Research} \bold{7}, 1--30.
 
-R. G. Miller Jr. (1996), \emph{Simultaneous statistical inference}.
+Miller Jr., R. G. (1996) \emph{Simultaneous statistical inference}.
  New York: McGraw-Hill.
 
-P. Nemenyi (1963), \emph{Distribution-free Multiple Comparisons}.
+Nemenyi, P. (1963), \emph{Distribution-free Multiple Comparisons}.
  Ph.D. thesis, Princeton University.
 
-L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
- Pages: 668--675.
+Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 }
 \seealso{
 \code{\link{friedmanTest}}, \code{\link{friedman.test}},

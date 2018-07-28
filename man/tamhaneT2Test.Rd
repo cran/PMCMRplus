@@ -8,9 +8,10 @@
 \usage{
 tamhaneT2Test(x, ...)
 
-\method{tamhaneT2Test}{default}(x, g, ...)
+\method{tamhaneT2Test}{default}(x, g, welch = TRUE, ...)
 
-\method{tamhaneT2Test}{formula}(formula, data, subset, na.action, ...)
+\method{tamhaneT2Test}{formula}(formula, data, subset, na.action,
+  welch = TRUE, ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -21,6 +22,10 @@ vectors.}
 \item{g}{a vector or factor object giving the group for the
 corresponding elements of \code{"x"}.
 Ignored with a warning if \code{"x"} is a list.}
+
+\item{welch}{indicates, whether Welch's approximate solution for
+calculating the degree of freedom shall be used or, as usually,
+\eqn{df = N - 2}. Defaults to \code{TRUE}.}
 
 \item{formula}{a formula of the form \code{response ~ group} where
 \code{response} gives the data values and \code{group} a vector or
@@ -53,20 +58,33 @@ adjustment.}
 }
 }
 \description{
-Performs Tamhane's T2 all-pairs comparison test for normally distributed
+Performs Tamhane's T2 (or T2') all-pairs comparison test for normally distributed
 data with unequal variances.
 }
 \details{
 For all-pairs comparisons in an one-factorial layout
 with normally distributed residuals but unequal groups variances
-the T2 test of Tamhane can be performed. A total of \eqn{m = k(k-1)/2}
+the T2 test (or T2' test) of Tamhane can be performed. A total of \eqn{m = k(k-1)/2}
 hypotheses can be tested. The null hypothesis
 H\eqn{_{ij}: \mu_i(x) = \mu_j(x)} is tested in the two-tailed test
 against the alternative
 A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
 
+T2 test uses Welch's approximate solution for
+calculating the degree of freedom. T2' test uses the usual
+\eqn{df = N - 2} approximation. A warning message appears
+in the modified T2' test, if none of in Tamhane (1979) given conditions for nearly balanced
+sample sizes and nearly balanced standard errors is true.
+
 The p-values are computed from the t-distribution and adjusted
 according to Dunn-Sidak.
+}
+\note{
+T2 test is basically an all-pairs pairwise-t-test. Similar results
+can be obtained with \code{pairwise.t.test(..., var.equal=FALSE, p.adjust.mehod = FALSE)}.
+
+Thanks to Sirio Bolaños for his kind suggestion for adding T2' test
+into this function.
 }
 \examples{
 set.seed(245)
@@ -79,13 +97,28 @@ fit <- aov(x ~ g)
 shapiro.test(residuals(fit))
 bartlett.test(x ~ g) # var1 != varN
 anova(fit)
-summary(tamhaneT2Test(x, g))
+summary(T2 <- tamhaneT2Test(x, g))
+T2
+## compare with pairwise.t.test
+WT <- pairwise.t.test(x, g, pool.sd = FALSE, p.adjust.method = "none")
+p.adj.sidak <- function(p, m) sapply(p, function(p) min(1, 1 - (1 - p)^m))
+p.raw <- as.vector(WT$p.value)
+m <- length(p.raw[!is.na(p.raw)])
+PADJ <- matrix(ans <- p.adj.sidak(p.raw, m),
+               nrow = 4, ncol = 4)
+colnames(PADJ) <- colnames(WT$p.value)
+rownames(PADJ) <- rownames(WT$p.value)
+PADJ
+
+## same without Welch's approximate solution
+summary(T2b <- tamhaneT2Test(x, g, welch = FALSE))
+
 
 }
 \references{
-A. C. Tamhane (1979), A Comparison of Procedures for Multiple Comparisons
- of Means with Unequal Variances. \emph{Journal of the American
- Statistical Association}, 74, 471--480.
+Tamhane, A. C. (1979) A Comparison of Procedures for Multiple Comparisons
+ of Means with Unequal Variances, \emph{Journal of the American
+ Statistical Association} \bold{74}, 471--480.
 }
 \seealso{
 \code{\link{dunnettT3Test}}

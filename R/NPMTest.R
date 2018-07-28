@@ -1,7 +1,7 @@
 ## NPMTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 ## http://www.r-project.org/Licenses/
 
 #' @title All-Pairs Comparisons for Simply Ordered Mean Ranksums
-#' 
+#'
 #' @description
 #' Performs Nashimoto and Wright's all-pairs comparison procedure
 #' for simply ordered mean ranksums.
@@ -37,11 +37,12 @@
 #' to the ordinary Nemenyi test (see \code{\link{kwAllPairsNemenyiTest}}).
 #'
 #' @name NPMTest
-#' @references
-#' Nashimoto, K., Wright, F.T., (2005), Multiple comparison procedures
-#' for detecting differences in simply ordered means.
-#' \emph{Comput. Statist. Data Anal.} 48, 291--306.
-#' 
+#' @inherit chaAllPairsNashimotoTest
+# @references
+# Nashimoto, K., Wright, F.T., (2005), Multiple comparison procedures
+# for detecting differences in simply ordered means.
+# \emph{Comput. Statist. Data Anal.} 48, 291--306.
+#'
 #' @keywords htest nonparametric
 #' @concept AllPairsComparisons
 #' @concept OrderedAlternatives
@@ -57,7 +58,7 @@
 #' g <- gl(3,5)
 #' levels(g) <- c("A", "B", "C")
 #' NPMTest(x, g)
-#' 
+#'
 #' @export
 NPMTest <- function(x, ...) UseMethod("NPMTest")
 
@@ -66,12 +67,12 @@ NPMTest <- function(x, ...) UseMethod("NPMTest")
 #' @method NPMTest default
 #' @template one-way-parms
 #' @importFrom stats complete.cases
-#' @importFrom stats ptukey 
+#' @importFrom stats ptukey
 #' @export
 NPMTest.default <-
 function(x, g, ...){
         ## taken from stats::kruskal.test
-        
+
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -107,7 +108,7 @@ function(x, g, ...){
     k <- nlevels(g)
     n <- length(x)
     df <- Inf
-    
+
     sigma <- sqrt(n * (n + 1) / 12)
 
     STAT <- matrix(NA, ncol=k-1, nrow=k-1)
@@ -115,7 +116,7 @@ function(x, g, ...){
         for(j in (i+1):k){
             u <- j
             m <- i:(u-1)
-            tmp <- sapply(m, function(m) (Ri[u] - Ri[m]) / 
+            tmp <- sapply(m, function(m) (Ri[u] - Ri[m]) /
                                          (sigma / sqrt(2) *
                                           sqrt(1 / ni[m] + 1 /ni[u])))
             STAT[j-1,i] <- max(tmp)
@@ -124,12 +125,12 @@ function(x, g, ...){
 
     colnames(STAT) <- levels(g)[1:(k-1)]
     rownames(STAT) <- levels(g)[2:k]
-    
+
     PVAL <- ptukey(STAT, nmeans = k, df = df, lower.tail=FALSE)
 
     colnames(PVAL) <- colnames(STAT)
     rownames(PVAL) <- rownames(STAT)
-        
+
     METHOD <- "Nashimoto-Wright NPM-Test for ordered means \n\t\t of non-normal data"
     MODEL <- data.frame(x, g)
     DIST <- "q"
@@ -158,10 +159,10 @@ function(formula, data, subset, na.action, ...)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

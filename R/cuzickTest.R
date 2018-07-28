@@ -1,6 +1,6 @@
 ##  cuzickTest.R
 ##
-##  Copyright (C) 2017 Thorsten Pohlert
+##  Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -32,8 +32,8 @@
 #' @template class-htest
 #' @template trendTests
 #' @references
-#' Cuzick, J. (1995). A wilcoxon-type test for trend.
-#' \emph{Statistics in Medicine}, 4, 87--90.
+#' Cuzick, J. (1995) A Wilcoxon-type test for trend, \emph{Statistics in Medicine}
+#' \bold{4}, 87--90.
 #'
 #' @export cuzickTest
 cuzickTest <- function(x, ...) UseMethod("cuzickTest")

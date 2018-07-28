@@ -1,7 +1,7 @@
 ## lsdTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 #' @description
 #' Performs the least significant difference all-pairs comparisons
 #' test for normally distributed data with equal group variances.
-#' 
+#'
 #' @details
 #' For all-pairs comparisons in an one-factorial layout
 #' with normally distributed residuals and equal variances
@@ -35,16 +35,16 @@
 #' The p-values are computed from the t-distribution.
 #'
 #' @template class-PMCMR
-#' 
-#' @note 
+#'
+#' @note
 #' As there is no p-value adjustment build in, this function is equivalent
 #' to Fisher's protected LSD test, provided
 #' that the LSD test is only applied after a significant one-way ANOVA
 #' F-test. If one is interested in other types of LSD test (i.e.
 #' with p-value adustment) see function \code{\link{pairwise.t.test}}.
-#' 
+#'
 #' @references
-#' L. Sachs (1997) \emph{Angewandte Statistik}, New York: Springer.
+#' Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
 #'
 #' @concept AllPairsComparison
 #' @keywords htest
@@ -110,16 +110,16 @@ lsdTest.default <- function(x, g, ...){
     s2i <- tapply(x, g, var)
 
     s2in <- 1 / (n - k) * sum(s2i * (ni - 1))
-    
+
     compare.stats <- function(i,j) {
-        dif <- xi[i] - xi[j] 
+        dif <- xi[i] - xi[j]
         A <- s2in * (1 / ni[i] + 1 / ni[j])
         tval <- dif / sqrt(A)
         return(tval)
     }
-    
+
     PSTAT <- pairwise.table(compare.stats,levels(g), p.adjust.method="none" )
-    
+
     PVAL <- 2 * pt(abs(PSTAT), df = (n - k), lower.tail = FALSE)
 
     MODEL <- data.frame(x, g)
@@ -143,10 +143,10 @@ lsdTest.formula <- function(formula, data, subset, na.action, ...)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

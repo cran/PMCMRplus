@@ -1,6 +1,6 @@
 ##  bwsAllPairsTest.R
 ##
-##  Copyright (C) 2017 Thorsten Pohlert
+##  Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -28,30 +28,30 @@
 #' A\eqn{_{ij}: F_i(x) \ne F_j(x), ~~ i \ne j}.
 #'
 #' This function is a wrapper function that sequentially
-#' calls \code{\{link[BWStest]{bws_test}} for each pair.
+#' calls \code{\link[BWStest]{bws_test}} for each pair.
 #' The default test method (\code{"BWS"}) is the original
 #' Baumgartner-Weiß-Schindler test statistic B. For
 #' \code{method == "Murakami"} it is the modified BWS statistic
 #' denoted B*. The calculated p-values for \code{Pr(>|B|)}
 #' or \code{Pr(>|B*|)} can be adjusted to account for Type I error
 #' inflation using any method as implemented in \code{\link{p.adjust}}.
-#' 
+#'
 #' @name bwsAllPairsTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
 #' @concept AllPairsComparison
 #' @references
-#' Baumgartner, W., Weiss, P., Schindler, H. (1998), A nonparametric test for the
-#' general two-sample problem, \emph{Biometrics} 54, 1129--1135.
-#' 
+#' Baumgartner, W., Weiss, P., Schindler, H. (1998) A nonparametric test for the
+#' general two-sample problem, \emph{Biometrics} \bold{54}, 1129--1135.
+#'
 #' Murakami, H. (2006) K-sample rank test based on modified Baumgartner statistic and its power
-#' comparison, \emph{J. Jpn. Comp. Statist.} 19, 1--13.
+#' comparison, \emph{J. Jpn. Comp. Statist.} \bold{19}, 1--13.
 #' @examples
 #'
 #' out <- bwsAllPairsTest(count ~ spray, InsectSprays, p.adjust="holm")
 #' summary(out)
 #' summaryGroup(out)
-#' 
+#'
 #' @seealso
 #' \code{\link[BWStest]{bws_test}}.
 #' @export
@@ -62,7 +62,7 @@ bwsAllPairsTest <- function(x, ...) UseMethod("bwsAllPairsTest")
 #' @aliases bwsAllPairsTest.default
 #' @template one-way-parms
 #' @param p.adjust.method method for adjusting p values (see \code{\link{p.adjust}}).
-#' @param method a character string specifying the test statistic to use. Defaults to \code{BWS}. 
+#' @param method a character string specifying the test statistic to use. Defaults to \code{BWS}.
 #' @importFrom stats p.adjust
 #' @importFrom stats p.adjust.methods
 #' @importFrom stats pairwise.table
@@ -86,7 +86,7 @@ bwsAllPairsTest.default <-
             stop("all groups must contain data")
         g <- factor(rep(1 : k, l))
                                         #
-        if (is.null(x$p.adjust.method)){ 
+        if (is.null(x$p.adjust.method)){
             p.adjust.method <- p.adjust.methods[1]
         } else {
             p.adjust.method <- x$p.adjust.method
@@ -113,7 +113,7 @@ bwsAllPairsTest.default <-
     N <- length(x)
     if (N < 2)
         stop("not enough observations")
-    
+
     p.adjust.method <- match.arg(p.adjust.method)
     method <- match.arg(method)
     method <- ifelse(method == "Murakami", "B1", method)
@@ -134,7 +134,7 @@ bwsAllPairsTest.default <-
 ##        xi <- x[as.integer(g) == i]
 ##        xj <- x[as.integer(g) == j]
 ##        bws_stat(x=xi, y=xj)
-##        
+##
 ##       # do.call("bws_test",
 ##       #         list(x=xi,
 ##       #              y=xj,
@@ -144,7 +144,7 @@ bwsAllPairsTest.default <-
 ##    PVAL <- pairwise.table(compare.levels, levels(g), p.adjust.method)
 ##    STAT <- pairwise.table(compare.stats, levels(g), "none")
 
-    n <- tapply(x, g, length)  
+    n <- tapply(x, g, length)
     pval <- rep(NA, k * (k-1) / 2)
     stat <- pval
     ij <- 0
@@ -160,7 +160,7 @@ bwsAllPairsTest.default <-
         pval <- bws_cdf(b = stat, maxj = 3, lower_tail = FALSE)
         pval <- p.adjust(pval, method = p.adjust.method)
 
-    } else {    
+    } else {
         for (i in 2:k)
         {
             for (j in (1:(i-1)))
@@ -192,7 +192,7 @@ bwsAllPairsTest.default <-
             PVAL[(i-1),j] <- pval[ij]
             }
     }
-                
+
     ans <- list(method = METHOD,
                 data.name = DNAME,
                 p.value = PVAL,
@@ -219,10 +219,10 @@ bwsAllPairsTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

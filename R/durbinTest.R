@@ -1,7 +1,7 @@
 ##  durbin.test.R
 ##  Part of the R package PMCMRplus
 ##
-##  Copyright (C) 2015-2017 Thorsten Pohlert
+##  Copyright (C) 2015-2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 #' @name durbinTest
 #' @title Durbin Test
-#' 
+#'
 #' @description
 #' Performs Durbin's tests whether k groups
 #' (or treatments) in a two-way balanced incomplete block design (BIBD)
@@ -33,17 +33,17 @@
 #' one \eqn{\theta_i \ne \theta_j}.
 #'
 #' The p-values are computed from the chi-square distribution.
-#' 
+#'
 #' @note
 #' The function does not test, whether it is a true BIBD.
 #' This function does not test for ties.
 #'
 #' @references
-#' W. J. Conover (1999), \emph{Practical nonparametric Statistics},
+#' Conover,W. J. (1999) \emph{Practical nonparametric Statistics},
 #' 3rd. Edition, Wiley.
 #'
-#' N. A. Heckert and J. J. Filliben (2003). NIST Handbook 148:
-#' Dataplot Reference Manual, Volume 2:
+#' Heckert, N. A., Filliben, J. J. (2003) \emph{NIST Handbook 148:
+#' Dataplot Reference Manual}, Volume 2:
 #' Let Subcommands and Library Functions.
 #' National Institute of Standards and Technology Handbook Series, June 2003.
 #'
@@ -94,7 +94,7 @@ durbinTest.default <- function(y, groups, blocks, ...)
         groups <- factor(groups)
         blocks <- factor(blocks)
     }
-    
+
     ## Need to ensure consistent order.
     o <- order(blocks, groups)
     y <- y[o]
@@ -104,16 +104,16 @@ durbinTest.default <- function(y, groups, blocks, ...)
     t <- nlevels(groups)
     b <- nlevels(blocks)
     r <- unique(table(groups))
-    k <- unique(table(blocks)) 
+    k <- unique(table(blocks))
     rij <- unlist(tapply(y, blocks, rank))
-    Rj <- tapply(rij, groups, sum)    
-   
+    Rj <- tapply(rij, groups, sum)
+
     ## Taken from NIST
     A <- sum(rij^2)
     C <- (b * k * (k + 1)^2) / 4
     D <- sum(Rj^2) - r * C
     T1 <- (t - 1) / (A - C) * D
-    
+
     STATISTIC <- c("Durbin chi-squared" = T1)
     PARAMETER <- c(df = t - 1)
     PVAL <- pchisq(STATISTIC, PARAMETER, lower.tail = FALSE)

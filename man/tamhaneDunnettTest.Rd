@@ -84,12 +84,12 @@ summary(tamhaneDunnettTest(x, g, alternative = "greater"))
 
 }
 \references{
-OECD (ed. 2006), \emph{Current approaches in the statistical analysis
+OECD (ed. 2006) \emph{Current approaches in the statistical analysis
    of ecotoxicity data: A guidance to application - Annexes}. OECD Series
    on testing and assessment, No. 54.
 }
 \seealso{
-\code{\link[mvtnorm]{pmvt}}
+\code{\link[mvtnorm]{pmvt}}, \code{\link{welchManyOneTTest}}
 }
 \concept{
 ManyOneComparisons

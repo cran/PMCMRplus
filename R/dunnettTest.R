@@ -1,7 +1,7 @@
 ## dunnettTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -38,11 +38,11 @@
 #' @template class-PMCMR
 #'
 #' @references
-#' Dunnett, C. W. (1955), A multiple comparison procedure for comparing several
-#'   treatments with a control. \emph{Journal of the American Statistical Association},
-#'   50, 1096–1121.
+#' Dunnett, C. W. (1955) A multiple comparison procedure for comparing several
+#'   treatments with a control. \emph{Journal of the American Statistical Association}
+#'   \bold{50}, 1096–1121.
 #'
-#'  OECD (ed. 2006), \emph{Current approaches in the statistical analysis
+#'  OECD (ed. 2006) \emph{Current approaches in the statistical analysis
 #'    of ecotoxicity data: A guidance to application - Annexes}. OECD Series
 #'    on testing and assessment, No. 54.
 #' @seealso

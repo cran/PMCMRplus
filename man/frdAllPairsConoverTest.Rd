@@ -69,15 +69,15 @@ any of the p-adjustment methods as included in \code{\link{p.adjust}}.
  ##
  y <- matrix(c(
  3.88, 5.64, 5.76, 4.25, 5.91, 4.33, 30.58, 30.14, 16.92,
- 23.19, 26.74, 10.91, 25.24, 33.52, 25.45, 18.85, 20.45, 
+ 23.19, 26.74, 10.91, 25.24, 33.52, 25.45, 18.85, 20.45,
  26.67, 4.44, 7.94, 4.04, 4.4, 4.23, 4.36, 29.41, 30.72,
  32.92, 28.23, 23.35, 12, 38.87, 33.12, 39.15, 28.06, 38.23,
- 26.65),nrow=6, ncol=6, 
+ 26.65),nrow=6, ncol=6,
  dimnames=list(1:6, LETTERS[1:6]))
  print(y)
  friedmanTest(y)
- 
- ## Eisinga et al. 2017 
+
+ ## Eisinga et al. 2017
  frdAllPairsExactTest(y=y, p.adjust = "bonferroni")
 
  ## Conover's test
@@ -88,13 +88,17 @@ any of the p-adjustment methods as included in \code{\link{p.adjust}}.
 
  ## Miller et al.
  frdAllPairsMillerTest(y=y)
+
+ ## Siegel-Castellan
+ frdAllPairsSiegelTest(y=y, p.adjust = "bonferroni")
+
 }
 \references{
-W. J. Conover and R. L. Iman (1979), \emph{On multiple-comparisons
+Conover, W. J., Iman, R. L. (1979) \emph{On multiple-comparisons
  procedures}, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 
-W. J. Conover (1999), \emph{Practical nonparametric Statistics},
- 3rd. Edition, Wiley.
+Conover, W. J. (1999) \emph{Practical nonparametric Statistics},
+3rd. Edition, Wiley.
 }
 \seealso{
 \code{\link{friedmanTest}}, \code{\link{friedman.test}},

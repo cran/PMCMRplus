@@ -27,25 +27,26 @@
 #' one unequality beeing strict.
 #'
 #' The p-values are estimated through an assymptotic boot-strap method.
-#' 
+#'
 #' @note
 #' One may increase the number of permutations to e.g. \code{nperm = 10000}
 #' in order to get more precise p-values. However, this will be on
 #' the expense of computational time.
-#' 
-#' @references
-#' Murakami, H. (2006) K-sample rank test based on modified
-#' Baumgartner statistic and its power comparison,
-#' \emph{J. Jpn. Comp. Statist.} 19, 1--13.
-#' 
+#'
+#' @inherit bwsAllPairsTest references
+# @references
+# Murakami, H. (2006) K-sample rank test based on modified
+# Baumgartner statistic and its power comparison,
+# \emph{J. Jpn. Comp. Statist.} 19, 1--13.
+#'
 #' @template class-htest
-#' 
+#'
 #' @seealso
 #' \code{\link{sample}}, \code{\link{bwsAllPairsTest}},
-#' \code{link{bwsManyOneTest}}.
+#' \code{\link{bwsManyOneTest}}.
 #'
 #' @keywords htest nonparametric
-#' 
+#'
 #' @examples
 #' #' ## Hollander & Wolfe (1973), 116.
 #' ## Mucociliary efficiency from the rate of removal of dust in normal
@@ -62,7 +63,7 @@
 #'
 #' ## k-sample BWS Test
 #' bwsKSampleTest(x ~ g, datf)
-#' 
+#'
 #' @export
 bwsKSampleTest <- function(x, ...) UseMethod("bwsKSampleTest")
 
@@ -128,14 +129,14 @@ function(x, g, nperm=1000, ...){
     o <- order(as.integer(g), Rij)
     STATISTIC <- bkstar.fn(Rij[o])
     names(STATISTIC) <- NULL
- 
+
     ## asymptotic bootstrap permutation
     mt <- sapply(1:nperm, function(i) {
         ix <- sample(Rij)
         o <- order(as.integer(g), ix)
         bkstar.fn(ix[o])
         })
-    
+
     ## pvalues
     PVAL <- length(mt[mt >= STATISTIC]) / nperm
 
@@ -161,10 +162,10 @@ bwsKSampleTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

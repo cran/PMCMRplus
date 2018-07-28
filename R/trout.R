@@ -23,7 +23,7 @@
 #'  ENV/JM/MONO(2006)18/ANN, page 113.
 #'
 #' @references
-#'  OECD (ed. 2006), \emph{Current approaches in the statistical analysis
+#'  OECD (ed. 2006) \emph{Current approaches in the statistical analysis
 #' of ecotoxicity data: A guidance to application - Annexes}. OECD Series
 #' on testing and assessment, No. 54, (ENV/JM/MONO(2006)18/ANN).
 #'

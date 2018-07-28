@@ -100,9 +100,9 @@ bwsTrendTest(x, g)
 Bortz, J. (1993). \emph{Statistik für Sozialwissenschaftler} (4th ed.).
 Berlin: Springer.
 
-Johnson, R. A., & Mehrotra, K. G. (1972). Some c-sample
+Johnson, R. A., Mehrotra, K. G. (1972) Some c-sample
 nonparametric tests for ordered alternatives.
-\emph{Journal of the Indian Statistical Association}, 9, 8--23.
+\emph{Journal of the Indian Statistical Association} \bold{9}, 8--23.
 }
 \seealso{
 \code{\link{kruskalTest}} and \code{\link{shirleyWilliamsTest}}

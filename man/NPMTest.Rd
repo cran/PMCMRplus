@@ -70,6 +70,16 @@ The p-values are estimated from the studentized range distribution.
 If the medians are already increasingly ordered, than the NPM-test simplifies
 to the ordinary Nemenyi test (see \code{\link{kwAllPairsNemenyiTest}}).
 }
+\details{
+The type of test can be controlled via the argument \code{p.adjust.method}:
+\describe{
+\item{single.step}{the NPY' test is performed.}
+\item{none}{the plain NPT' test is performed.}
+}
+However, any method as available by \code{\link{p.adjust.methods}} can
+be selected for the adjustment of p-values estimated from
+the standard normal distribution.
+}
 \examples{
 ## Example from Sachs (1997, p. 402)
 x <- c(106, 114, 116, 127, 145,
@@ -81,9 +91,9 @@ NPMTest(x, g)
 
 }
 \references{
-Nashimoto, K., Wright, F.T., (2005), Multiple comparison procedures
+Nashimoto, K., Wright, F.T., (2005) Multiple comparison procedures
 for detecting differences in simply ordered means.
-\emph{Comput. Statist. Data Anal.} 48, 291--306.
+\emph{Comput. Statist. Data Anal.} \bold{48}, 291--306.
 }
 \seealso{
 \code{\link{kwAllPairsNemenyiTest}}

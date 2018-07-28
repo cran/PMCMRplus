@@ -1,7 +1,7 @@
 ## tamhaneDunnettTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -33,23 +33,23 @@
 #'
 #' @template class-PMCMR
 #' @references
-#'  OECD (ed. 2006), \emph{Current approaches in the statistical analysis
+#'  OECD (ed. 2006) \emph{Current approaches in the statistical analysis
 #'    of ecotoxicity data: A guidance to application - Annexes}. OECD Series
 #'    on testing and assessment, No. 54.
 #' @seealso
-#' \code{\link[mvtnorm]{pmvt}}
+#' \code{\link[mvtnorm]{pmvt}}, \code{\link{welchManyOneTTest}}
 #' @examples
 #' set.seed(245)
 #' mn <- c(1, 2, 2^2, 2^3, 2^4)
 #' x <- rep(mn, each=5) + rnorm(25)
 #' g <- factor(rep(1:5, each=5))
-#' 
+#'
 #' fit <- aov(x ~ g - 1)
 #' shapiro.test(residuals(fit))
 #' bartlett.test(x ~ g - 1)
 #' anova(fit)
 #' summary(tamhaneDunnettTest(x, g, alternative = "greater"))
-#' 
+#'
 #' @keywords htest
 #' @concept ManyOneComparisons
 #' @export
@@ -67,7 +67,7 @@ tamhaneDunnettTest <- function(x, ...) UseMethod("tamhaneDunnettTest")
 #' @export
 tamhaneDunnettTest.default <-
     function(x, g, alternative = c("two.sided", "greater", "less"), ...){
-        ## taken from stats::kruskal.test        
+        ## taken from stats::kruskal.test
         if (is.list(x)) {
             if (length(x) < 2L)
                 stop("'x' must be a list with at least 2 elements")
@@ -96,9 +96,9 @@ tamhaneDunnettTest.default <-
             if (k < 2)
                 stop("all observations are in the same group")
         }
-        
+
         alternative <- match.arg(alternative)
-		
+
 		# Parametric
         x.mean <- tapply(x, g, mean, na.rm = TRUE)
         x.var <- tapply(x, g, var, na.rm = TRUE)
@@ -109,7 +109,7 @@ tamhaneDunnettTest.default <-
 
         METHOD <- paste("Tamhane-Dunnett's-test for multiple","
                          comparisons with one control", sep="\t")
-         
+
         # control is x.mean[1]
         compare.stats <- function(j) {
             numer <- x.mean[j] - x.mean[1]
@@ -118,12 +118,12 @@ tamhaneDunnettTest.default <-
             return(STATISTIC)
         }
         STATISTIC <- rep(NA, k-1)
-        
+
         df <- rep(NA, k - 1)
         for (i in 2:k){
             df[i-1] <- x.n[1] + x.n[i] - 2
         }
-		
+
         for (j in 2:k) {STATISTIC[j-1] <- compare.stats(j)}
 
         cr <- diag(k-1)
@@ -132,10 +132,10 @@ tamhaneDunnettTest.default <-
 
 
 
-        
+
         if (alternative == "greater") {
         # use studentized maximum distribution
-        # aka one-sided multivariate t distribution with corr = 0   
+        # aka one-sided multivariate t distribution with corr = 0
             for (i in 1:m){
                 lo <- -Inf
                 up <- rep(STATISTIC[i], m)
@@ -149,8 +149,8 @@ tamhaneDunnettTest.default <-
         #                                        upper=rep(x$STATISTIC, m),
         #                                        df = x$df,
         #                                        corr = cr))
-            
-        
+
+
         } else if (alternative == "less"){
             for (i in 1:m){
                 lo <- rep(STATISTIC[i], m)
@@ -166,12 +166,12 @@ tamhaneDunnettTest.default <-
           #                                      df = x$df,
           #                                      corr = cr))
         } else {
-           
+
            # use Studentized Maximum Modulus Distribution
            # equals Two-sided Multivariate t districution
            # use mvtnorm
            # critical values
-            
+
             for (i in 1:m){
                 lo <- -rep(abs(STATISTIC[i]), m)
                 up <- rep(abs(STATISTIC[i]), m)
@@ -216,10 +216,10 @@ function(formula, data, subset, na.action, alternative = c("two.sided", "greater
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

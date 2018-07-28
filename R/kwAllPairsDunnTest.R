@@ -1,7 +1,7 @@
 ## kwAllPairsDunn.test.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2015-2017 Thorsten Pohlert
+## Copyright (C) 2015-2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 #' @description
 #' Performs Dunn's non-parametric all-pairs comparison test
 #' for Kruskal-type ranked data.
-#' 
+#'
 #' @details
 #' For all-pairs comparisons in an one-factorial layout
 #' with non-normally distributed residuals Dunn's non-parametric test
@@ -37,10 +37,10 @@
 #' Originally, Dunn (1964) proposed Bonferroni's p-adjustment method.
 #'
 #' @references
-#' O. J. Dunn (1964). Multiple comparisons using rank sums.
-#' \emph{Technometrics}, 6, 241-252.
-#' 
-#' S. Siegel, N. J. Castellan Jr. (1988), \emph{Nonparametric Statistics
+#' Dunn, O. J. (1964) Multiple comparisons using rank sums,
+#' \emph{Technometrics} \emph{6}, 241--252.
+#'
+#' Siegel, S., Castellan Jr., N. J. (1988) \emph{Nonparametric Statistics
 #'  for The Behavioral Sciences}. New York: McGraw-Hill.
 #'
 #' @template class-PMCMR
@@ -49,7 +49,7 @@
 #' \code{\link[stats]{Normal}}, \code{\link[stats]{p.adjust}},
 #' \code{\link{kruskalTest}},
 #' \code{\link{kwAllPairsConoverTest}}, \code{\link{kwAllPairsNemenyiTest}}
-#' 
+#'
 #' @concept AllPairsComparisonTest
 #' @concept RankANOVA
 #' @example examples/kwAllPairsMC.R
@@ -111,21 +111,21 @@ function(x, g, p.adjust.method = p.adjust.methods, ...){
         pos <- 1
         tiesum <- 0
         while (pos <= n) {
-            val <- x.sorted[pos]  
+            val <- x.sorted[pos]
             nt <- length(!is.na(x.sorted[x.sorted==val]))
             pos <- pos + nt
             if (nt > 1){
                 tiesum <- tiesum + nt^3  - nt
-            }	     
+            }
         }
         C <- tiesum / (12 * (n - 1))
         return(C)
     }
     METHOD <- "Dunn's all-pairs test"
     C <- getties(x.rank, n)
-    if (C != 0) warning("Ties are present. z-quantiles were corrected for ties.")           
+    if (C != 0) warning("Ties are present. z-quantiles were corrected for ties.")
     compare.stats <- function(i,j) {
-        dif <- abs(R.bar[i] - R.bar[j]) 
+        dif <- abs(R.bar[i] - R.bar[j])
         A <- n * (n+1) / 12
         B <- (1 / R.n[i] + 1 / R.n[j])
         zval <- dif / sqrt((A - C) * B)
@@ -133,7 +133,7 @@ function(x, g, p.adjust.method = p.adjust.methods, ...){
     }
     PSTAT <- pairwise.table(compare.stats,levels(g), p.adjust.method="none" )
     compare.levels <- function(i,j) {
-        dif <- abs(R.bar[i] - R.bar[j]) 
+        dif <- abs(R.bar[i] - R.bar[j])
         A <- n * (n+1) / 12
         B <- (1 / R.n[i] + 1 / R.n[j])
         zval <- dif / sqrt((A - C) * B)
@@ -164,10 +164,10 @@ function(formula, data, subset, na.action,
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

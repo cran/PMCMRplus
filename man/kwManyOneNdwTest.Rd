@@ -114,12 +114,12 @@ ans <- kwManyOneNdwTest(weight ~ group, data = PlantGrowth,
 summary(ans)
 }
 \references{
-Damico, J. A., Wolfe, D. A. (1989), Extended tables of the exact distribution of
+Damico, J. A., Wolfe, D. A. (1989) Extended tables of the exact distribution of
 a rank statistic for treatments versus control multiple comparisons in one-way
-layout designs. \emph{Communications in Statistics - Theory and Methods}, 18(9),
+layout designs, \emph{Communications in Statistics - Theory and Methods} \bold{18},
 3327--3353.
 
-P. Nemenyi (1963), \emph{Distribution-free Multiple Comparisons}.
+Nemenyi, P. (1963) \emph{Distribution-free Multiple Comparisons},
 Ph.D. thesis, Princeton University.
 }
 \seealso{

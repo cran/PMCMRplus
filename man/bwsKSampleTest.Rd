@@ -89,13 +89,15 @@ bwsKSampleTest(x ~ g, datf)
 
 }
 \references{
-Murakami, H. (2006) K-sample rank test based on modified
-Baumgartner statistic and its power comparison,
-\emph{J. Jpn. Comp. Statist.} 19, 1--13.
+Baumgartner, W., Weiss, P., Schindler, H. (1998) A nonparametric test for the
+general two-sample problem, \emph{Biometrics} \bold{54}, 1129--1135.
+
+Murakami, H. (2006) K-sample rank test based on modified Baumgartner statistic and its power
+comparison, \emph{J. Jpn. Comp. Statist.} \bold{19}, 1--13.
 }
 \seealso{
 \code{\link{sample}}, \code{\link{bwsAllPairsTest}},
-\code{link{bwsManyOneTest}}.
+\code{\link{bwsManyOneTest}}.
 }
 \keyword{htest}
 \keyword{nonparametric}

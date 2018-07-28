@@ -2,7 +2,7 @@
 ##
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -75,13 +75,13 @@ print.powerPMCMR <- function(x, ...){
             g <- as.factor(g)
             sdE <- tapply(x$parms$sd, g, unique)
         }
-       
+
         ans <- data.frame(mu = x$mu,
                           n = x$n,
                           meanE = rep(unique(x$parms$mean), k),
                           sdE = sdE)
         print(ans)
-        
+
     } else if (x$errfn == "Lognormal"){
 
         if (length(x$parms$sdlog) == k){
@@ -97,7 +97,7 @@ print.powerPMCMR <- function(x, ...){
                           sdlogE = sdlogE)
         print(ans)
     } else if (x$errfn == "Cauchy"){
-        
+
         if (length(x$parms$scale) == k){
             scaleE = x$parms$scale
         } else if (length(x$parms$scale) == 1) {
@@ -105,7 +105,7 @@ print.powerPMCMR <- function(x, ...){
         } else if (all.equal(x$parms$scale)) {
             scaleE <- rep(unique(x$parms$scale),k)
         }
-  
+
         ans <- data.frame(mu = x$mu,
                           n = x$n,
                           locationE = rep(unique(x$parms$location), k),
@@ -119,7 +119,7 @@ print.powerPMCMR <- function(x, ...){
             scaleE <- rep(unique(x$parms$scale),k)
         } else if (all.equal(x$parms$scale)) {
             scaleE <- rep(unique(x$parms$scale),k)
-        } 
+        }
         ans <- data.frame(mu = x$mu,
                           n = x$n,
                           shapeE = rep(unique(x$parms$shape), k),
@@ -135,9 +135,9 @@ print.powerPMCMR <- function(x, ...){
                           n = x$n,
                           df = rep(unique(x$parms$df), k))
         print(ans)
-    }  
+    }
     message("\n")
-    inpDF <- data.frame(Value = (c(formatC(x$alpha, digits=3,format="f"), 
+    inpDF <- data.frame(Value = (c(formatC(x$alpha, digits=3,format="f"),
                                    formatC(c(x$m, x$m0, x$replicates),
                                            format="d"))))
     rownames(inpDF) <- c("Nominal alpha:",
@@ -154,11 +154,11 @@ print.powerPMCMR <- function(x, ...){
     }
     message(paste0("\nResults for Type I Error"))
 ##    t1err <- data.frame(Value = format.pval(c(x$fdp, x$fdr, x$fwer)))
-    
+
     prettyNumber <- function(i) ifelse(i == 0,
                                        formatC(i, digits=4, format="f"),
                                        format.pval(i, digits=4))
-    
+
     t1err <- data.frame(Value = sapply(c(x$pcer,
                                          x$PR,
                                          x$EQ,
@@ -167,15 +167,15 @@ print.powerPMCMR <- function(x, ...){
                                        function(i) prettyNumber(i)))
     rownames(t1err) <- c("Per-comparison error rate, E(V)/m:",
                          "At least one rejection per family, P(R>0):",
-                         "False discovery proportion, E(V/R | R>0):", 
+                         "False discovery proportion, E(V/R | R>0):",
                          "False discovery rate, E(V/R | R>0) P(R>0):",
                          "Familywise error rate, P(V>0 | V=R):")
     print(t1err)
-   
+
     message(paste0("\nResults for Test Power (Type II Error)"))
     t2err <- data.frame(Value = sapply(c(x$anyp, x$avep, x$allp),
                                        function(i) prettyNumber(i)))
-    
+
     rownames(t2err) <- c("Any-pair power, P(S>0):",
                          "Average per-pair power, E(S)/m1:",
                          "All-pair power, P(S=m1):")

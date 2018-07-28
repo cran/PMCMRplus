@@ -1,7 +1,7 @@
 ## frdAllPairsSiegelTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C)  2017 Thorsten Pohlert
+## Copyright (C)  2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -36,12 +36,11 @@
 #' The \eqn{p}-values are computed from the standard normal distribution.
 #' Any method as implemented in \code{\link{p.adjust}} can be used for
 #' \code{p}-value adjustment.
-#' 
+#'
 #' @references
-#' S. Siegel, N. J. Castellan Jr. (1988), \emph{Nonparametric
-#'    Statistics for the Behavioral Sciences}. 2nd ed.
-#'  New York: McGraw-Hill.
-#' 
+#' Siegel, S., Castellan Jr., N. J. (1988) \emph{Nonparametric
+#'    Statistics for the Behavioral Sciences}. 2nd ed. New York: McGraw-Hill.
+#'
 #' @keywords htest nonparametric
 #' @concept Friedman
 #' @concept Rank
@@ -79,13 +78,13 @@ frdAllPairsSiegelTest.default <-
         y <- as.vector(t(y))
     }
     else {
-        if (any(is.na(groups)) || any(is.na(blocks))) 
+        if (any(is.na(groups)) || any(is.na(blocks)))
             stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks))))) 
+        if (any(diff(c(length(y), length(groups), length(blocks)))))
             stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1)) 
+        if (any(table(groups, blocks) != 1))
             stop("Not an unreplicated complete block design")
-            
+
         DNAME <- paste(deparse(substitute(y)), ",",
                        deparse(substitute(groups)), "and",
                        deparse(substitute(blocks)) )
@@ -96,12 +95,12 @@ frdAllPairsSiegelTest.default <-
         n <- nlevels(blocks)
         GRPNAMES <- as.character(groups[1:k])
     }
-        
+
     p.adjust.method = match.arg(p.adjust.method)
     mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
     r <- t(apply(mat, 1L, rank))
     R.mnsum <- colMeans(r)
-        
+
     compare.stats <- function(i,j) {
         dif <- abs(R.mnsum[i] - R.mnsum[j])
         zval <- dif / sqrt(k * (k + 1) / (6 * n))
@@ -115,11 +114,11 @@ frdAllPairsSiegelTest.default <-
                             levels(groups), p.adjust.method="none")
     pstat <- as.numeric(PSTAT)
     pval <- 2 * pnorm(abs(pstat), lower.tail = FALSE)
-    pval[pval > 1] <- 1.0   
+    pval[pval > 1] <- 1.0
     padj <- p.adjust(pval, method = p.adjust.method)
     PVAL <- matrix(padj, ncol = (k - 1), nrow = (k -1 ))
     DIST <- "z"
-        		
+
     colnames(PSTAT) <- GRPNAMES[1:(k-1)]
     rownames(PSTAT) <- GRPNAMES[2:k]
     colnames(PVAL) <- GRPNAMES[1:(k-1)]

@@ -13,9 +13,10 @@ powerMCTests(mu, n = 10, errfn = c("Normal", "Lognormal", "Exponential",
   "vanWaerdenAllPairsTest", "dscfAllPairsTest", "gamesHowellTest", "lsdTest",
   "scheffeTest", "tamhaneT2Test", "tukeyTest", "dunnettT3Test",
   "pairwise.t.test", "pairwise.wilcox.test", "adManyOneTest", "adAllPairsTest",
-  "bwsManyOneTest",      "bwsAllPairsTest"), alternative = c("two.sided",
-  "greater", "less"), p.adjust.method = c("single-step", p.adjust.methods),
-  alpha = 0.05, FWER = TRUE, replicates = 1000)
+  "bwsManyOneTest",      "bwsAllPairsTest", "welchManyOneTTest"),
+  alternative = c("two.sided", "greater", "less"),
+  p.adjust.method = c("single-step", p.adjust.methods), alpha = 0.05,
+  FWER = TRUE, replicates = 1000)
 }
 \arguments{
 \item{mu}{numeric vector of group means.}
@@ -51,7 +52,7 @@ An object with class \code{powerPMCMR}.
 Performs power simulation for one-factorial all-pairs and Many-To-One comparison tests.
 }
 \details{
-The linear model of a one-way ANOVA can be written as: 
+The linear model of a one-way ANOVA can be written as:
 
 \deqn{
 X_{ij} = \mu_i + \epsilon_{ij}

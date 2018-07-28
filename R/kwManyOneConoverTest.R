@@ -1,7 +1,7 @@
 ## kwManyOneConoverTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -41,9 +41,9 @@
 #' from the multivariate \eqn{t} distribution. Otherwise,
 #' the \eqn{p}-values are computed from the \eqn{t}-distribution using
 #' any of the \eqn{p}-adjustment methods as included in \code{\link{p.adjust}}.
-#' 
+#'
 #' @inherit kwAllPairsConoverTest references
-#' 
+#'
 #' @template class-PMCMR
 #' @concept ManyToOneComparisons
 #' @concept Kruskal
@@ -71,7 +71,7 @@ kwManyOneConoverTest <- function(x, ...) UseMethod("kwManyOneConoverTest")
 #' @export
 kwManyOneConoverTest.default <-
 function(x, g, alternative = c("two.sided", "greater", "less"), p.adjust.method = c("single-step" ,p.adjust.methods),...){
-        ## taken from stats::kruskal.test        
+        ## taken from stats::kruskal.test
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -111,7 +111,7 @@ function(x, g, alternative = c("two.sided", "greater", "less"), p.adjust.method 
     }
     alternative <- match.arg(alternative)
     p.adjust.method <- match.arg(p.adjust.method)
-    
+
     ## rank version
     x.rank <- rank(x)
     R.bar <- tapply(x.rank, g, mean,na.rm=T)
@@ -123,12 +123,12 @@ function(x, g, alternative = c("two.sided", "greater", "less"), p.adjust.method 
         pos <- 1
         tiesum <- 0
         while (pos <= n) {
-            val <- x.sorted[pos]  
+            val <- x.sorted[pos]
             nt <- length(!is.na(x.sorted[x.sorted==val]))
             pos <- pos + nt
             if (nt > 1){
                 tiesum <- tiesum + nt^3  - nt
-            }        
+            }
         }
         C <- 1 - tiesum / (n^3 - n)
         C <- min(c(1,C))
@@ -148,18 +148,18 @@ function(x, g, alternative = c("two.sided", "greater", "less"), p.adjust.method 
     } else {
         S2 <-   ( 1 / (n - 1)) * (sum(x.rank^2) - (n * (((n + 1)^2) / 4)))
     }
-    
+
     compare.stats <- function(i) {
-        dif <- R.bar[i] - R.bar[1] 
+        dif <- R.bar[i] - R.bar[1]
         B <- (1 / R.n[i] + 1 / R.n[1])
         D <- (n - 1 - H.cor) / (n - k)
         tval <- dif / sqrt(S2 * B * D)
         return(tval)
     }
 
- 
+
     if (p.adjust.method != "single-step"){
-        df <- n - k		
+        df <- n - k
         STATISTIC <- rep(NA, k - 1)
         for (j in 2:k) {
             STATISTIC[j-1] <- compare.stats(j)
@@ -181,14 +181,14 @@ function(x, g, alternative = c("two.sided", "greater", "less"), p.adjust.method 
                        "less" =
                            pt(STATISTIC, df=df)
                        )
-        
+
         PVAL <- p.adjust(PVAL, method = p.adjust.method)
         PARMS <- c(df = df)
         DIST <- "t"
 
     } else {
         ## correlation matrix
-        
+
         n0 <- R.n[1]
         nn <- R.n[2:k]
         kk <- k - 1
@@ -201,8 +201,8 @@ function(x, g, alternative = c("two.sided", "greater", "less"), p.adjust.method 
                 corr[j,i] <- corr[i, j]
             }
         }
-		
-        df <- length(x) - k		
+
+        df <- length(x) - k
         STATISTIC <- rep(NA, k - 1)
 
         ## Get statistic values
@@ -212,23 +212,23 @@ function(x, g, alternative = c("two.sided", "greater", "less"), p.adjust.method 
 
         ## Get p-values from multivariate t-distribution
         if (alternative == "two.sided") {
-            PVAL <- sapply(STATISTIC, 
+            PVAL <- sapply(STATISTIC,
                            function(x)  1 - pmvt(lower= -rep(abs(x),kk),
                                                  upper=rep(abs(x), kk), df=df,
                                                  corr=corr))
         } else if (alternative == "greater"){
-            PVAL <- sapply(STATISTIC, 
+            PVAL <- sapply(STATISTIC,
                            function(x)  1 - pmvt(lower= -Inf,
                                                  upper=rep(x, kk), df=df,
                                                  corr=corr))
         } else {
-            PVAL <- sapply(STATISTIC, 
+            PVAL <- sapply(STATISTIC,
                            function(x)  1 - pmvt(lower= rep(x, kk),
                                                  upper=Inf, df=df, corr=corr))
         }
-		
+
         ## Names
-       
+
         PARMS <- c(k = kk, df = df)
         DIST <- "t"
     }
@@ -236,7 +236,7 @@ function(x, g, alternative = c("two.sided", "greater", "less"), p.adjust.method 
     PSTAT <- matrix(data=STATISTIC, nrow = (k-1), ncol = 1,
                     dimnames = list(LNAME, levels(g)[1]))
     PVAL <- matrix(data=PVAL, nrow = (k-1), ncol = 1,
-                   dimnames = list(LNAME, levels(g)[1])) 
+                   dimnames = list(LNAME, levels(g)[1]))
     MODEL <- data.frame(x, g)
     ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
                 statistic = PSTAT, p.adjust.method = p.adjust.method,
@@ -258,10 +258,10 @@ function(formula, data, subset, na.action, alternative = c("two.sided", "greater
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
    if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

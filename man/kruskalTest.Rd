@@ -109,11 +109,11 @@ anova(aov(rank(x) ~ g, datf))
 oneway.test(rank(x) ~ g, datf, var.equal=FALSE)
 }
 \references{
-W. J. Conover, R. L. Iman (1981) Rank transformations as a bridge
+Conover, W. J., Iman, R. L. (1981) Rank transformations as a bridge
  between parametric and nonparametric statistics, \emph{The American
-   Statistician} 35, 124--129.
- 
- L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
+   Statistician} \bold{35}, 124--129.
+
+ Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 }
 \seealso{
 \code{\link{kruskal.test}}, \code{\link[SuppDists]{pKruskalWallis}},

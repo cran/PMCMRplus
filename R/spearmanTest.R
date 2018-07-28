@@ -1,6 +1,6 @@
 ## spearman.R
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 ##
 #' @name spearmanTest
 #' @title Testing against Ordered Alternatives (Spearman Test)
-#' 
+#'
 #' @description
 #' Performs a Spearman type test for testing against ordered alternatives.
 #' @details
@@ -27,14 +27,13 @@
 #' \theta_k,~\theta_1 < \theta_k}.
 #'
 #' The p-values are estimated from the t distribution.
-#' 
+#'
 #' @template class-htest
 #' @template trendTests
 #' @references
-#' Kloke, J., McKean, J. W. (2015).
-#' \emph{Nonparametric statistical methods using R}.
+#' Kloke, J., McKean, J. W. (2015) \emph{Nonparametric statistical methods using R}.
 #' Boca Raton, FL: Chapman & Hall/CRC.
-#' 
+#'
 #' @export spearmanTest
 spearmanTest <- function(x, ...) UseMethod("spearmanTest")
 
@@ -50,7 +49,7 @@ spearmanTest.default <-
     function(x, g, alternative = c("two.sided", "greater", "less"),...)
 {
     ## taken from stats::kruskal.test
-        
+
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -79,11 +78,11 @@ spearmanTest.default <-
         if (k < 2)
             stop("all observations are in the same group")
     }
-    
+
     alternative <- match.arg(alternative)
     k <- nlevels(g)
     nk <- tapply(x, g, length)
-    
+
     n <- length(x)
     gg <- rep(1:k, times=nk)
 
@@ -96,17 +95,17 @@ spearmanTest.default <-
 
     ry <- rank(x)
     rx <- rank(gg)
-	
+
     di <- rx - ry
     Tx <- getties(gg)
     Ty <- getties(x)
-    
-    S <- sum(di^2)	
+
+    S <- sum(di^2)
     rs <- (n^3 - n - 1/2 * Tx - 1/2 * Ty - 6 * S) /
         sqrt((n^3 - n - Tx) * (n^3 - n - Ty))
     names(rs) <- "rho"
     tval <- rs * sqrt((n - 2) / (1 - rs^2))
-	
+
     if (alternative == "two.sided"){
         PVAL <- 2 * pt(abs(tval), df=n-2, lower.tail=FALSE)
     } else if (alternative == "greater"){
@@ -114,7 +113,7 @@ spearmanTest.default <-
     } else {
         PVAL <- pt(tval, df=n-2)
     }
-	
+
     names(tval) <- "t"
     PARMS <- n-2
     names(PARMS) <- "df"
@@ -122,9 +121,9 @@ spearmanTest.default <-
     H0 <- 0
     names(H0) <- "rho"
     METHOD <- paste("Spearman rank correlation test for ordered alternatives")
-	
+
     ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
-                statistic = tval, parameter = PARMS, estimate = ESTIM, 
+                statistic = tval, parameter = PARMS, estimate = ESTIM,
                 alternative = alternative, null.value = H0)
     class(ans) <- "htest"
     ans
@@ -136,17 +135,17 @@ spearmanTest.default <-
 #' @template one-way-formula
 #' @export
 spearmanTest.formula <-
-function(formula, data, subset, na.action, alternative = c("two.sided", "greater", "less"), 
+function(formula, data, subset, na.action, alternative = c("two.sided", "greater", "less"),
          ...)
 {
     mf <- match.call(expand.dots=FALSE)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-                 
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

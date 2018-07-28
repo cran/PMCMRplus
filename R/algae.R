@@ -10,7 +10,7 @@
 #'    capricornutum}) as the response variable. Three replicates
 #'  were measured at day 0, 1 and 2. The fluorescence method (Mayer et
 #'  al. 1997) was applied to measure biomass.
-#'  
+#'
 #' @format
 #'  A data frame with 22 observations on the following 10 variables.
 #'  \describe{
@@ -27,10 +27,11 @@
 #'  }
 #'
 #' @source
-#'    ENV/JM/MONO(2006)18/ANN, page 24.
+#'  ENV/JM/MONO(2006)18/ANN, page 24.
+#'
 #' @references
-#'  OECD (ed. 2006), \emph{Current approaches in the statistical analysis
-#'    of ecotoxicity data: A guidance to application - Annexes}. OECD Series
+#'  OECD (ed. 2006) \emph{Current approaches in the statistical analysis
+#'    of ecotoxicity data: A guidance to application - Annexes}, OECD Series
 #'  on testing and assessment, No. 54, (ENV/JM/MONO(2006)18/ANN).
 #'
 #' @keywords datasets

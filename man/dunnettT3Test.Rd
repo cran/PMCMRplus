@@ -86,8 +86,8 @@ summary(dunnettT3Test(x, g))
 }
 \references{
 C. W. Dunnett (1980) Pair wise multiple comparisons in the unequal
- variance case. \emph{Journal of the American Statistical
- Association}, 75, 796--800.
+ variance case, \emph{Journal of the American Statistical
+ Association} \bold{75}, 796--800.
 }
 \seealso{
 \code{\link[mvtnorm]{pmvt}}

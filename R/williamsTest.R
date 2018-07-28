@@ -1,7 +1,7 @@
 # williamsTest.R
 # Part of the R package: PMCMR
 #
-# Copyright (C) 2017 Thorsten Pohlert
+# Copyright (C) 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -25,8 +25,8 @@
 #' Williams' test is a step-down trend test for testing several treatment levels
 #' with a zero control in a one-factorial design with normally distributed
 #' errors of homogeneous variance. Let there be \eqn{k} groups including the control and let
-#' the zero dose level be indicated with \eqn{i = 0} and the highest
-#' dose level with \eqn{i = m}, then the following \eqn{m = k - 1} hypotheses are tested:
+#' the zero dose level be indicated with \eqn{i = 0} and the treatment
+#' levels indicated as \eqn{1 \le i \le m}, then the following \eqn{m = k - 1} hypotheses are tested:
 #'
 #' \deqn{
 #' \begin{array}{ll}
@@ -37,7 +37,7 @@
 #' \end{array}
 #' }
 #'
-#' where \eqn{m} denotes the isotonic mean of the dose level group.
+#' where \eqn{m_i} denotes the isotonic mean of the \eqn{i}th dose level group.
 #' The procedure starts from the highest dose level (\eqn{m}) to the the lowest dose level (\eqn{1}) and
 #' stops at the first non-significant test. The consequent lowest effect dose
 #' is the treatment level of the previous test number.
@@ -48,15 +48,18 @@
 #' dose level (\eqn{i}) and (potentially) modified according to the given extrapolation
 #' coefficient \eqn{\beta}.
 #'
-#' Non tabulated values are linearly interpolated with the function
-#' \code{\link[stats]{approx}}.
+#' Non tabulated values are linearly interpolated as recommended by Williams (1972).
+#' The function \code{\link[stats]{approx}} is used.
 #'
 #' For the comparison of the first dose level (i = 1) with the control, the critical t-value
 #' from the Student t distribution is used (\code{\link[stats]{TDist}}).
 #'
 #' @note
 #' In the current implementation, only tests on the level of \eqn{\alpha = 0.05}
-#' can be performed.
+#' can be performed. The included extrapolation function assumes either
+#' a balanced design, or designs, where the number of replicates in the control excdeeds the number of replicates
+#' in the treatment levels. A warning message appears, if the following
+#' condition is not met, \eqn{1 \le n_0 / n_i \le 6} for \eqn{1 \le i \le m}.
 #'
 #' @return
 #' A list with class \code{"williamsTest"} containing the following components:
@@ -101,12 +104,12 @@
 #'
 #' @useDynLib 'PMCMRplus', .registration = TRUE, .fixes = "F_"
 #' @references
-#' Williams, D. A. (1971), A test for differences between treatment means
-#'   when several dose levels are compared with a zero dose control.
-#'   \emph{Biometrics}, 27, 103--17
+#' Williams, D. A. (1971) A test for differences between treatment means
+#'   when several dose levels are compared with a zero dose control,
+#'   \emph{Biometrics} \bold{27}, 103--117.
 #'
-#' Williams, D. A. (1972), The comparison of several dose levels with a zero
-#'   dose control. \emph{Biometrics}, 28, 519--531.
+#' Williams, D. A. (1972) The comparison of several dose levels with a zero
+#'   dose control, \emph{Biometrics} \bold{28}, 519--531.
 #' @keywords htest
 #' @importFrom stats qt approx var
 #' @examples
@@ -176,6 +179,8 @@ williamsTest.default <-
 
     xi <- tapply(x, g, mean, na.rm = T)
     ni <- tapply(x, g, length)
+
+
     k <- nlevels(g)
     kk <- k - 1
     if (kk > 10) stop("Critical t-values are only available for up to 10 dose levels.")
@@ -233,25 +238,36 @@ williamsTest.default <-
     ## load critical t values (are in sysdata.rda)
     c <- ni[1]
     r <- ni[2:k]
-    nrows <- nrow(williamsTab1$tk005)
+
+    ## check ratio o
+    o <- c / r
+    for (i in 1:kk) {
+      if (o[i] < 1 | o[i] > 6) {
+        warning(paste0("Ratio n0 / n", i, " is ", o[i], " and outside the range.\n
+                       Test results may not be accurate."))
+      }
+    }
+
+
+    nrows <- nrow(TabCrit$williams.tk005)
     Tkdf <- numeric(kk)
-    dft <- as.numeric(rownames(williamsTab1$tk005))
+    dft <- as.numeric(rownames(TabCrit$williams.tk005))
     xx <- c(2:6,8,10)
     for (i in 2:kk) {
       if (i <= 6 | i == 8 | i == 10) {
         ## here only df needs to be interpolated
-        yt <- williamsTab1$tk005[, paste0(i)]
-        yb <- williamsTab1$beta005[, paste0(i)]
+        yt <- TabCrit$williams.tk005[, paste0(i)]
+        yb <- TabCrit$williams.beta005[, paste0(i)]
 
       } else {
         yt <- sapply(1:nrows, function(j) {
           approx(x = xx,
-                 y = williamsTab1$tk005[j,],
+                 y = TabCrit$williams.tk005[j,],
                  xout = i)$y
         })
         yb <- sapply(1:nrows, function(j) {
           approx(x = xx,
-                 y = williamsTab1$beta005[j,],
+                 y = TabCrit$williams.beta005[j,],
                  xout = i)$y
         })
       }

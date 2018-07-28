@@ -72,15 +72,15 @@ against the alternative
 A\eqn{_{ij}: F_i(x) \ne F_j(x), ~~ i \ne j}.
 For \code{p.adjust.method = "single-step"} the
 Tukey's studentized range distribution is used to calculate
-p-values (see \\code{\link{Tukey}}). Otherwise, the
+p-values (see \code{\link{Tukey}}). Otherwise, the
 t-distribution is used for the calculation of p-values
 with a latter p-value adjustment as
 performed by \code{\link{p.adjust}}.
 }
 \references{
-Lu, H., Smith, P. (1979). Distribution of normal scores statistic
+Lu, H., Smith, P. (1979) Distribution of normal scores statistic
 for nonparametric one-way analysis of variance.
-\emph{Journal of the American Statistical Association}, 74, 715--722.
+\emph{Journal of the American Statistical Association} \bold{74}, 715--722.
 }
 \seealso{
 \code{\link{normalScoresTest}}, \code{\link{normalScoresManyOneTest}}, \code{\link[SuppDists]{normOrder}}.

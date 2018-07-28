@@ -1,6 +1,6 @@
 ##  print.PMCMR.R
 ##
-##  Copyright (C) 2015-2017 Thorsten Pohlert
+##  Copyright (C) 2015-2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ summary.PMCMR <- function(object, ...)
     grp2 <- as.numeric(c(row(object$p.value)))
     rnam <- rownames(object$p.value)
     STAT <- object$dist
-		
+
     if (!is.null(object$alternative)) {
         if (object$alternative == "less"){
             H0 <- paste(rnam[grp2], "-", cnam[grp1], ">=", "0")
@@ -60,7 +60,7 @@ summary.PMCMR <- function(object, ...)
             H0 <- paste(rnam[grp2], "-", cnam[grp1], "==", "0")
             PVAL <- paste("Pr(>|", STAT, "|)", sep="")
         }
-    } else { 
+    } else {
         H0 <- paste(rnam[grp2], "-", cnam[grp1], "==", "0")
         PVAL <- paste("Pr(>|", STAT, "|)", sep="")
     }
@@ -77,7 +77,7 @@ summary.PMCMR <- function(object, ...)
     symp <- symnum(pval[OK], corr=FALSE,
                    cutpoints = c(0,  .001,.01,.05, .1, 1),
                    symbols = c("***","**","*","."," "))
-    
+
     xdf <- data.frame(statistic = round(stat[OK], 3),
                       p.value = format.pval(pval[OK]),
                       symp)
@@ -134,7 +134,7 @@ summaryGroup <- function(x, alpha = 0.05, ...){
             H0 <- paste(rnam[grp2], "-", cnam[grp1], "==", "0")
             PVAL <- paste("Pr(>|", STAT, "|)", sep="")
         }
-    } else { 
+    } else {
         H0 <- paste(rnam[grp2], "-", cnam[grp1], "==", "0")
         PVAL <- paste("Pr(>|", STAT, "|)", sep="")
     }
@@ -154,7 +154,7 @@ many-to-one comparisons!")
     ppval <- get.pvalues(x)
     ## only for today
     out.mcv <- multcompLetters(ppval, threshold = alpha)
-	
+
     dat <- x$model
     if( any(c(grepl("Nemenyi", x$method),
               grepl("Dunn", x$method),
@@ -182,11 +182,11 @@ many-to-one comparisons!")
         colnames(xdf) <- c("median", "Q25", "Q75", "n", "Sig. group")
 
     } else {
-              
+
         xmean <- tapply(dat$x, dat$g, mean)
         xn <- tapply(dat$x, dat$g, length)
         xsd <- tapply(dat$x, dat$g, sd)
-        
+
         xdf <- data.frame(round(xmean, 3),
                           round(xsd, 3),
                           xn,
@@ -195,7 +195,7 @@ many-to-one comparisons!")
                            rownames(x$statistic))
         names(xdf) <- c("mean", "sd", "n", "Sig. group")
     }
-	
+
     message("\n\tPairwise comparisons using ", x$method, "\n")
     message("data: ", x$data.name)
     if (!is.null(x$alternative)){

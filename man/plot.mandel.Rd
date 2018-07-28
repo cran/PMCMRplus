@@ -17,7 +17,7 @@
 Plotting method for objects inheriting from class \code{"mandel"}.
 }
 \examples{
-## 
+##
 \dontrun{
 data(Pentosan)
 md <- mandelkTest(value ~ lab, Pentosan, subset = (material == "B"))

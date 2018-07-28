@@ -1,6 +1,6 @@
 ##  johnsonTest.R
 ##
-##  Copyright (C) 2017 Thorsten Pohlert
+##  Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -17,11 +17,11 @@
 ##
 #' @name johnsonTest
 #' @title Testing against Ordered Alternatives (Johnson-Mehrotra Test)
-#' 
+#'
 #' @description
 #' Performs the Johnson-Mehrotra test for testing against ordered alternatives
 #' in a balanced one-factorial sampling design.
-#' 
+#'
 #' @details
 #' The null hypothesis, H\eqn{_0: \theta_1 = \theta_2 = \ldots = \theta_k}
 #' is tested against a simple order hypothesis,
@@ -29,16 +29,16 @@
 #' \theta_k,~\theta_1 < \theta_k}.
 #'
 #' The p-values are estimated from the standard normal distribution.
-#' 
+#'
 #' @template class-htest
 #' @template trendTests
 #' @references
 #' Bortz, J. (1993). \emph{Statistik für Sozialwissenschaftler} (4th ed.).
 #' Berlin: Springer.
-#' 
-#' Johnson, R. A., & Mehrotra, K. G. (1972). Some c-sample
+#'
+#' Johnson, R. A., Mehrotra, K. G. (1972) Some c-sample
 #' nonparametric tests for ordered alternatives.
-#' \emph{Journal of the Indian Statistical Association}, 9, 8--23.
+#' \emph{Journal of the Indian Statistical Association} \bold{9}, 8--23.
 #'
 #' @export johnsonTest
 johnsonTest <- function(x, ...) UseMethod("johnsonTest")
@@ -52,10 +52,10 @@ johnsonTest <- function(x, ...) UseMethod("johnsonTest")
 #' @importFrom SuppDists normOrder
 #' @export
 johnsonTest.default <-
-    function(x, g, alternative = c("two.sided", "greater", "less"), 
+    function(x, g, alternative = c("two.sided", "greater", "less"),
              ...)
 {
-   
+
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -69,7 +69,7 @@ johnsonTest.default <-
         if(!is.null(x$alternative)){
             alternative <- x$alternative
         }
-        x <- unlist(x)	
+        x <- unlist(x)
     }
     else {
         if (length(x) != length(g))
@@ -95,12 +95,12 @@ johnsonTest.default <-
         stop("Johnson test is only valid for 'k' equal sample sizes")
     n <- unique(n)
     r <- rank(x)
-    
+
     ## transform to expected normal order scores
     sco <- normOrder(N)
     lo <- floor(r)
     up <- ceiling(r)
-	
+
     ## mid-expected normal order scores for mid-ranks
     zscores <- (sco[up] + sco[lo]) / 2
 
@@ -116,7 +116,7 @@ johnsonTest.default <-
 
     ## test value
     PSTAT <- T / sqrt(sum(zscores^2) / (n * (N - 1)) * sum(Mi^2))
-	
+
     ## get p.value
     if (alternative == "two.sided"){
         PVAL <- 2 * min(0.5, pnorm(abs(PSTAT), lower.tail = FALSE))
@@ -125,12 +125,12 @@ johnsonTest.default <-
     } else {
         PVAL <- pnorm(PSTAT)
     }
-	
+
     names(PSTAT) <- "z"
     names(T) <- "T*"
-    METHOD <- paste("Johnson-Mehrotra test")  
+    METHOD <- paste("Johnson-Mehrotra test")
     ans <- list(method = METHOD, p.value = PVAL,
-                statistic = PSTAT, estimate = T, 
+                statistic = PSTAT, estimate = T,
                 data.name = DNAME, alternative = alternative)
     class(ans) <- "htest"
     return(ans)
@@ -149,10 +149,10 @@ johnsonTest.formula <-
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
     mf <- mf[c(1L, m)]
     mf[[1L]] <- quote(stats::model.frame)
-    
+
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

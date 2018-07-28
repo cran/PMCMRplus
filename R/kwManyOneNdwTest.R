@@ -1,7 +1,7 @@
 ## kwManyOneNdwTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -46,16 +46,16 @@
 #' This function is essentially the same as \code{\link{kwManyOneDunnTest}}, but
 #' there is no tie correction included. Therefore, the implementation of
 #' Dunn's test is superior, when ties are present.
-#' 
+#'
 #' @references
-#' Damico, J. A., Wolfe, D. A. (1989), Extended tables of the exact distribution of
+#' Damico, J. A., Wolfe, D. A. (1989) Extended tables of the exact distribution of
 #' a rank statistic for treatments versus control multiple comparisons in one-way
-#' layout designs. \emph{Communications in Statistics - Theory and Methods}, 18(9),
+#' layout designs, \emph{Communications in Statistics - Theory and Methods} \bold{18},
 #' 3327--3353.
-#' 
-#' P. Nemenyi (1963), \emph{Distribution-free Multiple Comparisons}.
+#'
+#' Nemenyi, P. (1963) \emph{Distribution-free Multiple Comparisons},
 #' Ph.D. thesis, Princeton University.
-#' 
+#'
 #' @template class-PMCMR
 #' @concept ManyToOneComparisons
 #' @concept Kruskal
@@ -120,7 +120,7 @@ kwManyOneNdwTest.default <-
             if (k < 2)
                 stop("all observations are in the same group")
         }
-		
+
         # Check arguments
         p.adjust.method <- match.arg(p.adjust.method)
         alternative <- match.arg(alternative)
@@ -131,8 +131,8 @@ kwManyOneNdwTest.default <-
         R.n <- tapply(!is.na(x), g, length)
         k <- nlevels(g)
         n <- sum(R.n)
-		
-	# tie function	
+
+	# tie function
         getties <- function(x){
             n <- length(x)
             t <- table(x)
@@ -140,21 +140,21 @@ kwManyOneNdwTest.default <-
             C <- min(c(1,C))
             return(C)
         }
-        
+
         C <- getties(x)
         if(C < 1){
             warning("Ties are present. p values are not corrected.")
-        }		   
-		
+        }
+
         compare.stats <- function(i) {
 		# Control is in first element
             dif <- abs(R.bar[i] - R.bar[1])
             qval <- dif / sqrt((n * (n + 1) / 12) * (1/R.n[i] + 1/R.n[1] ))
             return(qval)
         }
-        
+
         pstat <- as.vector(sapply(2:k, function(i) compare.stats(i)))
-        
+
         if (p.adjust.method != "single-step") {
             if (alternative == "two.sided")
             {
@@ -185,20 +185,20 @@ kwManyOneNdwTest.default <-
                 }
             }
             if (alternative == "two.sided"){
-                pvalv <- sapply(pstat, function(x) 
+                pvalv <- sapply(pstat, function(x)
                     1 - pmvnorm(lower = -rep(abs(x), m),
                                 upper = rep(abs(x), m),
                                 corr = cr))
             } else if (alternative == "greater"){
-                pvalv <- sapply(pstat, function(x) 
+                pvalv <- sapply(pstat, function(x)
                     1 - pmvnorm(lower = -Inf,
                                 upper = rep(x, m),
                                 corr = cr))
             } else {
-                pvalv <- sapply(pstat, function(x) 
+                pvalv <- sapply(pstat, function(x)
                     1 - pmvnorm(lower = rep(x, m),
                                 upper = Inf,
-                                corr = cr))	
+                                corr = cr))
             }
         }
 
@@ -239,7 +239,7 @@ kwManyOneNdwTest.formula <-
     mf[[1L]] <- quote(stats::model.frame)
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

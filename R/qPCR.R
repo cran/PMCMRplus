@@ -30,16 +30,16 @@
 #' @source
 #'  Data were taken from Table 2 of Ruijter et al. (2013, p. 38).
 #'  See also Eisinga et al. (2017, pp. 14--15).
-#' 
+#'
 #' @references
-#'  R. Eisinga, T Heskes, B. Pelzer, M. Te Grotenhuis (2017)
+#'  Eisinga, R., Heskes, T., Pelzer, B., Te Grotenhuis, M. (2017)
 #'  Exact p-values for pairwise comparison of Friedman rank sums,
 #'  with application to comparing classifiers.
 #'  \emph{BMC Bioinformatics}, 18:68.
 #'
-#'  J. M. Ruijter et al. (2013) Evaluation of qPCR curve analysis
+#'  Ruijter, J. M. et al. (2013) Evaluation of qPCR curve analysis
 #'  methods for reliable biomarker discovery: Bias, resolution,
-#'  precision, and implications. \emph{Methods} 59, 32--46.
+#'  precision, and implications, \emph{Methods} \bold{59}, 32--46.
 #' @keywords datasets
 NULL
 

@@ -95,12 +95,12 @@ ans <- kwAllPairsNemenyiTest(count ~ spray, data = InsectSprays)
 summary(ans)
 }
 \references{
-P. Nemenyi (1963), \emph{Distribution-free Multiple Comparisons}.
+Nemenyi, P. (1963) \emph{Distribution-free Multiple Comparisons}.
  Ph.D. thesis, Princeton University.
 
-L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
+Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 
-F. Wilcoxon, R. A. Wilcox (1964),
+Wilcoxon, F., Wilcox, R. A. (1964)
 \emph{Some rapid approximate statistical procedures}. Pearl River:
 Lederle Laboratories.
 }

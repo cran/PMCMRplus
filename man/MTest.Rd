@@ -58,7 +58,7 @@ test against an ordered alternative for normal data
 with equal variances.
 
 This test is an extension of Hayter's OSRT
-(see \code{\link{osrtTest}} by
+(see \code{\link{osrtTest}}) by
 applying a simple order restriction of
 \eqn{\mu_{m'} - \mu_m \le \mu_j - \mu_i \le \
 \mu_{l'} - \mu_{l}} for any \eqn{l \le i \le m}
@@ -70,9 +70,9 @@ and \eqn{m' \le j \le l'}. It tests all-pairs
 MTest(weight ~ group, data = PlantGrowth)
 }
 \references{
-Nashimoto, K., Wright, F.T. (2005),
-Multiple comparison procedures for detecting differences
-in simply ordered means. \emph{Comput. Statist. Data Anal.} 48, 291--306.
+Nashimoto, K., Wright, F.T., (2005) Multiple comparison procedures
+for detecting differences in simply ordered means.
+\emph{Comput. Statist. Data Anal.} \bold{48}, 291--306.
 }
 \concept{
 AllPairsComparison

@@ -1,7 +1,7 @@
 ## frdManyOneExactTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -16,11 +16,6 @@
 ##  A copy of the GNU General Public License is available at
 ##  http://www.r-project.org/Licenses/
 ##
-##  Literature:
-##  Eisinga, Heskes, Pelzer, Te Grotenhuis, 2017,   
-##  Exact p-values for pairwise comparison of
-##  Friedman rank sums, with application to
-##  comparing classifiers, BMC Bioinformatics, January 2 2017                                           
 ##
 #' @rdname frdManyOneExactTests
 #' @title  Exact Many-to-One Test
@@ -43,18 +38,19 @@
 #' H\eqn{_i: \theta_0 = \theta_i} is tested in the two-tailed case against
 #' A\eqn{_i: \theta_0 \ne \theta_i, ~~ (1 \le i \le m)}.
 #'
-#' The exact \eqn{p}-values 
+#' The exact \eqn{p}-values
 #' are computed using the code of \code{"pexactfrsd.R"}
-#' that was a supplement to the publication of Eisinga et al. (2017). 
+#' that was a supplement to the publication of Eisinga et al. (2017).
 #' Additionally, any of the \eqn{p}-adjustment methods
 #' as included in \code{\link{p.adjust}} can be selected, for \eqn{p}-value
 #' adjustment.
-#' 
-#' @references
-#' R. Eisinga, T. Heskes, B. Pelzer, M. Te Grotenhuis (2017),
-#'  Exact p-values for Pairwise Comparison of Friedman Rank Sums,
-#'  with Application to Comparing Classifiers, \emph{BMC Bioinformatics}, 18:68.
 #'
+#' @inherit frdAllPairsExactTest references
+# @references
+# R. Eisinga, T. Heskes, B. Pelzer, M. Te Grotenhuis (2017),
+#  Exact p-values for Pairwise Comparison of Friedman Rank Sums,
+#  with Application to Comparing Classifiers, \emph{BMC Bioinformatics}, 18:68.
+#
 #' @concept FriedmanTest
 #' @concept Rank
 #' @concept ManyToOne
@@ -63,7 +59,7 @@
 #' @seealso
 #' \code{\link{friedmanTest}}, \code{\link[stats]{friedman.test}},
 #' \code{\link{frdManyOneDemsarTest}}, \code{\link{frdManyOneNemenyiTest}}.
-#' 
+#'
 #' @template class-PMCMR
 #' @export
 frdManyOneExactTest <- function(y, ...) UseMethod("frdManyOneExactTest")
@@ -94,14 +90,14 @@ frdManyOneExactTest.default <-
         y <- as.vector(t(y))
     }
     else {
-        if (any(is.na(groups)) || any(is.na(blocks))) 
+        if (any(is.na(groups)) || any(is.na(blocks)))
             stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks))))) 
+        if (any(diff(c(length(y), length(groups), length(blocks)))))
             stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1)) 
+        if (any(table(groups, blocks) != 1))
                 stop("Not an unreplicated complete block design")
-        
-        DNAME <- paste(deparse(substitute(y)), ",", 
+
+        DNAME <- paste(deparse(substitute(y)), ",",
                        deparse(substitute(groups)), "and",
                        deparse(substitute(blocks)) )
         groups <- factor(groups)
@@ -110,12 +106,12 @@ frdManyOneExactTest.default <-
         n <- nlevels(blocks)
         GRPNAMES <- as.character(groups[1:k])
     }
-    
+
     ## Check arguments
     p.adjust.method <- match.arg(p.adjust.method)
     mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
     r <- t(apply(mat, 1L, rank))
-    
+
 
     METHOD <- c("Eisinga-Heskes-Pelzer and Grotenhuis",
                 " many-to-one test for a two-way",
@@ -134,7 +130,7 @@ frdManyOneExactTest.default <-
     DIST <- "D"
     LNAME <- GRPNAMES[2:k]
     alternative = "two.sided"
-    
+
     ## build matrix
     PSTAT <- matrix(data=PSTATv, nrow = (k-1), ncol = 1,
                     dimnames = list(LNAME, GRPNAMES[1]))

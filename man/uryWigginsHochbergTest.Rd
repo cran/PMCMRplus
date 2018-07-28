@@ -94,13 +94,13 @@ summary(uryWigginsHochbergTest(x, g))
 
 }
 \references{
-Y. Hochberg (1976) A Modification of the T-Method of Multiple
+Hochberg, Y. (1976) A Modification of the T-Method of Multiple
 Comparisons for a One-Way Layout With Unequal Variances,
-\emph{Journal of the American Statistical Association}, 71, 200--203.
- 
-H. Ury and A. D. Wiggins (1971) Large Sample and Other
+\emph{Journal of the American Statistical Association} \bold{71}, 200--203.
+
+Ury, H. and Wiggins, A. D. (1971) Large Sample and Other
 Multiple Comparisons Among Means, \emph{British Journal of
-Mathematical and Statistical Psychology}, 24, 174--194.
+Mathematical and Statistical Psychology} \bold{24}, 174--194.
 }
 \seealso{
 \code{\link{dunnettT3Test}}

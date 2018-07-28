@@ -67,11 +67,11 @@ dimnames=list(1:7, LETTERS[1:7]))
 durbinTest(y)
 }
 \references{
-W. J. Conover (1999), \emph{Practical nonparametric Statistics},
+Conover,W. J. (1999) \emph{Practical nonparametric Statistics},
 3rd. Edition, Wiley.
 
-N. A. Heckert and J. J. Filliben (2003). NIST Handbook 148:
-Dataplot Reference Manual, Volume 2:
+Heckert, N. A., Filliben, J. J. (2003) \emph{NIST Handbook 148:
+Dataplot Reference Manual}, Volume 2:
 Let Subcommands and Library Functions.
 National Institute of Standards and Technology Handbook Series, June 2003.
 }

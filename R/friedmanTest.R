@@ -1,7 +1,7 @@
 ## friedmanTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -32,17 +32,18 @@
 #' Consequently, the default test distribution is \code{dist = "Chisquare"}.
 #'
 #' If \code{dist = "FDist"} is selected, than the approach of
-#' Conover and Imam (1981) is performed. 
+#' Conover and Imam (1981) is performed.
 #' The Friedman Test using the \eqn{F}-distribution leads to
 #' the same results as doing an two-way Analysis of Variance without
 #' interaction on rank transformed data.
 #'
 #' @references
-#'   W. J. Conover, R. L. Iman (1981), Rank transformations as a bridge
+#'  Conover, W. J., Iman, R. L. (1981) Rank transformations as a bridge
 #'  between parametric and nonparametric statistics, \emph{The American
-#'    Statistician} 35, 124--129.
-#'  
-#'  L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
+#'    Statistician} \bold{35}, 124--129.
+#'
+#'  Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
+#'
 #' @keywords htest nonparametric
 #' @seealso
 #' \code{\link{friedman.test}}
@@ -89,7 +90,7 @@
 #'
 #' ## F-distribution
 #' friedmanTest(RoundingTimes, dist = "FDist")
-#' 
+#'
 #' ## Check with One-way repeated measure ANOVA
 #' rmat <- RoundingTimes
 #' for (i in 1:length(RoundingTimes[,1])) rmat[i,] <- rank(rmat[i,])
@@ -120,11 +121,11 @@ friedmanTest.default <-
             GRPNAMES <- colnames(y)
         }
         else {
-            if (any(is.na(groups)) || any(is.na(blocks))) 
+            if (any(is.na(groups)) || any(is.na(blocks)))
                 stop("NA's are not allowed in groups or blocks")
-            if (any(diff(c(length(y), length(groups), length(blocks))))) 
+            if (any(diff(c(length(y), length(groups), length(blocks)))))
                 stop("y, groups and blocks must have the same length")
-            if (any(table(groups, blocks) != 1)) 
+            if (any(table(groups, blocks) != 1))
                 stop("Not an unreplicated complete block design")
 
             DNAME <- paste(deparse(substitute(y)), ",",
@@ -146,7 +147,7 @@ friedmanTest.default <-
         for (i in 1:length(mat[, 1])) mat[i, ] <- rank(mat[i, ])
         R.sum <- colSums(mat)
         METHOD <- paste("Friedman rank sum test")
-    
+
         ## Friedman's T1 value
         A1 <- 0
         for (i in 1:n){

@@ -1,7 +1,7 @@
 ##  durbinAllPairsTest.R
 ##  Part of the R package PMCMRplus
 ##
-##  Copyright (C) 2015-2017 Thorsten Pohlert
+##  Copyright (C) 2015-2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 ##  http://www.r-project.org/Licenses/
 
 #' @name durbinAllPairsTest
-#' 
+#'
 #' @title All-Pairs Comparisons Test for Balanced Incomplete Block Designs
 #'
 #' @description
@@ -41,10 +41,10 @@
 #' \code{\link{p.adjust.methods}} can be selected by the user.
 #'
 #' @references
-#' W. J. Conover and R. L. Iman (1979), \emph{On multiple-comparisons
+#' Conover, W. J., Iman, R. L. (1979) \emph{On multiple-comparisons
 #'  procedures}, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 #'
-#' W. J. Conover (1999), \emph{Practical nonparametric Statistics},
+#' Conover, W. J. (1999) \emph{Practical nonparametric Statistics},
 #' 3rd. Edition, Wiley.
 #'
 #' @examples
@@ -78,7 +78,7 @@ durbinAllPairsTest <- function(y, ...) UseMethod("durbinAllPairsTest")
 durbinAllPairsTest.default <- function(y, groups, blocks,
                                        p.adjust.method = p.adjust.methods, ...)
 {
-    DNAME <- deparse(substitute(y))                     
+    DNAME <- deparse(substitute(y))
     if (is.matrix(y)) {
         GRPNAME <- colnames(y)
         g <- factor(c(col(y)))
@@ -103,18 +103,18 @@ durbinAllPairsTest.default <- function(y, groups, blocks,
         blocks <- factor(blocks)
         GRPNAME <- levels(groups)
     }
-    
+
     ## Need to ensure consistent order.
     o <- order(blocks, groups)
     y <- y[o]
     groups <- groups[o]
     blocks <- blocks[o]
-    
+
     p.adjust.method = match.arg(p.adjust.method)
     t <- nlevels(groups)
     b <- nlevels(blocks)
     r <- unique(table(groups))
-    k <- unique(table(blocks)) 
+    k <- unique(table(blocks))
     rij <- unlist(tapply(y, blocks, rank))
     Rj <- tapply(rij, groups, sum)
     ## Taken from NIST
@@ -128,15 +128,15 @@ durbinAllPairsTest.default <- function(y, groups, blocks,
     df <- b * k - b - t + 1
    # Pairwise comparisons
     compare.stats <- function(i,j) {
-        dif <- abs(Rj[i] - Rj[j]) 
+        dif <- abs(Rj[i] - Rj[j])
         tval <- dif / denom
         return(tval)
     }
     PSTAT <- pairwise.table(compare.stats,levels(groups),
                             p.adjust.method="none" )
-    
+
     compare.levels <- function(i,j) {
-        dif <- abs(Rj[i] - Rj[j]) 
+        dif <- abs(Rj[i] - Rj[j])
         tval <- dif / denom
         pval <- 2 * pt(q=abs(tval), df=df, lower.tail=FALSE)
         return(pval)

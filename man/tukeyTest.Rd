@@ -81,10 +81,10 @@ anova(fit)
 summary(tukeyTest(x, g))
 }
 \references{
-L. Sachs (1997) \emph{Angewandte Statistik}, New York: Springer.
+Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
 
-J. Tukey (1949) Comparing Individual Means in the Analysis of Variance,
-\emph{Biometrics} 5, 99--114.
+Tukey, J. (1949) Comparing Individual Means in the Analysis of Variance,
+\emph{Biometrics} \bold{5}, 99--114.
 }
 \seealso{
 \code{\link{Tukey}}, \code{\link{TukeyHSD}}

@@ -62,7 +62,7 @@ Performs Anderson-Darling all-pairs comparison test.
 }
 \details{
 For all-pairs comparisons in an one-factorial layout
-with non-normally distributed residuals Anderson-Darling's 
+with non-normally distributed residuals Anderson-Darling's
 all-pairs comparison test can be used. A total of \eqn{m = k(k-1)/2}
 hypotheses can be tested. The null hypothesis
 H\eqn{_{ij}: F_i(x) = F_j(x)} is tested in the two-tailed test
@@ -85,7 +85,7 @@ summaryGroup(out)
 }
 \references{
 Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
-\emph{Journal of the American Statistical Association}, 82, 9118--924.
+\emph{Journal of the American Statistical Association} \bold{82}, 918--924.
 }
 \seealso{
 \code{\link{adKSampleTest}}, \code{\link{adManyOneTest}},

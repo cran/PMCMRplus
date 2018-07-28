@@ -71,16 +71,16 @@ the U-test as re-ranking is conducted for each pairwise test.
 The p-values are estimated from the studentized range distriburtion.
 }
 \references{
-C. E. Douglas, A. M. Fligner A. (1991) On distribution-free multiple
+Douglas, C. E., Fligner, A. M. (1991) On distribution-free multiple
 comparisons in the one-way analysis of variance, \emph{Communications in
- Statistics - Theory and Methods}, 20, 127--139.
+ Statistics - Theory and Methods} \bold{20}, 127--139.
 
-M. Dwass (1960) Some k-sample rank-order tests. In \emph{Contributions to
+Dwass, M. (1960) Some k-sample rank-order tests. In \emph{Contributions to
   Probability and Statistics}, Edited by: I. Olkin,
 Stanford: Stanford University Press.
 
-R. G. D. Steel (1960) A rank sum test for comparing all pairs of
-treatments, \emph{Technometrics}, 2, 197--207
+Steel, R. G. D. (1960) A rank sum test for comparing all pairs of
+treatments, \emph{Technometrics} \bold{2}, 197--207
 }
 \seealso{
 \code{\link{Tukey}}, \code{\link{pairwise.wilcox.test}}

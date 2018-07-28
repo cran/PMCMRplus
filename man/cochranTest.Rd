@@ -73,7 +73,7 @@ cochranTest(value ~ lab, data = Pentosan, subset = (material == "A"))
 }
 \references{
 Cochran, W.G. (1941) The distribution of the largest of a set of estimated
-variances as a fraction of their total. \emph{Ann. Eugen.} 11, 47--52.
+variances as a fraction of their total. \emph{Ann. Eugen.} \bold{11}, 47--52.
 
 Wilrich, P.-T. (2011) Critical values of Mandel's h and k,
 Grubbs and the Cochran test statistic. \emph{Adv. Stat. Anal.}.

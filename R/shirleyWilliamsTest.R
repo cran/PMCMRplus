@@ -1,7 +1,7 @@
 # shirleyWilliamsTest.R
 # Part of the R package: PMCMR
 #
-##  Copyright (C) 2017 Thorsten Pohlert
+##  Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -68,11 +68,11 @@
 #' computational time.
 #'
 #' @references
-#' Shirley, E., (1977), Nonparametric Equivalent of Williams Test for Contrasting Increasing
-#' Dose Levels of a Treatment. \emph{Biometrics}, 33, 386--389.
+#' Shirley, E., (1977) Nonparametric Equivalent of Williams Test for Contrasting Increasing
+#' Dose Levels of a Treatment, \emph{Biometrics} \bold{33}, 386--389.
 #'
-#' Williams, D.A. (1986), Note on Shirley's nonparametric test for comparing
-#' several dose levels with a zero-dose control. \emph{Biometrics} 42, 183--186.
+#' Williams, D. A. (1986) Note on Shirley's nonparametric test for comparing
+#' several dose levels with a zero-dose control, \emph{Biometrics} \bold{42}, 183--186.
 #'
 #' @return
 #' Either a list with class \code{"williamsTest"} or al list with class \code{"PMCMR"}.
@@ -279,25 +279,25 @@ shirleyWilliamsTest.default <-
       df <- 1E6  # Originally Inf
       c <- nj[1]
       r <- nj[2:k]
-      nrows <- nrow(williamsTab1$tk005)
+      nrows <- nrow(TabCrit$williams.tk005)
       Tkdf <- numeric(kk)
-      dft <- as.numeric(rownames(williamsTab1$tk005))
+      dft <- as.numeric(rownames(TabCrit$williams.tk005))
       xx <- c(2:6, 8, 10)
       for (i in 2:kk) {
         if (i <= 6 | i == 8 | i == 10) {
           ## here only df needs to be interpolated
-          yt <- williamsTab1$tk005[, paste0(i)]
-          yb <- williamsTab1$beta005[, paste0(i)]
+          yt <- TabCrit$williams.tk005[, paste0(i)]
+          yb <- TabCrit$williams.beta005[, paste0(i)]
 
         } else {
           yt <- sapply(1:nrows, function(j) {
             approx(x = xx,
-                   y = williamsTab1$tk005[j,],
+                   y = TabCrit$williams.tk005[j,],
                    xout = i)$y
           })
           yb <- sapply(1:nrows, function(j) {
             approx(x = xx,
-                   y = williamsTab1$beta005[j,],
+                   y = TabCrit$williams.beta005[j,],
                    xout = i)$y
           })
         }

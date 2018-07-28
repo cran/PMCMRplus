@@ -1,7 +1,7 @@
 ## frdAllPairsNemenyiTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2014-2017 Thorsten Pohlert
+## Copyright (C) 2014-2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 ##  A copy of the GNU General Public License is available at
 ##  http://www.r-project.org/Licenses/
 ##
-                                    
+
 #' @rdname frdAllPairsNemenyiTests
 #' @title Nemenyi's All-Pairs Comparisons Test for Unreplicated Blocked Data
 #' @description
@@ -33,20 +33,19 @@
 #' A\eqn{_{ij}: \theta_i \ne \theta_j, ~~ i \ne j}.
 #'
 #' The \eqn{p}-values are computed from the studentized range distribution.
-#' 
+#'
 #' @references
-#' J. Demsar (2006), Statistical comparisons of classifiers over multiple
-#'  data sets, \emph{Journal of Machine Learning Research}, 7, 1--30. 
-#' 
-#' R. G. Miller Jr. (1996), \emph{Simultaneous statistical inference}.
+#' Demsar, J. (2006) Statistical comparisons of classifiers over multiple
+#'  data sets, \emph{Journal of Machine Learning Research} \bold{7}, 1--30.
+#'
+#' Miller Jr., R. G. (1996) \emph{Simultaneous statistical inference}.
 #'  New York: McGraw-Hill.
-#' 
-#' P. Nemenyi (1963), \emph{Distribution-free Multiple Comparisons}.
+#'
+#' Nemenyi, P. (1963), \emph{Distribution-free Multiple Comparisons}.
 #'  Ph.D. thesis, Princeton University.
 #'
-#' L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
-#'  Pages: 668--675.
-#' 
+#' Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
+#'
 #' @keywords htest nonparametric
 #' @concept Friedman
 #' @concept Rank
@@ -81,13 +80,13 @@ frdAllPairsNemenyiTest.default <-
         y <- as.vector(t(y))
     }
     else {
-        if (any(is.na(groups)) || any(is.na(blocks))) 
+        if (any(is.na(groups)) || any(is.na(blocks)))
             stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks))))) 
+        if (any(diff(c(length(y), length(groups), length(blocks)))))
             stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1)) 
+        if (any(table(groups, blocks) != 1))
             stop("Not an unreplicated complete block design")
-            
+
         DNAME <- paste(deparse(substitute(y)), ",",
                        deparse(substitute(groups)), "and",
                        deparse(substitute(blocks)) )
@@ -98,19 +97,19 @@ frdAllPairsNemenyiTest.default <-
         n <- nlevels(blocks)
         GRPNAMES <- as.character(groups[1:k])
     }
-        
- 
+
+
     mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
     r <- t(apply(mat, 1L, rank))
     R.mnsum <- colMeans(r)
-        
+
     compare.stats <- function(i,j) {
         dif <- abs(R.mnsum[i] - R.mnsum[j])
         qval <- dif / sqrt(k * (k + 1) / (6 * n))
         return(qval)
     }
 
-   
+
     PSTAT <- pairwise.table(compare.stats,levels(groups),
                             p.adjust.method="none" ) * sqrt(2)
     PVAL <- 1 - ptukey(PSTAT, nmeans=k, df=Inf)

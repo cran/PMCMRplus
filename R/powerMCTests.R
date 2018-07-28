@@ -1,7 +1,7 @@
 ## powerMCTests.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -39,8 +39,8 @@
 #' @param replicates the number of Monte Carlo replicates or runs. Defaults to \code{1000}.
 #'
 #' @details
-#' The linear model of a one-way ANOVA can be written as: 
-#' 
+#' The linear model of a one-way ANOVA can be written as:
+#'
 #' \deqn{
 #' X_{ij} = \mu_i + \epsilon_{ij}
 #' }
@@ -53,7 +53,7 @@
 #' false discovery rate and familywise error rate)
 #' and test powers (any-pair power, average per-pair power
 #' and all-pairs power) are calculated.
-#' 
+#'
 #' @return
 #' An object with class \code{powerPMCMR}.
 #'
@@ -70,7 +70,7 @@
 #'  parms=list(mean=0, sd=1),
 #'  test="kwManyOneDunnTest", p.adjust.method = "bonferroni",
 #'  replicates=1E4)
-#' 
+#'
 #' }
 #'
 #' @importFrom stats pairwise.t.test
@@ -94,7 +94,7 @@ powerMCTests <- function(mu,
                                    "TDist",
                                    "Cauchy",
                                    "Weibull"),
-                         parms = list(mean=0, sd = 1),                         
+                         parms = list(mean=0, sd = 1),
                          test = c("kwManyOneConoverTest",
                                   "kwManyOneDunnTest",
                                   "kwManyOneNdwTest",
@@ -111,7 +111,7 @@ powerMCTests <- function(mu,
                                   "dscfAllPairsTest",
                                   "gamesHowellTest",
                                   "lsdTest",
-                                  "scheffeTest", 
+                                  "scheffeTest",
                                   "tamhaneT2Test",
                                   "tukeyTest",
                                   "dunnettT3Test",
@@ -120,9 +120,10 @@ powerMCTests <- function(mu,
                                   "adManyOneTest",
                                   "adAllPairsTest",
                                   "bwsManyOneTest",
-                                  "bwsAllPairsTest"),
+                                  "bwsAllPairsTest",
+                                  "welchManyOneTTest"),
                          alternative = c("two.sided", "greater", "less"),
-                         p.adjust.method= c("single-step", p.adjust.methods), 
+                         p.adjust.method= c("single-step", p.adjust.methods),
                          alpha = 0.05,
                          FWER = TRUE,
                          replicates=1000)
@@ -132,7 +133,7 @@ powerMCTests <- function(mu,
     alternative <- match.arg(alternative)
     p.adjust.method <- match.arg(p.adjust.method)
     errfn <- match.arg(errfn)
-    
+
     if (!is.vector(mu)){
         stop("'mu' must be a vector of type numeric")
     }
@@ -163,7 +164,8 @@ powerMCTests <- function(mu,
               "tamhaneDunnettTest",
               "ManyOneUTest",
               "adManyOneTest",
-              "bwsManyOneTest")
+              "bwsManyOneTest",
+              "welchManyOneTTest")
 
     ## AllPairs Tests
     AllPairs <- c("kwAllPairsNemenyiTest",
@@ -174,7 +176,7 @@ powerMCTests <- function(mu,
               "dscfAllPairsTest",
               "gamesHowellTest",
               "lsdTest",
-              "scheffeTest", 
+              "scheffeTest",
               "tamhaneT2Test",
               "tukeyTest",
               "dunnettT3Test",
@@ -182,7 +184,7 @@ powerMCTests <- function(mu,
               "pairwise.wilcox.test",
               "adAllPairsTest",
               "bwsAllPairsTest")
-    
+
     mt1 <- any(sapply(1:length(ManyOne), function(i) (ManyOne[i] == test)))
     mtm <- any(sapply(1:length(AllPairs), function(i) (AllPairs[i] == test)))
     if (mt1){
@@ -192,7 +194,7 @@ powerMCTests <- function(mu,
     } else {
         stop("Could not find 'test':", test)
     }
-    
+
     H <- logical(m)
     mm <- 0
     if (mt1){
@@ -208,17 +210,17 @@ powerMCTests <- function(mu,
             }
         }
     }
-    
+
     ## nr of Hypothesis with H0 true
     tmp <- 1:m
     m0 <- length(tmp[H])
-	
+
     ## group vector
     g <- unlist(sapply(1:k, function(i) rep(i, ni[i])))
     g <- as.factor(g)
 
     N <- sum(ni)
-    
+
     loc <- as.vector(unlist(sapply(1:k, function(i) rep(mu[i], ni[i]))))
     if(FWER){
         loc0 <- rep(0, N)
@@ -305,11 +307,16 @@ powerMCTests <- function(mu,
             scale = rep(1, N)
         }
         fnargs <- list(shape = parms$shape, scale = scale)
-    } 
+    }
 
     if (FWER) {
+      #print("Monte-Carlo Simulation for FWER")
+      #pb <- txtProgressBar(style = 3)
+
         mat0 <- matrix(mat0 <- sapply(1:replicates,
                                       function(j){
+     #                                   setTxtProgressBar(pb, j)
+
                                           fnargs$p <- PUNIF[j,]
                                           X <- loc0 + do.call(FN, fnargs)
                                           ans <- get.pvalues(
@@ -326,12 +333,16 @@ powerMCTests <- function(mu,
                                       }
                                       )
                       ,nrow=replicates, ncol=m, byrow=TRUE)
+    #    close(pb)
     } else {
         mat0 <- NULL
     }
-    
+    #print("Monte-Carlo Simulation for Power")
+   # pb <- txtProgressBar(style = 3)
+
     mat <- matrix(mat <- sapply(1:replicates,
                                 function(j){
+                                 # setTxtProgressBar(pb, j)
                                     fnargs$p <- PUNIF[j,]
                                     X <- loc + do.call(FN, fnargs)
                                     ans <- get.pvalues(
@@ -348,7 +359,8 @@ powerMCTests <- function(mu,
                                 }
                                 )
                  ,nrow=replicates, ncol=m, byrow=TRUE)
-    
+   # close(pb)
+
     ## returns a vector with counted Pr(H0|H) <= alpha
     indicatorFn <- function(inp, type=c("any", "all", "sum"), alpha)
     {
@@ -375,7 +387,7 @@ powerMCTests <- function(mu,
         }
         return(out)
     }
-    
+
     ## Power
     m1 <- m - m0
     if (m1 == 0){
@@ -396,7 +408,7 @@ powerMCTests <- function(mu,
     ## FWER for mat0
     vv <- indicatorFn(inp=mat0, type="any", alpha=alpha)
     fwer <- sum(vv) / replicates
-    
+
     ## Type 1 Errors
     if (m0 > 0){
         vv <- indicatorFn(inp=mat[,H], type="sum", alpha=alpha)
@@ -405,18 +417,18 @@ powerMCTests <- function(mu,
         ## false discovery proportion
         E.Q <- sum(vv[rr > 0] / rr[rr > 0]) / length(rr[rr> 0])
 
-        ## Probability of rejecting at least one hypothesis 
+        ## Probability of rejecting at least one hypothesis
         P.R <- length(rr[rr > 0]) / length(rr)
 
         ## false discovery rate
         fdr <- E.Q * P.R
 
-        ## 
+        ##
         E.V <- sum(vv) / length(vv)
-        
+
         ## pair-wise comparison error
         pcer <- E.V / m
-        
+
     }   else {
         fdr <- 0
         E.Q <- 0

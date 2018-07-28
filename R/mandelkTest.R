@@ -1,7 +1,7 @@
 ## mandelkTestR
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017, 2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -18,17 +18,18 @@
 ##
 ##
 #' @name mandelkTest
-#' @title Mandel's k test according to E 691 ASTM
+#' @title Mandel's k Test According to E 691 ASTM
 #' @description The function calculates the
 #'   consistency statistics k and corresponding
 #'   p-values for each group (lab) according to Practice E 691 ASTM.
 #' @seealso
 #' \code{\link{qmandelk}} \code{\link{pmandelk}}
 #'
-#' @references
-#' Practice E 691, 2005, \emph{Standard Practice for
-#' Conducting an Interlaboratory Study to Determine the
-#' Precision of a Test Method}, ASTM International.
+#' @inherit Mandel-h references
+# @references
+# Practice E 691, 2005, \emph{Standard Practice for
+# Conducting an Interlaboratory Study to Determine the
+# Precision of a Test Method}, ASTM International.
 #'
 #' @template class-mandel
 #'

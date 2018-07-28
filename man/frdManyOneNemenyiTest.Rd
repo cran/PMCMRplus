@@ -90,20 +90,20 @@ The \eqn{p}-values are computed from the multivariate normal distribution.
  
 }
 \references{
-Hollander M., Wolfe D. A., Chicken E. (2014),
+Hollander, M., Wolfe, D. A., Chicken, E. (2014),
 \emph{Nonparametric Statistical Methods}. 3rd ed. New York: Wiley. 2014.
 
 Miller Jr., R. G. (1996), \emph{Simultaneous Statistical Inference}.
  New York: McGraw-Hill.
 
-Nemenyi P. (1963), \emph{Distribution-free Multiple Comparisons}.
+Nemenyi, P. (1963), \emph{Distribution-free Multiple Comparisons}.
  Ph.D. thesis, Princeton University.
 
 Siegel, S., Castellan Jr., N. J. (1988), \emph{Nonparametric
  Statistics for the Behavioral Sciences}. 2nd ed.
  New York: McGraw-Hill.
 
-Zarr J. H. (1999), \emph{Biostatistical Analysis}. 4th ed.
+Zarr, J. H. (1999), \emph{Biostatistical Analysis}. 4th ed.
 Upper Saddle River: Prentice-Hall.
 }
 \seealso{

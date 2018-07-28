@@ -1,7 +1,7 @@
 ## kwManyOneDunnTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2015-2017 Thorsten Pohlert
+## Copyright (C) 2015-2018 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -38,9 +38,9 @@
 #' from the multivariate normal distribution. Otherwise,
 #' the \eqn{p}-values are computed from the standard normal distribution using
 #' any of the \eqn{p}-adjustment methods as included in \code{\link{p.adjust}}.
-#' 
+#'
 #' @inherit kwAllPairsDunnTest references
-#' 
+#'
 #' @template class-PMCMR
 #' @concept ManyToOneComparisons
 #' @concept Kruskal
@@ -67,11 +67,11 @@ kwManyOneDunnTest <- function(x, ...) UseMethod("kwManyOneDunnTest")
 #' @importFrom stats complete.cases
 #' @export
 kwManyOneDunnTest.default <-
-    function(x, g, alternative = c("two.sided", "greater", "less"), 
+    function(x, g, alternative = c("two.sided", "greater", "less"),
              p.adjust.method = c("single-step", p.adjust.methods), ...)
 {
-  
-    ## taken from stats::kruskal.test        
+
+    ## taken from stats::kruskal.test
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -110,41 +110,41 @@ kwManyOneDunnTest.default <-
         if (k < 2)
             stop("all observations are in the same group")
     }
-        
+
     alternative <- match.arg(alternative)
     p.adjust.method <- match.arg(p.adjust.method)
-        
+
     x.rank <- rank(x)
     R.bar <- tapply(x.rank, g, mean,na.rm=T)
     R.n <- tapply(!is.na(x), g, length)
     g.unique <- unique(g)
     k <- length(g.unique)
     n <- sum(R.n)
-		
+
     getties <- function(x){
         n <- length(x)
         t <- table(x)
         C <- sum(t^3 - t) / (12 * (n - 1))
         return(C)
     }
-		
+
     METHOD <- "Dunn's many-to-one test"
 
     C <- getties(x.rank)
-    if (C != 0) warning("Ties are present. z-quantiles were corrected for ties.")           
+    if (C != 0) warning("Ties are present. z-quantiles were corrected for ties.")
     ## mean Rsum of controll is in R.bar[1]
     compare.stats <- function(j) {
             ##dif <- abs(R.bar[1] - R.bar[j])
-        dif <- R.bar[j] - R.bar[1] 
+        dif <- R.bar[j] - R.bar[1]
         A <- n * (n+1) / 12
         B <- (1 / R.n[1] + 1 / R.n[j])
         zval <- dif / sqrt((A - C) * B)
         return(zval)
     }
-		
+
     PSTATv <- rep(NA, k-1)
     for (j in 2:k) {PSTATv[j-1] <- compare.stats(j)}
-		
+
     if (p.adjust.method != "single-step"){
         ## unadjusted p-values
         if (alternative == "two.sided"){
@@ -178,20 +178,20 @@ kwManyOneDunnTest.default <-
             }
         }
         if (alternative == "two.sided"){
-            pvalv <- sapply(pstat, function(x) 
+            pvalv <- sapply(pstat, function(x)
                 1 - pmvnorm(lower = -rep(abs(x), m),
                             upper = rep(abs(x), m),
                             corr = cr))
         } else if (alternative == "greater"){
-            pvalv <- sapply(pstat, function(x) 
+            pvalv <- sapply(pstat, function(x)
                 1 - pmvnorm(lower = -Inf,
                             upper = rep(x, m),
                             corr = cr))
         } else {
-            pvalv <- sapply(pstat, function(x) 
+            pvalv <- sapply(pstat, function(x)
                 1 - pmvnorm(lower = rep(x, m),
                             upper = Inf,
-                            corr = cr))	
+                            corr = cr))
         }
         PADJv <- pvalv
     }
@@ -224,7 +224,7 @@ kwManyOneDunnTest.formula <-
     mf[[1L]] <- quote(stats::model.frame)
     if(missing(formula) || (length(formula) != 3L))
         stop("'formula' missing or incorrect")
-    mf <- eval(mf, parent.frame())  
+    mf <- eval(mf, parent.frame())
     if(length(mf) > 2L)
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")

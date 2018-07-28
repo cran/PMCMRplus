@@ -60,7 +60,7 @@ adjustment.}
 Performs Nashimoto and Wright's all-pairs comparison procedure
 for simply ordered mean ranksums (NPY' test and NPT' test).
 According to the authors, bove procedures shall only be
-applied after Chacko's test (see \code{\link{chackoTest}} indicates
+applied after Chacko's test (see \code{\link{chackoTest}}) indicates
 global significance.
 
 The modified procedure uses the property of a simple order,
@@ -95,9 +95,9 @@ chackoTest(x , g)
 chaAllPairsNashimotoTest(x, g, p.adjust.method = "single-step")
 }
 \references{
-Nashimoto, K., Wright, F.T., (2005), Multiple comparison procedures
+Nashimoto, K., Wright, F.T., (2005) Multiple comparison procedures
 for detecting differences in simply ordered means.
-\emph{Comput. Statist. Data Anal.} 48, 291--306.
+\emph{Comput. Statist. Data Anal.} \bold{48}, 291--306.
 }
 \seealso{
 \code{\link{Tukey}}, \code{\link{Normal}}, \code{\link{chackoTest}}
