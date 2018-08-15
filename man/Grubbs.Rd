@@ -4,7 +4,6 @@
 \alias{Grubbs}
 \alias{qgrubbs}
 \alias{pgrubbs}
-\alias{pgrubbs}
 \title{Grubbs distribution}
 \usage{
 qgrubbs(p, n)

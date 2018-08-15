@@ -4,13 +4,12 @@
 \alias{bwsManyOneTest}
 \alias{bwsManyOneTest.default}
 \alias{bwsManyOneTest.formula}
-\alias{bwsManyOneTest}
 \title{BWS Many-To-One Comparison Test}
 \usage{
 bwsManyOneTest(x, ...)
 
-\method{bwsManyOneTest}{default}(x, g, alternative = c("two.sided", "greater",
-  "less"), method = c("BWS", "Murakami", "Neuhauser"),
+\method{bwsManyOneTest}{default}(x, g, alternative = c("two.sided",
+  "greater", "less"), method = c("BWS", "Murakami", "Neuhauser"),
   p.adjust.method = p.adjust.methods, ...)
 
 \method{bwsManyOneTest}{formula}(formula, data, subset, na.action,
@@ -131,8 +130,6 @@ Baumgartner-Weiss-Schindler statistic.
 \code{\link[BWStest]{murakami_stat}}, \code{\link[BWStest]{murakami_cdf}},
  \code{\link[BWStest]{bws_stat}}, \code{\link[BWStest]{bws_cdf}}.
 }
-\concept{
-ManyOneComparison
-}
+\concept{ManyOneComparison}
 \keyword{htest}
 \keyword{nonparametric}

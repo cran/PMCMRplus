@@ -95,7 +95,7 @@ frdAllPairsNemenyiTest.default <-
        # GRPNAMES <- as.character(levels(groups))
         k <- nlevels(groups)
         n <- nlevels(blocks)
-        GRPNAMES <- as.character(groups[1:k])
+        GRPNAMES <- levels(groups)
     }
 
 

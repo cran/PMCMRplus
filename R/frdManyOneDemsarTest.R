@@ -107,7 +107,7 @@ frdManyOneDemsarTest.default <-
         blocks <- factor(blocks)
         k <- nlevels(groups)
         n <- nlevels(blocks)
-        GRPNAMES <- as.character(groups[1:k])
+        GRPNAMES <- levels(groups)
     }
 
     ## Check arguments

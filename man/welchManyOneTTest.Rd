@@ -105,7 +105,5 @@ Welch, B. L. (1947) The generalization of "Student's" problem
 \code{\link[stats]{pairwise.t.test}}, \code{\link[stats]{t.test}},
 \code{\link[stats]{p.adjust}}, \code{\link{tamhaneDunnettTest}}
 }
-\concept{
-ManyToOneComparisons
-}
+\concept{ManyToOneComparisons}
 \keyword{htest}

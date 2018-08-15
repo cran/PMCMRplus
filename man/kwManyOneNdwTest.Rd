@@ -9,8 +9,8 @@
 kwManyOneNdwTest(x, ...)
 
 \method{kwManyOneNdwTest}{default}(x, g, alternative = c("two.sided",
-  "greater", "less"), p.adjust.method = c("single-step", p.adjust.methods),
-  ...)
+  "greater", "less"), p.adjust.method = c("single-step",
+  p.adjust.methods), ...)
 
 \method{kwManyOneNdwTest}{formula}(formula, data, subset, na.action,
   alternative = c("two.sided", "greater", "less"),
@@ -126,12 +126,8 @@ Ph.D. thesis, Princeton University.
 \code{\link{pmvt}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
 \code{\link{kwManyOneDunnTest}}, \code{\link{kwManyOneConoverTest}}
 }
-\concept{
-ManyToOneComparisons
-
-Kruskal
-
-Rank
-}
+\concept{Kruskal}
+\concept{ManyToOneComparisons}
+\concept{Rank}
 \keyword{htest}
 \keyword{nonparametric}

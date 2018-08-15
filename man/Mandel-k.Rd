@@ -4,7 +4,6 @@
 \alias{Mandel-k}
 \alias{qmandelk}
 \alias{pmandelk}
-\alias{pmandelk}
 \title{Mandel's k Distribution}
 \usage{
 qmandelk(p, k, n, lower.tail = TRUE, log.p = FALSE)

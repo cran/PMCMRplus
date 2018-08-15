@@ -105,7 +105,5 @@ Mathematical and Statistical Psychology} \bold{24}, 174--194.
 \seealso{
 \code{\link{dunnettT3Test}}
 }
-\concept{
-allPairsComparisons
-}
+\concept{allPairsComparisons}
 \keyword{htest}

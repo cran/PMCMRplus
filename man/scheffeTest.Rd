@@ -92,7 +92,5 @@ Bortz, J. (1993) \emph{Statistik für Sozialwissenschaftler}. 4. Aufl.,
 \seealso{
 \code{\link{FDist}}, \code{\link{tukeyTest}}
 }
-\concept{
-AllPairsComparison
-}
+\concept{AllPairsComparison}
 \keyword{htest}

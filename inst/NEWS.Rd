@@ -1,6 +1,36 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.4.0}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item The function \code{siegelTukeyTest} for
+      performing the Siegel-Tukey rank dispersion test
+      was added.
+      \item The function \code{GSTTest} for
+      performing the Generalized Siegel-Tukey Test
+      for rank dispersion was added.
+    }
+  }
+  \subsection{BUGFIXES}{
+   \itemize{
+     \item The names of columns and rows of the lower
+     triangle matrix in any of the functions
+     \code{frdAllPairs*}, \code{frdManyOne*} and
+     \code{quadeAllPairsTest} were occasionally wrong.
+     The bug only appeared, if \code{y, group, block}
+     were provided as vectors and the group vector was
+     sorted. This bug has been fixed.
+   }
+  }
+    \subsection{OTHER CHANGES}{
+    \itemize{
+      \item Example of Rd file of \code{kruskalTest}
+      was modified to show equality of Conover's F and
+      one-way ANOVA F-Test with ranks.
+    }
+  }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.3.0}{
   \subsection{NEW FEATURES}{
     \itemize{

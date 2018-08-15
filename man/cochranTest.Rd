@@ -8,7 +8,8 @@
 \usage{
 cochranTest(x, ...)
 
-\method{cochranTest}{default}(x, g, alternative = c("greater", "less"), ...)
+\method{cochranTest}{default}(x, g, alternative = c("greater", "less"),
+  ...)
 
 \method{cochranTest}{formula}(formula, data, subset, na.action,
   alternative = c("greater", "less"), ...)
@@ -82,7 +83,5 @@ Grubbs and the Cochran test statistic. \emph{Adv. Stat. Anal.}.
 \seealso{
 \code{\link[stats]{bartlett.test}}, \code{\link[stats]{fligner.test}}.
 }
-\concept{
-outlier
-}
+\concept{outlier}
 \keyword{htest}

@@ -99,7 +99,7 @@ frdAllPairsConoverTest.default <-
         blocks <- factor(blocks)
         k <- nlevels(groups)
         n <- nlevels(blocks)
-        GRPNAMES <- as.character(groups[1:k])
+        GRPNAMES <- levels(groups)
     }
     p.adjust.method <- match.arg(p.adjust.method)
     #n <- length(levels(blocks))

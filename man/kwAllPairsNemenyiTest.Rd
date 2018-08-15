@@ -8,8 +8,8 @@
 \usage{
 kwAllPairsNemenyiTest(x, ...)
 
-\method{kwAllPairsNemenyiTest}{default}(x, g, dist = c("Tukey", "Chisquare"),
-  ...)
+\method{kwAllPairsNemenyiTest}{default}(x, g, dist = c("Tukey",
+  "Chisquare"), ...)
 
 \method{kwAllPairsNemenyiTest}{formula}(formula, data, subset, na.action,
   dist = c("Tukey", "Chisquare"), ...)
@@ -109,10 +109,7 @@ Lederle Laboratories.
 \code{\link[stats]{p.adjust}}, \code{\link{kruskalTest}},
 \code{\link{kwAllPairsDunnTest}}, \code{\link{kwAllPairsConoverTest}}
 }
-\concept{
-AllPairsComparisonTest
-
-RankANOVA
-}
+\concept{AllPairsComparisonTest}
+\concept{RankANOVA}
 \keyword{htest}
 \keyword{nonparametric}

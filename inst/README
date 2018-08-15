@@ -4,8 +4,7 @@ Installation of PMCMRplus and (external) dependencies
 Description
 -----------
 
-In order to use the extended functions of the R package **PMCMRplus**
-(&gt;= 5.0), several additional R packages available from CRAN need to
+In order to use the extended functions of the R package **PMCMRplus**, several additional R packages available from CRAN need to
 be imported, i.e. **mvtnorm** (Genz and Bretz and 2009, Genz et al.
 2015), **multcompView** (Graves et al. 2015), **Rmpfr** (Maechler 2016)
 and **gmp** (Lucas et al. 2017). This will be done automatically by R's
@@ -35,11 +34,14 @@ the package or all installed packages with:
     # or update all
     update.packages()
 
-Installation under Linux
-------------------------
+Installation under Linux from source packages
+---------------------------------------------
 
-R packages for Unix / Linux are distributed in source form. First check,
-whether **PMCMRplus** can be installed or updated by running the
+R packages for Unix / Linux are distributed in source form. Installation of R add-on packages do not require root proviliges and the installation directory is set in
+the variable $R_LIBS_USER$ in the $HOME$ directory
+of the user.
+
+First check, whether **PMCMRplus** can be installed or updated by running the
 following function from within R:
 
     # update PMCMRplus
@@ -61,8 +63,7 @@ such as:
     ...
     configure: error: Header file mpfr.h not found
 
-However, both libraries and their header files are commonly available on
-various Linux distributions.
+However, both libraries and their header files are commonly available on various Linux distributions.
 
 Ubuntu and Debian
 -----------------
@@ -101,6 +102,37 @@ missing package(s) from the repository of your Linux distribution:
 
 After successful installation of the above Linux packages, repeat with
 the installation of the R package **PMCMRplus** from within R:
+
+    install.packages("PMCMRplus")
+
+Installation under Linux using binary packages
+----------------------------------------------
+
+Ubuntu
+------
+
+Installation instructions for R core using an Ubuntu distribution can be found here:
+
+<https://cran.r-project.org/bin/linux/ubuntu/>
+
+Additional CRAN binary packages (>1,000) for Ubuntu are availabe at the CRAN2deb4ubuntu PPA that can be found here
+
+<https://launchpad.net/~marutter/+archive/ubuntu/c2d4u>
+
+or
+
+<https://launchpad.net/~marutter/+archive/ubuntu/c2d4u3.5>.
+
+Provided, that the above PPA was successfully added to the
+package source list and the user has root (or su, sudo) priviliges, one can try to install precompiled `r-cran*` deb packages outside of the R environment as
+
+    sudo apt-get install r-cran-rmpfr
+    sudo apt-get install r-cran-gmp
+
+As by the time of writing of this README the package
+**PMCMRplus** was not yet converted into a deb package
+by the PPA maintainer, the user must install the package from
+within R as:
 
     install.packages("PMCMRplus")
 

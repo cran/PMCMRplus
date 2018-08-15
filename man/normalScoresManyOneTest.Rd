@@ -8,9 +8,9 @@
 \usage{
 normalScoresManyOneTest(x, ...)
 
-\method{normalScoresManyOneTest}{default}(x, g, alternative = c("two.sided",
-  "greater", "less"), p.adjust.method = c("single-step", p.adjust.methods),
-  ...)
+\method{normalScoresManyOneTest}{default}(x, g,
+  alternative = c("two.sided", "greater", "less"),
+  p.adjust.method = c("single-step", p.adjust.methods), ...)
 
 \method{normalScoresManyOneTest}{formula}(formula, data, subset, na.action,
   alternative = c("two.sided", "greater", "less"),
@@ -97,10 +97,7 @@ for nonparametric one-way analysis of variance.
 \seealso{
 \code{\link{normalScoresTest}}, \code{\link{normalScoresAllPairsTest}}, \code{\link[SuppDists]{normOrder}}, \code{\link[mvtnorm]{pmvt}}.
 }
-\concept{
-NormalScores
-
-ManyOneComparison
-}
+\concept{ManyOneComparison}
+\concept{NormalScores}
 \keyword{htest}
 \keyword{nonparametric}

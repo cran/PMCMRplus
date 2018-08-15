@@ -91,7 +91,5 @@ OECD (ed. 2006) \emph{Current approaches in the statistical analysis
 \seealso{
 \code{\link[mvtnorm]{pmvt}}, \code{\link{welchManyOneTTest}}
 }
-\concept{
-ManyOneComparisons
-}
+\concept{ManyOneComparisons}
 \keyword{htest}

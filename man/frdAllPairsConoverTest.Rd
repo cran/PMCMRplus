@@ -105,12 +105,8 @@ Conover, W. J. (1999) \emph{Practical nonparametric Statistics},
 \code{\link{frdAllPairsExactTest}}, \code{\link{frdAllPairsMillerTest}},
 \code{\link{frdAllPairsNemenyiTest}}, \code{\link{frdAllPairsSiegelTest}}
 }
-\concept{
-Friedman
-
-Rank
-
-AllPairs
-}
+\concept{AllPairs}
+\concept{Friedman}
+\concept{Rank}
 \keyword{htest}
 \keyword{nonparametric}

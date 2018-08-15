@@ -4,7 +4,6 @@
 \alias{Mandel-h}
 \alias{qmandelh}
 \alias{pmandelh}
-\alias{pmandelh}
 \title{Mandel's h Distribution}
 \usage{
 qmandelh(p, k, lower.tail = TRUE, log.p = FALSE)

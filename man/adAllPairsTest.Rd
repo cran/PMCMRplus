@@ -4,13 +4,12 @@
 \alias{adAllPairsTest}
 \alias{adAllPairsTest.default}
 \alias{adAllPairsTest.formula}
-\alias{adAllPairsTest}
 \title{Anderson-Darling All-Pairs Comparison Test}
 \usage{
 adAllPairsTest(x, ...)
 
-\method{adAllPairsTest}{default}(x, g, p.adjust.method = p.adjust.methods,
-  ...)
+\method{adAllPairsTest}{default}(x, g,
+  p.adjust.method = p.adjust.methods, ...)
 
 \method{adAllPairsTest}{formula}(formula, data, subset, na.action,
   p.adjust.method = p.adjust.methods, ...)
@@ -91,8 +90,6 @@ Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
 \code{\link{adKSampleTest}}, \code{\link{adManyOneTest}},
 \code{\link[kSamples]{ad.pval}}.
 }
-\concept{
-AllPairsComparison
-}
+\concept{AllPairsComparison}
 \keyword{htest}
 \keyword{nonparametric}

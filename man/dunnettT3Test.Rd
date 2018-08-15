@@ -92,7 +92,5 @@ C. W. Dunnett (1980) Pair wise multiple comparisons in the unequal
 \seealso{
 \code{\link[mvtnorm]{pmvt}}
 }
-\concept{
-allPairsComparisons
-}
+\concept{allPairsComparisons}
 \keyword{htest}

@@ -8,8 +8,8 @@
 \usage{
 dunnettTest(x, ...)
 
-\method{dunnettTest}{default}(x, g, alternative = c("two.sided", "greater",
-  "less"), ...)
+\method{dunnettTest}{default}(x, g, alternative = c("two.sided",
+  "greater", "less"), ...)
 
 \method{dunnettTest}{formula}(formula, data, subset, na.action,
   alternative = c("two.sided", "greater", "less"), ...)

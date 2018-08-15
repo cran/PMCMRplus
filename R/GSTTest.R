@@ -1,7 +1,7 @@
-# kruskal_R
+# GSTTest.R
 # Part of the R package: PMCMR
 #
-# Copyright (C) 2017, 2018 Thorsten Pohlert
+# Copyright (C) 2018 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -18,93 +18,83 @@
 #
 #   Uses pKruskalWallis of package SuppDists
 #
-#   source:
-#   W. J. Conover, R. L. Iman (1981) Rank transformations
-#   as a bridge between parametric and nonparametric statistics,
-#   The American Statistician 35 (3), 124--129.
 
-#' @title Kruskal-Wallis Rank Sum Test
+#' @name GSTTest
+#' @title Generalized Siegel-Tukey Test for Homogeneity of
+#' Scales
 #' @description
-#'  Performs a Kruskal-Wallis rank sum test.
+#'  Performs a Siegel-Tukey k-sample rank dispersion test.
 #' @details
-#' For one-factorial designs with non-normally distributed
-#' residuals the Kruskal-Wallis rank sum test can be performed to test
-#' the H\eqn{_0: F_1(x) = F_2(x) = \ldots = F_k(x)} against
-#' the H\eqn{_\mathrm{A}: F_i (x) \ne F_j(x)~ (i \ne j)} with at least
-#' one strict inequality.
+#' Meyer-Bahlburg (1970) has proposed a generalized Siegel-Tukey
+#' rank dispersion test for the \eqn{k}-sample case.
+#' Likewise to the \code{\link{fligner.test}}, this test
+#' is a nonparametric test for testing the homogegeneity of
+#' scales in several groups.
+#' Let \eqn{\theta_i}{theta_i}, and \eqn{\lambda_i}{lambda_i} denote
+#'  location and scale parameter of the \eqn{i}th group,
+#'  then for the two-tailed case, the null hypothesis
+#'  H: \eqn{\lambda_i / \lambda_j = 1 | \theta_i = \theta_j, ~ i \ne j}{%
+#'  lambda_i / lambda_j = 1 | theta_i = theta_j, i != j} is
+#'  tested against the alternative,
+#'  A: \eqn{\lambda_i / \lambda_j \ne 1}{lambda_i / lambda_j != 1}
+#'  with at least one inequality beeing strict.
 #'
-#' As the Kruskal-Wallis H-statistic is assymptotically
+#'  The data are combinedly ranked according to Siegel-Tukey.
+#'  The ranking is done by alternate extremes (rank 1 is lowest,
+#'  2 and 3 are the two highest, 4 and 5 are the two next lowest, etc.).
+#'
+#' Meyer-Bahlburg (1970) showed, that the Kruskal-Wallis H-test
+#' can be employed on the Siegel-Tukey ranks.
+#' The H-statistic is assymptotically
 #' chi-squared distributed with \eqn{v = k - 1} degree
 #' of freedom, the default test distribution is consequently
 #' \code{dist = "Chisquare"}. If \code{dist = "KruskalWallis"} is selected,
 #' an incomplete beta approximation is used for the calculation
 #' of p-values as implemented in the function
 #' \code{\link[SuppDists]{pKruskalWallis}} of the package
-#' \pkg{SuppDists}. For \code{dist = "FDist"}
-#' the proposed method of Conover and Imam (1981) is used, which is
-#' equivalent to a one-way ANOVA F-test using rank transformed data
-#' (see examples).
+#' \pkg{SuppDists}.
 #'
-#' @inherit friedmanTest references
-#'
-# @references
-#  W. J. Conover, R. L. Iman (1981) Rank transformations as a bridge
-#  between parametric and nonparametric statistics, \emph{The American
-#    Statistician} 35, 124--129.
+#' @note
+#' If ties are present, a tie correction is performed and
+#' a warning message is given.
 #
-#  L. Sachs (1997), \emph{Angewandte Statistik}. Berlin: Springer.
+# As the Siegel-Tukey test might also be sensitive to median differences,
+# the function has included a median correction function. If \code{median.corr = TRUE},
+# The corresponding group median is substracted from the observation prior t
+# the Siegel-Tukey ranking.
+#
+#' @references
+#' H.F.L. Meyer-Bahlburg (1970), A nonparametric test for relative
+#' spread in k unpaired samples, \emph{Metrika} \bold{15}, 23--29.
 #'
 #' @seealso
-#'  \code{\link{kruskal.test}}, \code{\link[SuppDists]{pKruskalWallis}},
-#'  \code{\link{Chisquare}}, \code{\link{FDist}}
+#'  \code{\link{fligner.test}}, \code{\link[SuppDists]{pKruskalWallis}},
+#'  \code{\link{Chisquare}}, \code{\link{fligner.test}}
 #'
 #' @template class-htest
 #'
 #' @examples
-#' ## Hollander & Wolfe (1973), 116.
-#' ## Mucociliary efficiency from the rate of removal of dust in normal
-#' ##  subjects, subjects with obstructive airway disease, and subjects
-#' ##  with asbestosis.
-#' x <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
-#' y <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
-#' z <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
+#' GSTTest(count ~ spray, data = InsectSprays)
 #'
-#' datf <- data.frame(
-#'   g = g <- c(rep("ns", length(x)), rep("oad",
-#'       length(y)), rep("a", length(z))),
-#'   x = x <- c(x, y, z))
-#'
-#' ## Using incomplete beta approximation
-#' kruskalTest(x ~ g, datf, dist="KruskalWallis")
-#'
-#' ## Using chisquare distribution
-#' kruskalTest(x ~ g, datf, dist="Chisquare")
-#'
-#' ## Check with kruskal.test from R stats
-#' kruskal.test(x ~ g, datf)
-#'
-#' ## Using Conover's F
-#' kruskalTest(x ~ g, datf, dist="FDist")
-#'
-#' ## Check with aov on ranks
-#' anova(aov(rank(x) ~ g, datf))
-#'
-#' ## Check with oneway.test
-#' oneway.test(rank(x) ~ g, datf, var.equal = TRUE)
 #' @export
-kruskalTest <- function(x, ...) UseMethod("kruskalTest")
+GSTTest <- function(x, ...) UseMethod("GSTTest")
 
-#' @rdname kruskalTest
-#' @method kruskalTest default
+#' @rdname GSTTest
+#' @method GSTTest default
 #' @template one-way-parms
 #' @param dist the test distribution. Defaults's to \code{"Chisquare"}.
-#' @importFrom stats pchisq pf
+# @param median.corr logical indicator, whether median correction
+# should be performed prior testing. Defaults to \code{FALSE}.
+#' @importFrom stats pchisq
 #' @importFrom SuppDists pKruskalWallis
 #' @export
-kruskalTest.default <-
-    function(x, g, dist=c("Chisquare", "KruskalWallis", "FDist"), ...)
+GSTTest.default <-
+    function(x,
+             g,
+             dist=c("Chisquare", "KruskalWallis"),
+             ...)
 {
-        ## taken from stats::kruskalTest
+        ## taken from stats::GSTTest
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -120,6 +110,7 @@ kruskalTest.default <-
         } else {
             dist <- x$dist
         }
+        median.corr <- x$median.corr
         x <- unlist(x)
     }
     else {
@@ -139,11 +130,42 @@ kruskalTest.default <-
     }
 
     dist <- match.arg(dist)
-    x.rank <- rank(x)
-    R.bar <- tapply(x.rank, g, mean,na.rm=T)
-    R.n <- tapply(!is.na(x), g, length)
-    k <- nlevels(g)
-    n <- sum(R.n)
+
+#    if (median.corr) {
+#      med <- tapply(x, g, median)
+#      levN <- levels(g)
+#      xx <- as.vector(sapply(1:k, function(j) {
+#        medgrp <- median(x[g %in% levN[-j]])
+#        delta <- (med[j] - medgrp) / 2
+#        x[g %in% levN[j]] - delta
+#      }))
+#      x <- xx
+#    }
+
+    ## Siegel-Tukey ranking
+    ## rank sequence
+    ## based on code from Daniel Malter
+    ord <- order(x)
+    gord <- g[ord]
+    n <- tapply(x[ord], gord, length)
+    N <- sum(n)
+
+
+    a <- rep(seq(ceiling(N / 4)), each=2)
+    b <- rep(c(0, 1), ceiling(N)/4)
+    suppressWarnings(
+      rk.up <- c(1, (a * 4 + b))[1:ceiling(N / 2)]
+    )
+    suppressWarnings(
+      rk.down <- rev(c(a * 4 + b - 2)[1:floor(N / 2)])
+    )
+
+    r <- c(rk.up, rk.down)
+    T <- tapply(r, gord, sum)
+
+    if(sum(T) != N * (N + 1) /2) {
+      warning("Does not sum up to check sum!")
+    }
 
     getties <- function(x) {
         n <- length(x)
@@ -154,11 +176,11 @@ kruskalTest.default <-
     }
 
 
-    C <- getties(x.rank)
+    C <- getties(x)
     if (C != 1) warning("Ties are present. Quantiles were corrected for ties.")
     ## Kruskal-Wallis statistic
-    H <- (12 / (n * (n + 1))) *
-        sum(tapply(x.rank, g, "sum")^2 / R.n) - 3 * (n + 1)
+    H <- (12 / (N * (N + 1))) *
+        sum(T * T / n) - 3 * (N + 1)
     PSTAT <- H / C
 
     if (dist == "Chisquare"){
@@ -169,9 +191,8 @@ kruskalTest.default <-
     } else if (dist == "KruskalWallis"){
 
         ## pKruskalWallis from package SuppDists
-        U <- sum(1 / R.n)
+        U <- sum(1 / n)
         c <- k
-        N <- n
         PARMS <- c(c, U, N)
         PVAL <- pKruskalWallis(PSTAT, c = c,
                                N = N, U = U,
@@ -179,20 +200,9 @@ kruskalTest.default <-
         names(PSTAT) <- "H"
         names(PARMS) <- c("k", "U", "N")
 
-    } else {
-        ## F distribution
-        N <- n
-        H <- PSTAT
-        df1 <- k - 1
-        df2 <- N - k
-        PSTAT <- (H / ( k - 1)) / (( N - 1 - H) / (N - k))
-        PVAL <- pf(PSTAT, df1 = df1, df2=df2, lower.tail = FALSE)
-        PARMS <- c(df1, df2)
-        names(PARMS) <- c("num df", "denom df")
-        names(PSTAT) <- "Conover's F"
     }
 
-    METHOD <- paste("Kruskal-Wallis test")
+    METHOD <- paste("Generalized Siegel-Tukey Test for Homogeneity of Scales")
 
     ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
                 statistic = PSTAT, parameter = PARMS)
@@ -200,13 +210,14 @@ kruskalTest.default <-
     ans
 }
 
-#' @rdname kruskalTest
-#' @method kruskalTest formula
+#' @rdname GSTTest
+#' @method GSTTest formula
 #' @template one-way-formula
 #' @export
-kruskalTest.formula <-
+GSTTest.formula <-
     function(formula, data, subset, na.action,
-             dist=c("Chisquare", "KruskalWallis", "FDist"), ...)
+             dist=c("Chisquare", "KruskalWallis"),
+              ...)
 {
     mf <- match.call(expand.dots=FALSE)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
@@ -221,7 +232,7 @@ kruskalTest.formula <-
     DNAME <- paste(names(mf), collapse = " by ")
     dist <- match.arg(dist)
     names(mf) <- NULL
-    y <- do.call("kruskalTest", c(as.list(mf), dist = dist))
+    y <- do.call("GSTTest", c(as.list(mf), dist = dist))
     y$data.name <- DNAME
     y
 }

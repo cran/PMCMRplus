@@ -96,7 +96,5 @@ Student (1927) Errors of routine analysis,
 \seealso{
 \code{\link[stats]{Tukey}}, \code{\link[stats]{TukeyHSD}} \code{\link{tukeyTest}}
 }
-\concept{
-AllPairsComparison
-}
+\concept{AllPairsComparison}
 \keyword{htest}

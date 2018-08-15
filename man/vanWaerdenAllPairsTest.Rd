@@ -4,7 +4,6 @@
 \alias{vanWaerdenAllPairsTest}
 \alias{vanWaerdenAllPairsTest.default}
 \alias{vanWaerdenAllPairsTest.formula}
-\alias{vanWaerdenAllPairsTest}
 \title{van-der-Waerden's All-Pairs Comparison Normal Scores Test}
 \usage{
 vanWaerdenAllPairsTest(x, ...)
@@ -88,10 +87,7 @@ problem and their power, \emph{Indagationes Mathematicae} \bold{14}, 453--458.
 \code{\link{vanWaerdenTest}}, \code{\link{vanWaerdenManyOneTest}},
 \code{\link[SuppDists]{normOrder}}.
 }
-\concept{
-NormalScores
-
-AllPairsComparison
-}
+\concept{AllPairsComparison}
+\concept{NormalScores}
 \keyword{htest}
 \keyword{nonparametric}

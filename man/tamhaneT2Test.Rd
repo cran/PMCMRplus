@@ -123,7 +123,5 @@ Tamhane, A. C. (1979) A Comparison of Procedures for Multiple Comparisons
 \seealso{
 \code{\link{dunnettT3Test}}
 }
-\concept{
-allPairsComparisons
-}
+\concept{allPairsComparisons}
 \keyword{htest}

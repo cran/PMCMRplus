@@ -83,7 +83,5 @@ summary(gamesHowellTest(x, g))
 \seealso{
 \code{\link{ptukey}}
 }
-\concept{
-allPairsComparisons
-}
+\concept{allPairsComparisons}
 \keyword{htest}

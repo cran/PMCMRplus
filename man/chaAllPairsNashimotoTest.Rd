@@ -11,8 +11,8 @@ chaAllPairsNashimotoTest(x, ...)
 \method{chaAllPairsNashimotoTest}{default}(x, g,
   p.adjust.method = c("single-step", p.adjust.methods), ...)
 
-\method{chaAllPairsNashimotoTest}{formula}(formula, data, subset, na.action,
-  p.adjust.method = c("single-step", p.adjust.methods), ...)
+\method{chaAllPairsNashimotoTest}{formula}(formula, data, subset,
+  na.action, p.adjust.method = c("single-step", p.adjust.methods), ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -102,10 +102,7 @@ for detecting differences in simply ordered means.
 \seealso{
 \code{\link{Tukey}}, \code{\link{Normal}}, \code{\link{chackoTest}}
 }
-\concept{
-AllPairsComparisons
-
-OrderedAlternatives
-}
+\concept{AllPairsComparisons}
+\concept{OrderedAlternatives}
 \keyword{htest}
 \keyword{nonparametric}

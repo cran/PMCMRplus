@@ -8,8 +8,8 @@
 \usage{
 cuzickTest(x, ...)
 
-\method{cuzickTest}{default}(x, g, alternative = c("two.sided", "greater",
-  "less"), scores = NULL, continuity = FALSE, ...)
+\method{cuzickTest}{default}(x, g, alternative = c("two.sided",
+  "greater", "less"), scores = NULL, continuity = FALSE, ...)
 
 \method{cuzickTest}{formula}(formula, data, subset, na.action,
   alternative = c("two.sided", "greater", "less"), scores = NULL,
@@ -110,10 +110,7 @@ Cuzick, J. (1995) A Wilcoxon-type test for trend, \emph{Statistics in Medicine}
 of the package \pkg{PMCMRplus},
 \code{\link[stats]{kruskal.test}} of the library \pkg{stats}.
 }
-\concept{
-trend-test
-
-ordered-alternatives
-}
+\concept{ordered-alternatives}
+\concept{trend-test}
 \keyword{htest}
 \keyword{nonparametric}

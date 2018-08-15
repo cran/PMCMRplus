@@ -3,15 +3,14 @@
 \name{kwAllPairsDunnTest}
 \alias{kwAllPairsDunnTest}
 \alias{kwAllPairsDunnTest.default}
-\alias{kwAllPairsDunnTest}
 \alias{default}
 \alias{kwAllPairsDunnTest.formula}
 \title{Dunn's All-Pairs Rank Comparison Test}
 \usage{
 kwAllPairsDunnTest(x, ...)
 
-\method{kwAllPairsDunnTest}{default}(x, g, p.adjust.method = p.adjust.methods,
-  ...)
+\method{kwAllPairsDunnTest}{default}(x, g,
+  p.adjust.method = p.adjust.methods, ...)
 
 \method{kwAllPairsDunnTest}{formula}(formula, data, subset, na.action,
   p.adjust.method = p.adjust.methods, ...)
@@ -108,10 +107,7 @@ Siegel, S., Castellan Jr., N. J. (1988) \emph{Nonparametric Statistics
 \code{\link{kruskalTest}},
 \code{\link{kwAllPairsConoverTest}}, \code{\link{kwAllPairsNemenyiTest}}
 }
-\concept{
-AllPairsComparisonTest
-
-RankANOVA
-}
+\concept{AllPairsComparisonTest}
+\concept{RankANOVA}
 \keyword{htest}
 \keyword{nonparametric}

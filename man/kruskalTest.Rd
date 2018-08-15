@@ -8,8 +8,8 @@
 \usage{
 kruskalTest(x, ...)
 
-\method{kruskalTest}{default}(x, g, dist = c("Chisquare", "KruskalWallis",
-  "FDist"), ...)
+\method{kruskalTest}{default}(x, g, dist = c("Chisquare",
+  "KruskalWallis", "FDist"), ...)
 
 \method{kruskalTest}{formula}(formula, data, subset, na.action,
   dist = c("Chisquare", "KruskalWallis", "FDist"), ...)
@@ -106,7 +106,7 @@ kruskalTest(x ~ g, datf, dist="FDist")
 anova(aov(rank(x) ~ g, datf))
 
 ## Check with oneway.test
-oneway.test(rank(x) ~ g, datf, var.equal=FALSE)
+oneway.test(rank(x) ~ g, datf, var.equal = TRUE)
 }
 \references{
 Conover, W. J., Iman, R. L. (1981) Rank transformations as a bridge

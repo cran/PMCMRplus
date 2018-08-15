@@ -4,17 +4,18 @@
 \alias{powerMCTests}
 \title{Power Simulation for One-Factorial All-Pairs and Many-To-One Comparison Tests}
 \usage{
-powerMCTests(mu, n = 10, errfn = c("Normal", "Lognormal", "Exponential",
-  "Chisquare", "TDist", "Cauchy", "Weibull"), parms = list(mean = 0, sd = 1),
-  test = c("kwManyOneConoverTest", "kwManyOneDunnTest", "kwManyOneNdwTest",
-  "vanWaerdenManyOneTest", "normalScoresManyOneTest", "dunnettTest",
-  "tamhaneDunnettTest", "ManyOneUTest", "kwAllPairsNemenyiTest",
-  "kwAllPairsDunnTest", "kwAllPairsConoverTest", "normalScoresAllPairsTest",
-  "vanWaerdenAllPairsTest", "dscfAllPairsTest", "gamesHowellTest", "lsdTest",
-  "scheffeTest", "tamhaneT2Test", "tukeyTest", "dunnettT3Test",
-  "pairwise.t.test", "pairwise.wilcox.test", "adManyOneTest", "adAllPairsTest",
-  "bwsManyOneTest",      "bwsAllPairsTest", "welchManyOneTTest"),
-  alternative = c("two.sided", "greater", "less"),
+powerMCTests(mu, n = 10, errfn = c("Normal", "Lognormal",
+  "Exponential", "Chisquare", "TDist", "Cauchy", "Weibull"),
+  parms = list(mean = 0, sd = 1), test = c("kwManyOneConoverTest",
+  "kwManyOneDunnTest", "kwManyOneNdwTest", "vanWaerdenManyOneTest",
+  "normalScoresManyOneTest", "dunnettTest", "tamhaneDunnettTest",
+  "ManyOneUTest", "kwAllPairsNemenyiTest", "kwAllPairsDunnTest",
+  "kwAllPairsConoverTest", "normalScoresAllPairsTest",
+  "vanWaerdenAllPairsTest", "dscfAllPairsTest", "gamesHowellTest",
+  "lsdTest", "scheffeTest", "tamhaneT2Test", "tukeyTest", "dunnettT3Test",
+  "pairwise.t.test", "pairwise.wilcox.test", "adManyOneTest",
+  "adAllPairsTest", "bwsManyOneTest",      "bwsAllPairsTest",
+  "welchManyOneTTest"), alternative = c("two.sided", "greater", "less"),
   p.adjust.method = c("single-step", p.adjust.methods), alpha = 0.05,
   FWER = TRUE, replicates = 1000)
 }
@@ -84,7 +85,5 @@ powerMCTests(mu, n, errfn="Normal",
 }
 
 }
-\concept{
-TestPower
-}
+\concept{TestPower}
 \keyword{misc}

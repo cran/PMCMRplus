@@ -10,8 +10,8 @@ mackWolfeTest(x, ...)
 
 \method{mackWolfeTest}{default}(x, g, p = NULL, nperm = 1000, ...)
 
-\method{mackWolfeTest}{formula}(formula, data, subset, na.action, p = NULL,
-  nperm = 1000, ...)
+\method{mackWolfeTest}{formula}(formula, data, subset, na.action,
+  p = NULL, nperm = 1000, ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -110,10 +110,7 @@ umbrella alternatives, \emph{J. Amer. Statist. Assoc.} \bold{76}, 175--181.
 \seealso{
 \code{\link{pnorm}}, \code{\link{sample}}.
 }
-\concept{
-TrendTest
-
-Rank
-}
+\concept{Rank}
+\concept{TrendTest}
 \keyword{htest}
 \keyword{nonparametric}

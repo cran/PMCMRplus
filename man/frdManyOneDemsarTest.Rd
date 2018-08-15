@@ -103,12 +103,8 @@ Demsar, J. (2006) Statistical comparisons of classifiers over multiple
 \code{\link{friedmanTest}}, \code{\link[stats]{friedman.test}},
 \code{\link{frdManyOneExactTest}}, \code{\link{frdManyOneNemenyiTest}}.
 }
-\concept{
-FriedmanTest
-
-Rank
-
-ManyToOne
-}
+\concept{FriedmanTest}
+\concept{ManyToOne}
+\concept{Rank}
 \keyword{htest}
 \keyword{nonparametric}

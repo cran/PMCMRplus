@@ -40,8 +40,6 @@ summary(out)
 Rosner, B. (1983) Percentage Points for a Generalized ESD
 Many-Outlier Procedure, \emph{Technometrics} \bold{25}, 165--172.
 }
-\concept{
-outliers
-}
+\concept{outliers}
 \keyword{htest}
 \keyword{univariate}

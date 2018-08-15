@@ -4,7 +4,6 @@
 \alias{bwsAllPairsTest}
 \alias{bwsAllPairsTest.default}
 \alias{bwsAllPairsTest.formula}
-\alias{bwsAllPairsTest}
 \title{BWS All-Pairs Comparison Test}
 \usage{
 bwsAllPairsTest(x, ...)
@@ -13,7 +12,8 @@ bwsAllPairsTest(x, ...)
   p.adjust.method = p.adjust.methods, ...)
 
 \method{bwsAllPairsTest}{formula}(formula, data, subset, na.action,
-  method = c("BWS", "Murakami"), p.adjust.method = p.adjust.methods, ...)
+  method = c("BWS", "Murakami"), p.adjust.method = p.adjust.methods,
+  ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -97,8 +97,6 @@ comparison, \emph{J. Jpn. Comp. Statist.} \bold{19}, 1--13.
 \seealso{
 \code{\link[BWStest]{bws_test}}.
 }
-\concept{
-AllPairsComparison
-}
+\concept{AllPairsComparison}
 \keyword{htest}
 \keyword{nonparametric}

@@ -107,10 +107,7 @@ Statistical Association}, 74, 680-683.
 \seealso{
 \code{\link{quade.test}}, \code{\link{friedmanTest}}
 }
-\concept{
-AllPairsComparison
-
-TwoWayRankAnova
-}
+\concept{AllPairsComparison}
+\concept{TwoWayRankAnova}
 \keyword{htest}
 \keyword{nonparametric}

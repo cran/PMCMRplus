@@ -8,11 +8,12 @@
 \usage{
 jonckheereTest(x, ...)
 
-\method{jonckheereTest}{default}(x, g, alternative = c("two.sided", "greater",
-  "less"), continuity = FALSE, ...)
+\method{jonckheereTest}{default}(x, g, alternative = c("two.sided",
+  "greater", "less"), continuity = FALSE, ...)
 
 \method{jonckheereTest}{formula}(formula, data, subset, na.action,
-  alternative = c("two.sided", "greater", "less"), continuity = FALSE, ...)
+  alternative = c("two.sided", "greater", "less"), continuity = FALSE,
+  ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -126,10 +127,7 @@ Boca Raton, FL: Chapman & Hall/CRC.
 of the package \pkg{PMCMRplus},
 \code{\link[stats]{kruskal.test}} of the library \pkg{stats}.
 }
-\concept{
-trend-test
-
-ordered-alternatives
-}
+\concept{ordered-alternatives}
+\concept{trend-test}
 \keyword{htest}
 \keyword{nonparametric}

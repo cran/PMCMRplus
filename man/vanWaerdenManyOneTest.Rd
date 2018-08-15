@@ -8,9 +8,9 @@
 \usage{
 vanWaerdenManyOneTest(x, ...)
 
-\method{vanWaerdenManyOneTest}{default}(x, g, alternative = c("two.sided",
-  "greater", "less"), p.adjust.method = c("single-step", p.adjust.methods),
-  ...)
+\method{vanWaerdenManyOneTest}{default}(x, g,
+  alternative = c("two.sided", "greater", "less"),
+  p.adjust.method = c("single-step", p.adjust.methods), ...)
 
 \method{vanWaerdenManyOneTest}{formula}(formula, data, subset, na.action,
   alternative = c("two.sided", "greater", "less"),
@@ -102,10 +102,7 @@ problem and their power, \emph{Indagationes Mathematicae} \bold{14}, 453--458.
 \code{\link{vanWaerdenTest}}, \code{\link{vanWaerdenAllPairsTest}},
 \code{\link[mvtnorm]{pmvt}}.
 }
-\concept{
-NormalScores
-
-ManyOneComparison
-}
+\concept{ManyOneComparison}
+\concept{NormalScores}
 \keyword{htest}
 \keyword{nonparametric}

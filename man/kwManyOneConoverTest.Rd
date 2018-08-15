@@ -9,8 +9,8 @@
 kwManyOneConoverTest(x, ...)
 
 \method{kwManyOneConoverTest}{default}(x, g, alternative = c("two.sided",
-  "greater", "less"), p.adjust.method = c("single-step", p.adjust.methods),
-  ...)
+  "greater", "less"), p.adjust.method = c("single-step",
+  p.adjust.methods), ...)
 
 \method{kwManyOneConoverTest}{formula}(formula, data, subset, na.action,
   alternative = c("two.sided", "greater", "less"),
@@ -116,12 +116,8 @@ Conover, W. J, Iman,  R. L. (1979) \emph{On multiple-comparisons
 \code{\link{pmvt}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
 \code{\link{kwManyOneDunnTest}}, \code{\link{kwManyOneNdwTest}}
 }
-\concept{
-ManyToOneComparisons
-
-Kruskal
-
-Rank
-}
+\concept{Kruskal}
+\concept{ManyToOneComparisons}
+\concept{Rank}
 \keyword{htest}
 \keyword{nonparametric}

@@ -133,7 +133,7 @@ function(y, groups, blocks, dist=c("TDist", "Normal"),
             blocks <- factor(blocks)
             k <- nlevels(groups)
             b <- nlevels(blocks)
-            GRPNAMES <- as.character(groups[1:k])
+            GRPNAMES <- levels(groups)
         }
     mat <- matrix(y, nrow = b, ncol = k, byrow = TRUE)        
     dist <- match.arg(dist)

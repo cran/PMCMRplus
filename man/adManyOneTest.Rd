@@ -8,7 +8,8 @@
 \usage{
 adManyOneTest(x, ...)
 
-\method{adManyOneTest}{default}(x, g, p.adjust.method = p.adjust.methods, ...)
+\method{adManyOneTest}{default}(x, g, p.adjust.method = p.adjust.methods,
+  ...)
 
 \method{adManyOneTest}{formula}(formula, data, subset, na.action,
   p.adjust.method = p.adjust.methods, ...)
@@ -95,8 +96,6 @@ Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
 \code{\link{adKSampleTest}}, \code{\link{adAllPairsTest}},
 \code{\link[kSamples]{ad.pval}}.
 }
-\concept{
-AllPairsComparison
-}
+\concept{AllPairsComparison}
 \keyword{htest}
 \keyword{nonparametric}

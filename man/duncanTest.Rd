@@ -87,7 +87,5 @@ Duncan, D. B. (1955) Multiple range and multiple F tests,
 \seealso{
 \code{\link[stats]{Tukey}}, \code{\link[stats]{TukeyHSD}} \code{\link{tukeyTest}}
 }
-\concept{
-AllPairsComparison
-}
+\concept{AllPairsComparison}
 \keyword{htest}

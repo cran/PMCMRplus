@@ -10,8 +10,8 @@ bwsTrendTest(x, ...)
 
 \method{bwsTrendTest}{default}(x, g, nperm = 1000, ...)
 
-\method{bwsTrendTest}{formula}(formula, data, subset, na.action, nperm = 1000,
-  ...)
+\method{bwsTrendTest}{formula}(formula, data, subset, na.action,
+  nperm = 1000, ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -121,10 +121,7 @@ Baumgartner-Weiss-Schindler statistic.
 of the package \pkg{PMCMRplus},
 \code{\link[stats]{kruskal.test}} of the library \pkg{stats}.
 }
-\concept{
-trend-test
-
-ordered-alternatives
-}
+\concept{ordered-alternatives}
+\concept{trend-test}
 \keyword{htest}
 \keyword{nonparametric}

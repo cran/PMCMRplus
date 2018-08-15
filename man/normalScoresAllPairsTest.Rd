@@ -4,7 +4,6 @@
 \alias{normalScoresAllPairsTest}
 \alias{normalScoresAllPairsTest.default}
 \alias{normalScoresAllPairsTest.formula}
-\alias{normalScoresAllPairsTest}
 \title{Lu-Smith All-Pairs Comparison Normal Scores Test}
 \usage{
 normalScoresAllPairsTest(x, ...)
@@ -12,8 +11,8 @@ normalScoresAllPairsTest(x, ...)
 \method{normalScoresAllPairsTest}{default}(x, g,
   p.adjust.method = c("single-step", p.adjust.methods), ...)
 
-\method{normalScoresAllPairsTest}{formula}(formula, data, subset, na.action,
-  p.adjust.method = c("single-step", p.adjust.methods), ...)
+\method{normalScoresAllPairsTest}{formula}(formula, data, subset,
+  na.action, p.adjust.method = c("single-step", p.adjust.methods), ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -85,10 +84,7 @@ for nonparametric one-way analysis of variance.
 \seealso{
 \code{\link{normalScoresTest}}, \code{\link{normalScoresManyOneTest}}, \code{\link[SuppDists]{normOrder}}.
 }
-\concept{
-NormalScores
-
-AllPairsComparison
-}
+\concept{AllPairsComparison}
+\concept{NormalScores}
 \keyword{htest}
 \keyword{nonparametric}

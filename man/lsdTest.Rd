@@ -94,7 +94,5 @@ Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
 \seealso{
 \code{\link{TDist}}, \code{\link{pairwise.t.test}}
 }
-\concept{
-AllPairsComparison
-}
+\concept{AllPairsComparison}
 \keyword{htest}

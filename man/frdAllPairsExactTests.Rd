@@ -116,12 +116,8 @@ Eisinga, R., Heskes, T., Pelzer, B., Te Grotenhuis, M. (2017)
 \code{\link{frdAllPairsConoverTest}}, \code{\link{frdAllPairsMillerTest}},
 \code{\link{frdAllPairsNemenyiTest}}, \code{\link{frdAllPairsSiegelTest}}
 }
-\concept{
-Friedman
-
-Rank
-
-AllPairs
-}
+\concept{AllPairs}
+\concept{Friedman}
+\concept{Rank}
 \keyword{htest}
 \keyword{nonparametric}

@@ -9,11 +9,12 @@
 shirleyWilliamsTest(x, ...)
 
 \method{shirleyWilliamsTest}{default}(x, g, alternative = c("two.sided",
-  "greater", "less"), method = c("look-up", "boot"), nperm = 10000, ...)
+  "greater", "less"), method = c("look-up", "boot"), nperm = 10000,
+  ...)
 
 \method{shirleyWilliamsTest}{formula}(formula, data, subset, na.action,
-  alternative = c("two.sided", "greater", "less"), method = c("look-up",
-  "boot"), nperm = 10000, ...)
+  alternative = c("two.sided", "greater", "less"),
+  method = c("look-up", "boot"), nperm = 10000, ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -156,10 +157,7 @@ several dose levels with a zero-dose control, \emph{Biometrics} \bold{42}, 183--
 \seealso{
 \code{\link{williamsTest}}
 }
-\concept{
-StepDownTrendTest
-
-DoseFinding
-}
+\concept{DoseFinding}
+\concept{StepDownTrendTest}
 \keyword{htest}
 \keyword{nonparametric}

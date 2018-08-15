@@ -89,7 +89,5 @@ Tukey, J. (1949) Comparing Individual Means in the Analysis of Variance,
 \seealso{
 \code{\link{Tukey}}, \code{\link{TukeyHSD}}
 }
-\concept{
-AllPairsComparison
-}
+\concept{AllPairsComparison}
 \keyword{htest}

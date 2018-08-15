@@ -124,10 +124,7 @@ Chacko, V. J. (1963) Testing homogeneity against ordered alternatives,
 of the package \pkg{PMCMRplus},
 \code{\link[stats]{kruskal.test}} of the library \pkg{stats}.
 }
-\concept{
-trend-test
-
-ordered-alternatives
-}
+\concept{ordered-alternatives}
+\concept{trend-test}
 \keyword{htest}
 \keyword{nonparametric}

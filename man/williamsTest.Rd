@@ -8,7 +8,8 @@
 \usage{
 williamsTest(x, ...)
 
-\method{williamsTest}{default}(x, g, alternative = c("greater", "less"), ...)
+\method{williamsTest}{default}(x, g, alternative = c("greater", "less"),
+  ...)
 
 \method{williamsTest}{formula}(formula, data, subset, na.action,
   alternative = c("greater", "less"), ...)

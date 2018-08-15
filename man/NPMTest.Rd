@@ -98,10 +98,7 @@ for detecting differences in simply ordered means.
 \seealso{
 \code{\link{kwAllPairsNemenyiTest}}
 }
-\concept{
-AllPairsComparisons
-
-OrderedAlternatives
-}
+\concept{AllPairsComparisons}
+\concept{OrderedAlternatives}
 \keyword{htest}
 \keyword{nonparametric}

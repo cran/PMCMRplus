@@ -9,8 +9,8 @@
 kwManyOneDunnTest(x, ...)
 
 \method{kwManyOneDunnTest}{default}(x, g, alternative = c("two.sided",
-  "greater", "less"), p.adjust.method = c("single-step", p.adjust.methods),
-  ...)
+  "greater", "less"), p.adjust.method = c("single-step",
+  p.adjust.methods), ...)
 
 \method{kwManyOneDunnTest}{formula}(formula, data, subset, na.action,
   alternative = c("two.sided", "greater", "less"),
@@ -119,12 +119,8 @@ Siegel, S., Castellan Jr., N. J. (1988) \emph{Nonparametric Statistics
 \code{\link{pmvnorm}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
 \code{\link{kwManyOneConoverTest}}, \code{\link{kwManyOneNdwTest}}
 }
-\concept{
-ManyToOneComparisons
-
-Kruskal
-
-Rank
-}
+\concept{Kruskal}
+\concept{ManyToOneComparisons}
+\concept{Rank}
 \keyword{htest}
 \keyword{nonparametric}

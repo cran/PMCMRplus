@@ -101,12 +101,8 @@ Wike, E. L. (2006), \emph{Data Analysis. A Statistical Primer for
 \code{\link{frdAllPairsExactTest}}, \code{\link{frdAllPairsConoverTest}},
 \code{\link{frdAllPairsNemenyiTest}}, \code{\link{frdAllPairsSiegelTest}}
 }
-\concept{
-Friedman
-
-Rank
-
-AllPairs
-}
+\concept{AllPairs}
+\concept{Friedman}
+\concept{Rank}
 \keyword{htest}
 \keyword{nonparametric}

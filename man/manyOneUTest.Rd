@@ -8,8 +8,9 @@
 \usage{
 manyOneUTest(x, ...)
 
-\method{manyOneUTest}{default}(x, g, alternative = c("two.sided", "greater",
-  "less"), p.adjust.method = c("single-step", p.adjust.methods), ...)
+\method{manyOneUTest}{default}(x, g, alternative = c("two.sided",
+  "greater", "less"), p.adjust.method = c("single-step",
+  p.adjust.methods), ...)
 
 \method{manyOneUTest}{formula}(formula, data, subset, na.action,
   alternative = c("two.sided", "greater", "less"),
@@ -85,8 +86,6 @@ on testing and assessment, No. 54.
 \seealso{
 \code{\link{wilcox.test}}, \code{\link{pmvnorm}}, \code{\link{Normal}}
 }
-\concept{
-ManyOne
-}
+\concept{ManyOne}
 \keyword{htest}
 \keyword{nonparanetric}
