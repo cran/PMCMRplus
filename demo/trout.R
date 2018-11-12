@@ -5,7 +5,7 @@
 # dose levels of 10, 25, 60, 150 and 1000 ppm,
 # and a control as well as
 # the response in trout weight in mg
-# 
+#
 
 data(trout)
 attach(trout)
@@ -17,11 +17,11 @@ xse <- xsd / sqrt(xn)
 ans <- data.frame(MEAN = round(xmean,1), SE = round(xse, 3), n = xn)
 rownames(ans) <- levels(DOSE)
 
-# 
+#
 ans
 
 #
-# Check for normality  
+# Check for normality
 #
 fit <- aov(Y ~ DOSE - 1)
 shapiro.test(residuals(fit))
@@ -65,6 +65,7 @@ summary(glht(Rfit, linfct = mcp(DOSE = mat)))
 ## Perform step-down Jonckheere test
 ##
 pval <- rep(NA, k)
+H0 <- rep(NA, k)
 z <- rep(NA, k)
 for (i in k:2){
   YY <- Y[as.numeric(DOSE) <= i]
@@ -72,24 +73,46 @@ for (i in k:2){
   js.out <- jonckheereTest(YY, DDOSE, alternative = 'less')
   z[i] <- js.out$statistic
   pval[i] <- js.out$p.value
+
+  H0[i] <- ifelse(i == 2,
+                  paste0("1 == 2"),
+                  paste0("1 == ... == ", i))
+
+  ##H0[i] <- paste0(levels(DOSE)[1:i], collapse = " = ")
 }
 
-out <- data.frame(MEAN = round(xmean, 1), z = round(z, 3), p = round(pval, 3))
-rownames(out) <- levels(DOSE)
-out
+symp <- symnum(pval[2:k], corr=FALSE,
+               cutpoints = c(0,  .001,.01,.05, .1, 1),
+               symbols = c("***","**","*","."," "))
 
-#
-# Employ pairwise Wilcox test with Holm adjustment
-#
-w.out <- pairwise.wilcox.test(Y, DOSE, alternative = 'less', p.adj= 'none')
-pval <- as.vector(w.out$p.value[,1])
-padj <- p.adjust(pval, 'holm')
-lev <- levels(DOSE)
-H0 <- rep(NA, k-1)
-for (i in 2:k){
-  H0[i-1] <- paste(lev[i], "-", lev[1], ">= 0")
+out <- data.frame(z = round(z[2:k], 3),
+                  p  = format.pval(pval[2:k]),
+                  symp)
+rownames(out) <- H0[2:k]
+names(out) <- c("z", "Pr(>z)", "")
+
+print.ME <- function(x, ...) {
+  cat("\n\tStep-down Jonckheere trend test\n\n")
+  cat("data: Y and DOSE\n")
+  cat("alternative hypothesis: less\n")
+  cat("H0\n")
+  print(out)
+  invisible(x)
 }
-wb.out <- data.frame(p = pval, padj = padj)
-rownames(wb.out) <- H0
-wb.out
+print.ME(out)
+#
+# Perform pairwise Wilcox test with Holm adjustment
+#
+summary(manyOneUTest(Y ~ DOSE, alternative = "less", p.adjust = "holm"))
 
+#
+# Perform Williams trend test
+#
+williamsTest(Y ~ DOSE, alternative = "less")
+
+#
+# Perform Shirley's test
+#
+shirleyWilliamsTest(Y ~ DOSE, alternative = "less")
+
+detach(trout)

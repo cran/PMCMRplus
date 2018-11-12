@@ -1,6 +1,20 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.4.1}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item The function \code{hartleyTest} for performing
+      Hartley's Maximum F-Ratio Test of Homogeneity of Variances
+      was added.
+      }
+  }
+  \subsection{OTHER CHANGES}{
+    \itemize{
+      \item The demo trout.R was updated.
+    }
+  }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.4.0}{
   \subsection{NEW FEATURES}{
     \itemize{

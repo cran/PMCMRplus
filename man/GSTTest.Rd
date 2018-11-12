@@ -4,7 +4,7 @@
 \alias{GSTTest}
 \alias{GSTTest.default}
 \alias{GSTTest.formula}
-\title{Generalized Siegel-Tukey Test for Homogeneity of
+\title{Generalized Siegel-Tukey Test of Homogeneity of
 Scales}
 \usage{
 GSTTest(x, ...)
@@ -90,10 +90,19 @@ of p-values as implemented in the function
 }
 \note{
 If ties are present, a tie correction is performed and
-a warning message is given.
+a warning message is given. The GSTTest is sensitive to
+median differences, likewise to the Siegel-Tukey test.
+It is thus appropriate to apply this test on the residuals
+of a one-way ANOVA, rather than on the original data
+(see example).
 }
 \examples{
 GSTTest(count ~ spray, data = InsectSprays)
+
+## as means/medians differ, apply the test to residuals
+## of one-way ANOVA
+ans <- aov(count ~ spray, data = InsectSprays)
+GSTTest( residuals( ans) ~ spray, data =InsectSprays)
 
 }
 \references{
@@ -104,3 +113,5 @@ spread in k unpaired samples, \emph{Metrika} \bold{15}, 23--29.
 \code{\link{fligner.test}}, \code{\link[SuppDists]{pKruskalWallis}},
  \code{\link{Chisquare}}, \code{\link{fligner.test}}
 }
+\keyword{htest}
+\keyword{nonparametric}

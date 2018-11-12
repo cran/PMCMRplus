@@ -20,7 +20,7 @@
 #
 
 #' @name GSTTest
-#' @title Generalized Siegel-Tukey Test for Homogeneity of
+#' @title Generalized Siegel-Tukey Test of Homogeneity of
 #' Scales
 #' @description
 #'  Performs a Siegel-Tukey k-sample rank dispersion test.
@@ -56,13 +56,12 @@
 #'
 #' @note
 #' If ties are present, a tie correction is performed and
-#' a warning message is given.
-#
-# As the Siegel-Tukey test might also be sensitive to median differences,
-# the function has included a median correction function. If \code{median.corr = TRUE},
-# The corresponding group median is substracted from the observation prior t
-# the Siegel-Tukey ranking.
-#
+#' a warning message is given. The GSTTest is sensitive to
+#' median differences, likewise to the Siegel-Tukey test.
+#' It is thus appropriate to apply this test on the residuals
+#' of a one-way ANOVA, rather than on the original data
+#' (see example).
+#'
 #' @references
 #' H.F.L. Meyer-Bahlburg (1970), A nonparametric test for relative
 #' spread in k unpaired samples, \emph{Metrika} \bold{15}, 23--29.
@@ -76,6 +75,13 @@
 #' @examples
 #' GSTTest(count ~ spray, data = InsectSprays)
 #'
+#' ## as means/medians differ, apply the test to residuals
+#' ## of one-way ANOVA
+#' ans <- aov(count ~ spray, data = InsectSprays)
+#' GSTTest( residuals( ans) ~ spray, data =InsectSprays)
+#'
+#' @keywords htest
+#' @keywords nonparametric
 #' @export
 GSTTest <- function(x, ...) UseMethod("GSTTest")
 
@@ -83,8 +89,6 @@ GSTTest <- function(x, ...) UseMethod("GSTTest")
 #' @method GSTTest default
 #' @template one-way-parms
 #' @param dist the test distribution. Defaults's to \code{"Chisquare"}.
-# @param median.corr logical indicator, whether median correction
-# should be performed prior testing. Defaults to \code{FALSE}.
 #' @importFrom stats pchisq
 #' @importFrom SuppDists pKruskalWallis
 #' @export
@@ -110,7 +114,6 @@ GSTTest.default <-
         } else {
             dist <- x$dist
         }
-        median.corr <- x$median.corr
         x <- unlist(x)
     }
     else {
@@ -130,17 +133,6 @@ GSTTest.default <-
     }
 
     dist <- match.arg(dist)
-
-#    if (median.corr) {
-#      med <- tapply(x, g, median)
-#      levN <- levels(g)
-#      xx <- as.vector(sapply(1:k, function(j) {
-#        medgrp <- median(x[g %in% levN[-j]])
-#        delta <- (med[j] - medgrp) / 2
-#        x[g %in% levN[j]] - delta
-#      }))
-#      x <- xx
-#    }
 
     ## Siegel-Tukey ranking
     ## rank sequence
@@ -202,7 +194,7 @@ GSTTest.default <-
 
     }
 
-    METHOD <- paste("Generalized Siegel-Tukey Test for Homogeneity of Scales")
+    METHOD <- paste("Generalized Siegel-Tukey test of homogeneity of scales")
 
     ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
                 statistic = PSTAT, parameter = PARMS)
