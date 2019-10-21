@@ -2,10 +2,12 @@ Package: PMCMRplus
 Type: Package
 Title: Calculate Pairwise Multiple Comparisons of Mean Rank Sums
         Extended
-Version: 1.4.1
-Date: 2018-11-12
-Author: Thorsten Pohlert
-Maintainer: Thorsten Pohlert <thorsten.pohlert@gmx.de>
+Version: 1.4.2
+Date: 2019-10-21
+Authors@R: person(given = "Thorsten", family = "Pohlert",
+                 email = "thorsten.pohlert@gmx.de",
+                 comment = c(ORCID = "0000-0003-3855-3025"),
+                 role = c("aut", "cre"))
 Description: For one-way layout experiments the one-way ANOVA can
 	     be performed as an omnibus test. All-pairs multiple comparisons 
 	     tests (Tukey-Kramer test, Scheffe test, LSD-test) 
@@ -48,8 +50,10 @@ Classification/MSC-2010: 62J15, 62J10, 62G10, 62F03, 62G30
 NeedsCompilation: yes
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 License: GPL (>= 3)
-Packaged: 2018-11-12 19:19:07 UTC; thorsten
+Packaged: 2019-10-21 08:48:49 UTC; thorsten
+Author: Thorsten Pohlert [aut, cre] (<https://orcid.org/0000-0003-3855-3025>)
+Maintainer: Thorsten Pohlert <thorsten.pohlert@gmx.de>
 Repository: CRAN
-Date/Publication: 2018-11-12 20:20:02 UTC
+Date/Publication: 2019-10-21 14:40:05 UTC

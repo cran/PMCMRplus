@@ -17,7 +17,7 @@
 ##  http://www.r-project.org/Licenses/
 ##
 ##
-#' @rdname frdManyOneExactTests
+#' @name frdManyOneExactTest
 #' @title  Exact Many-to-One Test
 #' for Unreplicated Blocked Data
 #'
@@ -64,7 +64,7 @@
 #' @export
 frdManyOneExactTest <- function(y, ...) UseMethod("frdManyOneExactTest")
 
-#' @rdname frdManyOneExactTests
+#' @rdname frdManyOneExactTest
 #' @method frdManyOneExactTest default
 #' @aliases frdManyOneExactTest.default
 #' @param p.adjust.method method for adjusting p values
@@ -78,40 +78,17 @@ frdManyOneExactTest <- function(y, ...) UseMethod("frdManyOneExactTest")
 frdManyOneExactTest.default <-
     function(y, groups, blocks, p.adjust.method = p.adjust.methods, ...)
 {
-    if ((is.matrix(y)) | (is.data.frame(y))) {
-        ## corrected 4. Jun 2017
-        DNAME <- paste(deparse(substitute(y)))
-        GRPNAMES <- colnames(y)
-        k <- length(GRPNAMES)
-        BLOCKNAMES <- rownames(y)
-        n <- length(BLOCKNAMES)
-        groups <- factor(rep(GRPNAMES, times = n))
-        blocks <- factor(rep(BLOCKNAMES, each = k))
-        y <- as.vector(t(y))
-    }
-    else {
-        if (any(is.na(groups)) || any(is.na(blocks)))
-            stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks)))))
-            stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1))
-                stop("Not an unreplicated complete block design")
-
-        DNAME <- paste(deparse(substitute(y)), ",",
-                       deparse(substitute(groups)), "and",
-                       deparse(substitute(blocks)) )
-        groups <- factor(groups)
-        blocks <- factor(blocks)
-        k <- nlevels(groups)
-        n <- nlevels(blocks)
-        GRPNAMES <- levels(groups)
-    }
-
     ## Check arguments
     p.adjust.method <- match.arg(p.adjust.method)
-    mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
-    r <- t(apply(mat, 1L, rank))
+ #   alternative <- match.arg(alternative)
 
+    ## 2019-10-16
+    ## novel external function
+    ans <- frdRanks(y, groups, blocks)
+    r <- ans$r
+    n <- nrow(r)
+    k <- ncol(r)
+    GRPNAMES <- colnames(r)
 
     METHOD <- c("Eisinga-Heskes-Pelzer and Grotenhuis",
                 " many-to-one test for a two-way",
@@ -136,10 +113,15 @@ frdManyOneExactTest.default <-
                     dimnames = list(LNAME, GRPNAMES[1]))
     PVAL <- matrix(data=PADJv, nrow = (k-1), ncol = 1,
                    dimnames = list(LNAME, GRPNAMES[1]))
-    MODEL <- data.frame(x = y, g = groups, b = blocks)
-    ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
-                statistic = PSTAT, p.adjust.method = p.adjust.method,
-                alternative = alternative, dist = DIST, model = MODEL)
+    #MODEL <- data.frame(x = y, g = groups, b = blocks)
+    ans <- list(method = METHOD,
+                data.name = ans$DNAME,
+                p.value = PVAL,
+                statistic = PSTAT,
+                p.adjust.method = p.adjust.method,
+                alternative = alternative,
+                dist = DIST,
+                model = ans$MODEL)
     class(ans) <- "PMCMR"
     ans
 }

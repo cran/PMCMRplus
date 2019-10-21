@@ -1,7 +1,7 @@
 ## frdManyOneDemsarTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2019 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -81,42 +81,17 @@ frdManyOneDemsarTest.default <-
     function(y, groups, blocks, alternative = c("two.sided", "greater", "less"),
              p.adjust.method= p.adjust.methods, ...)
 {
-    if ((is.matrix(y)) | (is.data.frame(y))) {
-        ## corrected 4. Jun 2017
-        DNAME <- paste(deparse(substitute(y)))
-        GRPNAMES <- colnames(y)
-        k <- length(GRPNAMES)
-        BLOCKNAMES <- rownames(y)
-        n <- length(BLOCKNAMES)
-        groups <- factor(rep(GRPNAMES, times = n))
-        blocks <- factor(rep(BLOCKNAMES, each = k))
-        y <- as.vector(t(y))
-    }
-    else {
-        if (any(is.na(groups)) || any(is.na(blocks)))
-            stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks)))))
-            stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1))
-                stop("Not an unreplicated complete block design")
-
-        DNAME <- paste(deparse(substitute(y)), ",",
-                       deparse(substitute(groups)), "and",
-                       deparse(substitute(blocks)) )
-        groups <- factor(groups)
-        blocks <- factor(blocks)
-        k <- nlevels(groups)
-        n <- nlevels(blocks)
-        GRPNAMES <- levels(groups)
-    }
-
     ## Check arguments
     p.adjust.method <- match.arg(p.adjust.method)
     alternative <- match.arg(alternative)
 
-
-    mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
-    r <- t(apply(mat, 1L, rank))
+    ## 2019-10-16
+    ## novel external function
+    ans <- frdRanks(y, groups, blocks)
+    r <- ans$r
+    n <- nrow(r)
+    k <- ncol(r)
+    GRPNAMES <- colnames(r)
 
     ## z value
     METHOD <- c("Demsar's many-to-one test for a two-way",
@@ -148,10 +123,15 @@ frdManyOneDemsarTest.default <-
                     dimnames = list(LNAME, GRPNAMES[1]))
     PVAL <- matrix(data=PADJv, nrow = (k-1), ncol = 1,
                    dimnames = list(LNAME, GRPNAMES[1]))
-    MODEL <- data.frame(x = y, g = groups, b = blocks)
-    ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
-                statistic = PSTAT, p.adjust.method = p.adjust.method,
-                alternative = alternative, dist = DIST, model = MODEL)
+    #MODEL <- data.frame(x = y, g = groups, b = blocks)
+    ans <- list(method = METHOD,
+                data.name = ans$DNAME,
+                p.value = PVAL,
+                statistic = PSTAT,
+                p.adjust.method = p.adjust.method,
+                alternative = alternative,
+                dist = DIST,
+                model = ans$MODEL)
     class(ans) <- "PMCMR"
     ans
 }

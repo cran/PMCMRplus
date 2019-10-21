@@ -1,7 +1,7 @@
 ## frdAllPairsMillerTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C)  2017, 2018 Thorsten Pohlert
+## Copyright (C)  2017-2019 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 ##  http://www.r-project.org/Licenses/
 ##
 
-#' @rdname frdAllPairsMillerTests
+#' @name frdAllPairsMillerTest
 #' @title Millers's All-Pairs Comparisons Test for Unreplicated Blocked Data
 #' @description
 #'  Performs Miller's all-pairs comparisons tests of Friedman-type ranked data.
@@ -57,7 +57,7 @@
 #' @export
 frdAllPairsMillerTest <- function(y, ...) UseMethod("frdAllPairsMillerTest")
 
-#' @rdname frdAllPairsMillerTests
+#' @rdname frdAllPairsMillerTest
 #' @aliases frdAllPairsMillerTest.default
 #' @method frdAllPairsMillerTest default
 #' @template two-way-parms
@@ -66,37 +66,16 @@ frdAllPairsMillerTest <- function(y, ...) UseMethod("frdAllPairsMillerTest")
 frdAllPairsMillerTest.default <-
     function(y, groups, blocks, ...)
 {
-    if ((is.matrix(y)) | (is.data.frame(y))) {
-        # corrected 4. Jun 2017
-        DNAME <- paste(deparse(substitute(y)))
-        GRPNAMES <- colnames(y)
-        k <- length(GRPNAMES)
-        BLOCKNAMES <- rownames(y)
-        n <- length(BLOCKNAMES)
-        groups <- factor(rep(GRPNAMES, times = n))
-        blocks <- factor(rep(BLOCKNAMES, each = k))
-        y <- as.vector(t(y))
-    }
-    else {
-        if (any(is.na(groups)) || any(is.na(blocks)))
-            stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks)))))
-            stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1))
-            stop("Not an unreplicated complete block design")
 
-        DNAME <- paste(deparse(substitute(y)), ",",
-                       deparse(substitute(groups)), "and",
-                       deparse(substitute(blocks)) )
-        groups <- factor(groups)
-        blocks <- factor(blocks)
-        k <- nlevels(groups)
-        n <- nlevels(blocks)
-        GRPNAMES <- levels(groups)
-    }
 
-    mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
-    r <- t(apply(mat, 1L, rank))
+    ## 2019-10-16
+    ## novel external function
+    ans <- frdRanks(y, groups, blocks)
+    r <- ans$r
+    n <- nrow(r)
+    k <- ncol(r)
+    GRPNAMES <- colnames(r)
+
     R.mnsum <- colMeans(r)
 
     compare.stats <- function(i,j) {
@@ -110,7 +89,8 @@ frdAllPairsMillerTest.default <-
                 " for a two-way",
                 " balanced complete block design")
     PSTAT <- pairwise.table(compare.stats,
-                            levels(groups), p.adjust.method="none")
+                            GRPNAMES,
+                            p.adjust.method="none")
     PSTAT <- PSTAT^2
     PVAL <- pchisq(PSTAT, df = (k-1), lower.tail = FALSE)
     DIST <- "X"
@@ -122,10 +102,15 @@ frdAllPairsMillerTest.default <-
     rownames(PSTAT) <- GRPNAMES[2:k]
     colnames(PVAL) <- GRPNAMES[1:(k-1)]
     rownames(PVAL) <- GRPNAMES[2:k]
-    MODEL <- data.frame(x = y, g = groups, b = blocks)
-    ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
-                statistic = PSTAT, p.adjust.method = p.adjust.method,
-                dist = DIST, model = MODEL, parameter = PARAMETER)
+
+    ans <- list(method = METHOD,
+                data.name = ans$DNAME,
+                p.value = PVAL,
+                statistic = PSTAT,
+                p.adjust.method = p.adjust.method,
+                dist = DIST,
+                model = ans$inDF,
+                parameter = PARAMETER)
     class(ans) <- "PMCMR"
     ans
 }

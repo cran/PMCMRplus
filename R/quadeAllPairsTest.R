@@ -1,6 +1,6 @@
 ##  quadeAllPairsTest.R
 ##
-##  Copyright (C) 2015-2017 Thorsten Pohlert
+##  Copyright (C) 2015-2019 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 #' @name quadeAllPairsTest
 #' @title All-Pairs Comparisons for
 #' Unreplicated Blocked Data (Quade's All-Pairs Test)
-#' 
+#'
 #' @description
 #' Performs Quade multiple-comparison test for unreplicated
 #' blocked data.
@@ -79,14 +79,15 @@
 #'
 #' ## All-pairs comparisons
 #' quadeAllPairsTest(y, dist="TDist", p.adjust.method="holm")
-#' 
+#'
 #' @keywords htest nonparametric
 #' @concept AllPairsComparison
 #' @concept TwoWayRankAnova
 #' @seealso
 #' \code{\link{quade.test}}, \code{\link{friedmanTest}}
 #' @export
-quadeAllPairsTest <- function(y, ...) UseMethod("quadeAllPairsTest")
+quadeAllPairsTest <- function(y, ...)
+    UseMethod("quadeAllPairsTest")
 
 #' @rdname quadeAllPairsTest
 #' @aliases quadeAllPairsTest.default
@@ -103,111 +104,121 @@ quadeAllPairsTest <- function(y, ...) UseMethod("quadeAllPairsTest")
 #' @importFrom stats p.adjust.methods
 #' @export
 quadeAllPairsTest.default <-
-function(y, groups, blocks, dist=c("TDist", "Normal"),
-         p.adjust.method = p.adjust.methods,  ...)
-{
-    if ((is.matrix(y)) | (is.data.frame(y))) {
-        ##
+    function(y,
+             groups,
+             blocks,
+             dist = c("TDist", "Normal"),
+             p.adjust.method = p.adjust.methods,
+             ...)
+    {
+        dist <- match.arg(dist)
+        p.adjust.method <- match.arg(p.adjust.method)
 
-        DNAME <- paste(deparse(substitute(y)))
-        GRPNAMES <- colnames(y)
-        k <- length(GRPNAMES)
-        BLOCKNAMES <- rownames(y)
-        b <- length(BLOCKNAMES)
-        groups <- factor(rep(GRPNAMES, times = b))
-        blocks <- factor(rep(BLOCKNAMES, each = k))
-        y <- as.vector(t(y))
+        DNAME <- deparse(substitute(y))
+        if(is.matrix(y)) {
+            groups <- factor(c(col(y)))
+            blocks <- factor(c(row(y)))
+            GRPNAMES <- colnames(y)
         }
-   else {
-            if (any(is.na(groups)) || any(is.na(blocks))) 
-                stop("NA's are not allowed in groups or blocks")
-            if (any(diff(c(length(y), length(groups), length(blocks))))) 
-                stop("y, groups and blocks must have the same length")
-            if (any(table(groups, blocks) != 1)) 
-                stop("Not an unreplicated complete block design")
-
-            DNAME <- paste(deparse(substitute(y)), ",",
-                           deparse(substitute(groups)), "and",
-                           deparse(substitute(blocks)))
+        else {
+            if(anyNA(groups) || anyNA(blocks))
+                stop("NA's are not allowed in 'groups' or 'blocks'")
+            if(any(diff(c(length(y), length(groups), length(blocks))) != 0L))
+                stop("'y', 'groups' and 'blocks' must have the same length")
+            DNAME <- paste0(DNAME, ", ",
+                            deparse(substitute(groups)), " and ",
+                            deparse(substitute(blocks)))
+            if(any(table(groups, blocks) != 1))
+                stop("not an unreplicated complete block design")
             groups <- factor(groups)
             blocks <- factor(blocks)
-            k <- nlevels(groups)
-            b <- nlevels(blocks)
+            o <- order(groups, blocks)
+            y <- y[o]
+            groups <- groups[o]
+            blocks <- blocks[o]
             GRPNAMES <- levels(groups)
+
         }
-    mat <- matrix(y, nrow = b, ncol = k, byrow = TRUE)        
-    dist <- match.arg(dist)
-    p.adjust.method <- match.arg(p.adjust.method)
-    r <- t(apply(mat, 1L, rank))
-    q <- rank(apply(mat, 1, function(u) max(u) - min(u)))
-    s <- q * (r - (k+1)/2)
-    w <- q * r
-    ## s is a matrix of ranks within blocks (minus the average rank)
-    ## multiplied by the ranked ranges of the blocks
-    A <- sum(s^2)
-    B <- sum(colSums(s)^2) / b
-    S <- colSums(s)
-    W <- colSums(w)
-    if (dist == "TDist") {
-        METHOD <- "Quade's test with TDist approximation"
-        DIST <- "t"
-        denom <- sqrt((2 * b * (A - B))/
-                      ((b-1) * (k-1)))
-        compare.stats <- function(i,j) {
-            dif <- abs(S[i] - S[j]) 
-            tval <- dif / denom
-            return(tval)
+        k <- nlevels(groups)
+        b <- nlevels(blocks)
+
+        ## <FIXME split.matrix>
+        y <- matrix(unlist(split(c(y), blocks)), ncol = k, byrow = TRUE)
+        y <- y[complete.cases(y), ]
+        #    n <- nrow(y)
+        r <- t(apply(y, 1L, rank))
+        q <- rank(apply(y, 1, function(u) max(u) - min(u)))
+
+        s <- q * (r - (k + 1) / 2)
+        w <- q * r
+        ## s is a matrix of ranks within blocks (minus the average rank)
+        ## multiplied by the ranked ranges of the blocks
+        A <- sum(s ^ 2)
+        B <- sum(colSums(s) ^ 2) / b
+        S <- colSums(s)
+        W <- colSums(w)
+        if (dist == "TDist") {
+            METHOD <- "Quade's test with TDist approximation"
+            DIST <- "t"
+            denom <- sqrt((2 * b * (A - B)) /
+                              ((b - 1) * (k - 1)))
+            compare.stats <- function(i, j) {
+                dif <- abs(S[i] - S[j])
+                tval <- dif / denom
+                return(tval)
+            }
+            PSTAT <- pairwise.table(compare.stats, levels(groups),
+                                    p.adjust.method = "none")
+            compare.levels <- function(i, j) {
+                dif <- abs(S[i] - S[j])
+                tval <- dif / denom
+                pval <- pval <- 2 * pt(abs(tval),
+                                       df = (b - 1) * (k - 1),
+                                       lower.tail = FALSE)
+                return(pval)
+            }
+            PVAL <- pairwise.table(compare.levels, levels(groups),
+                                   p.adjust.method = p.adjust.method)
+        } else {
+            METHOD <- paste("Quade's test",
+                            "with standard-normal approximation",
+                            sep = "\t")
+            DIST <- "z"
+            n <- b * k
+            denom <- sqrt((k * (k + 1) * (2 * n + 1) * (k - 1)) /
+                              (18 * n * (n + 1)))
+            nn <- length(w[, 1])
+            ff <- 1 / (nn * (nn + 1) / 2)
+            compare.stats <- function(i, j) {
+                dif <- abs(W[i] * ff - W[j] * ff)
+                zval <- dif / denom
+                return(zval)
+            }
+            PSTAT <- pairwise.table(compare.stats, levels(groups),
+                                    p.adjust.method = "none")
+            compare.levels <- function(i, j) {
+                dif <- abs(W[i] * ff - W[j] * ff)
+                zval <- dif / denom
+                pval <- 2 * pnorm(abs(zval), lower.tail = FALSE)
+                return(pval)
+            }
+            PVAL <- pairwise.table(compare.levels, levels(groups),
+                                   p.adjust.method = p.adjust.method)
         }
-        PSTAT <- pairwise.table(compare.stats,levels(groups),
-                                p.adjust.method="none")
-        compare.levels <- function(i,j) {
-            dif <- abs(S[i] - S[j]) 
-            tval <- dif / denom
-            pval <- pval <- 2 * pt(abs(tval),
-                                   df=(b-1)*(k-1),
-                                   lower.tail=FALSE)
-            return(pval)
-        }
-        PVAL <- pairwise.table(compare.levels,levels(groups),
-                               p.adjust.method=p.adjust.method)
-    } else {
-         METHOD <- paste("Quade's test",
-                         "with standard-normal approximation",
-                         sep="\t")
-         DIST <- "z"
-         n <- b * k
-         denom <- sqrt((k * (k + 1) * (2 * n + 1) * (k-1))/
-                           (18 * n * (n + 1)))
-         nn <- length(w[,1])
-         ff <- 1 / (nn * (nn + 1)/2)
-         compare.stats <- function(i,j) {
-            dif <- abs(W[i] * ff - W[j] * ff) 
-            zval <- dif / denom
-            return(zval)
-        }
-        PSTAT <- pairwise.table(compare.stats,levels(groups),
-                                p.adjust.method="none")
-        compare.levels <- function(i,j) {
-            dif <- abs(W[i] * ff - W[j] * ff) 
-            zval <- dif / denom
-            pval <- 2 * pnorm(abs(zval), lower.tail = FALSE)
-            return(pval)
-        }
-        PVAL <- pairwise.table(compare.levels,levels(groups),
-                               p.adjust.method=p.adjust.method)
+        colnames(PSTAT) <- GRPNAMES[1:(k - 1)]
+        rownames(PSTAT) <- GRPNAMES[2:k]
+        colnames(PVAL) <- GRPNAMES[1:(k - 1)]
+        rownames(PVAL) <- GRPNAMES[2:k]
+        MODEL <- data.frame(x = y, groups, blocks)
+        ans <- list(
+            statistic = PSTAT,
+            p.value = PVAL,
+            method = METHOD,
+            p.adjust.method = p.adjust.method,
+            data.name = DNAME,
+            model = MODEL,
+            dist = DIST
+        )
+        class(ans) <- "PMCMR"
+        ans
     }
-    colnames(PSTAT) <- GRPNAMES[1:(k-1)]
-    rownames(PSTAT) <- GRPNAMES[2:k]
-    colnames(PVAL) <- GRPNAMES[1:(k-1)]
-    rownames(PVAL) <- GRPNAMES[2:k]
-    MODEL <- data.frame(x= y, groups, blocks)
-    ans <- list(statistic = PSTAT,
-                   p.value = PVAL,
-                   method = METHOD,
-                   p.adjust.method = p.adjust.method,
-                   data.name = DNAME,
-                model = MODEL,
-                dist = DIST)
-    class(ans) <- "PMCMR"
-    ans
-}

@@ -1,6 +1,30 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.4.2}{
+ \subsection{NEW FEATURES}{
+    \itemize{
+      \item The S3 method for class \sQuote{formula} was added
+      for \code{frdAllPairsNemenyiTest}.
+      }
+}
+ \subsection{OTHER CHANGES}{
+    \itemize{
+      \item The novel internal function \code{frdRanks} was added
+      for consistent Friedman-type ranking.
+    }
+  }
+  \subsection{BUGFIXES}{
+     \itemize{
+       \item Results of all \code{frd[.]Test} and \code{quadeAllPairsTest} depended on the sequential
+       order of groups and blocks. This has been fixed.
+       Thanks to Jakob Richter, email 2019-10-15.
+       \item The function \code{frdManyOneExactTest} was
+       corrected towards \sQuote{alternative == "two.sided"} only.
+     }
+
+   }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.4.1}{
   \subsection{NEW FEATURES}{
     \itemize{

@@ -1,7 +1,7 @@
 ## posthoc.friedman.conover.test.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2015-2018 Thorsten Pohlert
+## Copyright (C) 2015-2019 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -68,116 +68,108 @@ frdAllPairsConoverTest <- function(y, ...)
 #' @importFrom stats ptukey
 #' @export
 frdAllPairsConoverTest.default <-
-    function(y, groups, blocks,
-             p.adjust.method = c("single-step", p.adjust.methods), ...)
-{
-    if ((is.matrix(y)) | (is.data.frame(y))) {
-        #groups <- factor(c(col(y)))
-        #blocks <- factor(c(row(y)))
-        DNAME <- paste(deparse(substitute(y)))
-        GRPNAMES <- colnames(y)
-        k <- length(GRPNAMES)
-        BLOCKNAMES <- rownames(y)
-        n <- length(BLOCKNAMES)
-        groups <- factor(rep(GRPNAMES, times = n))
-        blocks <- factor(rep(BLOCKNAMES, each = k))
-        #y <- y[order(groups, blocks)]
-        y <- as.vector(t(y))
+    function(y,
+             groups,
+             blocks,
+             p.adjust.method = c("single-step", p.adjust.methods),
+             ...)
+    {
+        p.adjust.method <- match.arg(p.adjust.method)
+        ## 2019-10-16
+        ## novel external function
+        ans <- frdRanks(y, groups, blocks)
+        r <- ans$r
+        n <- nrow(r)
+        k <- ncol(r)
+        GRPNAMES <- colnames(r)
+
+
+        R.sum <- colSums(r)
+        METHOD <- c("Conover's all-pairs test for a two-way",
+                    " balanced complete block design")
+
+        ## re coded from Conover and Imam 1978
+        m <- 1 # replicates set to 1
+        S2 <- m / (m * k - 1) * (sum(r ^ 2) - m * k * n *
+                                     (m * k + 1) ^ 2 / 4)
+        T2 <- 1 / S2 * (sum(R.sum) - n * m * ((m * k + 1) / 2) ^ 2)
+        A <- S2 * (2 * n * (m * k - 1)) / (m * n * k - k - n + 1)
+        B <- 1 - T2 / (n * (m * k - 1))
+
+        if (p.adjust.method != "single-step") {
+            compare.stats <- function(i, j) {
+                diff <- R.sum[i] - R.sum[j]
+                tval <- diff / (sqrt(A) * sqrt(B))
+                tval
+            }
+            PSTAT <- pairwise.table(compare.stats, GRPNAMES,
+                                    p.adjust.method = "none")
+
+            compare.levels <- function(i, j) {
+                dif <- abs(R.sum[i] - R.sum[j])
+                tval <- dif / (sqrt(A) * sqrt(B))
+                pval <- 2 * pt(
+                    q = abs(tval),
+                    df = (m * n * k - k - n + 1),
+                    lower.tail = FALSE
+                )
+                return(pval)
+            }
+            PVAL <- pairwise.table(compare.levels, GRPNAMES,
+                                   p.adjust.method = p.adjust.method)
+            DIST <- "t"
+            PARMS <- m * n * k - k - n + 1
+            names(PARMS) <- "df"
+
+        } else {
+            ## use Tukey distribution for multiple comparisons
+            compare.stats <- function(i, j) {
+                diff <- R.sum[i] - R.sum[j]
+                qval <- sqrt(2) * diff / (sqrt(A) * sqrt(B))
+                qval
+            }
+            PSTAT <- pairwise.table(compare.stats, GRPNAMES,
+                                    p.adjust.method = "none")
+
+            compare.levels <- function(i, j) {
+                dif <- abs(R.sum[i] - R.sum[j])
+                qval <- sqrt(2) * dif / (sqrt(A) * sqrt(B))
+                pval <-  ptukey(
+                    q = qval,
+                    nmeans = k,
+                    df = Inf,
+                    lower.tail = FALSE
+                )
+                return(pval)
+            }
+
+            PVAL <- pairwise.table(compare.levels, GRPNAMES,
+                                   p.adjust.method = "none")
+            DIST <- "q"
+            PARMS <- c(k, Inf)
+            names(PARMS) <- c("nmeans", "df")
+        }
+
+        colnames(PSTAT) <- GRPNAMES[1:(k - 1)]
+        rownames(PSTAT) <- GRPNAMES[2:k]
+        colnames(PVAL) <- GRPNAMES[1:(k - 1)]
+        rownames(PVAL) <- GRPNAMES[2:k]
+
+        ## MODEL data frame comes from frdRanks
+        MODEL <- ans$inDF
+
+        ans <-
+            list(
+                method = METHOD,
+                data.name = ans$DNAME,
+                p.value = PVAL,
+                statistic = PSTAT,
+                p.adjust.method = p.adjust.method,
+                model = MODEL,
+                dist = DIST,
+                parameter = PARMS
+            )
+        class(ans) <- "PMCMR"
+        ans
     }
-    else {
-        if (any(is.na(groups)) || any(is.na(blocks)))
-            stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks)))))
-            stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1))
-            stop("Not an unreplicated complete block design")
 
-        DNAME <- paste(deparse(substitute(y)), ",",
-                       deparse(substitute(groups)), "and",
-                       deparse(substitute(blocks)))
-        groups <- factor(groups)
-        blocks <- factor(blocks)
-        k <- nlevels(groups)
-        n <- nlevels(blocks)
-        GRPNAMES <- levels(groups)
-    }
-    p.adjust.method <- match.arg(p.adjust.method)
-    #n <- length(levels(blocks))
-    #k <- length(levels(groups))
-    #y <- y[order(groups, blocks)]
-    #mat <- matrix(y, nrow = n, ncol = k, byrow = FALSE)
-    #for (i in 1:length(mat[, 1])) mat[i, ] <- rank(mat[i, ])
-    mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
-    r <- t(apply(mat, 1L, rank))
-    R.sum <- colSums(r)
-    METHOD <- c("Conover's all-pairs test for a two-way",
-                " balanced complete block design")
-
-    ## re coded from Conover and Imam 1978
-    m <- 1 # replicates set to 1
-    S2 <- m / ( m * k -1 ) * (sum(r^2) - m * k * n *
-                              ( m * k + 1)^2 / 4)
-    T2 <- 1 / S2 * (sum(R.sum) - n * m * ((m * k + 1) / 2)^2)
-    A <-S2 * (2 * n * (m * k - 1)) / ( m * n * k - k - n + 1)
-    B <- 1 - T2 / (n * (m * k- 1))
-
-    if (p.adjust.method != "single-step"){
-
-        compare.stats <- function(i, j){
-            diff <- R.sum[i] - R.sum[j]
-            tval <- diff / (sqrt(A) * sqrt(B))
-            tval
-        }
-        PSTAT <- pairwise.table(compare.stats,levels(groups),
-                                p.adjust.method="none")
-
-        compare.levels <- function(i,j) {
-            dif <- abs(R.sum[i] - R.sum[j])
-            tval <- dif / (sqrt(A) * sqrt(B))
-            pval <- 2 * pt(q=abs(tval), df=(m * n * k - k - n + 1),
-                           lower.tail=FALSE)
-            return(pval)
-        }
-        PVAL <- pairwise.table(compare.levels, levels(groups),
-                               p.adjust.method=p.adjust.method)
-        DIST <- "t"
-        PARMS <- m * n * k - k - n + 1
-        names(PARMS) <- "df"
-
-    } else {
-        ## use Tukey distribution for multiple comparisons
-        compare.stats <- function(i, j){
-            diff <- R.sum[i] - R.sum[j]
-            qval <- sqrt(2) * diff / (sqrt(A) * sqrt(B))
-            qval
-        }
-        PSTAT <- pairwise.table(compare.stats,levels(groups),
-                                p.adjust.method="none")
-
-        compare.levels <- function(i,j) {
-            dif <- abs(R.sum[i] - R.sum[j])
-            qval <- sqrt(2) * dif / (sqrt(A) * sqrt(B))
-            pval <-  ptukey(q=qval, nmeans = k,
-                            df= Inf,
-                            lower.tail=FALSE)
-            return(pval)
-        }
-
-        PVAL <- pairwise.table(compare.levels, levels(groups),
-                               p.adjust.method= "none")
-        DIST <- "q"
-        PARMS <- c(k, Inf)
-        names(PARMS) <- c("nmeans", "df")
-    }
-
-    colnames(PSTAT) <- GRPNAMES[1:(k-1)]
-    rownames(PSTAT) <- GRPNAMES[2:k]
-    colnames(PVAL) <- GRPNAMES[1:(k-1)]
-    rownames(PVAL) <- GRPNAMES[2:k]
-    MODEL <- data.frame(x = y, g = groups, b = blocks)
-    ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
-                statistic = PSTAT, p.adjust.method =p.adjust.method,
-                model = MODEL, dist = DIST, parameter = PARMS)
-    class(ans) <- "PMCMR"
-    ans
-}

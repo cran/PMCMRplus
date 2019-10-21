@@ -1,7 +1,7 @@
 ## frdManyOneNemenyiTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C)  2017, 2018 Thorsten Pohlert
+## Copyright (C)  2017-2019 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -38,6 +38,8 @@
 #' A\eqn{_i: \theta_0 \ne \theta_i, ~~ (1 \le i \le m)}.
 #'
 #' The \eqn{p}-values are computed from the multivariate normal distribution.
+#' As \code{\link[mvtnorm]{pmvnorm}} applies a numerical method, the estimated
+#' \eqn{p}-values are seet depended.
 #'
 #' @references
 #' Hollander, M., Wolfe, D. A., Chicken, E. (2014),
@@ -64,7 +66,7 @@
 #' @seealso
 #' \code{\link{friedmanTest}}, \code{\link[stats]{friedman.test}},
 #' \code{\link{frdManyOneExactTest}}, \code{\link{frdManyOneDemsarTest}}
-#' \code{\link[mvtnorm]{pmvnorm}}
+#' \code{\link[mvtnorm]{pmvnorm}}, \code{\link{set.seed}}
 #'
 #' @template class-PMCMR
 #' @export
@@ -78,44 +80,22 @@ frdManyOneNemenyiTest <- function(y, ...) UseMethod("frdManyOneNemenyiTest")
 #' @importFrom mvtnorm pmvnorm
 #' @export
 frdManyOneNemenyiTest.default <-
-    function(y, groups, blocks, alternative =
-                                    c("two.sided", "greater", "less"), ...)
+    function(y,
+             groups,
+             blocks,
+             alternative = c("two.sided", "greater", "less"),
+             ...)
 {
-    if ((is.matrix(y)) | (is.data.frame(y))) {
-        ## corrected 4. Jun 2017
-        DNAME <- paste(deparse(substitute(y)))
-        GRPNAMES <- colnames(y)
-        k <- length(GRPNAMES)
-        BLOCKNAMES <- rownames(y)
-        n <- length(BLOCKNAMES)
-        groups <- factor(rep(GRPNAMES, times = n))
-        blocks <- factor(rep(BLOCKNAMES, each = k))
-        y <- as.vector(t(y))
-    }
-    else {
-        if (any(is.na(groups)) || any(is.na(blocks)))
-            stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks)))))
-            stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1))
-                stop("Not an unreplicated complete block design")
-
-        DNAME <- paste(deparse(substitute(y)), ",",
-                       deparse(substitute(groups)), "and",
-                       deparse(substitute(blocks)) )
-        groups <- factor(groups)
-        blocks <- factor(blocks)
-        k <- nlevels(groups)
-        n <- nlevels(blocks)
-        GRPNAMES <- levels(groups)
-    }
-
     ## Check arguments
     alternative <- match.arg(alternative)
 
-    mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
-    r <- t(apply(mat, 1L, rank))
-
+    ## 2019-10-16
+    ## novel external function
+    ans <- frdRanks(y, groups, blocks)
+    r <- ans$r
+    n <- nrow(r)
+    k <- ncol(r)
+    GRPNAMES <- colnames(r)
 
     METHOD <- c("Nemenyi-Wilcoxon-Wilcox-Miller many-to-one test",
                  " for a two-way balanced complete block design")
@@ -158,10 +138,15 @@ frdManyOneNemenyiTest.default <-
                     dimnames = list(LNAME, GRPNAMES[1]))
     PVAL <- matrix(data=PADJv, nrow = (k-1), ncol = 1,
                    dimnames = list(LNAME, GRPNAMES[1]))
-    MODEL <- data.frame(x = y, g = groups, b = blocks)
-    ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
-                statistic = PSTAT, p.adjust.method = p.adjust.method,
-                alternative = alternative, dist = DIST, model = MODEL)
+
+    ans <- list(method = METHOD,
+                data.name = ans$DNAME,
+                p.value = PVAL,
+                statistic = PSTAT,
+                p.adjust.method = p.adjust.method,
+                alternative = alternative,
+                dist = DIST,
+                model = ans$MODEL)
     class(ans) <- "PMCMR"
     ans
 }

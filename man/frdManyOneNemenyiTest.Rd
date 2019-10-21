@@ -59,6 +59,8 @@ H\eqn{_i: \theta_0 = \theta_i} is tested in the two-tailed case against
 A\eqn{_i: \theta_0 \ne \theta_i, ~~ (1 \le i \le m)}.
 
 The \eqn{p}-values are computed from the multivariate normal distribution.
+As \code{\link[mvtnorm]{pmvnorm}} applies a numerical method, the estimated
+\eqn{p}-values are seet depended.
 }
 \examples{
  ## Sachs, 1997, p. 675
@@ -109,7 +111,7 @@ Upper Saddle River: Prentice-Hall.
 \seealso{
 \code{\link{friedmanTest}}, \code{\link[stats]{friedman.test}},
 \code{\link{frdManyOneExactTest}}, \code{\link{frdManyOneDemsarTest}}
-\code{\link[mvtnorm]{pmvnorm}}
+\code{\link[mvtnorm]{pmvnorm}}, \code{\link{set.seed}}
 }
 \concept{FriedmanTest}
 \concept{ManyToOne}

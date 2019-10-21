@@ -1,7 +1,7 @@
 ## friedmanTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2019 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -114,37 +114,16 @@ friedmanTest <- function(y, ...)
 #' @export
 friedmanTest.default <-
     function(y, groups, blocks, dist = c("Chisquare", "FDist"), ...){
-        if ((is.matrix(y)) | (is.data.frame(y))) {
-            groups <- factor(c(col(y)))
-            blocks <- factor(c(row(y)))
-            DNAME <- paste(deparse(substitute(y)))
-            GRPNAMES <- colnames(y)
-        }
-        else {
-            if (any(is.na(groups)) || any(is.na(blocks)))
-                stop("NA's are not allowed in groups or blocks")
-            if (any(diff(c(length(y), length(groups), length(blocks)))))
-                stop("y, groups and blocks must have the same length")
-            if (any(table(groups, blocks) != 1))
-                stop("Not an unreplicated complete block design")
 
-            DNAME <- paste(deparse(substitute(y)), ",",
-                           deparse(substitute(groups)), "and",
-                           deparse(substitute(blocks)))
-            groups <- factor(groups)
-            blocks <- factor(blocks)
-            GRPNAMES <- as.character(levels(groups))
-        }
+    	dist <- match.arg(dist)
+    	## 2019-10-16
+    	## novel external function
+    	ans <- frdRanks(y, groups, blocks)
+    	mat <- ans$r
+    	n <- nrow(mat)
+    	k <- ncol(mat)
+    	GRPNAMES <- colnames(mat)
 
-        dist <- match.arg(dist)
-    	n <- length(levels(blocks))
-        k <- length(levels(groups))
-    	y <- y[order(groups, blocks)]
-        if (any(is.na(y))){
-            stop("'y' contains 'NA' values.")
-        }
-    	mat <- matrix(y, nrow = n, ncol = k, byrow = FALSE)
-        for (i in 1:length(mat[, 1])) mat[i, ] <- rank(mat[i, ])
         R.sum <- colSums(mat)
         METHOD <- paste("Friedman rank sum test")
 
@@ -181,7 +160,7 @@ friedmanTest.default <-
         }
         ans <- list(statistic=STAT, p.value = PVAL,
                     parameter= PARMS, method = METHOD,
-                    data.name=DNAME)
+                    data.name=ans$DNAME)
         class(ans) <- "htest"
         ans
     }

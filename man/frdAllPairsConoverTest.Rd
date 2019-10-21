@@ -92,6 +92,21 @@ any of the p-adjustment methods as included in \code{\link{p.adjust}}.
  ## Siegel-Castellan
  frdAllPairsSiegelTest(y=y, p.adjust = "bonferroni")
 
+ ## Irrelevant of group order?
+ x <- as.vector(y)
+ g <- rep(colnames(y), each = length(x)/length(colnames(y)))
+ b <- rep(rownames(y), times = length(x)/length(rownames(y)))
+ xDF <- data.frame(x, g, b) # grouped by colnames
+
+ frdAllPairsNemenyiTest(xDF$x, groups = xDF$g, blocks = xDF$b)
+ o <- order(xDF$b) # order per block increasingly
+ frdAllPairsNemenyiTest(xDF$x[o], groups = xDF$g[o], blocks = xDF$b[o])
+ o <- order(xDF$x) # order per value increasingly
+ frdAllPairsNemenyiTest(xDF$x[o], groups = xDF$g[o], blocks = xDF$b[o])
+
+ ## formula method (only works for Nemenyi)
+ frdAllPairsNemenyiTest(x ~ g | b, data = xDF)
+
 }
 \references{
 Conover, W. J., Iman, R. L. (1979) \emph{On multiple-comparisons

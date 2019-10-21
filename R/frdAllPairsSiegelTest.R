@@ -1,7 +1,7 @@
 ## frdAllPairsSiegelTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C)  2017, 2018 Thorsten Pohlert
+## Copyright (C)  2017-2019 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -66,39 +66,15 @@ frdAllPairsSiegelTest <-
 frdAllPairsSiegelTest.default <-
     function(y, groups, blocks, p.adjust.method = p.adjust.methods, ...)
 {
-    if ((is.matrix(y)) | (is.data.frame(y))) {
-        # corrected 4. Jun 2017
-        DNAME <- paste(deparse(substitute(y)))
-        GRPNAMES <- colnames(y)
-        k <- length(GRPNAMES)
-        BLOCKNAMES <- rownames(y)
-        n <- length(BLOCKNAMES)
-        groups <- factor(rep(GRPNAMES, times = n))
-        blocks <- factor(rep(BLOCKNAMES, each = k))
-        y <- as.vector(t(y))
-    }
-    else {
-        if (any(is.na(groups)) || any(is.na(blocks)))
-            stop("NA's are not allowed in groups or blocks")
-        if (any(diff(c(length(y), length(groups), length(blocks)))))
-            stop("y, groups and blocks must have the same length")
-        if (any(table(groups, blocks) != 1))
-            stop("Not an unreplicated complete block design")
+    p.adjust.method <- match.arg(p.adjust.method)
+    ## 2019-10-16
+    ## novel external function
+    ans <- frdRanks(y, groups, blocks)
+    r <- ans$r
+    n <- nrow(r)
+    k <- ncol(r)
+    GRPNAMES <- colnames(r)
 
-        DNAME <- paste(deparse(substitute(y)), ",",
-                       deparse(substitute(groups)), "and",
-                       deparse(substitute(blocks)) )
-        groups <- factor(groups)
-        blocks <- factor(blocks)
-       # GRPNAMES <- as.character(levels(groups))
-        k <- nlevels(groups)
-        n <- nlevels(blocks)
-        GRPNAMES <- levels(groups)
-    }
-
-    p.adjust.method = match.arg(p.adjust.method)
-    mat <- matrix(y, nrow = n, ncol = k, byrow = TRUE)
-    r <- t(apply(mat, 1L, rank))
     R.mnsum <- colMeans(r)
 
     compare.stats <- function(i,j) {
@@ -111,7 +87,7 @@ frdAllPairsSiegelTest.default <-
     METHOD <- c("Siegel-Castellan all-pairs test for a two-way",
                " balanced complete block design")
     PSTAT <- pairwise.table(compare.stats,
-                            levels(groups), p.adjust.method="none")
+                            GRPNAMES, p.adjust.method="none")
     pstat <- as.numeric(PSTAT)
     pval <- 2 * pnorm(abs(pstat), lower.tail = FALSE)
     pval[pval > 1] <- 1.0
@@ -123,10 +99,14 @@ frdAllPairsSiegelTest.default <-
     rownames(PSTAT) <- GRPNAMES[2:k]
     colnames(PVAL) <- GRPNAMES[1:(k-1)]
     rownames(PVAL) <- GRPNAMES[2:k]
-    MODEL <- data.frame(x = y, g = groups, b = blocks)
-    ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
-                statistic = PSTAT, p.adjust.method = p.adjust.method,
-                dist = DIST, model = MODEL)
+
+    ans <- list(method = METHOD,
+                data.name = ans$DNAME,
+                p.value = PVAL,
+                statistic = PSTAT,
+                p.adjust.method = p.adjust.method,
+                dist = DIST,
+                model = ans$inDF)
     class(ans) <- "PMCMR"
     ans
 }
