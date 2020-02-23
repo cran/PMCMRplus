@@ -37,7 +37,7 @@
 #' to the ordinary Nemenyi test (see \code{\link{kwAllPairsNemenyiTest}}).
 #'
 #' @name NPMTest
-#' @inherit chaAllPairsNashimotoTest
+# @inherit chaAllPairsNashimotoTest
 # @references
 # Nashimoto, K., Wright, F.T., (2005), Multiple comparison procedures
 # for detecting differences in simply ordered means.

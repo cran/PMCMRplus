@@ -119,8 +119,8 @@ bwsAllPairsTest.default <-
     method <- ifelse(method == "Murakami", "B1", method)
 
     METHOD <- switch(method,
-                     "BWS" = "BWS Two-Sample Test",
-                     "B1" = "Murakami's modified Two-Sample BWS Test")
+                     "BWS" = "BWS All-Pairs Test",
+                     "B1" = "Murakami's modified All-Pairs BWS Test")
 
 ##    compare.levels <- function(i, j) {
 ##        xi <- x[as.integer(g) == i]

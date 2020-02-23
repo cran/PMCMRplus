@@ -7,8 +7,13 @@
 \usage{
 frdAllPairsConoverTest(y, ...)
 
-\method{frdAllPairsConoverTest}{default}(y, groups, blocks,
-  p.adjust.method = c("single-step", p.adjust.methods), ...)
+\method{frdAllPairsConoverTest}{default}(
+  y,
+  groups,
+  blocks,
+  p.adjust.method = c("single-step", p.adjust.methods),
+  ...
+)
 }
 \arguments{
 \item{y}{a numeric vector of data values, or a list of numeric data

@@ -8,9 +8,14 @@ for Unreplicated Blocked Data}
 \usage{
 frdManyOneDemsarTest(y, ...)
 
-\method{frdManyOneDemsarTest}{default}(y, groups, blocks,
+\method{frdManyOneDemsarTest}{default}(
+  y,
+  groups,
+  blocks,
   alternative = c("two.sided", "greater", "less"),
-  p.adjust.method = p.adjust.methods, ...)
+  p.adjust.method = p.adjust.methods,
+  ...
+)
 }
 \arguments{
 \item{y}{a numeric vector of data values, or a list of numeric data

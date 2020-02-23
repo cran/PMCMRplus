@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.4.3}{
+  \subsection{OTHER CHANGES}{
+    \itemize{
+     \item The names for the \sQuote{method} were corrected for \code{adAllPairsTest} and \code{bwsAllPairsTest}.
+     \item The example in \code{adKSampleTest} was corrected.
+     }
+   }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.4.2}{
  \subsection{NEW FEATURES}{
     \itemize{

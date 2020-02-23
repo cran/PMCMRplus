@@ -8,11 +8,21 @@
 \usage{
 normalScoresAllPairsTest(x, ...)
 
-\method{normalScoresAllPairsTest}{default}(x, g,
-  p.adjust.method = c("single-step", p.adjust.methods), ...)
+\method{normalScoresAllPairsTest}{default}(
+  x,
+  g,
+  p.adjust.method = c("single-step", p.adjust.methods),
+  ...
+)
 
-\method{normalScoresAllPairsTest}{formula}(formula, data, subset,
-  na.action, p.adjust.method = c("single-step", p.adjust.methods), ...)
+\method{normalScoresAllPairsTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  p.adjust.method = c("single-step", p.adjust.methods),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

@@ -10,8 +10,7 @@ bwsKSampleTest(x, ...)
 
 \method{bwsKSampleTest}{default}(x, g, nperm = 1000, ...)
 
-\method{bwsKSampleTest}{formula}(formula, data, subset, na.action,
-  nperm = 1000, ...)
+\method{bwsKSampleTest}{formula}(formula, data, subset, na.action, nperm = 1000, ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

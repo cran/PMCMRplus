@@ -4,8 +4,7 @@
 \alias{doubleGrubbsTest}
 \title{Grubbs Double Outlier Test}
 \usage{
-doubleGrubbsTest(x, alternative = c("two.sided", "greater", "less"),
-  m = 10000)
+doubleGrubbsTest(x, alternative = c("two.sided", "greater", "less"), m = 10000)
 }
 \arguments{
 \item{x}{a numeric vector of data.}

@@ -7,8 +7,7 @@
 \usage{
 friedmanTest(y, ...)
 
-\method{friedmanTest}{default}(y, groups, blocks, dist = c("Chisquare",
-  "FDist"), ...)
+\method{friedmanTest}{default}(y, groups, blocks, dist = c("Chisquare", "FDist"), ...)
 }
 \arguments{
 \item{y}{a numeric vector of data values, or a list of numeric data

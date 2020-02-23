@@ -8,11 +8,21 @@
 \usage{
 kwAllPairsConoverTest(x, ...)
 
-\method{kwAllPairsConoverTest}{default}(x, g,
-  p.adjust.method = c("single-step", p.adjust.methods), ...)
+\method{kwAllPairsConoverTest}{default}(
+  x,
+  g,
+  p.adjust.method = c("single-step", p.adjust.methods),
+  ...
+)
 
-\method{kwAllPairsConoverTest}{formula}(formula, data, subset, na.action,
-  p.adjust.method = c("single-step", p.adjust.methods), ...)
+\method{kwAllPairsConoverTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  p.adjust.method = c("single-step", p.adjust.methods),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

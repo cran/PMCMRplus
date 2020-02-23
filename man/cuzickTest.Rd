@@ -8,12 +8,25 @@
 \usage{
 cuzickTest(x, ...)
 
-\method{cuzickTest}{default}(x, g, alternative = c("two.sided",
-  "greater", "less"), scores = NULL, continuity = FALSE, ...)
+\method{cuzickTest}{default}(
+  x,
+  g,
+  alternative = c("two.sided", "greater", "less"),
+  scores = NULL,
+  continuity = FALSE,
+  ...
+)
 
-\method{cuzickTest}{formula}(formula, data, subset, na.action,
-  alternative = c("two.sided", "greater", "less"), scores = NULL,
-  continuity = FALSE, ...)
+\method{cuzickTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  alternative = c("two.sided", "greater", "less"),
+  scores = NULL,
+  continuity = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

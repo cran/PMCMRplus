@@ -8,8 +8,13 @@ Unreplicated Blocked Data}
 \usage{
 frdAllPairsSiegelTest(y, ...)
 
-\method{frdAllPairsSiegelTest}{default}(y, groups, blocks,
-  p.adjust.method = p.adjust.methods, ...)
+\method{frdAllPairsSiegelTest}{default}(
+  y,
+  groups,
+  blocks,
+  p.adjust.method = p.adjust.methods,
+  ...
+)
 }
 \arguments{
 \item{y}{a numeric vector of data values, or a list of numeric data

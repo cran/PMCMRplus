@@ -10,8 +10,7 @@ mackWolfeTest(x, ...)
 
 \method{mackWolfeTest}{default}(x, g, p = NULL, nperm = 1000, ...)
 
-\method{mackWolfeTest}{formula}(formula, data, subset, na.action,
-  p = NULL, nperm = 1000, ...)
+\method{mackWolfeTest}{formula}(formula, data, subset, na.action, p = NULL, nperm = 1000, ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

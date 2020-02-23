@@ -8,11 +8,16 @@
 \usage{
 steelTest(x, ...)
 
-\method{steelTest}{default}(x, g, alternative = c("greater", "less"),
-  ...)
+\method{steelTest}{default}(x, g, alternative = c("greater", "less"), ...)
 
-\method{steelTest}{formula}(formula, data, subset, na.action,
-  alternative = c("greater", "less"), ...)
+\method{steelTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  alternative = c("greater", "less"),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

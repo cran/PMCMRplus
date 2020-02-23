@@ -8,11 +8,16 @@
 \usage{
 spearmanTest(x, ...)
 
-\method{spearmanTest}{default}(x, g, alternative = c("two.sided",
-  "greater", "less"), ...)
+\method{spearmanTest}{default}(x, g, alternative = c("two.sided", "greater", "less"), ...)
 
-\method{spearmanTest}{formula}(formula, data, subset, na.action,
-  alternative = c("two.sided", "greater", "less"), ...)
+\method{spearmanTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  alternative = c("two.sided", "greater", "less"),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

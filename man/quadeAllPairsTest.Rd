@@ -8,8 +8,14 @@ Unreplicated Blocked Data (Quade's All-Pairs Test)}
 \usage{
 quadeAllPairsTest(y, ...)
 
-\method{quadeAllPairsTest}{default}(y, groups, blocks, dist = c("TDist",
-  "Normal"), p.adjust.method = p.adjust.methods, ...)
+\method{quadeAllPairsTest}{default}(
+  y,
+  groups,
+  blocks,
+  dist = c("TDist", "Normal"),
+  p.adjust.method = p.adjust.methods,
+  ...
+)
 }
 \arguments{
 \item{y}{a numeric vector of data values, or a list of numeric data

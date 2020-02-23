@@ -8,11 +8,16 @@
 \usage{
 kwAllPairsNemenyiTest(x, ...)
 
-\method{kwAllPairsNemenyiTest}{default}(x, g, dist = c("Tukey",
-  "Chisquare"), ...)
+\method{kwAllPairsNemenyiTest}{default}(x, g, dist = c("Tukey", "Chisquare"), ...)
 
-\method{kwAllPairsNemenyiTest}{formula}(formula, data, subset, na.action,
-  dist = c("Tukey", "Chisquare"), ...)
+\method{kwAllPairsNemenyiTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  dist = c("Tukey", "Chisquare"),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

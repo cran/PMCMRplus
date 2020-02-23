@@ -8,11 +8,16 @@
 \usage{
 johnsonTest(x, ...)
 
-\method{johnsonTest}{default}(x, g, alternative = c("two.sided",
-  "greater", "less"), ...)
+\method{johnsonTest}{default}(x, g, alternative = c("two.sided", "greater", "less"), ...)
 
-\method{johnsonTest}{formula}(formula, data, subset, na.action,
-  alternative = c("two.sided", "greater", "less"), ...)
+\method{johnsonTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  alternative = c("two.sided", "greater", "less"),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

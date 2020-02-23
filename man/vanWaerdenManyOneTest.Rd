@@ -8,13 +8,23 @@
 \usage{
 vanWaerdenManyOneTest(x, ...)
 
-\method{vanWaerdenManyOneTest}{default}(x, g,
+\method{vanWaerdenManyOneTest}{default}(
+  x,
+  g,
   alternative = c("two.sided", "greater", "less"),
-  p.adjust.method = c("single-step", p.adjust.methods), ...)
+  p.adjust.method = c("single-step", p.adjust.methods),
+  ...
+)
 
-\method{vanWaerdenManyOneTest}{formula}(formula, data, subset, na.action,
+\method{vanWaerdenManyOneTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
   alternative = c("two.sided", "greater", "less"),
-  p.adjust.method = c("single-step", p.adjust.methods), ...)
+  p.adjust.method = c("single-step", p.adjust.methods),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

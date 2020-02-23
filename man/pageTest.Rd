@@ -7,8 +7,13 @@
 \usage{
 pageTest(y, ...)
 
-\method{pageTest}{default}(y, groups, blocks,
-  alternative = c("two.sided", "greater", "less"), ...)
+\method{pageTest}{default}(
+  y,
+  groups,
+  blocks,
+  alternative = c("two.sided", "greater", "less"),
+  ...
+)
 }
 \arguments{
 \item{y}{a numeric vector of data values, or a list of numeric data

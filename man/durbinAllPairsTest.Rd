@@ -7,8 +7,7 @@
 \usage{
 durbinAllPairsTest(y, ...)
 
-\method{durbinAllPairsTest}{default}(y, groups, blocks,
-  p.adjust.method = p.adjust.methods, ...)
+\method{durbinAllPairsTest}{default}(y, groups, blocks, p.adjust.method = p.adjust.methods, ...)
 }
 \arguments{
 \item{y}{a numeric vector of data values, or a list of numeric data

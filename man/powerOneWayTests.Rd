@@ -4,15 +4,23 @@
 \alias{powerOneWayTests}
 \title{Power Simulation for One-Factorial Single Hypothesis Tests}
 \usage{
-powerOneWayTests(mu, n = 10, errfn = c("Normal", "Lognormal",
-  "Exponential", "Chisquare", "TDist", "Cauchy", "Weibull"),
-  parms = list(mean = 0, sd = 1), test = c("kruskalTest", "leTest",
-  "vanWaerdenTest", "normalScoresTest", "spearmanTest", "cuzickTest",
-  "jonckheereTest", "johnsonTest", "oneway.test", "adKSampleTest",
-  "bwsKSampleTest", "bwsTrendTest", "mackWolfeTest"),
-  alternative = c("two.sided", "greater", "less"), var.equal = TRUE,
-  dist = NULL, alpha = 0.05, FWER = TRUE, replicates = 1000,
-  p = NULL)
+powerOneWayTests(
+  mu,
+  n = 10,
+  errfn = c("Normal", "Lognormal", "Exponential", "Chisquare", "TDist", "Cauchy",
+    "Weibull"),
+  parms = list(mean = 0, sd = 1),
+  test = c("kruskalTest", "leTest", "vanWaerdenTest", "normalScoresTest",
+    "spearmanTest", "cuzickTest", "jonckheereTest", "johnsonTest", "oneway.test",
+    "adKSampleTest", "bwsKSampleTest", "bwsTrendTest", "mackWolfeTest"),
+  alternative = c("two.sided", "greater", "less"),
+  var.equal = TRUE,
+  dist = NULL,
+  alpha = 0.05,
+  FWER = TRUE,
+  replicates = 1000,
+  p = NULL
+)
 }
 \arguments{
 \item{mu}{numeric vector of group means.}

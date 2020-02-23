@@ -10,8 +10,7 @@ frdAllPairsNemenyiTest(y, ...)
 
 \method{frdAllPairsNemenyiTest}{default}(y, groups, blocks, ...)
 
-\method{frdAllPairsNemenyiTest}{formula}(formula, data, subset, na.action,
-  ...)
+\method{frdAllPairsNemenyiTest}{formula}(formula, data, subset, na.action, ...)
 }
 \arguments{
 \item{y}{a numeric vector of data values, or a list of numeric data

@@ -14,8 +14,13 @@ accessed 2018-08-05).
 \usage{
 siegelTukeyTest(x, ...)
 
-\method{siegelTukeyTest}{default}(x, y, alternative = c("two.sided",
-  "greater", "less"), median.corr = FALSE, ...)
+\method{siegelTukeyTest}{default}(
+  x,
+  y,
+  alternative = c("two.sided", "greater", "less"),
+  median.corr = FALSE,
+  ...
+)
 
 \method{siegelTukeyTest}{formula}(formula, data, subset, na.action, ...)
 }

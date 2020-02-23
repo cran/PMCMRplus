@@ -8,11 +8,16 @@
 \usage{
 kruskalTest(x, ...)
 
-\method{kruskalTest}{default}(x, g, dist = c("Chisquare",
-  "KruskalWallis", "FDist"), ...)
+\method{kruskalTest}{default}(x, g, dist = c("Chisquare", "KruskalWallis", "FDist"), ...)
 
-\method{kruskalTest}{formula}(formula, data, subset, na.action,
-  dist = c("Chisquare", "KruskalWallis", "FDist"), ...)
+\method{kruskalTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  dist = c("Chisquare", "KruskalWallis", "FDist"),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

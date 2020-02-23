@@ -8,11 +8,16 @@
 \usage{
 adAllPairsTest(x, ...)
 
-\method{adAllPairsTest}{default}(x, g,
-  p.adjust.method = p.adjust.methods, ...)
+\method{adAllPairsTest}{default}(x, g, p.adjust.method = p.adjust.methods, ...)
 
-\method{adAllPairsTest}{formula}(formula, data, subset, na.action,
-  p.adjust.method = p.adjust.methods, ...)
+\method{adAllPairsTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  p.adjust.method = p.adjust.methods,
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

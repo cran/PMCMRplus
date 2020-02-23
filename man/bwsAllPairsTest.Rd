@@ -8,12 +8,23 @@
 \usage{
 bwsAllPairsTest(x, ...)
 
-\method{bwsAllPairsTest}{default}(x, g, method = c("BWS", "Murakami"),
-  p.adjust.method = p.adjust.methods, ...)
+\method{bwsAllPairsTest}{default}(
+  x,
+  g,
+  method = c("BWS", "Murakami"),
+  p.adjust.method = p.adjust.methods,
+  ...
+)
 
-\method{bwsAllPairsTest}{formula}(formula, data, subset, na.action,
-  method = c("BWS", "Murakami"), p.adjust.method = p.adjust.methods,
-  ...)
+\method{bwsAllPairsTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  method = c("BWS", "Murakami"),
+  p.adjust.method = p.adjust.methods,
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

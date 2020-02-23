@@ -8,11 +8,16 @@
 \usage{
 cochranTest(x, ...)
 
-\method{cochranTest}{default}(x, g, alternative = c("greater", "less"),
-  ...)
+\method{cochranTest}{default}(x, g, alternative = c("greater", "less"), ...)
 
-\method{cochranTest}{formula}(formula, data, subset, na.action,
-  alternative = c("greater", "less"), ...)
+\method{cochranTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  alternative = c("greater", "less"),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

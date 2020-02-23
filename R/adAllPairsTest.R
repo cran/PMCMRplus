@@ -109,7 +109,7 @@ adAllPairsTest.default <-
 
     ##   DNAME <- paste(deparse(substitute(x)), "and", deparse(substitute(g)))
     ##   g <- factor(g)
-    METHOD <- "Anderson-Darling Two-Sample Test"
+    METHOD <- "Anderson-Darling All-Pairs Test"
     compare.levels <- function(i, j) {
         xi <- x[as.integer(g) == i]
         xj <- x[as.integer(g) == j]

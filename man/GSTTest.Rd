@@ -9,11 +9,16 @@ Scales}
 \usage{
 GSTTest(x, ...)
 
-\method{GSTTest}{default}(x, g, dist = c("Chisquare", "KruskalWallis"),
-  ...)
+\method{GSTTest}{default}(x, g, dist = c("Chisquare", "KruskalWallis"), ...)
 
-\method{GSTTest}{formula}(formula, data, subset, na.action,
-  dist = c("Chisquare", "KruskalWallis"), ...)
+\method{GSTTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  dist = c("Chisquare", "KruskalWallis"),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

@@ -8,12 +8,23 @@
 \usage{
 jonckheereTest(x, ...)
 
-\method{jonckheereTest}{default}(x, g, alternative = c("two.sided",
-  "greater", "less"), continuity = FALSE, ...)
+\method{jonckheereTest}{default}(
+  x,
+  g,
+  alternative = c("two.sided", "greater", "less"),
+  continuity = FALSE,
+  ...
+)
 
-\method{jonckheereTest}{formula}(formula, data, subset, na.action,
-  alternative = c("two.sided", "greater", "less"), continuity = FALSE,
-  ...)
+\method{jonckheereTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  alternative = c("two.sided", "greater", "less"),
+  continuity = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

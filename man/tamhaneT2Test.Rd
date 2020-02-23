@@ -10,8 +10,7 @@ tamhaneT2Test(x, ...)
 
 \method{tamhaneT2Test}{default}(x, g, welch = TRUE, ...)
 
-\method{tamhaneT2Test}{formula}(formula, data, subset, na.action,
-  welch = TRUE, ...)
+\method{tamhaneT2Test}{formula}(formula, data, subset, na.action, welch = TRUE, ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

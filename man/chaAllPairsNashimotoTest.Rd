@@ -8,11 +8,21 @@
 \usage{
 chaAllPairsNashimotoTest(x, ...)
 
-\method{chaAllPairsNashimotoTest}{default}(x, g,
-  p.adjust.method = c("single-step", p.adjust.methods), ...)
+\method{chaAllPairsNashimotoTest}{default}(
+  x,
+  g,
+  p.adjust.method = c("single-step", p.adjust.methods),
+  ...
+)
 
-\method{chaAllPairsNashimotoTest}{formula}(formula, data, subset,
-  na.action, p.adjust.method = c("single-step", p.adjust.methods), ...)
+\method{chaAllPairsNashimotoTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  p.adjust.method = c("single-step", p.adjust.methods),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data

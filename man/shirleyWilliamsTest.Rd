@@ -8,13 +8,25 @@
 \usage{
 shirleyWilliamsTest(x, ...)
 
-\method{shirleyWilliamsTest}{default}(x, g, alternative = c("two.sided",
-  "greater", "less"), method = c("look-up", "boot"), nperm = 10000,
-  ...)
-
-\method{shirleyWilliamsTest}{formula}(formula, data, subset, na.action,
+\method{shirleyWilliamsTest}{default}(
+  x,
+  g,
   alternative = c("two.sided", "greater", "less"),
-  method = c("look-up", "boot"), nperm = 10000, ...)
+  method = c("look-up", "boot"),
+  nperm = 10000,
+  ...
+)
+
+\method{shirleyWilliamsTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  alternative = c("two.sided", "greater", "less"),
+  method = c("look-up", "boot"),
+  nperm = 10000,
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
