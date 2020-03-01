@@ -73,15 +73,39 @@ the package \pkg{kSamples}.
 x <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
 y <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
 z <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
-
+g <- factor(x = c(rep(1, length(x)),
+                   rep(2, length(y)),
+                   rep(3, length(z))),
+             labels = c("ns", "oad", "a"))
 dat <- data.frame(
-  g = c(rep("ns", length(x)), rep("oad",
-      length(y)), rep("a", length(z))),
-  x = c(x, y, z))
+   g = g,
+   x = c(x, y, z))
 
+## AD-Test
 adKSampleTest(x ~ g, data = dat)
 
+## BWS-Test
+bwsKSampleTest(x ~ g, data = dat)
 
+## Kruskal-Test
+## Using incomplete beta approximation
+kruskalTest(x ~ g, dat, dist="KruskalWallis")
+## Using chisquare distribution
+kruskalTest(x ~ g, dat, dist="Chisquare")
+
+\dontrun{
+## Check with kruskal.test from R stats
+kruskal.test(x ~ g, dat)
+}
+## Using Conover's F
+kruskalTest(x ~ g, dat, dist="FDist")
+
+\dontrun{
+## Check with aov on ranks
+anova(aov(rank(x) ~ g, dat))
+## Check with oneway.test
+oneway.test(rank(x) ~ g, dat, var.equal = TRUE)
+}
 }
 \references{
 Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.

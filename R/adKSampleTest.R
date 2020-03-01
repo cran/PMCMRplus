@@ -1,6 +1,6 @@
 ## adKSampleTest.R
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -40,25 +40,7 @@
 #' @seealso
 #' \code{\link{adAllPairsTest}}, \code{\link{adManyOneTest}},
 #' \code{\link[kSamples]{ad.pval}}.
-#' @examples
-#' ## Hollander & Wolfe (1973), 116.
-#' ## Mucociliary efficiency from the rate of removal of dust in normal
-#' ## subjects, subjects with obstructive airway disease, and subjects
-#' ## with asbestosis.
-#' x <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
-#' y <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
-#' z <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
-#'
-#' dat <- data.frame(
-#'   g = c(rep("ns", length(x)), rep("oad",
-#'       length(y)), rep("a", length(z))),
-#'   x = c(x, y, z))
-#'
-#' adKSampleTest(x ~ g, data = dat)
-#'
-# @references
-# Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
-# \emph{Journal of the American Statistical Association} \bold{82}, 918--924.
+#' @example examples/kSamples.R
 #'
 #' @export adKSampleTest
 adKSampleTest <- function(x, ...) UseMethod("adKSampleTest")

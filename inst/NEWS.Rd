@@ -1,6 +1,16 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.4.4}{
+  \subsection{OTHER CHANGES}{
+    \itemize{
+      \item The examples in \code{kruskalTest}, \code{adKSampleTest}
+      and \code{bwsKSampleTest} were
+      changed for compatibility with
+      the upcoming \sQuote{stringsAsFactors = FALSE} default in R (4.0.0).
+      }
+    }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.4.3}{
   \subsection{OTHER CHANGES}{
     \itemize{
