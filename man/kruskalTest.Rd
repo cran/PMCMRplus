@@ -134,3 +134,5 @@ Conover, W. J., Iman, R. L. (1981) Rank transformations as a bridge
 \code{\link{kruskal.test}}, \code{\link[SuppDists]{pKruskalWallis}},
  \code{\link{Chisquare}}, \code{\link{FDist}}
 }
+\concept{kruskalranks}
+\keyword{htest}

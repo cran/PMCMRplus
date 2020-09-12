@@ -80,5 +80,6 @@ Conover, W. J. (1999) \emph{Practical nonparametric Statistics},
 \seealso{
 \code{\link{durbinTest}}
 }
+\concept{friedmanranks}
 \keyword{htest}
 \keyword{nonparametric}

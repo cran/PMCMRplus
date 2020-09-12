@@ -52,8 +52,8 @@
 #' group including the zero dose level, i.e. \eqn{p = \{1, \ldots, k\}}.
 #' Defaults to \code{NULL}. Only relevant, if \code{"mackWolfeTest"} is selected.
 #' @details
-#' The linear model of a one-way ANOVA can be written as: 
-#' 
+#' The linear model of a one-way ANOVA can be written as:
+#'
 #' \deqn{
 #' X_{ij} = \mu_i + \epsilon_{ij}
 #' }
@@ -79,7 +79,7 @@
 #' ## as given by functions
 #' ## power.anova.test, pwr.anova.test
 #' ## and powerOneWayTest
-#' 
+#'
 #' groupmeans <- c(120, 130, 140, 150)
 #' SEsq <- 500  # within-variance
 #' n <- 10
@@ -92,7 +92,7 @@
 #' cohensf <- sqrt(R2 / (1 - R2))
 #' names(cohensf) <- "Cohens f"
 #'
-#' ## R stats power function 
+#' ## R stats power function
 #' power.anova.test(groups = k,
 #'                  between.var = var(groupmeans),
 #'                  within.var = SEsq,
@@ -101,7 +101,7 @@
 #' ## pwr power function
 #' pwr.anova.test(k = k, n = n, f = cohensf, sig.level=0.05)
 #'
-#' ## this Monte-Carlo based estimation  
+#' ## this Monte-Carlo based estimation
 #' set.seed(200)
 #' powerOneWayTests(mu = groupmeans,
 #'                  n = n,
@@ -115,15 +115,15 @@
 #' cohensf
 #'
 #' }
-#' 
+#'
 #' @seealso
 #' \code{\link{powerMCTests}},
-#' \code{\link[pwr]{pwr.anova.test}}, 
+#' \code{\link[pwr]{pwr.anova.test}},
 #' \code{\link[stats]{power.anova.test}}
 #' @importFrom stats runif
 #' @importFrom stats oneway.test
 #' @importFrom stats as.formula
-#' @concept TestPower
+#' @concept testpower
 #' @keywords misc
 #' @export
 powerOneWayTests <- function(mu,
@@ -135,7 +135,7 @@ powerOneWayTests <- function(mu,
                                    "TDist",
                                    "Cauchy",
                                    "Weibull"),
-                         parms = list(mean=0, sd = 1),                         
+                         parms = list(mean=0, sd = 1),
                          test = c("kruskalTest",
                                   "leTest",
                                   "vanWaerdenTest",
@@ -151,7 +151,7 @@ powerOneWayTests <- function(mu,
                                   "mackWolfeTest"),
                          alternative = c("two.sided", "greater", "less"),
                          var.equal = TRUE,
-                         dist = NULL, 
+                         dist = NULL,
                          alpha = 0.05,
                          FWER = TRUE,
                          replicates=1000,
@@ -161,7 +161,7 @@ powerOneWayTests <- function(mu,
     test <- match.arg(test)
     alternative <- match.arg(alternative)
     errfn <- match.arg(errfn)
-    
+
     if (!is.vector(mu)){
         stop("'mu' must be a vector of type numeric")
     }
@@ -275,7 +275,7 @@ powerOneWayTests <- function(mu,
             scale = rep(1, N)
         }
         fnargs <- list(shape = parms$shape, scale = scale)
-    } 
+    }
 
     m <- 1
     ## simulation
@@ -306,7 +306,7 @@ powerOneWayTests <- function(mu,
     } else {
         mat0 <-NULL
     }
-        
+
     mat <- matrix(mat <- sapply(1:replicates,
                                 function(j){
                                     fnargs$p <- PUNIF[j,]
@@ -331,9 +331,9 @@ powerOneWayTests <- function(mu,
                                 }
                                 )
                  ,nrow=replicates, ncol=m, byrow=TRUE)
-    
+
     ## If mat0 -> family wise error rate = Type I Error
-    ## If mat -> Power = 1 - Type II Error 
+    ## If mat -> Power = 1 - Type II Error
     fwerfn <- function(inp)
     {
         ok <- sapply(1:replicates, function(i) any(inp[i,] < alpha))

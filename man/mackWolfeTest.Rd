@@ -109,7 +109,7 @@ umbrella alternatives, \emph{J. Amer. Statist. Assoc.} \bold{76}, 175--181.
 \seealso{
 \code{\link{pnorm}}, \code{\link{sample}}.
 }
-\concept{Rank}
-\concept{TrendTest}
+\concept{kruskalranks}
+\concept{umbrellatest}
 \keyword{htest}
 \keyword{nonparametric}

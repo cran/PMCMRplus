@@ -1,7 +1,7 @@
 ## uryWigginsHochbergTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -51,21 +51,17 @@
 #' Multiple Comparisons Among Means, \emph{British Journal of
 #' Mathematical and Statistical Psychology} \bold{24}, 174--194.
 #'
-#' @keywords htest
-#' @concept allPairsComparisons
 #'
 #' @examples
-#' set.seed(245)
-#' mn <- rep(c(1, 2^(1:4)), each=5)
-#' sd <- rep(1:5, each=5)
-#' x <- mn + rnorm(25, sd = sd)
-#' g <- factor(rep(1:5, each=5))
-#'
-#' fit <- aov(x ~ g)
+#' fit <- aov(weight ~ feed, chickwts)
 #' shapiro.test(residuals(fit))
-#' bartlett.test(x ~ g) # var1 != varN
+#' bartlett.test(weight ~ feed, chickwts) # var1 = varN
 #' anova(fit)
-#' summary(uryWigginsHochbergTest(x, g))
+#'
+#' ## also works with fitted objects of class aov
+#' res <- uryWigginsHochbergTest(fit)
+#' summary(res)
+#' summaryGroup(res)
 #'
 #' @seealso
 #' \code{\link{dunnettT3Test}}
@@ -79,7 +75,7 @@ uryWigginsHochbergTest <- function(x, ...) UseMethod("uryWigginsHochbergTest")
 #' @rdname uryWigginsHochbergTest
 #' @method uryWigginsHochbergTest default
 #' @aliases uryWigginsHochbergTest.default
-#' @template one-way-parms
+#' @template one-way-parms-aov
 #' @param p.adjust.method method for adjusting p values
 #'    (see \code{\link{p.adjust}}).
 #' @export
@@ -192,3 +188,20 @@ function(formula, data, subset, na.action,
     y$data.name <- DNAME
     y
 }
+
+#' @rdname uryWigginsHochbergTest
+#' @aliases uryWigginsHochbergTest.aov
+#' @method uryWigginsHochbergTest aov
+# @param obj A fitted model object, usually an \link[stats]{aov} fit.
+#' @export
+uryWigginsHochbergTest.aov <- function(x, p.adjust.method = p.adjust.methods, ...) {
+    model <- x$model
+    DNAME <- paste(names(model), collapse = " by ")
+    names(model) <- c("x", "g")
+    p.adjust.method <- match.arg(p.adjust.method)
+    parms <- c(as.list(model), list(p.adjust.method = p.adjust.method))
+    y <- do.call("uryWigginsHochbergTest", parms)
+    y$data.name <- DNAME
+    y
+}
+

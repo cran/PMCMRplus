@@ -1,7 +1,7 @@
 ## dunnettTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -57,9 +57,11 @@
 #' shapiro.test(residuals(fit))
 #' bartlett.test(x ~ g - 1)
 #' anova(fit)
-#' summary(dunnettTest(x, g, alternative = "greater"))
+#' ## works with fitted object of class aov
+#' summary(dunnettTest(fit, alternative = "greater"))
 #'
 #' @keywords htest
+#' @concept parametric
 #' @importFrom mvtnorm pmvt
 #' @importFrom stats var
 #' @importFrom stats complete.cases
@@ -69,7 +71,7 @@ dunnettTest <- function(x, ...) UseMethod("dunnettTest")
 #' @rdname dunnettTest
 #' @aliases dunnettTest.default
 #' @method dunnettTest default
-#' @template one-way-parms
+#' @template one-way-parms-aov
 #' @param alternative the alternative hypothesis. Defaults to \code{two.sided}.
 #' @export
 dunnettTest.default <-
@@ -211,3 +213,22 @@ function(formula, data, subset, na.action, alternative = c("two.sided", "greater
     y$data.name <- DNAME
     y
 }
+
+##
+#' @rdname dunnettTest
+#' @aliases dunnettTest.aov
+#' @method dunnettTest aov
+# @param obj A fitted model object, usually an \link[stats]{aov} fit.
+#' @export
+dunnettTest.aov <- function(x, alternative = c("two.sided", "greater", "less"), ...) {
+    model <- x$model
+    DNAME <- paste(names(model), collapse = " by ")
+    names(model) <- c("x", "g")
+    alternative <- match.arg(alternative)
+    parms <- c(as.list(model), list(alternative = alternative))
+    y <- do.call("dunnettTest", parms)
+    y$data.name <- DNAME
+    y
+}
+
+

@@ -4,7 +4,8 @@
 \name{qPCR}
 \alias{qPCR}
 \title{qPCR Curve Analysis Methods}
-\format{A data frame with 4 observations on the following 11 variables.
+\format{
+A data frame with 4 observations on the following 11 variables.
  \describe{
    \item{Cy0}{a numeric vector}
    \item{LinRegPCR}{a numeric vector}
@@ -17,7 +18,8 @@
    \item{FPLM}{a numeric vector}
    \item{LRE_Emax}{a numeric vector}
    \item{FPK_PCR}{a numeric vector}
- }}
+ }
+}
 \source{
 Data were taken from Table 2 of Ruijter et al. (2013, p. 38).
  See also Eisinga et al. (2017, pp. 14--15).

@@ -82,7 +82,7 @@
 #' @importFrom stats qt
 #' @importFrom stats qcauchy
 #' @importFrom stats qweibull
-#' @concept TestPower
+#' @concept testpower
 #' @keywords misc
 #' @export
 powerMCTests <- function(mu,

@@ -4,6 +4,7 @@
 \alias{lsdTest}
 \alias{lsdTest.default}
 \alias{lsdTest.formula}
+\alias{lsdTest.aov}
 \title{Least Significant Difference Test}
 \usage{
 lsdTest(x, ...)
@@ -11,10 +12,12 @@ lsdTest(x, ...)
 \method{lsdTest}{default}(x, g, ...)
 
 \method{lsdTest}{formula}(formula, data, subset, na.action, ...)
+
+\method{lsdTest}{aov}(x, ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data
-vectors.}
+\item{x}{a numeric vector of data values, a list of numeric data
+vectors or a fitted model object, usually an \link[stats]{aov} fit.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
@@ -76,17 +79,16 @@ F-test. If one is interested in other types of LSD test (i.e.
 with p-value adustment) see function \code{\link{pairwise.t.test}}.
 }
 \examples{
-set.seed(245)
-mn <- rep(c(1, 2^(1:4)), each=5)
-sd <- rep(1, 25)
-x <- mn + rnorm(25, sd = sd)
-g <- factor(rep(1:5, each=5))
-
-fit <- aov(x ~ g)
+fit <- aov(weight ~ feed, chickwts)
 shapiro.test(residuals(fit))
-bartlett.test(x ~ g) # var1 = varN
+bartlett.test(weight ~ feed, chickwts)
 anova(fit)
-summary(lsdTest(x, g))
+
+## also works with fitted objects of class aov
+res <- lsdTest(fit)
+summary(res)
+summaryGroup(res)
+
 }
 \references{
 Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
@@ -94,5 +96,5 @@ Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
 \seealso{
 \code{\link{TDist}}, \code{\link{pairwise.t.test}}
 }
-\concept{AllPairsComparison}
+\concept{parametric}
 \keyword{htest}

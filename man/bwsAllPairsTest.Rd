@@ -108,6 +108,5 @@ comparison, \emph{J. Jpn. Comp. Statist.} \bold{19}, 1--13.
 \seealso{
 \code{\link[BWStest]{bws_test}}.
 }
-\concept{AllPairsComparison}
 \keyword{htest}
 \keyword{nonparametric}

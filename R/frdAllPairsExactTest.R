@@ -1,7 +1,7 @@
 ## frdAllPairsExactTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017-2019 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -50,9 +50,7 @@
 #'  with Application to Comparing Classifiers, \emph{BMC Bioinformatics}, 18:68.
 #'
 #' @keywords htest nonparametric
-#' @concept Friedman
-#' @concept Rank
-#' @concept AllPairs
+#' @concept friedmanranks
 #'
 #' @section Source:
 #' The function \code{frdAllPairsExactTest} uses the code

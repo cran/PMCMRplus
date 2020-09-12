@@ -83,7 +83,5 @@ NPMTest(x, g)
 \seealso{
 \code{\link{kwAllPairsNemenyiTest}}
 }
-\concept{AllPairsComparisons}
-\concept{OrderedAlternatives}
 \keyword{htest}
 \keyword{nonparametric}

@@ -1,7 +1,7 @@
 ## duncanTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2018 Thorsten Pohlert
+## Copyright (C) 2018-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -42,29 +42,27 @@
 #' Duncan, D. B. (1955) Multiple range and multiple F tests,
 #' \emph{Biometrics} \bold{11}, 1--42.
 #'
-#' @concept AllPairsComparison
 #' @keywords htest
+#' @concept parametric
 #' @seealso
 #' \code{\link[stats]{Tukey}}, \code{\link[stats]{TukeyHSD}} \code{\link{tukeyTest}}
 #' @examples
-#' set.seed(245)
-#' mn <- rep(c(1, 2^(1:4)), each=5)
-#' sd <- rep(1, 25)
-#' x <- mn + rnorm(25, sd = sd)
-#' g <- factor(rep(1:5, each=5))
-#'
-#' fit <- aov(x ~ g)
+#' fit <- aov(weight ~ feed, chickwts)
 #' shapiro.test(residuals(fit))
-#' bartlett.test(x ~ g) # var1 = varN
+#' bartlett.test(weight ~ feed, chickwts)
 #' anova(fit)
-#' summary(duncanTest(x, g))
+#'
+#' ## also works with fitted objects of class aov
+#' res <- duncanTest(fit)
+#' summary(res)
+#' summaryGroup(res)
 #' @export
 duncanTest <- function(x, ...) UseMethod("duncanTest")
 
 #' @rdname duncanTest
 #' @aliases duncanTest.default
 #' @method duncanTest default
-#' @template one-way-parms
+#' @template one-way-parms-aov
 #' @importFrom stats complete.cases
 #' @importFrom stats var
 #' @importFrom stats ptukey
@@ -189,4 +187,18 @@ function(formula, data, subset, na.action, ...)
     y <- do.call("duncanTest", c(as.list(mf)))
     y$data.name <- DNAME
     y
+}
+
+#' @rdname duncanTest
+#' @aliases duncanTest.aov
+#' @method duncanTest aov
+## @param x A fitted model object, usually an \link[stats]{aov} fit.
+#' @export
+duncanTest.aov <- function(x, ...) {
+  model <- x$model
+  DNAME <- paste(names(model), collapse = " by ")
+  names(model) <- c("x", "g")
+  y <- do.call("duncanTest", as.list(model))
+  y$data.name <- DNAME
+  y
 }

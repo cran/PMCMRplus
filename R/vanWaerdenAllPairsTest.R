@@ -38,8 +38,8 @@
 #' @name vanWaerdenAllPairsTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
-#' @concept NormalScores
-#' @concept AllPairsComparison
+#' @concept normalscores
+#'
 #' @references
 #' Conover, W. J., Iman, R. L. (1979) \emph{On multiple-comparisons procedures},
 #' Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.

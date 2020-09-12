@@ -37,8 +37,7 @@
 #' @name vanWaerdenManyOneTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
-#' @concept NormalScores
-#' @concept ManyOneComparison
+#' @concept normalscores
 #'
 #' @inherit vanWaerdenAllPairsTest references
 # @references

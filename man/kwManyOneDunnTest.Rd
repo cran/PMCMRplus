@@ -129,8 +129,6 @@ Siegel, S., Castellan Jr., N. J. (1988) \emph{Nonparametric Statistics
 \code{\link{pmvnorm}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
 \code{\link{kwManyOneConoverTest}}, \code{\link{kwManyOneNdwTest}}
 }
-\concept{Kruskal}
-\concept{ManyToOneComparisons}
-\concept{Rank}
+\concept{kruskalranks}
 \keyword{htest}
 \keyword{nonparametric}

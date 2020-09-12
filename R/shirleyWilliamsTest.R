@@ -96,8 +96,8 @@
 #' \code{\link{williamsTest}}
 #'
 #' @keywords htest nonparametric
-#' @concept StepDownTrendTest
-#' @concept DoseFinding
+#' @concept trendtest
+#'
 #'
 #' @examples
 #' ## Example from Shirley (1977)

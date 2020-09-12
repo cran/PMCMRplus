@@ -42,8 +42,8 @@
 #' on testing and assessment, No. 54.
 #' @seealso
 #' \code{\link{wilcox.test}}, \code{\link{pmvnorm}}, \code{\link{Normal}}
-#' @concept ManyOne
-#' @keywords htest nonparanetric
+#' @concept wilcoxonranks
+#' @keywords htest nonparametric
 #' @export
 manyOneUTest <- function(x, ...) UseMethod("manyOneUTest")
 

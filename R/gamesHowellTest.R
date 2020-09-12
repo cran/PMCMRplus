@@ -1,7 +1,7 @@
 ## gamesHowellTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -37,22 +37,20 @@
 #' @seealso
 #' \code{\link{ptukey}}
 #' @keywords htest
-#' @concept allPairsComparisons
+#' @concept parametric
 #'
 #' @template class-PMCMR
 #'
 #' @examples
-#' set.seed(245)
-#' mn <- rep(c(1, 2^(1:4)), each=5)
-#' sd <- rep(1:5, each=5)
-#' x <- mn + rnorm(25, sd = sd)
-#' g <- factor(rep(1:5, each=5))
-#'
-#' fit <- aov(x ~ g)
+#' fit <- aov(weight ~ feed, chickwts)
 #' shapiro.test(residuals(fit))
-#' bartlett.test(x ~ g) # var1 != varN
+#' bartlett.test(weight ~ feed, chickwts) # var1 = varN
 #' anova(fit)
-#' summary(gamesHowellTest(x, g))
+#'
+#' ## also works with fitted objects of class aov
+#' res <- gamesHowellTest(fit)
+#' summary(res)
+#' summaryGroup(res)
 #' @importFrom stats ptukey
 #' @importFrom stats complete.cases
 #' @importFrom stats var
@@ -62,7 +60,7 @@ gamesHowellTest <- function(x, ...) UseMethod("gamesHowellTest")
 #' @rdname gamesHowellTest
 #' @method gamesHowellTest default
 #' @aliases gamesHowellTest.default
-#' @template one-way-parms
+#' @template one-way-parms-aov
 #' @export
 gamesHowellTest.default <-
 function(x, g, ...){
@@ -156,6 +154,20 @@ function(formula, data, subset, na.action, ...)
     DNAME <- paste(names(mf), collapse = " by ")
     names(mf) <- NULL
     y <- do.call("gamesHowellTest", c(as.list(mf)))
+    y$data.name <- DNAME
+    y
+}
+
+#' @rdname gamesHowellTest
+#' @aliases gamesHowellTest.aov
+#' @method gamesHowellTest aov
+# @param obj A fitted model object, usually an \link[stats]{aov} fit.
+#' @export
+gamesHowellTest.aov <- function(x, ...) {
+    model <- x$model
+    DNAME <- paste(names(model), collapse = " by ")
+    names(model) <- c("x", "g")
+    y <- do.call("gamesHowellTest", as.list(model))
     y$data.name <- DNAME
     y
 }

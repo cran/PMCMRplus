@@ -4,6 +4,7 @@
 \alias{scheffeTest}
 \alias{scheffeTest.default}
 \alias{scheffeTest.formula}
+\alias{scheffeTest.aov}
 \title{Scheffe's Test}
 \usage{
 scheffeTest(x, ...)
@@ -11,10 +12,12 @@ scheffeTest(x, ...)
 \method{scheffeTest}{default}(x, g, ...)
 
 \method{scheffeTest}{formula}(formula, data, subset, na.action, ...)
+
+\method{scheffeTest}{aov}(x, ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data
-vectors.}
+\item{x}{a numeric vector of data values, a list of numeric data
+vectors or a fitted model object, usually an \link[stats]{aov} fit.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
@@ -68,17 +71,15 @@ A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
 The p-values are computed from the F-distribution.
 }
 \examples{
-set.seed(245)
-mn <- rep(c(1, 2^(1:4)), each=5)
-sd <- rep(1, 25)
-x <- mn + rnorm(25, sd = sd)
-g <- factor(rep(1:5, each=5))
-
-fit <- aov(x ~ g)
+fit <- aov(weight ~ feed, chickwts)
 shapiro.test(residuals(fit))
-bartlett.test(x ~ g) # var1 = varN
+bartlett.test(weight ~ feed, chickwts)
 anova(fit)
-summary(scheffeTest(x, g))
+
+## also works with fitted objects of class aov
+res <- scheffeTest(fit)
+summary(res)
+summaryGroup(res)
 }
 \references{
 Bortz, J. (1993) \emph{Statistik für Sozialwissenschaftler}. 4. Aufl.,
@@ -92,5 +93,5 @@ Bortz, J. (1993) \emph{Statistik für Sozialwissenschaftler}. 4. Aufl.,
 \seealso{
 \code{\link{FDist}}, \code{\link{tukeyTest}}
 }
-\concept{AllPairsComparison}
+\concept{parametric}
 \keyword{htest}

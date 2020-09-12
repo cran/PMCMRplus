@@ -32,6 +32,7 @@
 #'
 #' @template class-htest
 #' @template trendTests
+#'
 #' @references
 #' Bortz, J. (1993). \emph{Statistik für Sozialwissenschaftler} (4th ed.).
 #' Berlin: Springer.

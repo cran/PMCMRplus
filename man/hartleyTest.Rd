@@ -84,4 +84,5 @@ as a short cut test for heterogeneity of variance,
 \seealso{
 \code{\link{bartlett.test}}, \code{\link[SuppDists]{pmaxFratio}}
 }
+\concept{parametric}
 \keyword{htest}

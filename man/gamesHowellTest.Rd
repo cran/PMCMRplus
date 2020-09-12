@@ -4,6 +4,7 @@
 \alias{gamesHowellTest}
 \alias{gamesHowellTest.default}
 \alias{gamesHowellTest.formula}
+\alias{gamesHowellTest.aov}
 \title{Games-Howell Test}
 \usage{
 gamesHowellTest(x, ...)
@@ -11,10 +12,12 @@ gamesHowellTest(x, ...)
 \method{gamesHowellTest}{default}(x, g, ...)
 
 \method{gamesHowellTest}{formula}(formula, data, subset, na.action, ...)
+
+\method{gamesHowellTest}{aov}(x, ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data
-vectors.}
+\item{x}{a numeric vector of data values, a list of numeric data
+vectors or a fitted model object, usually an \link[stats]{aov} fit.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
@@ -68,20 +71,18 @@ A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
 The p-values are computed from the studentized range distribution.
 }
 \examples{
-set.seed(245)
-mn <- rep(c(1, 2^(1:4)), each=5)
-sd <- rep(1:5, each=5)
-x <- mn + rnorm(25, sd = sd)
-g <- factor(rep(1:5, each=5))
-
-fit <- aov(x ~ g)
+fit <- aov(weight ~ feed, chickwts)
 shapiro.test(residuals(fit))
-bartlett.test(x ~ g) # var1 != varN
+bartlett.test(weight ~ feed, chickwts) # var1 = varN
 anova(fit)
-summary(gamesHowellTest(x, g))
+
+## also works with fitted objects of class aov
+res <- gamesHowellTest(fit)
+summary(res)
+summaryGroup(res)
 }
 \seealso{
 \code{\link{ptukey}}
 }
-\concept{allPairsComparisons}
+\concept{parametric}
 \keyword{htest}

@@ -4,6 +4,7 @@
 \alias{dunnettTest}
 \alias{dunnettTest.default}
 \alias{dunnettTest.formula}
+\alias{dunnettTest.aov}
 \title{Dunnett's Many-to-One Comparisons Test}
 \usage{
 dunnettTest(x, ...)
@@ -18,10 +19,12 @@ dunnettTest(x, ...)
   alternative = c("two.sided", "greater", "less"),
   ...
 )
+
+\method{dunnettTest}{aov}(x, alternative = c("two.sided", "greater", "less"), ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data
-vectors.}
+\item{x}{a numeric vector of data values, a list of numeric data
+vectors or a fitted model object, usually an \link[stats]{aov} fit.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
@@ -86,7 +89,8 @@ fit <- aov(x ~ g - 1)
 shapiro.test(residuals(fit))
 bartlett.test(x ~ g - 1)
 anova(fit)
-summary(dunnettTest(x, g, alternative = "greater"))
+## works with fitted object of class aov
+summary(dunnettTest(fit, alternative = "greater"))
 
 }
 \references{
@@ -101,4 +105,5 @@ Dunnett, C. W. (1955) A multiple comparison procedure for comparing several
 \seealso{
 \code{\link[mvtnorm]{pmvt}}
 }
+\concept{parametric}
 \keyword{htest}

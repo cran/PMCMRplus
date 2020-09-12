@@ -42,14 +42,15 @@
 #'  procedures}, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 #'
 #' @template class-PMCMR
-#' @keywords htest nonparametric
+#' @keywords nonparametric
+#'
+#' @concept kruskalranks
+#'
 #' @seealso
 #' \code{\link[stats]{Tukey}}, \code{\link[stats]{TDist}},
 #' \code{\link[stats]{p.adjust}}, \code{\link{kruskalTest}},
 #' \code{\link{kwAllPairsDunnTest}}, \code{\link{kwAllPairsNemenyiTest}}
 #'
-#' @concept AllPairsComparisonTest
-#' @concept RankANOVA
 #' @example examples/kwAllPairsMC.R
 #' @export
 kwAllPairsConoverTest <- function(x, ...) UseMethod("kwAllPairsConoverTest")

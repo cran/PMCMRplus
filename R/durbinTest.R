@@ -1,7 +1,7 @@
 ##  durbin.test.R
 ##  Part of the R package PMCMRplus
 ##
-##  Copyright (C) 2015-2018 Thorsten Pohlert
+##  Copyright (C) 2015-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -47,6 +47,9 @@
 #' Let Subcommands and Library Functions.
 #' National Institute of Standards and Technology Handbook Series, June 2003.
 #'
+#' @keywords htest
+#' @keywords nonparametric
+#' @concept friedmanranks
 #' @examples
 #' ## Example for an incomplete block design:
 #' ## Data from Conover (1999, p. 391).

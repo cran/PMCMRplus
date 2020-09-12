@@ -4,12 +4,14 @@
 \name{Pentosan}
 \alias{Pentosan}
 \title{Pentosan Dataset}
-\format{A data frame with 189 obs. of  3 variables:
+\format{
+A data frame with 189 obs. of  3 variables:
 \describe{
  \item{value}{numeric, test result (no unit specified)}
  \item{lab}{factor, identifier of the lab (1--7)}
  \item{material}{factor, identifier of the level of the material (A--I)}
-}}
+}
+}
 \source{
 Tab. 8, Practice E 691, 2005, \emph{Standard Practice for
 Conducting an Interlaboratory Study to Determine the

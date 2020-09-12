@@ -67,8 +67,8 @@
 #' plot(x ~ g)
 #' mackWolfeTest(x=x, g=g, p=3)
 #'
-#' @concept TrendTest
-#' @concept Rank
+#' @concept umbrellatest
+#' @concept kruskalranks
 #' @keywords htest nonparametric
 #' @seealso
 #' \code{\link{pnorm}}, \code{\link{sample}}.

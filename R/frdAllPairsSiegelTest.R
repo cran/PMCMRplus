@@ -1,7 +1,7 @@
 ## frdAllPairsSiegelTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C)  2017-2019 Thorsten Pohlert
+## Copyright (C)  2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -42,9 +42,7 @@
 #'    Statistics for the Behavioral Sciences}. 2nd ed. New York: McGraw-Hill.
 #'
 #' @keywords htest nonparametric
-#' @concept Friedman
-#' @concept Rank
-#' @concept AllPairs
+#' @concept friedmanranks
 #' @seealso
 #' \code{\link{friedmanTest}}, \code{\link{friedman.test}},
 #' \code{\link{frdAllPairsExactTest}}, \code{\link{frdAllPairsConoverTest}},

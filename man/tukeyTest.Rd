@@ -4,17 +4,20 @@
 \alias{tukeyTest}
 \alias{tukeyTest.default}
 \alias{tukeyTest.formula}
-\title{Tukey's Test}
+\alias{tukeyTest.aov}
+\title{Tukey's Multiple Comparison Test}
 \usage{
 tukeyTest(x, ...)
 
 \method{tukeyTest}{default}(x, g, ...)
 
 \method{tukeyTest}{formula}(formula, data, subset, na.action, ...)
+
+\method{tukeyTest}{aov}(x, ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data
-vectors.}
+\item{x}{a numeric vector of data values, a list of numeric data
+vectors or a fitted model object, usually an \link[stats]{aov} fit.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
@@ -68,17 +71,15 @@ A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
 The p-values are computed from the Tukey-distribution.
 }
 \examples{
-set.seed(245)
-mn <- rep(c(1, 2^(1:4)), each=5)
-sd <- rep(1, 25)
-x <- mn + rnorm(25, sd = sd)
-g <- factor(rep(1:5, each=5))
-
-fit <- aov(x ~ g)
+fit <- aov(weight ~ feed, chickwts)
 shapiro.test(residuals(fit))
-bartlett.test(x ~ g) # var1 = varN
+bartlett.test(weight ~ feed, chickwts)
 anova(fit)
-summary(tukeyTest(x, g))
+
+## also works with fitted objects of class aov
+res <- tukeyTest(fit)
+summary(res)
+summaryGroup(res)
 }
 \references{
 Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
@@ -89,5 +90,5 @@ Tukey, J. (1949) Comparing Individual Means in the Analysis of Variance,
 \seealso{
 \code{\link{Tukey}}, \code{\link{TukeyHSD}}
 }
-\concept{AllPairsComparison}
+\concept{parametric}
 \keyword{htest}

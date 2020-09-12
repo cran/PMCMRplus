@@ -26,4 +26,4 @@ summary(ans)
 \seealso{
 \code{\link{print.PMCMR}}, \code{\link{summaryGroup}}.
 }
-\keyword{models}
+\keyword{methods}

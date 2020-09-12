@@ -1,7 +1,7 @@
 ## snkTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -47,29 +47,26 @@
 #' Student (1927) Errors of routine analysis,
 #' \emph{Biometrika} \bold{19}, 151--164.
 #'
-#' @concept AllPairsComparison
 #' @keywords htest
 #' @seealso
 #' \code{\link[stats]{Tukey}}, \code{\link[stats]{TukeyHSD}} \code{\link{tukeyTest}}
 #' @examples
-#' set.seed(245)
-#' mn <- rep(c(1, 2^(1:4)), each=5)
-#' sd <- rep(1, 25)
-#' x <- mn + rnorm(25, sd = sd)
-#' g <- factor(rep(1:5, each=5))
-#'
-#' fit <- aov(x ~ g)
+#' fit <- aov(weight ~ feed, chickwts)
 #' shapiro.test(residuals(fit))
-#' bartlett.test(x ~ g) # var1 = varN
+#' bartlett.test(weight ~ feed, chickwts)
 #' anova(fit)
-#' summary(snkTest(x, g))
+#'
+#' ## also works with fitted objects of class aov
+#' res <- snkTest(fit)
+#' summary(res)
+#' summaryGroup(res)
 #' @export
 snkTest <- function(x, ...) UseMethod("snkTest")
 
 #' @rdname snkTest
 #' @aliases snkTest.default
 #' @method snkTest default
-#' @template one-way-parms
+#' @template one-way-parms-aov
 #' @importFrom stats complete.cases
 #' @importFrom stats var
 #' @importFrom stats ptukey
@@ -169,4 +166,18 @@ function(formula, data, subset, na.action, ...)
     y <- do.call("snkTest", c(as.list(mf)))
     y$data.name <- DNAME
     y
+}
+
+#' @rdname snkTest
+#' @aliases snkTest.aov
+#' @method snkTest aov
+# @param obj A fitted model object, usually an \link[stats]{aov} fit.
+#' @export
+snkTest.aov <- function(x, ...) {
+  model <- x$model
+  DNAME <- paste(names(model), collapse = " by ")
+  names(model) <- c("x", "g")
+  y <- do.call("snkTest", as.list(model))
+  y$data.name <- DNAME
+  y
 }

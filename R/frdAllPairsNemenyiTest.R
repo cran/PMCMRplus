@@ -1,7 +1,7 @@
 ## frdAllPairsNemenyiTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2014-2019 Thorsten Pohlert
+## Copyright (C) 2014-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -47,9 +47,8 @@
 #' Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 #'
 #' @keywords htest nonparametric
-#' @concept Friedman
-#' @concept Rank
-#' @concept AllPairs
+#' @concept friedmanranks
+#'
 #' @seealso
 #' \code{\link{friedmanTest}}, \code{\link{friedman.test}},
 #' \code{\link{frdAllPairsExactTest}}, \code{\link{frdAllPairsConoverTest}},

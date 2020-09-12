@@ -142,6 +142,5 @@ Baumgartner-Weiss-Schindler statistic.
 \code{\link[BWStest]{murakami_stat}}, \code{\link[BWStest]{murakami_cdf}},
  \code{\link[BWStest]{bws_stat}}, \code{\link[BWStest]{bws_cdf}}.
 }
-\concept{ManyOneComparison}
 \keyword{htest}
 \keyword{nonparametric}

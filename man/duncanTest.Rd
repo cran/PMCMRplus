@@ -4,6 +4,7 @@
 \alias{duncanTest}
 \alias{duncanTest.default}
 \alias{duncanTest.formula}
+\alias{duncanTest.aov}
 \title{Duncan's Multiple Range Test}
 \usage{
 duncanTest(x, ...)
@@ -11,10 +12,12 @@ duncanTest(x, ...)
 \method{duncanTest}{default}(x, g, ...)
 
 \method{duncanTest}{formula}(formula, data, subset, na.action, ...)
+
+\method{duncanTest}{aov}(x, ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data
-vectors.}
+\item{x}{a numeric vector of data values, a list of numeric data
+vectors or a fitted model object, usually an \link[stats]{aov} fit.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
@@ -68,17 +71,15 @@ A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
 The p-values are computed from the Tukey-distribution.
 }
 \examples{
-set.seed(245)
-mn <- rep(c(1, 2^(1:4)), each=5)
-sd <- rep(1, 25)
-x <- mn + rnorm(25, sd = sd)
-g <- factor(rep(1:5, each=5))
-
-fit <- aov(x ~ g)
+fit <- aov(weight ~ feed, chickwts)
 shapiro.test(residuals(fit))
-bartlett.test(x ~ g) # var1 = varN
+bartlett.test(weight ~ feed, chickwts)
 anova(fit)
-summary(duncanTest(x, g))
+
+## also works with fitted objects of class aov
+res <- duncanTest(fit)
+summary(res)
+summaryGroup(res)
 }
 \references{
 Duncan, D. B. (1955) Multiple range and multiple F tests,
@@ -87,5 +88,5 @@ Duncan, D. B. (1955) Multiple range and multiple F tests,
 \seealso{
 \code{\link[stats]{Tukey}}, \code{\link[stats]{TukeyHSD}} \code{\link{tukeyTest}}
 }
-\concept{AllPairsComparison}
+\concept{parametric}
 \keyword{htest}

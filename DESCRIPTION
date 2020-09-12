@@ -2,8 +2,8 @@ Package: PMCMRplus
 Type: Package
 Title: Calculate Pairwise Multiple Comparisons of Mean Rank Sums
         Extended
-Version: 1.4.4
-Date: 2020-03-01
+Version: 1.5.0
+Date: 2020-09-09
 Authors@R: person(given = "Thorsten", family = "Pohlert",
                  email = "thorsten.pohlert@gmx.de",
                  comment = c(ORCID = "0000-0003-3855-3025"),
@@ -50,10 +50,10 @@ Classification/MSC-2010: 62J15, 62J10, 62G10, 62F03, 62G30
 NeedsCompilation: yes
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 License: GPL (>= 3)
-Packaged: 2020-03-01 14:27:03 UTC; thorsten
+Packaged: 2020-09-10 17:19:55 UTC; thorsten
 Author: Thorsten Pohlert [aut, cre] (<https://orcid.org/0000-0003-3855-3025>)
 Maintainer: Thorsten Pohlert <thorsten.pohlert@gmx.de>
 Repository: CRAN
-Date/Publication: 2020-03-01 15:00:06 UTC
+Date/Publication: 2020-09-12 05:51:10 UTC

@@ -136,8 +136,6 @@ Ph.D. thesis, Princeton University.
 \code{\link{pmvt}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
 \code{\link{kwManyOneDunnTest}}, \code{\link{kwManyOneConoverTest}}
 }
-\concept{Kruskal}
-\concept{ManyToOneComparisons}
-\concept{Rank}
+\concept{kruskalranks}
 \keyword{htest}
 \keyword{nonparametric}

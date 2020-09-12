@@ -88,5 +88,5 @@ Grubbs and the Cochran test statistic. \emph{Adv. Stat. Anal.}.
 \seealso{
 \code{\link[stats]{bartlett.test}}, \code{\link[stats]{fligner.test}}.
 }
-\concept{outlier}
+\concept{outliers}
 \keyword{htest}

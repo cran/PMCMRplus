@@ -1,7 +1,7 @@
 ## frdManyOneNemenyiTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C)  2017-2019 Thorsten Pohlert
+## Copyright (C)  2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -58,9 +58,7 @@
 #' Zarr, J. H. (1999), \emph{Biostatistical Analysis}. 4th ed.
 #' Upper Saddle River: Prentice-Hall.
 #'
-#' @concept FriedmanTest
-#' @concept Rank
-#' @concept ManyToOne
+#' @concept friedmanranks
 #' @keywords htest nonparametric
 #' @example examples/frdManyOne.R
 #' @seealso

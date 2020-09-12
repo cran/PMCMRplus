@@ -112,7 +112,6 @@ problem and their power, \emph{Indagationes Mathematicae} \bold{14}, 453--458.
 \code{\link{vanWaerdenTest}}, \code{\link{vanWaerdenAllPairsTest}},
 \code{\link[mvtnorm]{pmvt}}.
 }
-\concept{ManyOneComparison}
-\concept{NormalScores}
+\concept{normalscores}
 \keyword{htest}
 \keyword{nonparametric}

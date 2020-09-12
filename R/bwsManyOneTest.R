@@ -54,7 +54,7 @@
 #' @name bwsManyOneTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
-#' @concept ManyOneComparison
+#'
 #' @references
 #' Baumgartner, W., Weiss, P., Schindler, H. (1998) A nonparametric test for the
 #' general two-sample problem, \emph{Biometrics} \bold{54}, 1129--1135.

@@ -44,14 +44,14 @@
 #'  for The Behavioral Sciences}. New York: McGraw-Hill.
 #'
 #' @template class-PMCMR
-#' @keywords htest nonparametric
+#' @keywords nonparametric
+#' @concept kruskalranks
+#'
 #' @seealso
 #' \code{\link[stats]{Normal}}, \code{\link[stats]{p.adjust}},
 #' \code{\link{kruskalTest}},
 #' \code{\link{kwAllPairsConoverTest}}, \code{\link{kwAllPairsNemenyiTest}}
 #'
-#' @concept AllPairsComparisonTest
-#' @concept RankANOVA
 #' @example examples/kwAllPairsMC.R
 #' @export
 kwAllPairsDunnTest <- function(x, ...) UseMethod("kwAllPairsDunnTest")

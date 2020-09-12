@@ -118,8 +118,6 @@ Upper Saddle River: Prentice-Hall.
 \code{\link{frdManyOneExactTest}}, \code{\link{frdManyOneDemsarTest}}
 \code{\link[mvtnorm]{pmvnorm}}, \code{\link{set.seed}}
 }
-\concept{FriedmanTest}
-\concept{ManyToOne}
-\concept{Rank}
+\concept{friedmanranks}
 \keyword{htest}
 \keyword{nonparametric}

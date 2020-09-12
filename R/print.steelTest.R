@@ -22,7 +22,7 @@
 #' @aliases summary.steel
 #' @param object an object of class \code{"steel"}.
 #' @param \dots further arguments. Currenly ignored.
-#' @keywords models
+#' @keywords methods
 #' @return
 #' A detailed output of all pairwise hypotheses,
 #' the test statistics, the corresponding p-values and

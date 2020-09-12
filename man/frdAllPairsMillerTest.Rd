@@ -116,8 +116,6 @@ Wike, E. L. (2006), \emph{Data Analysis. A Statistical Primer for
 \code{\link{frdAllPairsExactTest}}, \code{\link{frdAllPairsConoverTest}},
 \code{\link{frdAllPairsNemenyiTest}}, \code{\link{frdAllPairsSiegelTest}}
 }
-\concept{AllPairs}
-\concept{Friedman}
-\concept{Rank}
+\concept{friedmanranks}
 \keyword{htest}
 \keyword{nonparametric}

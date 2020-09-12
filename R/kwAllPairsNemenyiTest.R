@@ -47,14 +47,14 @@
 #' Lederle Laboratories.
 #'
 #' @template class-PMCMR
-#' @keywords htest nonparametric
+#' @keywords nonparametric
+#' @concept kruskalranks
+#'
 #' @seealso
 #' \code{\link[stats]{Tukey}}, \code{\link[stats]{Chisquare}},
 #' \code{\link[stats]{p.adjust}}, \code{\link{kruskalTest}},
 #' \code{\link{kwAllPairsDunnTest}}, \code{\link{kwAllPairsConoverTest}}
 #' @example examples/kwAllPairsMC.R
-#' @concept AllPairsComparisonTest
-#' @concept RankANOVA
 #' @export
 kwAllPairsNemenyiTest <- function(x, ...) UseMethod("kwAllPairsNemenyiTest")
 

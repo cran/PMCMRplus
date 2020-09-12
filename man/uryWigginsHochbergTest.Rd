@@ -4,6 +4,7 @@
 \alias{uryWigginsHochbergTest}
 \alias{uryWigginsHochbergTest.default}
 \alias{uryWigginsHochbergTest.formula}
+\alias{uryWigginsHochbergTest.aov}
 \title{Ury, Wiggins, Hochberg Test}
 \usage{
 uryWigginsHochbergTest(x, ...)
@@ -18,10 +19,12 @@ uryWigginsHochbergTest(x, ...)
   p.adjust.method = p.adjust.methods,
   ...
 )
+
+\method{uryWigginsHochbergTest}{aov}(x, p.adjust.method = p.adjust.methods, ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data
-vectors.}
+\item{x}{a numeric vector of data values, a list of numeric data
+vectors or a fitted model object, usually an \link[stats]{aov} fit.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
@@ -85,17 +88,15 @@ on the selected p-value adjustment method (see also \code{\link{p.adjust}}):
 }
 }
 \examples{
-set.seed(245)
-mn <- rep(c(1, 2^(1:4)), each=5)
-sd <- rep(1:5, each=5)
-x <- mn + rnorm(25, sd = sd)
-g <- factor(rep(1:5, each=5))
-
-fit <- aov(x ~ g)
+fit <- aov(weight ~ feed, chickwts)
 shapiro.test(residuals(fit))
-bartlett.test(x ~ g) # var1 != varN
+bartlett.test(weight ~ feed, chickwts) # var1 = varN
 anova(fit)
-summary(uryWigginsHochbergTest(x, g))
+
+## also works with fitted objects of class aov
+res <- uryWigginsHochbergTest(fit)
+summary(res)
+summaryGroup(res)
 
 }
 \references{
@@ -110,5 +111,5 @@ Mathematical and Statistical Psychology} \bold{24}, 174--194.
 \seealso{
 \code{\link{dunnettT3Test}}
 }
-\concept{allPairsComparisons}
+\concept{parametric}
 \keyword{htest}

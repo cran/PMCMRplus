@@ -66,7 +66,5 @@ Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 \seealso{
 \code{\link{friedmanTest}}
 }
-\concept{OrderedAlternative}
-\concept{TwoWayRankAnova}
 \keyword{htest}
 \keyword{nonparametric}

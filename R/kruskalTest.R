@@ -53,6 +53,7 @@
 #'
 #' @template class-htest
 #'
+#' @concept kruskalranks
 #' @example examples/kSamples.R
 #' @export
 kruskalTest <- function(x, ...) UseMethod("kruskalTest")

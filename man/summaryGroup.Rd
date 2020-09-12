@@ -25,4 +25,4 @@ Performes a grouped summary on an PMCMR object.
 \seealso{
 \code{\link{summary.PMCMR}}
 }
-\keyword{models}
+\keyword{methods}

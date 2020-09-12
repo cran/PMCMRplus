@@ -70,7 +70,7 @@ Performs power simulation for one-factorial
 single hypothesis tests.
 }
 \details{
-The linear model of a one-way ANOVA can be written as: 
+The linear model of a one-way ANOVA can be written as:
 
 \deqn{
 X_{ij} = \mu_i + \epsilon_{ij}
@@ -107,7 +107,7 @@ R2 <- c("R-squared" = SSQ.A / (SSQ.A + SSQ.E))
 cohensf <- sqrt(R2 / (1 - R2))
 names(cohensf) <- "Cohens f"
 
-## R stats power function 
+## R stats power function
 power.anova.test(groups = k,
                  between.var = var(groupmeans),
                  within.var = SEsq,
@@ -116,7 +116,7 @@ power.anova.test(groups = k,
 ## pwr power function
 pwr.anova.test(k = k, n = n, f = cohensf, sig.level=0.05)
 
-## this Monte-Carlo based estimation  
+## this Monte-Carlo based estimation
 set.seed(200)
 powerOneWayTests(mu = groupmeans,
                  n = n,
@@ -134,8 +134,8 @@ cohensf
 }
 \seealso{
 \code{\link{powerMCTests}},
-\code{\link[pwr]{pwr.anova.test}}, 
+\code{\link[pwr]{pwr.anova.test}},
 \code{\link[stats]{power.anova.test}}
 }
-\concept{TestPower}
+\concept{testpower}
 \keyword{misc}

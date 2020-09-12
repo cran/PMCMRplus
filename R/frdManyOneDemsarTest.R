@@ -1,7 +1,7 @@
 ## frdManyOneDemsarTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017-2019 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -15,12 +15,6 @@
 ##
 ##  A copy of the GNU General Public License is available at
 ##  http://www.r-project.org/Licenses/
-##
-##  Literature:
-##  Eisinga, Heskes, Pelzer, Te Grotenhuis, 2017,
-##  Exact p-values for pairwise comparison of
-##  Friedman rank sums, with application to
-##  comparing classifiers, BMC Bioinformatics, January 2 2017
 ##
 
 #' @name frdManyOneDemsarTest
@@ -52,9 +46,7 @@
 #' Demsar, J. (2006) Statistical comparisons of classifiers over multiple
 #'  data sets, \emph{Journal of Machine Learning Research} \bold{7}, 1--30.
 #'
-#' @concept FriedmanTest
-#' @concept Rank
-#' @concept ManyToOne
+#' @concept friedmanranks
 #' @keywords htest nonparametric
 #' @example examples/frdManyOne.R
 #' @seealso

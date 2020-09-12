@@ -4,7 +4,8 @@
 \name{algae}
 \alias{algae}
 \title{Algae Growth Inhibition Data Set}
-\format{A data frame with 22 observations on the following 10 variables.
+\format{
+A data frame with 22 observations on the following 10 variables.
  \describe{
    \item{concentration}{a numeric vector of dose value in mg / L}
    \item{Day.0}{a numeric vector, total biomass}
@@ -16,7 +17,8 @@
    \item{Day.2}{a numeric vector, total biomass}
    \item{Day.2.1}{a numeric vector, total biomass}
    \item{Day.2.2}{a numeric vector, total biomass}
- }}
+ }
+}
 \source{
 ENV/JM/MONO(2006)18/ANN, page 24.
 }

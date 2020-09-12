@@ -1,7 +1,7 @@
 ## frdManyOneExactTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -16,6 +16,11 @@
 ##  A copy of the GNU General Public License is available at
 ##  http://www.r-project.org/Licenses/
 ##
+##  Literature:
+##  Eisinga, Heskes, Pelzer, Te Grotenhuis, 2017,
+##  Exact p-values for pairwise comparison of
+##  Friedman rank sums, with application to
+##  comparing classifiers, BMC Bioinformatics, January 2 2017
 ##
 #' @name frdManyOneExactTest
 #' @title  Exact Many-to-One Test
@@ -51,9 +56,7 @@
 #  Exact p-values for Pairwise Comparison of Friedman Rank Sums,
 #  with Application to Comparing Classifiers, \emph{BMC Bioinformatics}, 18:68.
 #
-#' @concept FriedmanTest
-#' @concept Rank
-#' @concept ManyToOne
+#' @concept friedmanranks
 #' @keywords htest nonparametric
 #' @example examples/frdManyOne.R
 #' @seealso

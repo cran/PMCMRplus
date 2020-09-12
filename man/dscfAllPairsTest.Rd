@@ -85,7 +85,6 @@ treatments, \emph{Technometrics} \bold{2}, 197--207
 \seealso{
 \code{\link{Tukey}}, \code{\link{pairwise.wilcox.test}}
 }
-\concept{AllPairsComparisons}
-\concept{RankTransformation}
+\concept{wilcoxonranks}
 \keyword{htest}
 \keyword{nonparametric}

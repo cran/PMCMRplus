@@ -4,6 +4,7 @@
 \alias{tamhaneT2Test}
 \alias{tamhaneT2Test.default}
 \alias{tamhaneT2Test.formula}
+\alias{tamhaneT2Test.aov}
 \title{Tamhane's T2 Test}
 \usage{
 tamhaneT2Test(x, ...)
@@ -11,10 +12,12 @@ tamhaneT2Test(x, ...)
 \method{tamhaneT2Test}{default}(x, g, welch = TRUE, ...)
 
 \method{tamhaneT2Test}{formula}(formula, data, subset, na.action, welch = TRUE, ...)
+
+\method{tamhaneT2Test}{aov}(x, welch = TRUE, ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data
-vectors.}
+\item{x}{a numeric vector of data values, a list of numeric data
+vectors or a fitted model object, usually an \link[stats]{aov} fit.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
@@ -86,31 +89,33 @@ Thanks to Sirio Bolaños for his kind suggestion for adding T2' test
 into this function.
 }
 \examples{
-set.seed(245)
-mn <- rep(c(1, 2^(1:4)), each=5)
-sd <- rep(1:5, each=5)
-x <- mn + rnorm(25, sd = sd)
-g <- factor(rep(1:5, each=5))
-
-fit <- aov(x ~ g)
+fit <- aov(weight ~ feed, chickwts)
 shapiro.test(residuals(fit))
-bartlett.test(x ~ g) # var1 != varN
+bartlett.test(weight ~ feed, chickwts) # var1 = varN
 anova(fit)
-summary(T2 <- tamhaneT2Test(x, g))
-T2
+
+## also works with fitted objects of class aov
+res <- tamhaneT2Test(fit)
+summary(res)
+summaryGroup(res)
+res
+
 ## compare with pairwise.t.test
-WT <- pairwise.t.test(x, g, pool.sd = FALSE, p.adjust.method = "none")
+WT <- pairwise.t.test(chickwts$weight,
+                      chickwts$feed,
+                      pool.sd = FALSE,
+                      p.adjust.method = "none")
 p.adj.sidak <- function(p, m) sapply(p, function(p) min(1, 1 - (1 - p)^m))
 p.raw <- as.vector(WT$p.value)
 m <- length(p.raw[!is.na(p.raw)])
 PADJ <- matrix(ans <- p.adj.sidak(p.raw, m),
-               nrow = 4, ncol = 4)
+               nrow = 5, ncol = 5)
 colnames(PADJ) <- colnames(WT$p.value)
 rownames(PADJ) <- rownames(WT$p.value)
 PADJ
 
 ## same without Welch's approximate solution
-summary(T2b <- tamhaneT2Test(x, g, welch = FALSE))
+summary(T2b <- tamhaneT2Test(fit, welch = FALSE))
 
 
 }
@@ -122,5 +127,5 @@ Tamhane, A. C. (1979) A Comparison of Procedures for Multiple Comparisons
 \seealso{
 \code{\link{dunnettT3Test}}
 }
-\concept{allPairsComparisons}
+\concept{parametric}
 \keyword{htest}

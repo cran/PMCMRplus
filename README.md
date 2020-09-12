@@ -54,7 +54,7 @@ following function from within R:
 
 Both R packages **Rmpfr** and **gmp** need compilation and are wrapper
 functions for the external libraries (i.e. not shipped with R) `libmpfr`
-(Fousse et al. 2007, <http://www.mpfr.org/>) and `libgmp`
+(Fousse et al. 2007, <https://www.mpfr.org/>) and `libgmp`
 (<https://gmplib.org/>). For a correct compilation, the corresponding
 header files of the external libraries are required. Therefore, it is
 possible that the installation process breaks up with an error message

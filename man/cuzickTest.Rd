@@ -123,7 +123,7 @@ Cuzick, J. (1995) A Wilcoxon-type test for trend, \emph{Statistics in Medicine}
 of the package \pkg{PMCMRplus},
 \code{\link[stats]{kruskal.test}} of the library \pkg{stats}.
 }
-\concept{ordered-alternatives}
-\concept{trend-test}
+\concept{trendtest}
+\concept{wilcoxonranks}
 \keyword{htest}
 \keyword{nonparametric}

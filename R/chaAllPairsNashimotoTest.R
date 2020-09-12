@@ -53,8 +53,6 @@
 #' \emph{Comput. Statist. Data Anal.} \bold{48}, 291--306.
 #'
 #' @keywords htest nonparametric
-#' @concept AllPairsComparisons
-#' @concept OrderedAlternatives
 #'
 #' @seealso
 #' \code{\link{Tukey}}, \code{\link{Normal}}, \code{\link{chackoTest}}

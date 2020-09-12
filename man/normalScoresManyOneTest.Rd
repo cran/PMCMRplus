@@ -107,7 +107,6 @@ for nonparametric one-way analysis of variance.
 \seealso{
 \code{\link{normalScoresTest}}, \code{\link{normalScoresAllPairsTest}}, \code{\link[SuppDists]{normOrder}}, \code{\link[mvtnorm]{pmvt}}.
 }
-\concept{ManyOneComparison}
-\concept{NormalScores}
+\concept{normalscores}
 \keyword{htest}
 \keyword{nonparametric}

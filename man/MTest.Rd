@@ -74,5 +74,5 @@ Nashimoto, K., Wright, F.T., (2005) Multiple comparison procedures
 for detecting differences in simply ordered means.
 \emph{Comput. Statist. Data Anal.} \bold{48}, 291--306.
 }
-\concept{AllPairsComparison}
+\concept{parametric}
 \keyword{htest}

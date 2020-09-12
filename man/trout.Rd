@@ -4,7 +4,8 @@
 \name{trout}
 \alias{trout}
 \title{Data from a Dose-Response Experiment with Trouts}
-\format{A data frame with 65 observations on the following 5 variables.
+\format{
+A data frame with 65 observations on the following 5 variables.
  \describe{
    \item{CONC}{a numeric vector of dose concentration in ppm}
    \item{DOSE}{a factor with levels \code{1} \code{2}
@@ -12,7 +13,8 @@
    \item{REPA}{a factor with levels \code{1} \code{2}}
    \item{REPC}{a factor with levels \code{1} \code{2}}
    \item{Y}{a numeric vector of trout weight in mg}
- }}
+ }
+}
 \source{
 ENV/JM/MONO(2006)18/ANN, page 113.
 }

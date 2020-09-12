@@ -122,7 +122,7 @@ print.gesdTest <- function(x, ...)
 #' @aliases summary.gesdTest
 #' @param object an object of class \code{"gesdTest"}.
 #' @param \dots further arguments. Currenly ignored.
-#' @keywords models
+#' @keywords methods
 #' @importFrom stats symnum
 #' @export
 summary.gesdTest <- function(object, ...)

@@ -22,7 +22,7 @@
 #' @aliases summary.williams
 #' @param object an object of class \code{"williams"}.
 #' @param \dots further arguments. Currenly ignored.
-#' @keywords models
+#' @keywords methods
 #' @return
 #' A detailed output of all pairwise hypotheses,
 #' the test statistics, the corresponding p-values and

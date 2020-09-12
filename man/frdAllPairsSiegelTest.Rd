@@ -123,8 +123,6 @@ Siegel, S., Castellan Jr., N. J. (1988) \emph{Nonparametric
 \code{\link{frdAllPairsExactTest}}, \code{\link{frdAllPairsConoverTest}},
 \code{\link{frdAllPairsNemenyiTest}}, \code{\link{frdAllPairsMillerTest}}
 }
-\concept{AllPairs}
-\concept{Friedman}
-\concept{Rank}
+\concept{friedmanranks}
 \keyword{htest}
 \keyword{nonparametric}

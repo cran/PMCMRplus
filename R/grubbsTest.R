@@ -63,7 +63,7 @@
 #' Defaults to \code{"two.sided"}.
 #' @template class-htest
 #' @inherit Grubbs references
-#' @keywords htest
+#' @keywords htest univariate
 #' @concept outliers
 #' @examples
 #' data(Pentosan)

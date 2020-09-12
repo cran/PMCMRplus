@@ -36,7 +36,6 @@
 #' @name adManyOneTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
-#' @concept AllPairsComparison
 #'
 #' @inherit adAllPairsTest references
 #'

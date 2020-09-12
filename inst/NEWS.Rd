@@ -1,6 +1,19 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.5.0 (2020-09-09)}{
+ \subsection{NEW FEATURES}{
+  \itemize{
+    \item S3 method for class\sQuote{aov} was added
+    for \code{tukeyTest}, \code{gamesHowellTest},
+    \code{lsdTest}, \code{tamhaneT2Test},
+    \code{uryWigginsHochbergTest}, \code{dunnettT3Test},
+    \code{snkTest}, \code{scheffeTest}, \code{dunnettTest},
+    \code{tamhaneDunnettTest} and \code{welchManyOneTTest}.
+    \item Updated concept-tag in Rd files.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.4.4}{
   \subsection{OTHER CHANGES}{
     \itemize{

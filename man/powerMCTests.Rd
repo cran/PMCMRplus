@@ -91,5 +91,5 @@ powerMCTests(mu, n, errfn="Normal",
 }
 
 }
-\concept{TestPower}
+\concept{testpower}
 \keyword{misc}

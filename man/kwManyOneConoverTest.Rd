@@ -126,8 +126,6 @@ Conover, W. J, Iman,  R. L. (1979) \emph{On multiple-comparisons
 \code{\link{pmvt}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
 \code{\link{kwManyOneDunnTest}}, \code{\link{kwManyOneNdwTest}}
 }
-\concept{Kruskal}
-\concept{ManyToOneComparisons}
-\concept{Rank}
+\concept{kruskalranks}
 \keyword{htest}
 \keyword{nonparametric}

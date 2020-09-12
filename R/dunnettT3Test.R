@@ -1,7 +1,7 @@
 ## dunnettT3Test.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -44,20 +44,18 @@
 #'  Association} \bold{75}, 796--800.
 #'
 #' @keywords htest
-#' @concept allPairsComparisons
+#' @concept parametric
 #'
 #' @examples
-#' set.seed(245)
-#' mn <- rep(c(1, 2^(1:4)), each=5)
-#' sd <- rep(1:5, each=5)
-#' x <- mn + rnorm(25, sd = sd)
-#' g <- factor(rep(1:5, each=5))
-#'
-#' fit <- aov(x ~ g)
+#' fit <- aov(weight ~ feed, chickwts)
 #' shapiro.test(residuals(fit))
-#' bartlett.test(x ~ g) # var1 != varN
+#' bartlett.test(weight ~ feed, chickwts)
 #' anova(fit)
-#' summary(dunnettT3Test(x, g))
+#'
+#' ## also works with fitted objects of class aov
+#' res <- dunnettT3Test(fit)
+#' summary(res)
+#' summaryGroup(res)
 #'
 #' @seealso
 #' \code{\link[mvtnorm]{pmvt}}
@@ -70,7 +68,7 @@ dunnettT3Test <- function(x, ...) UseMethod("dunnettT3Test")
 #' @rdname dunnettT3Test
 #' @method dunnettT3Test default
 #' @aliases dunnettT3Test.default
-#' @template one-way-parms
+#' @template one-way-parms-aov
 #' @export
 dunnettT3Test.default <-
 function(x, g, ...){
@@ -192,6 +190,20 @@ function(formula, data, subset, na.action, ...)
     DNAME <- paste(names(mf), collapse = " by ")
     names(mf) <- NULL
     y <- do.call("dunnettT3Test", c(as.list(mf)))
+    y$data.name <- DNAME
+    y
+}
+
+#' @rdname dunnettT3Test
+#' @aliases dunnettT3Test.aov
+#' @method dunnettT3Test aov
+# @param obj A fitted model object, usually an \link[stats]{aov} fit.
+#' @export
+dunnettT3Test.aov <- function(x, ...) {
+    model <- x$model
+    DNAME <- paste(names(model), collapse = " by ")
+    names(model) <- c("x", "g")
+    y <- do.call("dunnettT3Test", as.list(model))
     y$data.name <- DNAME
     y
 }

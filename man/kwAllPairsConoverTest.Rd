@@ -114,7 +114,6 @@ Conover, W. J, Iman,  R. L. (1979) \emph{On multiple-comparisons
 \code{\link[stats]{p.adjust}}, \code{\link{kruskalTest}},
 \code{\link{kwAllPairsDunnTest}}, \code{\link{kwAllPairsNemenyiTest}}
 }
-\concept{AllPairsComparisonTest}
-\concept{RankANOVA}
+\concept{kruskalranks}
 \keyword{htest}
 \keyword{nonparametric}

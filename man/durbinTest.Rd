@@ -75,3 +75,6 @@ Dataplot Reference Manual}, Volume 2:
 Let Subcommands and Library Functions.
 National Institute of Standards and Technology Handbook Series, June 2003.
 }
+\concept{friedmanranks}
+\keyword{htest}
+\keyword{nonparametric}

@@ -109,7 +109,6 @@ in k-sample problems, \emph{Biometrical Journal} \bold{30}, 87--92.
 of the package \pkg{PMCMRplus},
 \code{\link[stats]{kruskal.test}} of the library \pkg{stats}.
 }
-\concept{ordered-alternatives}
-\concept{trend-test}
+\concept{trendtest}
 \keyword{htest}
 \keyword{nonparametric}

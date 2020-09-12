@@ -44,8 +44,6 @@
 # \emph{Comput. Statist. Data Anal.} 48, 291--306.
 #'
 #' @keywords htest nonparametric
-#' @concept AllPairsComparisons
-#' @concept OrderedAlternatives
 #'
 #' @seealso
 #' \code{\link{kwAllPairsNemenyiTest}}

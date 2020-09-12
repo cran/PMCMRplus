@@ -1,7 +1,7 @@
 ## lsdTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -46,29 +46,28 @@
 #' @references
 #' Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
 #'
-#' @concept AllPairsComparison
 #' @keywords htest
 #' @seealso
 #' \code{\link{TDist}}, \code{\link{pairwise.t.test}}
-#' @examples
-#' set.seed(245)
-#' mn <- rep(c(1, 2^(1:4)), each=5)
-#' sd <- rep(1, 25)
-#' x <- mn + rnorm(25, sd = sd)
-#' g <- factor(rep(1:5, each=5))
 #'
-#' fit <- aov(x ~ g)
+#' @examples
+#' fit <- aov(weight ~ feed, chickwts)
 #' shapiro.test(residuals(fit))
-#' bartlett.test(x ~ g) # var1 = varN
+#' bartlett.test(weight ~ feed, chickwts)
 #' anova(fit)
-#' summary(lsdTest(x, g))
+#'
+#' ## also works with fitted objects of class aov
+#' res <- lsdTest(fit)
+#' summary(res)
+#' summaryGroup(res)
+#'
 #' @export
 lsdTest <- function(x, ...) UseMethod("lsdTest")
 
 #' @rdname lsdTest
 #' @aliases lsdTest.default
 #' @method lsdTest default
-#' @template one-way-parms
+#' @template one-way-parms-aov
 #' @importFrom stats complete.cases
 #' @importFrom stats pt
 #' @importFrom stats var
@@ -152,6 +151,20 @@ lsdTest.formula <- function(formula, data, subset, na.action, ...)
     DNAME <- paste(names(mf), collapse = " by ")
     names(mf) <- NULL
     y <- do.call("lsdTest", c(as.list(mf)))
+    y$data.name <- DNAME
+    y
+}
+
+#' @rdname lsdTest
+#' @aliases lsdTest.aov
+#' @method lsdTest aov
+# @param obj A fitted model object, usually an \link[stats]{aov} fit.
+#' @export
+lsdTest.aov <- function(x, ...) {
+    model <- x$model
+    DNAME <- paste(names(model), collapse = " by ")
+    names(model) <- c("x", "g")
+    y <- do.call("lsdTest", as.list(model))
     y$data.name <- DNAME
     y
 }

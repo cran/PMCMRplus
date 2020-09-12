@@ -101,6 +101,5 @@ Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
 \code{\link{adKSampleTest}}, \code{\link{adAllPairsTest}},
 \code{\link[kSamples]{ad.pval}}.
 }
-\concept{AllPairsComparison}
 \keyword{htest}
 \keyword{nonparametric}

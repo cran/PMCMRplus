@@ -22,7 +22,7 @@
 #' @aliases summary.PMCMR
 #' @param object an object of class \code{"PMCMR"}.
 #' @param \dots further arguments. Currenly ignored.
-#' @keywords models
+#' @keywords methods
 #' @return
 #' A detailed output of all pairwise hypotheses,
 #' the test statistics, the corresponding p-values and
@@ -103,7 +103,7 @@ summary.PMCMR <- function(object, ...)
 #' and a letter symbol, whereas different letters indicate
 #' significant differences between factor levels based on the
 #' selected level of alpha.
-#' @keywords models
+#' @keywords methods
 #' @seealso
 #' \code{\link{summary.PMCMR}}
 #' @importFrom multcompView multcompLetters

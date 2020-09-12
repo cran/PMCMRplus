@@ -122,7 +122,7 @@ Regression in Two Independent Variables, \emph{Appl. Statist.},
 34, 352--357.
 
  The Algorith AS 206 is available from StatLib
-\url{http://lib.stat.cmu.edu/apstat}. The Royal Statistical Society
+\url{http://lib.stat.cmu.edu/apstat/}. The Royal Statistical Society
 holds the copyright to these routines,
 but has given its permission for their distribution provided that
 no fee is charged.

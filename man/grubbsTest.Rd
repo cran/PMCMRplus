@@ -81,3 +81,4 @@ Grubbs and the Cochran test statistic. \emph{Adv. Stat. Anal.}.
 }
 \concept{outliers}
 \keyword{htest}
+\keyword{univariate}

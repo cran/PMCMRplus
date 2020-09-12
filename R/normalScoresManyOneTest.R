@@ -37,13 +37,10 @@
 #' @name normalScoresManyOneTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
-#' @concept NormalScores
-#' @concept ManyOneComparison
+#' @concept normalscores
+#'
 #' @inherit normalScoresAllPairsTest references
-# @references
-# Lu, H., Smith, P. (1979). Distribution of normal scores statistic
-# for nonparametric one-way analysis of variance.
-# \emph{Journal of the American Statistical Association}, 74, 715--722.
+#'
 #' @seealso
 #' \code{\link{normalScoresTest}}, \code{\link{normalScoresAllPairsTest}}, \code{\link[SuppDists]{normOrder}}, \code{\link[mvtnorm]{pmvt}}.
 #'

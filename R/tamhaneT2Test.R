@@ -1,7 +1,7 @@
 ## tamhaneT2Test.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -53,35 +53,35 @@
 #'  of Means with Unequal Variances, \emph{Journal of the American
 #'  Statistical Association} \bold{74}, 471--480.
 #'
-#' @keywords htest
-#' @concept allPairsComparisons
 #'
 #' @examples
-#' set.seed(245)
-#' mn <- rep(c(1, 2^(1:4)), each=5)
-#' sd <- rep(1:5, each=5)
-#' x <- mn + rnorm(25, sd = sd)
-#' g <- factor(rep(1:5, each=5))
-#'
-#' fit <- aov(x ~ g)
+#' fit <- aov(weight ~ feed, chickwts)
 #' shapiro.test(residuals(fit))
-#' bartlett.test(x ~ g) # var1 != varN
+#' bartlett.test(weight ~ feed, chickwts) # var1 = varN
 #' anova(fit)
-#' summary(T2 <- tamhaneT2Test(x, g))
-#' T2
+#'
+#' ## also works with fitted objects of class aov
+#' res <- tamhaneT2Test(fit)
+#' summary(res)
+#' summaryGroup(res)
+#' res
+#'
 #' ## compare with pairwise.t.test
-#' WT <- pairwise.t.test(x, g, pool.sd = FALSE, p.adjust.method = "none")
+#' WT <- pairwise.t.test(chickwts$weight,
+#'                       chickwts$feed,
+#'                       pool.sd = FALSE,
+#'                       p.adjust.method = "none")
 #' p.adj.sidak <- function(p, m) sapply(p, function(p) min(1, 1 - (1 - p)^m))
 #' p.raw <- as.vector(WT$p.value)
 #' m <- length(p.raw[!is.na(p.raw)])
 #' PADJ <- matrix(ans <- p.adj.sidak(p.raw, m),
-#'                nrow = 4, ncol = 4)
+#'                nrow = 5, ncol = 5)
 #' colnames(PADJ) <- colnames(WT$p.value)
 #' rownames(PADJ) <- rownames(WT$p.value)
 #' PADJ
 #'
 #' ## same without Welch's approximate solution
-#' summary(T2b <- tamhaneT2Test(x, g, welch = FALSE))
+#' summary(T2b <- tamhaneT2Test(fit, welch = FALSE))
 #'
 #'
 #' @seealso
@@ -96,7 +96,7 @@ tamhaneT2Test <- function(x, ...) UseMethod("tamhaneT2Test")
 #' @rdname tamhaneT2Test
 #' @method tamhaneT2Test default
 #' @aliases tamhaneT2Test.default
-#' @template one-way-parms
+#' @template one-way-parms-aov
 #' @param welch indicates, whether Welch's approximate solution for
 #' calculating the degree of freedom shall be used or, as usually,
 #' \eqn{df = N - 2}. Defaults to \code{TRUE}.
@@ -226,6 +226,21 @@ function(formula, data, subset, na.action, welch = TRUE, ...)
     DNAME <- paste(names(mf), collapse = " by ")
     names(mf) <- NULL
     y <- do.call("tamhaneT2Test", c(as.list(mf), welch = welch))
+    y$data.name <- DNAME
+    y
+}
+
+#' @rdname tamhaneT2Test
+#' @aliases tamhaneT2Test.aov
+#' @method tamhaneT2Test aov
+# @param obj A fitted model object, usually an \link[stats]{aov} fit.
+#' @export
+tamhaneT2Test.aov <- function(x, welch = TRUE, ...) {
+    model <- x$model
+    DNAME <- paste(names(model), collapse = " by ")
+    names(model) <- c("x", "g")
+    parms <- c(as.list(model), list(welch = welch))
+    y <- do.call("tamhaneT2Test", parms)
     y$data.name <- DNAME
     y
 }

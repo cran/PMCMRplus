@@ -96,6 +96,6 @@ on testing and assessment, No. 54.
 \seealso{
 \code{\link{wilcox.test}}, \code{\link{pmvnorm}}, \code{\link{Normal}}
 }
-\concept{ManyOne}
+\concept{wilcoxonranks}
 \keyword{htest}
-\keyword{nonparanetric}
+\keyword{nonparametric}

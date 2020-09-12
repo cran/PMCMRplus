@@ -114,7 +114,6 @@ nonparametric tests for ordered alternatives.
 of the package \pkg{PMCMRplus},
 \code{\link[stats]{kruskal.test}} of the library \pkg{stats}.
 }
-\concept{ordered-alternatives}
-\concept{trend-test}
+\concept{trendtest}
 \keyword{htest}
 \keyword{nonparametric}

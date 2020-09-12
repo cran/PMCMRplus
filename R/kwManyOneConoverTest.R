@@ -45,10 +45,10 @@
 #' @inherit kwAllPairsConoverTest references
 #'
 #' @template class-PMCMR
-#' @concept ManyToOneComparisons
-#' @concept Kruskal
-#' @concept Rank
-#' @keywords htest nonparametric
+#'
+#' @concept kruskalranks
+#' @keywords nonparametric
+#'
 #' @seealso
 #' \code{\link{pmvt}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
 #' \code{\link{kwManyOneDunnTest}}, \code{\link{kwManyOneNdwTest}}

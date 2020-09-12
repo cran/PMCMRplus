@@ -1,7 +1,7 @@
 ## welchManyOneTTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@
 #'  An alternative approach, \emph{Biometrika} \bold{38}, 330--336.
 #'
 #' @keywords htest
-#' @concept ManyToOneComparisons
+#' @concept parametric
 #' @examples
 #' set.seed(245)
 #' mn <- rep(c(1, 2^(1:4)), each=5)
@@ -57,9 +57,9 @@
 #'
 #' fit <- aov(x ~ g)
 #' shapiro.test(residuals(fit))
-#' bartlett.test(x ~ g) # var1 != varN
+#' bartlett.test(x ~ g)
 #' anova(fit)
-#' summary(welchManyOneTTest(x, g, alternative = "greater", p.adjust="holm"))
+#' summary(welchManyOneTTest(fit, alternative = "greater", p.adjust="holm"))
 #'
 #' @seealso
 #' \code{\link[stats]{pairwise.t.test}}, \code{\link[stats]{t.test}},
@@ -74,7 +74,7 @@ welchManyOneTTest <- function(x, ...)
 #' @rdname welchManyOneTTest
 #' @method welchManyOneTTest default
 #' @aliases welchManyOneTTest.default
-#' @template one-way-parms
+#' @template one-way-parms-aov
 #' @param alternative the alternative hypothesis.
 #' Defaults to \code{two.sided}.
 #' @param p.adjust.method  method for adjusting p values
@@ -213,3 +213,26 @@ welchManyOneTTest.formula <-
     y$data.name <- DNAME
     y
   }
+
+##
+#' @rdname welchManyOneTTest
+#' @aliases welchManyOneTTest.aov
+#' @method welchManyOneTTest aov
+# @param obj A fitted model object, usually an \link[stats]{aov} fit.
+#' @export
+welchManyOneTTest.aov <- function(x,
+                            alternative = c("two.sided", "greater", "less"),
+                            p.adjust.method = p.adjust.methods,
+                            ...) {
+  model <- x$model
+  DNAME <- paste(names(model), collapse = " by ")
+  names(model) <- c("x", "g")
+  alternative <- match.arg(alternative)
+  p.adjust.method <- match.arg(p.adjust.method)
+  parms <- c(as.list(model), list(alternative = alternative,
+                                  p.adjust.method = p.adjust.method))
+  y <- do.call("welchManyOneTTest", parms)
+  y$data.name <- DNAME
+  y
+}
+

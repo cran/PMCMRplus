@@ -1,7 +1,7 @@
 ## scheffeTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -43,29 +43,27 @@
 #'
 #'  Scheffe, H. (1953) A Method for Judging all Contrasts in the Analysis
 #'  of Variance, \emph{Biometrika} \bold{40}, 87--110.
-#' @concept AllPairsComparison
+#'
 #' @keywords htest
 #' @seealso
 #' \code{\link{FDist}}, \code{\link{tukeyTest}}
 #' @examples
-#' set.seed(245)
-#' mn <- rep(c(1, 2^(1:4)), each=5)
-#' sd <- rep(1, 25)
-#' x <- mn + rnorm(25, sd = sd)
-#' g <- factor(rep(1:5, each=5))
-#'
-#' fit <- aov(x ~ g)
+#' fit <- aov(weight ~ feed, chickwts)
 #' shapiro.test(residuals(fit))
-#' bartlett.test(x ~ g) # var1 = varN
+#' bartlett.test(weight ~ feed, chickwts)
 #' anova(fit)
-#' summary(scheffeTest(x, g))
+#'
+#' ## also works with fitted objects of class aov
+#' res <- scheffeTest(fit)
+#' summary(res)
+#' summaryGroup(res)
 #' @export
 scheffeTest <- function(x, ...) UseMethod("scheffeTest")
 
 #' @rdname scheffeTest
 #' @aliases scheffeTest.default
 #' @method scheffeTest default
-#' @template one-way-parms
+#' @template one-way-parms-aov
 #' @importFrom stats complete.cases
 #' @importFrom stats var
 #' @importFrom stats pf
@@ -152,6 +150,20 @@ function(formula, data, subset, na.action, ...)
     DNAME <- paste(names(mf), collapse = " by ")
     names(mf) <- NULL
     y <- do.call("scheffeTest", c(as.list(mf)))
+    y$data.name <- DNAME
+    y
+}
+
+#' @rdname scheffeTest
+#' @aliases scheffeTest.aov
+#' @method scheffeTest aov
+# @param x A fitted model object, usually an \link[stats]{aov} fit.
+#' @export
+scheffeTest.aov <- function(x, ...) {
+    model <- x$model
+    DNAME <- paste(names(model), collapse = " by ")
+    names(model) <- c("x", "g")
+    y <- do.call("scheffeTest", as.list(model))
     y$data.name <- DNAME
     y
 }

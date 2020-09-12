@@ -79,7 +79,7 @@ Regression in Two Independent Variables, \emph{Appl. Statist.}
 \bold{34}, 352--357.
 
  The Algorith AS 206 is available from StatLib
-\url{http://lib.stat.cmu.edu/apstat}. The Royal Statistical Society
+\url{http://lib.stat.cmu.edu/apstat/}. The Royal Statistical Society
 holds the copyright to these routines,
 but has given its permission for their distribution provided that
 no fee is charged.
@@ -124,7 +124,6 @@ Chacko, V. J. (1963) Testing homogeneity against ordered alternatives,
 of the package \pkg{PMCMRplus},
 \code{\link[stats]{kruskal.test}} of the library \pkg{stats}.
 }
-\concept{ordered-alternatives}
-\concept{trend-test}
+\concept{trendtest}
 \keyword{htest}
 \keyword{nonparametric}

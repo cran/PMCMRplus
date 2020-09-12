@@ -112,7 +112,6 @@ Siegel, S., Castellan Jr., N. J. (1988) \emph{Nonparametric Statistics
 \code{\link{kruskalTest}},
 \code{\link{kwAllPairsConoverTest}}, \code{\link{kwAllPairsNemenyiTest}}
 }
-\concept{AllPairsComparisonTest}
-\concept{RankANOVA}
+\concept{kruskalranks}
 \keyword{htest}
 \keyword{nonparametric}

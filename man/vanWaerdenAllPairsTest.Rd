@@ -97,7 +97,6 @@ problem and their power, \emph{Indagationes Mathematicae} \bold{14}, 453--458.
 \code{\link{vanWaerdenTest}}, \code{\link{vanWaerdenManyOneTest}},
 \code{\link[SuppDists]{normOrder}}.
 }
-\concept{AllPairsComparison}
-\concept{NormalScores}
+\concept{normalscores}
 \keyword{htest}
 \keyword{nonparametric}

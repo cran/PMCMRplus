@@ -103,8 +103,6 @@ Eisinga, R., Heskes, T., Pelzer, B., Te Grotenhuis, M. (2017)
 \code{\link{friedmanTest}}, \code{\link[stats]{friedman.test}},
 \code{\link{frdManyOneDemsarTest}}, \code{\link{frdManyOneNemenyiTest}}.
 }
-\concept{FriedmanTest}
-\concept{ManyToOne}
-\concept{Rank}
+\concept{friedmanranks}
 \keyword{htest}
 \keyword{nonparametric}

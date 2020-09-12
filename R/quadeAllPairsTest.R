@@ -81,8 +81,7 @@
 #' quadeAllPairsTest(y, dist="TDist", p.adjust.method="holm")
 #'
 #' @keywords htest nonparametric
-#' @concept AllPairsComparison
-#' @concept TwoWayRankAnova
+#'
 #' @seealso
 #' \code{\link{quade.test}}, \code{\link{friedmanTest}}
 #' @export

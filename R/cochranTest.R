@@ -37,7 +37,7 @@
 #' @seealso
 #' \code{\link[stats]{bartlett.test}}, \code{\link[stats]{fligner.test}}.
 #' @keywords htest
-#' @concept outlier
+#' @concept outliers
 #'
 #' @examples
 #' data(Pentosan)

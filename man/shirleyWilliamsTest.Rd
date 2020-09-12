@@ -169,7 +169,6 @@ several dose levels with a zero-dose control, \emph{Biometrics} \bold{42}, 183--
 \seealso{
 \code{\link{williamsTest}}
 }
-\concept{DoseFinding}
-\concept{StepDownTrendTest}
+\concept{trendtest}
 \keyword{htest}
 \keyword{nonparametric}

@@ -48,17 +48,18 @@
 #' shapiro.test(residuals(fit))
 #' bartlett.test(x ~ g - 1)
 #' anova(fit)
-#' summary(tamhaneDunnettTest(x, g, alternative = "greater"))
+#' ## works with object of class aov
+#' summary(tamhaneDunnettTest(fit, alternative = "greater"))
 #'
 #' @keywords htest
-#' @concept ManyOneComparisons
+#'
 #' @export
 tamhaneDunnettTest <- function(x, ...) UseMethod("tamhaneDunnettTest")
 
 #' @rdname tamhaneDunnettTest
 #' @aliases tamhaneDunnettTest.default
 #' @method tamhaneDunnettTest default
-#' @template one-way-parms
+#' @template one-way-parms-aov
 #' @param alternative the alternative hypothesis.
 #' Defaults to \code{"two.sided"}.
 #' @importFrom mvtnorm pmvt
@@ -226,6 +227,22 @@ function(formula, data, subset, na.action, alternative = c("two.sided", "greater
     alternative <- match.arg(alternative)
     names(mf) <- NULL
     y <- do.call("tamhaneDunnettTest", c(as.list(mf), alternative = alternative))
+    y$data.name <- DNAME
+    y
+}
+
+#' @rdname tamhaneDunnettTest
+#' @aliases tamhaneDunnettTest.aov
+#' @method tamhaneDunnettTest aov
+# @param obj A fitted model object, usually an \link[stats]{aov} fit.
+#' @export
+tamhaneDunnettTest.aov <- function(x, alternative = c("two.sided", "greater", "less"), ...) {
+    model <- x$model
+    DNAME <- paste(names(model), collapse = " by ")
+    names(model) <- c("x", "g")
+    alternative <- match.arg(alternative)
+    parms <- c(as.list(model), list(alternative = alternative))
+    y <- do.call("tamhaneDunnettTest", parms)
     y$data.name <- DNAME
     y
 }

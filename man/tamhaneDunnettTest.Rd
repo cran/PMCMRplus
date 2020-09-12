@@ -4,6 +4,7 @@
 \alias{tamhaneDunnettTest}
 \alias{tamhaneDunnettTest.default}
 \alias{tamhaneDunnettTest.formula}
+\alias{tamhaneDunnettTest.aov}
 \title{Tamhane-Dunnett Many-to-One Comparison Test}
 \usage{
 tamhaneDunnettTest(x, ...)
@@ -18,10 +19,12 @@ tamhaneDunnettTest(x, ...)
   alternative = c("two.sided", "greater", "less"),
   ...
 )
+
+\method{tamhaneDunnettTest}{aov}(x, alternative = c("two.sided", "greater", "less"), ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data
-vectors.}
+\item{x}{a numeric vector of data values, a list of numeric data
+vectors or a fitted model object, usually an \link[stats]{aov} fit.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
@@ -85,7 +88,8 @@ fit <- aov(x ~ g - 1)
 shapiro.test(residuals(fit))
 bartlett.test(x ~ g - 1)
 anova(fit)
-summary(tamhaneDunnettTest(x, g, alternative = "greater"))
+## works with object of class aov
+summary(tamhaneDunnettTest(fit, alternative = "greater"))
 
 }
 \references{
@@ -96,5 +100,5 @@ OECD (ed. 2006) \emph{Current approaches in the statistical analysis
 \seealso{
 \code{\link[mvtnorm]{pmvt}}, \code{\link{welchManyOneTTest}}
 }
-\concept{ManyOneComparisons}
+\concept{parametric}
 \keyword{htest}

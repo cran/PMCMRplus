@@ -40,7 +40,7 @@
 # Multiple comparison procedures for detecting differences
 # in simply ordered means. \emph{Comput. Statist. Data Anal.} 48, 291--306.
 #' @keywords htest
-#' @concept AllPairsComparison
+#' @concept parametric
 #' @importFrom stats ptukey
 #' @examples
 #' MTest(weight ~ group, data = PlantGrowth)

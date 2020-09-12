@@ -4,6 +4,7 @@
 \alias{dunnettT3Test}
 \alias{dunnettT3Test.default}
 \alias{dunnettT3Test.formula}
+\alias{dunnettT3Test.aov}
 \title{Dunnett's T3 Test}
 \usage{
 dunnettT3Test(x, ...)
@@ -11,10 +12,12 @@ dunnettT3Test(x, ...)
 \method{dunnettT3Test}{default}(x, g, ...)
 
 \method{dunnettT3Test}{formula}(formula, data, subset, na.action, ...)
+
+\method{dunnettT3Test}{aov}(x, ...)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data
-vectors.}
+\item{x}{a numeric vector of data values, a list of numeric data
+vectors or a fitted model object, usually an \link[stats]{aov} fit.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
@@ -71,17 +74,15 @@ with \eqn{\rho = 0}. The function \code{\link[mvtnorm]{pmvt}} is used to
 calculate the \eqn{p}-values.
 }
 \examples{
-set.seed(245)
-mn <- rep(c(1, 2^(1:4)), each=5)
-sd <- rep(1:5, each=5)
-x <- mn + rnorm(25, sd = sd)
-g <- factor(rep(1:5, each=5))
-
-fit <- aov(x ~ g)
+fit <- aov(weight ~ feed, chickwts)
 shapiro.test(residuals(fit))
-bartlett.test(x ~ g) # var1 != varN
+bartlett.test(weight ~ feed, chickwts)
 anova(fit)
-summary(dunnettT3Test(x, g))
+
+## also works with fitted objects of class aov
+res <- dunnettT3Test(fit)
+summary(res)
+summaryGroup(res)
 
 }
 \references{
@@ -92,5 +93,5 @@ C. W. Dunnett (1980) Pair wise multiple comparisons in the unequal
 \seealso{
 \code{\link[mvtnorm]{pmvt}}
 }
-\concept{allPairsComparisons}
+\concept{parametric}
 \keyword{htest}

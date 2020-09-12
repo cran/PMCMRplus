@@ -4,6 +4,7 @@
 \alias{welchManyOneTTest}
 \alias{welchManyOneTTest.default}
 \alias{welchManyOneTTest.formula}
+\alias{welchManyOneTTest.aov}
 \title{Welchs's Many-To-One Comparison Test}
 \usage{
 welchManyOneTTest(x, ...)
@@ -25,10 +26,17 @@ welchManyOneTTest(x, ...)
   p.adjust.method = p.adjust.methods,
   ...
 )
+
+\method{welchManyOneTTest}{aov}(
+  x,
+  alternative = c("two.sided", "greater", "less"),
+  p.adjust.method = p.adjust.methods,
+  ...
+)
 }
 \arguments{
-\item{x}{a numeric vector of data values, or a list of numeric data
-vectors.}
+\item{x}{a numeric vector of data values, a list of numeric data
+vectors or a fitted model object, usually an \link[stats]{aov} fit.}
 
 \item{\dots}{further arguments to be passed to or from methods.}
 
@@ -99,9 +107,9 @@ g <- factor(rep(1:5, each=5))
 
 fit <- aov(x ~ g)
 shapiro.test(residuals(fit))
-bartlett.test(x ~ g) # var1 != varN
+bartlett.test(x ~ g)
 anova(fit)
-summary(welchManyOneTTest(x, g, alternative = "greater", p.adjust="holm"))
+summary(welchManyOneTTest(fit, alternative = "greater", p.adjust="holm"))
 
 }
 \references{
@@ -116,5 +124,5 @@ Welch, B. L. (1947) The generalization of "Student's" problem
 \code{\link[stats]{pairwise.t.test}}, \code{\link[stats]{t.test}},
 \code{\link[stats]{p.adjust}}, \code{\link{tamhaneDunnettTest}}
 }
-\concept{ManyToOneComparisons}
+\concept{parametric}
 \keyword{htest}

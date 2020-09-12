@@ -40,8 +40,6 @@
 #' pageTest(reviewers, alternative = "greater")
 #'
 #' @keywords htest nonparametric
-#' @concept OrderedAlternative
-#' @concept TwoWayRankAnova
 #'
 #' @seealso
 #' \code{\link{friedmanTest}}

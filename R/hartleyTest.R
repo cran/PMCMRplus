@@ -53,7 +53,7 @@
 #'
 #' @template class-htest
 #'
-#' @keywords htest
+#' @concept parametric
 #' @examples
 #' hartleyTest(count ~ spray, data = InsectSprays)
 #'

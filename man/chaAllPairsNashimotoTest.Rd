@@ -112,7 +112,5 @@ for detecting differences in simply ordered means.
 \seealso{
 \code{\link{Tukey}}, \code{\link{Normal}}, \code{\link{chackoTest}}
 }
-\concept{AllPairsComparisons}
-\concept{OrderedAlternatives}
 \keyword{htest}
 \keyword{nonparametric}

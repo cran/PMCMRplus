@@ -14,4 +14,4 @@
 \description{
 Summarize an object of class \emph{gesdTest}.
 }
-\keyword{models}
+\keyword{methods}

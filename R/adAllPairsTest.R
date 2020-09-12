@@ -36,7 +36,7 @@
 #' @name adAllPairsTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
-#' @concept AllPairsComparison
+#'
 #' @references
 #' Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
 #' \emph{Journal of the American Statistical Association} \bold{82}, 918--924.

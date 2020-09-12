@@ -136,8 +136,6 @@ Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 \code{\link{frdAllPairsExactTest}}, \code{\link{frdAllPairsConoverTest}},
 \code{\link{frdAllPairsMillerTest}}, \code{\link{frdAllPairsSiegelTest}}
 }
-\concept{AllPairs}
-\concept{Friedman}
-\concept{Rank}
+\concept{friedmanranks}
 \keyword{htest}
 \keyword{nonparametric}

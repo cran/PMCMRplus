@@ -114,7 +114,6 @@ Lederle Laboratories.
 \code{\link[stats]{p.adjust}}, \code{\link{kruskalTest}},
 \code{\link{kwAllPairsDunnTest}}, \code{\link{kwAllPairsConoverTest}}
 }
-\concept{AllPairsComparisonTest}
-\concept{RankANOVA}
+\concept{kruskalranks}
 \keyword{htest}
 \keyword{nonparametric}

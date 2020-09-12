@@ -1,7 +1,7 @@
 ##  durbinAllPairsTest.R
 ##  Part of the R package PMCMRplus
 ##
-##  Copyright (C) 2015-2018 Thorsten Pohlert
+##  Copyright (C) 2015-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -56,7 +56,9 @@
 #'  3, NA,  2,  1, NA, NA, NA, NA,  3, NA,  2,  2),
 #' ncol=7, nrow=7, byrow=FALSE, dimnames=list(1:7, LETTERS[1:7]))
 #' durbinAllPairsTest(y)
-#' @keywords htest nonparametric
+#' @keywords htest
+#' @keywords nonparametric
+#' @concept friedmanranks
 #' @template class-PMCMR
 #' @seealso
 #' \code{\link{durbinTest}}
