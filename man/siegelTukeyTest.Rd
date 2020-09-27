@@ -70,7 +70,7 @@ Performs Siegel-Tukey non-parametric
 rank dispersion test.
 }
 \details{
-Let \eqn{x} and \eqn{y} denote two identically and indepentently
+Let \eqn{x} and \eqn{y} denote two identically and independently
 distributed variables of at least ordinal scale.
  Further, let
  \eqn{\theta}{theta}, and \eqn{\lambda}{lambda} denote

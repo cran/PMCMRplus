@@ -1,4 +1,4 @@
-74f66732886b682572025ae4e773ee31 *DESCRIPTION
+da494c4910dfdb81179bd562d99014d7 *DESCRIPTION
 ae6f1e6c5e89037db418a6abd45efd9b *NAMESPACE
 29e84db3586808c8345b39f53d463ba5 *R/Cochran.R
 54c8b7be2753771f994726c8ae1b625b *R/Dgrubbs.R
@@ -49,7 +49,7 @@ ac84f8f2d90aad0ed042595de2187191 *R/kwAllPairsDunnTest.R
 f7fdb697954045c211b8a8f65d9ee58e *R/kwAllPairsNemenyiTest.R
 147f3cee6be9355aaeccf425f3af562b *R/kwManyOneConoverTest.R
 0216c08989b250d81cbb5a4080b2db74 *R/kwManyOneDunnTest.R
-3d7639e8417e12c2de45d8c94c9121d8 *R/kwManyOneNdwTest.R
+229ae0cfb633d2bca9a6fe79269b31c4 *R/kwManyOneNdwTest.R
 51648c07e9094bca520027d165ace2f1 *R/leTest.R
 0f3a313a6b5372d2ed8e45615c9bb87e *R/lsdTest.R
 0b0b07fe3b401f821d22a313b35dd7f4 *R/mackWolfeTest.R
@@ -80,7 +80,7 @@ c792480b7dbb0727f6d10b2aabb035d7 *R/quadeAllPairsTest.R
 df8d8779e14babf7ef3e7b9b3a64d09d *R/reviewers.R
 0164bd691f289e55fa9c596ec6bb22f3 *R/scheffeTest.R
 0179c87c6024aa29886fa4bcc549da69 *R/shirleyWilliamsTest.R
-a4f47ef0fdb8c48444dded3bae65ed64 *R/siegelTukeyTest.R
+eea8798cf5856c581ad62e491c87a66d *R/siegelTukeyTest.R
 00d7ff8c7a86c14bbc44340a375bfb63 *R/skillingsMackTest.R
 a95c213ec5add17ec16378da76bc499d *R/snkTest.R
 633621b09e377bc25feba07890e586ae *R/spearmanTest.R
@@ -107,9 +107,9 @@ f1ce46786a3da630f1f86f59e95fb256 *demo/00Index
 05e28484e29851765b5c8917249f45bb *demo/algae.R
 9a4bc5ccc84eaa9bdbae5086c8455887 *demo/frdmcp.R
 d4c5efd9f9a335293b27bb0549fdbd3e *demo/trout.R
-d6401779c3de761ed7c79020f49f6f52 *inst/NEWS.Rd
+d4873923d973dbcd78b05b8a4618095a *inst/NEWS.Rd
 19e65df33140926516e388beda03a7c7 *inst/doc/QuickReferenceGuide.Rmd
-3d8aef1c5f20fc2189b4125bfe3843ed *inst/doc/QuickReferenceGuide.html
+ff6343b848985c9adeac0b7a416e283d *inst/doc/QuickReferenceGuide.html
 c70a187abf0631291b882969b863e9ea *man/Cochran.Rd
 1baf36d3947016cc0beac9022d06ac66 *man/Dgrubbs.Rd
 be63b3762b178adccb905faac10958b1 *man/GSTTest.Rd
@@ -189,7 +189,7 @@ a7124c49f792c6e6f66a794d410b42d9 *man/qPCR.Rd
 4817e54adc457768b0b276972d1d0350 *man/reviewers.Rd
 b68e5fa976cdb723029e4dbad90afd78 *man/scheffeTest.Rd
 22e651e9e8297aecfd217502b3b11c4c *man/shirleyWilliamsTest.Rd
-24e6ba1946332416b823a0df91d9a1b3 *man/siegelTukeyTest.Rd
+af11c6f64949a903dad138fe8209dd30 *man/siegelTukeyTest.Rd
 6de8aeeb4aae3b2bb81d20d6fb41f7a7 *man/skillingsMackTest.Rd
 7563c2e71c1511e2402e7ebdb9ac2ea6 *man/snkTest.Rd
 922653f1733bad922623d6d0224e2131 *man/spearmanTest.Rd

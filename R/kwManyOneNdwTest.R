@@ -1,7 +1,7 @@
 ## kwManyOneNdwTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -146,7 +146,9 @@ kwManyOneNdwTest.default <-
 
         compare.stats <- function(i) {
 		# Control is in first element
-            dif <- abs(R.bar[i] - R.bar[1])
+            ## try without abs
+            dif <- R.bar[i] - R.bar[1]
+            #dif <- abs(R.bar[i] - R.bar[1])
             qval <- dif / sqrt((n * (n + 1) / 12) * (1/R.n[i] + 1/R.n[1] ))
             return(qval)
         }

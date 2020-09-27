@@ -1,6 +1,13 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.5.1 (2020-09-26)}{
+ \subsection{BUGFIX}{
+  \itemize{
+    \item \code{kwManyOneNdwTest} was corrected for directed hypothesis testing.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.5.0 (2020-09-09)}{
  \subsection{NEW FEATURES}{
   \itemize{
