@@ -114,6 +114,9 @@ spearmanTest(x, g)
 ## Murakami's BWS trend test
 bwsTrendTest(x, g)
 
+## Fligner-Wolfe test
+flignerWolfeTest(x, g)
+
 }
 \references{
 Chacko, V. J. (1963) Testing homogeneity against ordered alternatives,

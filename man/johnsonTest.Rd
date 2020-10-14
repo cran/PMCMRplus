@@ -100,6 +100,9 @@ spearmanTest(x, g)
 ## Murakami's BWS trend test
 bwsTrendTest(x, g)
 
+## Fligner-Wolfe test
+flignerWolfeTest(x, g)
+
 }
 \references{
 Bortz, J. (1993). \emph{Statistik für Sozialwissenschaftler} (4th ed.).

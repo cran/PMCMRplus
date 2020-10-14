@@ -1,6 +1,13 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.6.0 (2020-10-13)}{
+ \subsection{NEW FEATURES}{
+  \itemize{
+    \item The Fligner-Wolfe test was implemented in function \code{flignerWolfeTest}.
+    }
+  }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.5.1 (2020-09-26)}{
  \subsection{BUGFIX}{
   \itemize{

@@ -99,6 +99,9 @@ spearmanTest(x, g)
 ## Murakami's BWS trend test
 bwsTrendTest(x, g)
 
+## Fligner-Wolfe test
+flignerWolfeTest(x, g)
+
 }
 \references{
 Kloke, J., McKean, J. W. (2015) \emph{Nonparametric statistical methods using R}.

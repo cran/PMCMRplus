@@ -99,6 +99,9 @@ spearmanTest(x, g)
 ## Murakami's BWS trend test
 bwsTrendTest(x, g)
 
+## Fligner-Wolfe test
+flignerWolfeTest(x, g)
+
 }
 \references{
 Le, C. T. (1988) A new rank test against ordered alternatives

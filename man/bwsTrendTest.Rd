@@ -100,6 +100,9 @@ spearmanTest(x, g)
 ## Murakami's BWS trend test
 bwsTrendTest(x, g)
 
+## Fligner-Wolfe test
+flignerWolfeTest(x, g)
+
 }
 \references{
 Baumgartner, W., Weiss, P., Schindler, H. (1998) A nonparametric test for the

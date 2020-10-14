@@ -1,5 +1,5 @@
-da494c4910dfdb81179bd562d99014d7 *DESCRIPTION
-ae6f1e6c5e89037db418a6abd45efd9b *NAMESPACE
+94a4a629ca941265a020bba33c876880 *DESCRIPTION
+f8ee15f69a627e467f6501ccad42f98a *NAMESPACE
 29e84db3586808c8345b39f53d463ba5 *R/Cochran.R
 54c8b7be2753771f994726c8ae1b625b *R/Dgrubbs.R
 2d761fdfdb6ea746d46c7d98f179785f *R/GSTTest.R
@@ -26,6 +26,7 @@ c1e2f61b35dc302694417cca7bb09ccf *R/doubleGrubbsTest.R
 d41ad18e08d50a907d475090bd6c91e6 *R/dunnettTest.R
 0bc677dadc82ef7b83094ea916caebc7 *R/durbinAllPairsTest.R
 4e4b89754805b6bad20b50fb2a28fdd5 *R/durbinTest.R
+ff2ca6c6d8796fb32eea12880b36bfd3 *R/flignerWolfeTest.R
 3eb633447e0388dc76277bee1c0942db *R/frdAllPairsConoverTest.R
 34ff9b7470803c8d0feacc7ce073c87a *R/frdAllPairsExactTest.R
 27ccbb74641afa2785280abcde20793e *R/frdAllPairsMillerTest.R
@@ -97,7 +98,7 @@ a93c500785e779d86c77db0975dfb2db *R/vanWaerdenTest.R
 9b95f473f6d969dad746cca51db5c2ba *R/welchManyOneTTest.R
 b866a3c91cc4eb16aa27a83962b1777d *R/williamsTest.R
 05eb918929f4444c9f3ea43d41ef9041 *README.md
-895a5e32f7a6f892a9e55efe65141b6b *build/vignette.rds
+b523d781b3d83bb26190fbce53b99d54 *build/vignette.rds
 183dbbfcd516f7a24d8cd5c415956520 *data/Pentosan.rda
 9ed0d79ed95075dcb9c28a59c80f47f0 *data/algae.rda
 f7e757ddd26a6f8f7aca068f3feba5a0 *data/qPCR.rda
@@ -107,9 +108,9 @@ f1ce46786a3da630f1f86f59e95fb256 *demo/00Index
 05e28484e29851765b5c8917249f45bb *demo/algae.R
 9a4bc5ccc84eaa9bdbae5086c8455887 *demo/frdmcp.R
 d4c5efd9f9a335293b27bb0549fdbd3e *demo/trout.R
-d4873923d973dbcd78b05b8a4618095a *inst/NEWS.Rd
+46ff0c05a7d16af9a81113ff90080411 *inst/NEWS.Rd
 19e65df33140926516e388beda03a7c7 *inst/doc/QuickReferenceGuide.Rmd
-ff6343b848985c9adeac0b7a416e283d *inst/doc/QuickReferenceGuide.html
+30497c2b03c1a1e5d8523da6be7dcbde *inst/doc/QuickReferenceGuide.html
 c70a187abf0631291b882969b863e9ea *man/Cochran.Rd
 1baf36d3947016cc0beac9022d06ac66 *man/Dgrubbs.Rd
 be63b3762b178adccb905faac10958b1 *man/GSTTest.Rd
@@ -127,11 +128,11 @@ be258b925acf23de557b25d2061b035d *man/adKSampleTest.Rd
 3f0bc9111a79a2609be8f4c61be567a1 *man/bwsAllPairsTest.Rd
 a812a1afc5a2df74c10c0b294c818d7b *man/bwsKSampleTest.Rd
 10494bd84241a71f2cfac23268c334e7 *man/bwsManyOneTest.Rd
-ff4c65c77c985a7d93f1ad65070f526f *man/bwsTrendTest.Rd
+21a8579494fb69cc7977e8130900141d *man/bwsTrendTest.Rd
 8518a36a06b5eff96968a26d6512ce5c *man/chaAllPairsNashimotoTest.Rd
-721a212cfcb08b2abad0fa78061e0db2 *man/chackoTest.Rd
+01add6ab106ec45ea96189cdc7666459 *man/chackoTest.Rd
 52bfdda7158a32337060783b3dd3e325 *man/cochranTest.Rd
-6e69b6fbf12a2b008b0a3c66711317da *man/cuzickTest.Rd
+2643a53d8e8363b48a681061e46594c3 *man/cuzickTest.Rd
 7327c2217a7eaa3ce2177fc7d68c0d5d *man/doubleGrubbsTest.Rd
 cb9d2a914d3e72764fd9c7a85b8c48cc *man/dscfAllPairsTest.Rd
 27f40967de5b829ed2f028c454c66b16 *man/duncanTest.Rd
@@ -139,6 +140,7 @@ f3988b733313ca97599d1d570d5f6f91 *man/dunnettT3Test.Rd
 92416bbe3e4164f054bbc7f1392d2bd6 *man/dunnettTest.Rd
 7bcf44ffc5d413adb56e1aee9fbf2afb *man/durbinAllPairsTest.Rd
 08451dbea46095eaf2c942948c099ab6 *man/durbinTest.Rd
+666ae1d5edc335210ec5bff9b5245d10 *man/flignerWolfeTest.Rd
 64f65911a0c873553e06a169287480b6 *man/frdAllPairsConoverTest.Rd
 626f419e5af23e537e39560e6b140df0 *man/frdAllPairsExactTest.Rd
 cb49829edc589a6d2239bded6bc5f70b *man/frdAllPairsMillerTest.Rd
@@ -153,8 +155,8 @@ fe0813b3e58776b847fa40b238eefd1e *man/gesdTest.Rd
 94133937e75ede5bb34718fafb708885 *man/goreTest.Rd
 4e8cced06f3a308c8357eaf4a89bf2fa *man/grubbsTest.Rd
 6f781aae4dd247e76b4e1621be042616 *man/hartleyTest.Rd
-c2222df092b8a21e1f4573acaf0e0f50 *man/johnsonTest.Rd
-c4acf418419383da457d0d50e3de6712 *man/jonckheereTest.Rd
+5853bb60a101bc39bde1f1635701c509 *man/johnsonTest.Rd
+fb90ecee511a2b1701b33647ef50d276 *man/jonckheereTest.Rd
 1d72ed658b2fb8e21251a62d346b9f5e *man/kruskalTest.Rd
 b43e1f83d05d81b96775d5d12905920d *man/kwAllPairsConoverTest.Rd
 a3eb977645346bee04bfc8ebdeca7332 *man/kwAllPairsDunnTest.Rd
@@ -162,7 +164,7 @@ ea05e309167abc223286cfa850daccfd *man/kwAllPairsNemenyiTest.Rd
 e36a81c63767613eda5be5d573813db1 *man/kwManyOneConoverTest.Rd
 b44e132000d296b0934b8170b6be2e49 *man/kwManyOneDunnTest.Rd
 cc99346fcbd73a5f33ec4cc82312b632 *man/kwManyOneNdwTest.Rd
-73004618e1f7e4a0bb3b7e4e44b8487c *man/leTest.Rd
+4648a05d6a0a54388ea43ea064700a56 *man/leTest.Rd
 51755d2a32d37fd522add02f50b86d71 *man/lsdTest.Rd
 af4d62df797e46b9d29c1151440f99a0 *man/mackWolfeTest.Rd
 04067fcb71457ae28954ee417da90b52 *man/mandelhTest.Rd
@@ -192,7 +194,7 @@ b68e5fa976cdb723029e4dbad90afd78 *man/scheffeTest.Rd
 af11c6f64949a903dad138fe8209dd30 *man/siegelTukeyTest.Rd
 6de8aeeb4aae3b2bb81d20d6fb41f7a7 *man/skillingsMackTest.Rd
 7563c2e71c1511e2402e7ebdb9ac2ea6 *man/snkTest.Rd
-922653f1733bad922623d6d0224e2131 *man/spearmanTest.Rd
+a9a2a0b0a87255e53ddb003a93fb3f28 *man/spearmanTest.Rd
 e1d05e48f0ed66de03922042695aab16 *man/steelTest.Rd
 6159a2dc23f83d87fae8817793298c09 *man/summary.PMCMR.Rd
 7522358ec023d6459e4cd99310d7558b *man/summary.gesdTest.Rd

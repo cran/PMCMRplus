@@ -113,6 +113,9 @@ spearmanTest(x, g)
 ## Murakami's BWS trend test
 bwsTrendTest(x, g)
 
+## Fligner-Wolfe test
+flignerWolfeTest(x, g)
+
 }
 \references{
 Cuzick, J. (1995) A Wilcoxon-type test for trend, \emph{Statistics in Medicine}
