@@ -62,19 +62,8 @@
 #' condition is not met, \eqn{1 \le n_0 / n_i \le 6} for \eqn{1 \le i \le m}.
 #'
 #' @return
-#' A list with class \code{"williamsTest"} containing the following components:
-#' \describe{
-#'  \item{method}{a character string indicating what type of test was performed.}
-#'  \item{data.name}{a character string giving the name(s) of the data.}
-#'  \item{statistic}{lower-triangle matrix of the estimated
-#' quantiles of the pairwise test statistics.}
-#'  \item{t.value}{lower-triangle matrix of the critical t\'-values for \eqn{\alpha = 0.05}.}
-#'  \item{df.residual}{the degree of freedom}
-#'  \item{alternative}{a character string describing the alternative hypothesis.}
-#' \item{model}{a data frame of the input data.}
-#' \item{dist}{a string that denotes the test distribution.}
-#' }
-#' There are print and summary methods available.
+#' A list with class \code{"osrt"} that contains the following components:
+#' @template returnOsrt
 #'
 #' @section Source:
 #' The source code for the application of the pool adjacent violators
@@ -99,8 +88,8 @@
 #' no fee is charged.
 #'
 #' @seealso
-#' \code{\link[stats]{TDist}}, \code{\link[stats]{approx}}, \code{\link{print.williams}},
-#' \code{\link{summary.williams}}
+#' \code{\link[stats]{TDist}}, \code{\link[stats]{approx}}, \code{\link{print.osrt}},
+#' \code{\link{summary.osrt}}
 #'
 #' @useDynLib 'PMCMRplus', .registration = TRUE, .fixes = "F_"
 #' @references
@@ -219,15 +208,15 @@ williamsTest.default <-
         mui[i] <- max(tmp, na.rm = TRUE)
       }
 
-      if (alternative == "greater") {
+#      if (alternative == "greater") {
       Tk <- sapply(2:k, function(i) {
         (mui[i] - xi[1]) / sqrt((s2in / ni[i] + s2in / ni[1]))
       })
-      } else {
-        Tk <- sapply(2:k, function(i) {
-          (xi[1] - mui[i] ) / sqrt((s2in / ni[i] + s2in / ni[1]))
-        })
-      }
+ #     } else {
+#        Tk <- sapply(2:k, function(i) {
+#          (xi[1] - mui[i] ) / sqrt((s2in / ni[i] + s2in / ni[1]))
+#        })
+#      }
 
     ## Extrapolation function, see Williams, 1972, p. 530
     extrapolFN <- function(Tki, beta, r, c) {
@@ -282,7 +271,7 @@ williamsTest.default <-
     Tkdf[1] <- qt(0.05, df = df, lower.tail = FALSE)
 
     ## Check alternative
-    Tkdf <- sapply(Tkdf, function(i) ifelse(alternative == "greater", i, -i))
+ #   Tkdf <- sapply(Tkdf, function(i) ifelse(alternative == "greater", i, -i))
 
     ## Create output matrices
     STAT <- cbind(ctr = Tk)
@@ -291,18 +280,22 @@ williamsTest.default <-
     STATCRIT <- cbind(ctr = Tkdf)
     row.names(STATCRIT) <- row.names(STAT)
 
+    parameter = c(df)
+    names(parameter) <- c("df")
+
     METHOD <- paste("Williams trend test")
     ans <- list(
       method = METHOD,
       data.name = DNAME,
-      t.value = STATCRIT,
+      crit.value = STATCRIT,
       statistic = STAT,
-      df.residual = df,
+      parameter = parameter,
       alternative = alternative,
-      dist = "t\'",
-      model = data.frame(x=xold, g = g)
+      dist = "t\'"
+    #  model = data.frame(x=xold, g = g)
     )
-    class(ans) <- "williams"
+    class(ans) <- "osrt"
+  #  class(ans) <- "williams"
     ans
   }
 

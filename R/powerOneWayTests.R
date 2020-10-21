@@ -1,7 +1,7 @@
 ## powerOneWayTests.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -148,7 +148,9 @@ powerOneWayTests <- function(mu,
                                   "adKSampleTest",
                                   "bwsKSampleTest",
                                   "bwsTrendTest",
-                                  "mackWolfeTest"),
+                                  "mackWolfeTest",
+                                  "chackoTest",
+                                  "flignerWolfeTest"),
                          alternative = c("two.sided", "greater", "less"),
                          var.equal = TRUE,
                          dist = NULL,

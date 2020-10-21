@@ -4,13 +4,20 @@
 \alias{osrtTest}
 \alias{osrtTest.default}
 \alias{osrtTest.formula}
-\title{One-Sided Studentised Range Test}
+\title{One-Sided Studentized Range Test}
 \usage{
 osrtTest(x, ...)
 
-\method{osrtTest}{default}(x, g, ...)
+\method{osrtTest}{default}(x, g, alternative = c("greater", "less"), ...)
 
-\method{osrtTest}{formula}(formula, data, subset, na.action, ...)
+\method{osrtTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  alternative = c("greater", "less"),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -21,6 +28,8 @@ vectors.}
 \item{g}{a vector or factor object giving the group for the
 corresponding elements of \code{"x"}.
 Ignored with a warning if \code{"x"} is a list.}
+
+\item{alternative}{the alternative hypothesis. Defaults to \code{greater}.}
 
 \item{formula}{a formula of the form \code{response ~ group} where
 \code{response} gives the data values and \code{group} a vector or
@@ -38,22 +47,56 @@ subset of observations to be used.}
 the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 }
 \value{
-A list with class \code{"htest"} containing the following components:
+A list with class \code{"osrt"} that contains the following components:
+
 \describe{
  \item{method}{a character string indicating what type of test was performed.}
  \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{the estimated quantile of the test statistic.}
- \item{p.value}{the p-value for the test.}
- \item{parameter}{the parameters of the test statistic, if any.}
+ \item{statistic}{the estimated statistic(s)}
+ \item{crit.value}{critical R-values for \eqn{\alpha = 0.05}.}
  \item{alternative}{a character string describing the alternative hypothesis.}
-\item{estimates}{the estimates, if any.}
-\item{null.value}{the estimate under the null hypothesis, if any.}
+ \item{parameter}{the parameter(s) of the test distribution.}
+\item{dist}{a string that denotes the test distribution.}
 }
+There are print and summary methods available.
 }
 \description{
-Performs Hayter's one-sided studentised range
+Performs Hayter's one-sided studentized range
 test against an ordered alternative for normal data
 with equal variances.
+}
+\details{
+Hayter's one-sided studentized range test (OSRT) can be used
+for testing several treatment levels with a zero control in a balanced
+one-factorial design with normally distributed variables that have a
+common variance. The null hypothesis, H: \eqn{\bar{x}_i = \bar{x}_j ~~ (i < j)}
+is tested against a simple order alternative, A: \eqn{\bar{x}_i < \bar{x}_j}, with at least
+one inequality being strict.
+
+The test statistic is calculated as,
+\deqn{
+ T = \max_{1 \le i < j \le k} \frac{\sqrt{n} \left(\bar{x}_j - \bar{x}_i \right)}{\sqrt{s_{\mathrm{in}}^2}},
+}{%
+SEE PDF.
+}
+
+with \eqn{k} the number of groups, \eqn{n = n_1, n_2, \ldots, n_k} and
+\eqn{s_{\mathrm{in}}^2} the within ANOVA variance. The null hypothesis
+is rejected, if \eqn{T > h_{k,\alpha,v}}, with \eqn{v = N - k}
+degree of freedom.
+
+The function does not return p-values. Instead the critical h-values
+as given in the tables of Hayter (1990) for \eqn{\alpha = 0.05} (one-sided)
+are looked up according to the number of groups (\eqn{k}) and
+the degree of freedoms (\eqn{v}).
+Non tabulated values are linearly interpolated with the function
+\code{\link[stats]{approx}}.
+}
+\note{
+Hayter (1990) has tabulated critical h-values for balanced designs only.
+For some unbalanced designs some \eqn{k = 3} critical h-values
+can be found in Hayter et al. 2001. The function gives a warning message,
+if the design is unbalanced.
 }
 \examples{
 osrtTest(weight ~ group, data = PlantGrowth)
@@ -63,5 +106,10 @@ Hayter, A. J.(1990) A One-Sided Studentised Range
 Test for Testing Against a Simple Ordered Alternative,
 \emph{Journal of the American Statistical Association}
 \bold{85}, 778--785.
+
+Hayter, A.J., Miwa, T., Liu, W. (2001)
+Efficient Directional Inference Methodologies for the
+Comparisons of Three Ordered Treatment Effects.
+\emph{J Japan Statist Soc} \bold{31}, 153–174.
 }
 \keyword{htest}

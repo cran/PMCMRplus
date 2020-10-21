@@ -1,6 +1,36 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.6.1 (2020-10-21)}{
+ \subsection{NEW FEATURES}{
+  \itemize{
+    \item The \code{flignerWolfeTest} and
+    \code{chackoTest} were implemented
+    in the function \code{powerOneWayTest}.
+    }
+  }
+ \subsection{BUGFIX}{
+   \itemize{
+     \item The functions \code{MTest} and \code{osrtTest} were
+     corrected in such a way, that estimated statistics are
+     compared with critical h-values from an internal look-up
+     table.
+     \item The function \code{chaAllPairsNashimotoTest} was corrected
+     for the NPM-test. p-values are now calculated from the
+     standard normal distribution.
+   }
+ }
+ \subsection{OTHER CHANGES}{
+   \itemize{
+     \item A new generic method \code{print.osrt} and
+     \code{summary.osrt} was coded for all functions that use
+     critical values for decisions, i.e. \code{osrtTest},
+     \code{MTest}, \code{steelTest}, \code{williamsTest} and
+     \code{shirleyWilliamsTest}. Other \code{print} and
+     \code{summary} methods were removed.
+   }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.6.0 (2020-10-13)}{
  \subsection{NEW FEATURES}{
   \itemize{

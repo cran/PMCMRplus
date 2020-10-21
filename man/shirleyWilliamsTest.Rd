@@ -62,20 +62,18 @@ subset of observations to be used.}
 the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 }
 \value{
-Either a list with class \code{"williamsTest"} or al list with class \code{"PMCMR"}.
+Either a list with class \code{"osrt"} or a list with class \code{"PMCMR"}.
 
-The list with class \code{"williamsTest"}.
 \describe{
  \item{method}{a character string indicating what type of test was performed.}
  \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
-quantiles of the pairwise test statistics.}
- \item{t.value}{lower-triangle matrix of the critical t\'-values for \eqn{\alpha = 0.05}.}
- \item{df.residual}{the degree of freedom}
+ \item{statistic}{the estimated statistic(s)}
+ \item{crit.value}{critical R-values for \eqn{\alpha = 0.05}.}
  \item{alternative}{a character string describing the alternative hypothesis.}
-\item{model}{a data frame of the input data.}
+ \item{parameter}{the parameter(s) of the test distribution.}
 \item{dist}{a string that denotes the test distribution.}
 }
+There are print and summary methods available.
 
 A list with class \code{"PMCMR"} containing the following components:
 \describe{

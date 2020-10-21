@@ -8,9 +8,16 @@
 \usage{
 MTest(x, ...)
 
-\method{MTest}{default}(x, g, ...)
+\method{MTest}{default}(x, g, alternative = c("greater", "less"), ...)
 
-\method{MTest}{formula}(formula, data, subset, na.action, ...)
+\method{MTest}{formula}(
+  formula,
+  data,
+  subset,
+  na.action,
+  alternative = c("greater", "less"),
+  ...
+)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -21,6 +28,8 @@ vectors.}
 \item{g}{a vector or factor object giving the group for the
 corresponding elements of \code{"x"}.
 Ignored with a warning if \code{"x"} is a list.}
+
+\item{alternative}{the alternative hypothesis. Defaults to \code{greater}.}
 
 \item{formula}{a formula of the form \code{response ~ group} where
 \code{response} gives the data values and \code{group} a vector or
@@ -38,6 +47,19 @@ subset of observations to be used.}
 the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 }
 \value{
+Either a list with class \code{"osrt"} or a list with class \code{"PMCMR"}.
+
+\describe{
+ \item{method}{a character string indicating what type of test was performed.}
+ \item{data.name}{a character string giving the name(s) of the data.}
+ \item{statistic}{the estimated statistic(s)}
+ \item{crit.value}{critical R-values for \eqn{\alpha = 0.05}.}
+ \item{alternative}{a character string describing the alternative hypothesis.}
+ \item{parameter}{the parameter(s) of the test distribution.}
+\item{dist}{a string that denotes the test distribution.}
+}
+There are print and summary methods available.
+
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
  \item{method}{a character string indicating what type of test was performed.}

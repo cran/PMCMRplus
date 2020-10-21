@@ -1,7 +1,7 @@
 ## MTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -32,13 +32,16 @@
 #' \eqn{\mathrm{H}_{ij}: \mu_i \ge \mu_j} against
 #' \eqn{\mathrm{A}_{ij}: \mu_i < \mu_j$ for any $1 \le i < j \le k}.
 #'
+#' @return
+#' Either a list with class \code{"osrt"} or a list with class \code{"PMCMR"}.
+#' @template returnOsrt
 #' @template class-PMCMR
 #'
-#' @inherit chaAllPairsNashimotoTest references
-# @references
-# Nashimoto, K., Wright, F.T. (2005),
-# Multiple comparison procedures for detecting differences
-# in simply ordered means. \emph{Comput. Statist. Data Anal.} 48, 291--306.
+#' @references
+#' Nashimoto, K., Wright, F.T., (2005) Multiple comparison procedures
+#' for detecting differences in simply ordered means.
+#' \emph{Comput. Statist. Data Anal.} \bold{48}, 291--306.
+#'
 #' @keywords htest
 #' @concept parametric
 #' @importFrom stats ptukey
@@ -50,13 +53,13 @@ MTest <- function(x, ...) UseMethod("MTest")
 #' @rdname MTest
 #' @aliases MTest.default
 #' @method MTest default
+#' @param alternative the alternative hypothesis. Defaults to \code{greater}.
 #' @template one-way-parms
-#' @importFrom stats ptukey
-#' @importFrom stats var
+#' @importFrom stats var approx
 #' @importFrom stats complete.cases
 #' @export
 MTest.default <-
-function(x, g, ...){
+function(x, g, alternative = c("greater", "less"),...){
         ## taken from stats::kruskal.test
 
     if (is.list(x)) {
@@ -87,15 +90,29 @@ function(x, g, ...){
             stop("all observations are in the same group")
     }
 
-    ## prepare tukey test
+    ## check alternative
+    alternative <- match.arg(alternative)
+    if (alternative == "less") {
+        x <- -x
+    }
+
+
+    ## prepare osrt test
     ni <- tapply(x, g, length)
     n <- sum(ni)
     xi <- tapply(x, g, mean)
     s2i <- tapply(x, g, var)
     df <- n - k
     s2in <- 1 / df * sum(s2i * (ni - 1))
-
     sigma <- sqrt(s2in)
+
+    n <- ni[1]
+    ## check for all equal
+    ok <- sapply(2:k, function(i) ni[i] == n)
+    if (!all(ok)) {
+        warning("Critical h-values are for balanced design only. Using n = Mean(ni).")
+        n <- round(mean(ni), 0)
+    }
 
     STAT <- matrix(NA, ncol=k-1, nrow=k-1)
     for (i in 1:(k-1)){
@@ -103,8 +120,7 @@ function(x, g, ...){
             u <- j
             m <- i:(u-1)
             tmp <- sapply(m, function(m) (xi[u] - xi[m]) /
-                                         (sigma / sqrt(2) *
-                                          sqrt(1 / ni[m] + 1 /ni[u])))
+                                         (sigma / sqrt(n)))
             STAT[j-1,i] <- max(tmp)
         }
     }
@@ -112,24 +128,25 @@ function(x, g, ...){
     colnames(STAT) <- levels(g)[1:(k-1)]
     rownames(STAT) <- levels(g)[2:k]
 
-    PVAL <- ptukey(STAT, nmeans = k, df = df, lower.tail=FALSE)
-
-    colnames(PVAL) <- colnames(STAT)
-    rownames(PVAL) <- rownames(STAT)
+    ## interpolate with aux function
+    hCrit <- approxHayter(k, df)
 
     METHOD <- "Nashimoto-Wright M-Test for ordered means \n\t\t of normal data with equal variance"
     MODEL <- data.frame(x, g)
-    DIST <- "q"
 
-    ans <- list(method = METHOD,
-                data.name = DNAME,
-                p.value = PVAL,
-                statistic = STAT,
-                p.adjust.method = "single-step",
-                model = MODEL,
-                dist = DIST,
-                alternative = "greater")
-    class(ans) <- "PMCMR"
+    parameter = c(k, df)
+    names(parameter) <- c("k", "df")
+
+    ans <- list(
+        method = METHOD,
+        data.name = DNAME,
+        crit.value = hCrit,
+        statistic = STAT,
+        parameter = parameter,
+        alternative = alternative,
+        dist = "h"
+    )
+    class(ans) <- "osrt"
     ans
 }
 
@@ -139,7 +156,7 @@ function(x, g, ...){
 #' @template one-way-formula
 #' @export
 MTest.formula <-
-function(formula, data, subset, na.action, ...)
+function(formula, data, subset, na.action, alternative = c("greater", "less"), ...)
 {
     mf <- match.call(expand.dots=FALSE)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
@@ -152,8 +169,9 @@ function(formula, data, subset, na.action, ...)
     if(length(mf) > 2L)
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")
+    alternative <- match.arg(alternative)
     names(mf) <- NULL
-    y <- do.call("MTest", c(as.list(mf)))
+    y <- do.call("MTest", c(as.list(mf), alternative = alternative))
     y$data.name <- DNAME
     y
 }

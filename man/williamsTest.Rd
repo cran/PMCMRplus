@@ -47,16 +47,15 @@ subset of observations to be used.}
 the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 }
 \value{
-A list with class \code{"williamsTest"} containing the following components:
+A list with class \code{"osrt"} that contains the following components:
+
 \describe{
  \item{method}{a character string indicating what type of test was performed.}
  \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
-quantiles of the pairwise test statistics.}
- \item{t.value}{lower-triangle matrix of the critical t\'-values for \eqn{\alpha = 0.05}.}
- \item{df.residual}{the degree of freedom}
+ \item{statistic}{the estimated statistic(s)}
+ \item{crit.value}{critical R-values for \eqn{\alpha = 0.05}.}
  \item{alternative}{a character string describing the alternative hypothesis.}
-\item{model}{a data frame of the input data.}
+ \item{parameter}{the parameter(s) of the test distribution.}
 \item{dist}{a string that denotes the test distribution.}
 }
 There are print and summary methods available.
@@ -149,7 +148,7 @@ Williams, D. A. (1972) The comparison of several dose levels with a zero
   dose control, \emph{Biometrics} \bold{28}, 519--531.
 }
 \seealso{
-\code{\link[stats]{TDist}}, \code{\link[stats]{approx}}, \code{\link{print.williams}},
-\code{\link{summary.williams}}
+\code{\link[stats]{TDist}}, \code{\link[stats]{approx}}, \code{\link{print.osrt}},
+\code{\link{summary.osrt}}
 }
 \keyword{htest}

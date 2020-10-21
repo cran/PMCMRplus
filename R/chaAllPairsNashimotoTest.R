@@ -1,7 +1,7 @@
 ## chaAllPairsNashimotoTest.R
 ## Part of the R package: PMCMRplus
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -20,8 +20,8 @@
 #'
 #' @description
 #' Performs Nashimoto and Wright's all-pairs comparison procedure
-#' for simply ordered mean ranksums (NPY' test and NPT' test).
-#' According to the authors, bove procedures shall only be
+#' for simply ordered mean ranksums (NPY-test).
+#' According to the authors, the procedure shall only be
 #' applied after Chacko's test (see \code{\link{chackoTest}}) indicates
 #' global significance.
 #'
@@ -32,30 +32,25 @@
 #' the alternative A\eqn{_{ij}: \theta_i < \theta_j} for any
 #' \eqn{1 \le i < j \le k}.
 #'
-#' In the NPY' test the p-values are estimated from the
-#' studentized range distribution. In the NPT' test the p-values
+#' In the NPT test the p-values
 #' are estimated from the standard normal distribution.
 #'
 #' @details
-#' The type of test can be controlled via the argument \code{p.adjust.method}:
-#' \describe{
-#' \item{single.step}{the NPY' test is performed.}
-#' \item{none}{the plain NPT' test is performed.}
-#' }
-#' However, any method as available by \code{\link{p.adjust.methods}} can
+#' Although Nashimoto and Wright (2005) originally did not use any p-adjustment,
+#' any method as available by \code{\link{p.adjust.methods}} can
 #' be selected for the adjustment of p-values estimated from
 #' the standard normal distribution.
 #'
 #' @name chaAllPairsNashimotoTest
 #' @references
-#' Nashimoto, K., Wright, F.T., (2005) Multiple comparison procedures
-#' for detecting differences in simply ordered means.
-#' \emph{Comput. Statist. Data Anal.} \bold{48}, 291--306.
+#' Nashimoto, K., Wright, F.T. (2007)
+#'  Nonparametric Multiple-Comparison Methods for Simply Ordered Medians.
+#'  \emph{Comput Stat Data Anal} \bold{51}, 5068–5076.
 #'
 #' @keywords htest nonparametric
 #'
 #' @seealso
-#' \code{\link{Tukey}}, \code{\link{Normal}}, \code{\link{chackoTest}}
+#'  \code{\link{Normal}}, \code{\link{chackoTest}}
 #' @template class-PMCMR
 #' @examples
 #' ## Example from Sachs (1997, p. 402)
@@ -65,7 +60,7 @@
 #' g <- gl(3,5)
 #' levels(g) <- c("A", "B", "C")
 #' chackoTest(x , g)
-#' chaAllPairsNashimotoTest(x, g, p.adjust.method = "single-step")
+#' chaAllPairsNashimotoTest(x, g, p.adjust.method = "none")
 #' @export
 chaAllPairsNashimotoTest <- function(x, ...)
     UseMethod("chaAllPairsNashimotoTest")
@@ -82,7 +77,7 @@ chaAllPairsNashimotoTest <- function(x, ...)
 #' @importFrom stats p.adjust.methods
 #' @export
 chaAllPairsNashimotoTest.default <-
-function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
+function(x, g, p.adjust.method = c(p.adjust.methods), ...){
     ## taken from stats::kruskal.test
 
     if (is.list(x)) {
@@ -119,10 +114,20 @@ function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
     Ri <- tapply(rij, g, mean)
     ni <- tapply(x, g, length)
     k <- nlevels(g)
-    n <- length(x)
+    N <- length(x)
     df <- Inf
 
-    sigma <- sqrt(n * (n + 1) / 12)
+    sigma <- sqrt(N * (N + 1) / 12)
+
+
+    n <- ni[1]
+    ## check for all equal
+    ok <- sapply(2:k, function(i) ni[i] == n)
+    if (!all(ok)) {
+        warning("NPM-test is for balanced designs only. Using n = Mean(ni).")
+        n <- round(mean(ni), 0)
+    }
+
 
     STAT <- matrix(NA, ncol=k-1, nrow=k-1)
     for (i in 1:(k-1)){
@@ -130,13 +135,13 @@ function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
             u <- j
             m <- i:(u-1)
             tmp <- sapply(m, function(m) {
-                if (p.adjust.method != "single step"){
-                    (Ri[u] - Ri[m]) / (sqrt(2) * sigma *
-                                       sqrt(1 / ni[m] + 1 /ni[u]))
-                } else {
+      #          if (p.adjust.method != "single step"){
+      #              (Ri[u] - Ri[m]) / (sqrt(2) * sigma *
+      #                                 sqrt(1 / ni[m] + 1 /ni[u]))
+      #          } else {
                     (Ri[u] - Ri[m]) /
-                        (sigma / sqrt(2) * sqrt(1 / ni[m] + 1 /ni[u]))
-                }
+                        (sigma * sqrt(2) / sqrt(n))
+       #         }
             })
             STAT[j-1,i] <- max(tmp)
         }
@@ -145,19 +150,19 @@ function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
     colnames(STAT) <- levels(g)[1:(k-1)]
     rownames(STAT) <- levels(g)[2:k]
 
-    if (p.adjust.method == "single-step"){
-        PVAL <- ptukey(STAT, nmeans = (k-1),
-                       df = df, lower.tail=FALSE)
-        DIST <- "q"
-        METHOD <- "Nashimoto-Wright NPY'-Test for ordered means \n\t\t of non-normal data"
-    } else {
+#    if (p.adjust.method == "single-step"){
+#        PVAL <- ptukey(STAT, nmeans = (k-1),
+#                       df = df, lower.tail=FALSE)
+#        DIST <- "q"
+#        METHOD <- "Nashimoto-Wright NPY'-Test for ordered means \n\t\t of non-normal data"
+#    } else {
         PVAL <- pnorm(STAT, lower.tail=FALSE)
         DIST <- "z"
-        METHOD <- "Nashimoto-Wright NPT'-Test for ordered means \n\t\t of non-normal data"
+        METHOD <- "Nashimoto-Wright NPT-Test for ordered means \n\t\t of non-normal data"
         p <- as.vector(PVAL)
         pad <- p.adjust(p, method = p.adjust.method, n = k * (k - 1) / 2)
         PVAL <- matrix(pad, ncol=(k-1), nrow=(k-1))
-    }
+#    }
     colnames(PVAL) <- colnames(STAT)
     rownames(PVAL) <- rownames(STAT)
     MODEL <- data.frame(x, g)
@@ -175,7 +180,7 @@ function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
 #' @export
 chaAllPairsNashimotoTest.formula <-
 function(formula, data, subset, na.action,
-         p.adjust.method = c("single-step", p.adjust.methods), ...)
+         p.adjust.method = c(p.adjust.methods), ...)
 {
     mf <- match.call(expand.dots=FALSE)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)

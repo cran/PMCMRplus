@@ -8,19 +8,14 @@
 \usage{
 chaAllPairsNashimotoTest(x, ...)
 
-\method{chaAllPairsNashimotoTest}{default}(
-  x,
-  g,
-  p.adjust.method = c("single-step", p.adjust.methods),
-  ...
-)
+\method{chaAllPairsNashimotoTest}{default}(x, g, p.adjust.method = c(p.adjust.methods), ...)
 
 \method{chaAllPairsNashimotoTest}{formula}(
   formula,
   data,
   subset,
   na.action,
-  p.adjust.method = c("single-step", p.adjust.methods),
+  p.adjust.method = c(p.adjust.methods),
   ...
 )
 }
@@ -68,8 +63,8 @@ adjustment.}
 }
 \description{
 Performs Nashimoto and Wright's all-pairs comparison procedure
-for simply ordered mean ranksums (NPY' test and NPT' test).
-According to the authors, bove procedures shall only be
+for simply ordered mean ranksums (NPY-test).
+According to the authors, the procedure shall only be
 applied after Chacko's test (see \code{\link{chackoTest}}) indicates
 global significance.
 
@@ -80,17 +75,12 @@ The null hypothesis H\eqn{_{ij}: \theta_i = \theta_j} is tested against
 the alternative A\eqn{_{ij}: \theta_i < \theta_j} for any
 \eqn{1 \le i < j \le k}.
 
-In the NPY' test the p-values are estimated from the
-studentized range distribution. In the NPT' test the p-values
+In the NPT test the p-values
 are estimated from the standard normal distribution.
 }
 \details{
-The type of test can be controlled via the argument \code{p.adjust.method}:
-\describe{
-\item{single.step}{the NPY' test is performed.}
-\item{none}{the plain NPT' test is performed.}
-}
-However, any method as available by \code{\link{p.adjust.methods}} can
+Although Nashimoto and Wright (2005) originally did not use any p-adjustment,
+any method as available by \code{\link{p.adjust.methods}} can
 be selected for the adjustment of p-values estimated from
 the standard normal distribution.
 }
@@ -102,15 +92,15 @@ x <- c(106, 114, 116, 127, 145,
 g <- gl(3,5)
 levels(g) <- c("A", "B", "C")
 chackoTest(x , g)
-chaAllPairsNashimotoTest(x, g, p.adjust.method = "single-step")
+chaAllPairsNashimotoTest(x, g, p.adjust.method = "none")
 }
 \references{
-Nashimoto, K., Wright, F.T., (2005) Multiple comparison procedures
-for detecting differences in simply ordered means.
-\emph{Comput. Statist. Data Anal.} \bold{48}, 291--306.
+Nashimoto, K., Wright, F.T. (2007)
+ Nonparametric Multiple-Comparison Methods for Simply Ordered Medians.
+ \emph{Comput Stat Data Anal} \bold{51}, 5068–5076.
 }
 \seealso{
-\code{\link{Tukey}}, \code{\link{Normal}}, \code{\link{chackoTest}}
+\code{\link{Normal}}, \code{\link{chackoTest}}
 }
 \keyword{htest}
 \keyword{nonparametric}

@@ -47,14 +47,15 @@ subset of observations to be used.}
 the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 }
 \value{
-A list with class \code{"steelTest"} containing the following components:
+A list with class \code{"osrt"} that contains the following components:
+
 \describe{
  \item{method}{a character string indicating what type of test was performed.}
  \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the ranksum for the i-th tretent level}
- \item{R.crit}{lower-triangle matrix of critical R-values for \eqn{\alpha = 0.05}.}
+ \item{statistic}{the estimated statistic(s)}
+ \item{crit.value}{critical R-values for \eqn{\alpha = 0.05}.}
  \item{alternative}{a character string describing the alternative hypothesis.}
-\item{model}{a data frame of the input data.}
+ \item{parameter}{the parameter(s) of the test distribution.}
 \item{dist}{a string that denotes the test distribution.}
 }
 There are print and summary methods available.
@@ -135,9 +136,9 @@ treatments versus control, \emph{Biometrics} \bold{15}, 560--572.
 }
 \seealso{
 \code{\link[stats]{wilcox.test}}, \code{\link[stats]{pairwise.wilcox.test}},
-\code{\link{manyOneUTest}},
+\code{\link{manyOneUTest}}, \code{\link{flignerWolfeTest}},
 \code{\link{shirleyWilliamsTest}}, \code{\link{kwManyOneDunnTest}},
 \code{\link{kwManyOneNdwTest}}, \code{\link{kwManyOneConoverTest}},
-\code{\link{print.steel}}, \code{\link{summary.steel}}
+\code{\link{print.osrt}}, \code{\link{summary.osrt}}
 }
 \keyword{htest}

@@ -75,21 +75,9 @@
 #' several dose levels with a zero-dose control, \emph{Biometrics} \bold{42}, 183--186.
 #'
 #' @return
-#' Either a list with class \code{"williamsTest"} or al list with class \code{"PMCMR"}.
+#' Either a list with class \code{"osrt"} or a list with class \code{"PMCMR"}.
 #'
-#' The list with class \code{"williamsTest"}.
-#' \describe{
-#'  \item{method}{a character string indicating what type of test was performed.}
-#'  \item{data.name}{a character string giving the name(s) of the data.}
-#'  \item{statistic}{lower-triangle matrix of the estimated
-#' quantiles of the pairwise test statistics.}
-#'  \item{t.value}{lower-triangle matrix of the critical t\'-values for \eqn{\alpha = 0.05}.}
-#'  \item{df.residual}{the degree of freedom}
-#'  \item{alternative}{a character string describing the alternative hypothesis.}
-#' \item{model}{a data frame of the input data.}
-#' \item{dist}{a string that denotes the test distribution.}
-#' }
-#'
+#' @template returnOsrt
 #' @template class-PMCMR
 #'
 #' @seealso
@@ -311,10 +299,10 @@ shirleyWilliamsTest.default <-
       ## Critical t_Inf value = z value for i = 1
       Tkdf[1] <- qnorm(0.05, lower.tail = FALSE) ## greater
 
-      if (alternative == "less") {
-        STATISTIC <- -1 * STATISTIC
-        Tkdf <- -1 * Tkdf
-      }
+  #    if (alternative == "less") {
+  #      STATISTIC <- -1 * STATISTIC
+  #      Tkdf <- -1 * Tkdf
+  #    }
 
       ## Create output matrices
       STAT <- cbind(ctr = STATISTIC)
@@ -325,17 +313,20 @@ shirleyWilliamsTest.default <-
 
       DAT <- data.frame(xold, g)
       METHOD <- c("Shirley-Williams test")
+      parameter <- Inf
+      names(parameter) <- "df"
       ans <- list(
         method = METHOD,
         data.name = DNAME,
-        t.value = STATCRIT,
+        crit.value = STATCRIT,
         statistic = STAT,
-        df.residual = Inf,
+        parameter = parameter,
         alternative = alternative,
         dist = "t\'",
         model = DAT
       )
-      class(ans) <- "williams"
+      class(ans) <-"osrt"
+   #   class(ans) <- "williams"
       return(ans)
     }
   }

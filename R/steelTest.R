@@ -1,7 +1,7 @@
 # steelTest.R
 # Part of the R package: PMCMR
 #
-# Copyright (C) 2018 Thorsten Pohlert
+# Copyright (C) 2018-2020 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -49,17 +49,8 @@
 #' the level of \eqn{\alpha = 0.05} can be performed.
 #'
 #' @return
-#' A list with class \code{"steelTest"} containing the following components:
-#' \describe{
-#'  \item{method}{a character string indicating what type of test was performed.}
-#'  \item{data.name}{a character string giving the name(s) of the data.}
-#'  \item{statistic}{lower-triangle matrix of the ranksum for the i-th tretent level}
-#'  \item{R.crit}{lower-triangle matrix of critical R-values for \eqn{\alpha = 0.05}.}
-#'  \item{alternative}{a character string describing the alternative hypothesis.}
-#' \item{model}{a data frame of the input data.}
-#' \item{dist}{a string that denotes the test distribution.}
-#' }
-#' There are print and summary methods available.
+#' A list with class \code{"osrt"} that contains the following components:
+#' @template returnOsrt
 #'
 #' @section Source:
 #' The critical rank sum values were taken from Table E.5 of USEPA (2002).
@@ -70,10 +61,10 @@
 #'
 #' @seealso
 #' \code{\link[stats]{wilcox.test}}, \code{\link[stats]{pairwise.wilcox.test}},
-#' \code{\link{manyOneUTest}},
+#' \code{\link{manyOneUTest}}, \code{\link{flignerWolfeTest}},
 #' \code{\link{shirleyWilliamsTest}}, \code{\link{kwManyOneDunnTest}},
 #' \code{\link{kwManyOneNdwTest}}, \code{\link{kwManyOneConoverTest}},
-#' \code{\link{print.steel}}, \code{\link{summary.steel}}
+#' \code{\link{print.osrt}}, \code{\link{summary.osrt}}
 #'
 #' @references
 #' Steel, R. G. D. (1959) A multiple comparison rank sum test:
@@ -212,17 +203,22 @@ steelTest.default <-
     STATCRIT <- cbind(Ctrl = Rcrit)
     row.names(STATCRIT) <- Dose
 
+    parameter <- c(n, k)
+    names(parameter) <- c("n", "k")
+
     METHOD <- paste("Steel's Many-to-One-Rank Test")
     ans <- list(
       method = METHOD,
       data.name = DNAME,
-      R.crit = STATCRIT,
+      crit.value = STATCRIT,
       statistic = STAT,
       alternative = alternative,
       dist = "R",
-      model = data.frame(x=xold, g = g)
-    )
-    class(ans) <- "steel"
+      parameter = parameter)
+  #    model = data.frame(x=xold, g = g)
+
+    class(ans) <- "osrt"
+ #   class(ans) <- "steel"
     ans
   }
 
