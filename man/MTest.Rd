@@ -4,6 +4,7 @@
 \alias{MTest}
 \alias{MTest.default}
 \alias{MTest.formula}
+\alias{MTest.aov}
 \title{Extended One-Sided Studentised Range Test}
 \usage{
 MTest(x, ...)
@@ -18,6 +19,8 @@ MTest(x, ...)
   alternative = c("greater", "less"),
   ...
 )
+
+\method{MTest}{aov}(x, alternative = c("greater", "less"), ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -47,54 +50,82 @@ subset of observations to be used.}
 the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 }
 \value{
-Either a list with class \code{"osrt"} or a list with class \code{"PMCMR"}.
-
 \describe{
  \item{method}{a character string indicating what type of test was performed.}
  \item{data.name}{a character string giving the name(s) of the data.}
  \item{statistic}{the estimated statistic(s)}
- \item{crit.value}{critical R-values for \eqn{\alpha = 0.05}.}
+ \item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
  \item{alternative}{a character string describing the alternative hypothesis.}
  \item{parameter}{the parameter(s) of the test distribution.}
 \item{dist}{a string that denotes the test distribution.}
 }
 There are print and summary methods available.
-
-A list with class \code{"PMCMR"} containing the following components:
-\describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
-quantiles of the pairwise test statistics.}
- \item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
- \item{alternative}{a character string describing the alternative hypothesis.}
-\item{p.adjust.method}{a character string describing the method for p-value
-adjustment.}
-\item{model}{a data frame of the input data.}
-\item{dist}{a string that denotes the test distribution.}
-}
 }
 \description{
-Performs Nashimoto-Wright's extended one-sided studentised range
+Performs Nashimoto-Wright's extended
+one-sided studentised range
 test against an ordered alternative for normal data
 with equal variances.
+}
+\details{
+The procedure uses the property of a simple order,
+\eqn{\theta_m' - \mu_m \le \mu_j - \mu_i \le \mu_l' - \mu_l
+\qquad (l \le i \le m~\mathrm{and}~ m' \le j \le l')}.
+The null hypothesis H\eqn{_{ij}: \mu_i = \mu_j} is tested against
+the alternative A\eqn{_{ij}: \mu_i < \mu_j} for any
+\eqn{1 \le i < j \le k}.
 
-This test is an extension of Hayter's OSRT
-(see \code{\link{osrtTest}}) by
-applying a simple order restriction of
-\eqn{\mu_{m'} - \mu_m \le \mu_j - \mu_i \le \
-\mu_{l'} - \mu_{l}} for any \eqn{l \le i \le m}
-and \eqn{m' \le j \le l'}. It tests all-pairs
-\eqn{\mathrm{H}_{ij}: \mu_i \ge \mu_j} against
-\eqn{\mathrm{A}_{ij}: \mu_i < \mu_j$ for any $1 \le i < j \le k}.
+The all-pairs comparisons test statistics for a balanced design are
+\deqn{
+ \hat{h}_{ij} = \max_{i \le m < m' \le j} \frac{\left(\bar{x}_{m'} - \bar{x}_m \right)}
+ {s_{\mathrm{in}} / \sqrt{n}},
+}{%
+ SEE PDF
+}
+
+with \eqn{n = n_i; ~ N = \sum_i^k n_i ~~ (1 \le i \le k)}, \eqn{\bar{x}_i} the arithmetic mean of the \eqn{i}th group,
+and \eqn{s_{\mathrm{in}}^2} the within ANOVA variance. The null hypothesis is rejected,
+if \eqn{\hat{h} > h_{k,\alpha,v}}, with \eqn{v = N - k}
+degree of freedom.
+
+For the unbalanced case with moderate imbalance the test statistic is
+\deqn{
+ \hat{h}_{ij} = \max_{i \le m < m' \le j} \frac{\left(\bar{x}_{m'} - \bar{x}_m \right)}
+ {s_{\mathrm{in}} \left(1/n_m + 1/n_{m'}\right)^{1/2}},
+}{%
+ SEE PDF
+}
+
+The null hypothesis is rejected, if \eqn{\hat{h}_{ij} > h_{k,\alpha,v} / \sqrt{2}}.
+
+The function does not return p-values. Instead the critical h-values
+as given in the tables of Hayter (1990) for \eqn{\alpha = 0.05} (one-sided)
+are looked up according to the number of groups (\eqn{k}) and
+the degree of freedoms (\eqn{v}).
+}
+\note{
+The function will give a warning for the unbalanced case and returns the
+critical value \eqn{h_{k,\alpha,\infty} / \sqrt{2}}.
 }
 \examples{
-MTest(weight ~ group, data = PlantGrowth)
+##
+md <- aov(weight ~ group, PlantGrowth)
+anova(md)
+osrtTest(md)
+MTest(md)
 }
 \references{
+Hayter, A. J.(1990) A One-Sided Studentised Range
+Test for Testing Against a Simple Ordered Alternative,
+\emph{Journal of the American Statistical Association}
+\bold{85}, 778--785.
+
 Nashimoto, K., Wright, F.T., (2005) Multiple comparison procedures
 for detecting differences in simply ordered means.
 \emph{Comput. Statist. Data Anal.} \bold{48}, 291--306.
+}
+\seealso{
+\code{\link{osrtTest}}, \code{\link{NPMTest}}
 }
 \concept{parametric}
 \keyword{htest}

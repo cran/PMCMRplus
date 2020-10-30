@@ -43,7 +43,7 @@ Ignored with a warning if \code{"x"} is a list.}
 \item{method}{a character string specifying the test statistic to use.
 Defaults to \code{"look-up"} that uses published Table values of Williams (1972).}
 
-\item{nperm}{number of permutations for the assymptotic permutation test.
+\item{nperm}{number of permutations for the asymptotic permutation test.
 Defaults to \code{1000}. Ignored, if \code{method = "look-up"}.}
 
 \item{formula}{a formula of the form \code{response ~ group} where
@@ -68,7 +68,7 @@ Either a list with class \code{"osrt"} or a list with class \code{"PMCMR"}.
  \item{method}{a character string indicating what type of test was performed.}
  \item{data.name}{a character string giving the name(s) of the data.}
  \item{statistic}{the estimated statistic(s)}
- \item{crit.value}{critical R-values for \eqn{\alpha = 0.05}.}
+ \item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
  \item{alternative}{a character string describing the alternative hypothesis.}
  \item{parameter}{the parameter(s) of the test distribution.}
 \item{dist}{a string that denotes the test distribution.}
@@ -141,21 +141,33 @@ computational time.
 \examples{
 ## Example from Shirley (1977)
 ## Reaction times of mice to stimuli to their tails.
-y <- c(2.4, 3, 3, 2.2, 2.2, 2.2, 2.2, 2.8, 2, 3,
-2.8, 2.2, 3.8, 9.4, 8.4, 3, 3.2, 4.4, 3.2, 7.4, 9.8, 3.2, 5.8,
-7.8, 2.6, 2.2, 6.2, 9.4, 7.8, 3.4, 7, 9.8, 9.4, 8.8, 8.8, 3.4,
-9, 8.4, 2.4, 7.8)
+x <- c(2.4, 3, 3, 2.2, 2.2, 2.2, 2.2, 2.8, 2, 3,
+ 2.8, 2.2, 3.8, 9.4, 8.4, 3, 3.2, 4.4, 3.2, 7.4, 9.8, 3.2, 5.8,
+ 7.8, 2.6, 2.2, 6.2, 9.4, 7.8, 3.4, 7, 9.8, 9.4, 8.8, 8.8, 3.4,
+ 9, 8.4, 2.4, 7.8)
 g <- gl(4, 10)
 
-\dontrun{
-## two.sided test
-summary(shirleyWilliamsTest(y ~ g, method = "boot", alternative = "two.sided"))
-}
-
+## Shirley's test
 ## one-sided test using look-up table
-shirleyWilliamsTest(y ~ g, alternative = "greater")
+shirleyWilliamsTest(x ~ g, alternative = "greater")
 
+## Chacko's global hypothesis test for 'greater'
+chackoTest(x , g)
 
+## post-hoc test, default is standard normal distribution (NPT'-test)
+summary(chaAllPairsNashimotoTest(x, g, p.adjust.method = "none"))
+
+## same but h-distribution (NPY'-test)
+chaAllPairsNashimotoTest(x, g, dist = "h")
+
+## NPM-test
+NPMTest(x, g)
+
+## Hayter-Stone test
+hayterStoneTest(x, g)
+
+## all-pairs comparisons
+hsAllPairsTest(x, g)
 }
 \references{
 Shirley, E., (1977) Nonparametric Equivalent of Williams Test for Contrasting Increasing

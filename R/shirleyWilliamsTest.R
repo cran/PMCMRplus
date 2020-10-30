@@ -86,23 +86,7 @@
 #' @keywords htest nonparametric
 #' @concept trendtest
 #'
-#'
-#' @examples
-#' ## Example from Shirley (1977)
-#' ## Reaction times of mice to stimuli to their tails.
-#' y <- c(2.4, 3, 3, 2.2, 2.2, 2.2, 2.2, 2.8, 2, 3,
-#' 2.8, 2.2, 3.8, 9.4, 8.4, 3, 3.2, 4.4, 3.2, 7.4, 9.8, 3.2, 5.8,
-#' 7.8, 2.6, 2.2, 6.2, 9.4, 7.8, 3.4, 7, 9.8, 9.4, 8.8, 8.8, 3.4,
-#' 9, 8.4, 2.4, 7.8)
-#' g <- gl(4, 10)
-#'
-#' \dontrun{
-#' ## two.sided test
-#' summary(shirleyWilliamsTest(y ~ g, method = "boot", alternative = "two.sided"))
-#' }
-#'
-#' ## one-sided test using look-up table
-#' shirleyWilliamsTest(y ~ g, alternative = "greater")
+#' @example examples/shirleyEx.R
 #'
 #'
 #' @export
@@ -117,7 +101,7 @@ shirleyWilliamsTest <-
 #' @param alternative the alternative hypothesis. Defaults to \code{two.sided}
 #' @param method a character string specifying the test statistic to use.
 #' Defaults to \code{"look-up"} that uses published Table values of Williams (1972).
-#' @param nperm number of permutations for the assymptotic permutation test.
+#' @param nperm number of permutations for the asymptotic permutation test.
 #' Defaults to \code{1000}. Ignored, if \code{method = "look-up"}.
 #' @importFrom stats qnorm approx
 #' @export

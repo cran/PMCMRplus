@@ -64,42 +64,10 @@ summary(glht(Rfit, linfct = mcp(DOSE = mat)))
 ##
 ## Perform step-down Jonckheere test
 ##
-pval <- rep(NA, k)
-H0 <- rep(NA, k)
-z <- rep(NA, k)
-for (i in k:2){
-  YY <- Y[as.numeric(DOSE) <= i]
-  DDOSE <- DOSE[as.numeric(DOSE) <= i]
-  js.out <- jonckheereTest(YY, DDOSE, alternative = 'less')
-  z[i] <- js.out$statistic
-  pval[i] <- js.out$p.value
+res <- stepDownTrendTest(Y ~ DOSE, trout, test = "jonck",
+                         alternative = "less")
+summary(res)
 
-  H0[i] <- ifelse(i == 2,
-                  paste0("1 == 2"),
-                  paste0("1 == ... == ", i))
-
-  ##H0[i] <- paste0(levels(DOSE)[1:i], collapse = " = ")
-}
-
-symp <- symnum(pval[2:k], corr=FALSE,
-               cutpoints = c(0,  .001,.01,.05, .1, 1),
-               symbols = c("***","**","*","."," "))
-
-out <- data.frame(z = round(z[2:k], 3),
-                  p  = format.pval(pval[2:k]),
-                  symp)
-rownames(out) <- H0[2:k]
-names(out) <- c("z", "Pr(>z)", "")
-
-print.ME <- function(x, ...) {
-  cat("\n\tStep-down Jonckheere trend test\n\n")
-  cat("data: Y and DOSE\n")
-  cat("alternative hypothesis: less\n")
-  cat("H0\n")
-  print(out)
-  invisible(x)
-}
-print.ME(out)
 #
 # Perform pairwise Wilcox test with Holm adjustment
 #

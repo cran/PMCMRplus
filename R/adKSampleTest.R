@@ -34,7 +34,7 @@
 #' the package \pkg{kSamples}.
 #'
 #' @template class-htest
-#' @keywords nonparameteric
+#' @keywords nonparametric
 #'
 #' @inherit adAllPairsTest references
 #'

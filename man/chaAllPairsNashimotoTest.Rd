@@ -8,7 +8,14 @@
 \usage{
 chaAllPairsNashimotoTest(x, ...)
 
-\method{chaAllPairsNashimotoTest}{default}(x, g, p.adjust.method = c(p.adjust.methods), ...)
+\method{chaAllPairsNashimotoTest}{default}(
+  x,
+  g,
+  p.adjust.method = c(p.adjust.methods),
+  alternative = c("greater", "less"),
+  dist = c("Normal", "h"),
+  ...
+)
 
 \method{chaAllPairsNashimotoTest}{formula}(
   formula,
@@ -16,6 +23,8 @@ chaAllPairsNashimotoTest(x, ...)
   subset,
   na.action,
   p.adjust.method = c(p.adjust.methods),
+  alternative = c("greater", "less"),
+  dist = c("Normal", "h"),
   ...
 )
 }
@@ -29,7 +38,11 @@ vectors.}
 corresponding elements of \code{"x"}.
 Ignored with a warning if \code{"x"} is a list.}
 
-\item{p.adjust.method}{method for adjusting p values}
+\item{p.adjust.method}{method for adjusting p values. Ignored if \code{dist = "h"}.}
+
+\item{alternative}{the alternative hypothesis. Defaults to \code{greater}.}
+
+\item{dist}{the test distribution. Defaults to \code{Normal}.}
 
 \item{formula}{a formula of the form \code{response ~ group} where
 \code{response} gives the data values and \code{group} a vector or
@@ -47,6 +60,20 @@ subset of observations to be used.}
 the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 }
 \value{
+Either a list of class \code{"osrt"} if \code{dist = "h"}  or a list
+of class \code{"PMCMR"} if \code{dist = "Normal"}.
+
+\describe{
+ \item{method}{a character string indicating what type of test was performed.}
+ \item{data.name}{a character string giving the name(s) of the data.}
+ \item{statistic}{the estimated statistic(s)}
+ \item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
+ \item{alternative}{a character string describing the alternative hypothesis.}
+ \item{parameter}{the parameter(s) of the test distribution.}
+\item{dist}{a string that denotes the test distribution.}
+}
+There are print and summary methods available.
+
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
  \item{method}{a character string indicating what type of test was performed.}
@@ -63,11 +90,13 @@ adjustment.}
 }
 \description{
 Performs Nashimoto and Wright's all-pairs comparison procedure
-for simply ordered mean ranksums (NPY-test).
+for simply ordered mean ranksums (NPT'-test and NPY'-test).
+
 According to the authors, the procedure shall only be
 applied after Chacko's test (see \code{\link{chackoTest}}) indicates
 global significance.
-
+}
+\details{
 The modified procedure uses the property of a simple order,
 \eqn{\theta_m' - \theta_m \le \theta_j - \theta_i \le \theta_l' - \theta_l
 \qquad (l \le i \le m~\mathrm{and}~ m' \le j \le l')}.
@@ -75,32 +104,90 @@ The null hypothesis H\eqn{_{ij}: \theta_i = \theta_j} is tested against
 the alternative A\eqn{_{ij}: \theta_i < \theta_j} for any
 \eqn{1 \le i < j \le k}.
 
-In the NPT test the p-values
-are estimated from the standard normal distribution.
+The all-pairs comparisons test statistics for a balanced design are
+\deqn{
+ \hat{T}_{ij} = \max_{i \le m < m' \le j}
+ \frac{\left(\bar{R}_{m'} - \bar{R}_m \right)}
+ {\sigma_a / \sqrt{n}},
+}{%
+ SEE PDF
 }
-\details{
-Although Nashimoto and Wright (2005) originally did not use any p-adjustment,
+
+with \eqn{n = n_i; ~ N = \sum_i^k n_i ~~ (1 \le i \le k)}, \eqn{\bar{R}_i}
+the mean rank for the \eqn{i}th group,
+and \eqn{\sigma_a = \sqrt{N \left(N + 1 \right) / 12}}.
+
+For the NPY'-test (\code{dist = "h"}), if \eqn{T_{ij} > h_{k-1,\alpha,\infty}}.
+
+For the unbalanced case with moderate imbalance the test statistic is
+\deqn{
+ \hat{T}_{ij} = \max_{i \le m < m' \le j} \frac{\left(\bar{R}_{m'} - \bar{R}_m \right)}
+ {\sigma_a \left(1/n_m + 1/n_{m'}\right)^{1/2}},
+}{%
+ SEE PDF
+}
+
+For the NPY'-test (\code{dist="h"}) the null hypothesis is rejected in an unbalanced design,
+if \eqn{\hat{T}_{ij} > h_{k,\alpha,\infty} / \sqrt{2}}.
+In case of a NPY'-test, the function does not return p-values. Instead the critical h-values
+as given in the tables of Hayter (1990) for \eqn{\alpha = 0.05} (one-sided)
+are looked up according to the number of groups (\eqn{k-1}) and
+the degree of freedoms (\eqn{v = \infty}).
+
+For the NPT'-test (\code{dist = "Normal"}), the null hypothesis is rejected, if
+\eqn{T_{ij} > \sqrt{2} t_{\alpha,\infty} = \sqrt{2} z_\alpha}. Although Nashimoto and Wright (2005) originally did not use any p-adjustment,
 any method as available by \code{\link{p.adjust.methods}} can
 be selected for the adjustment of p-values estimated from
 the standard normal distribution.
 }
+\note{
+The function will give a warning for the unbalanced case and returns the
+critical value \eqn{h_{k-1,\alpha,\infty} / \sqrt{2}} if applicable.
+}
 \examples{
-## Example from Sachs (1997, p. 402)
-x <- c(106, 114, 116, 127, 145,
-       110, 125, 143, 148, 151,
-       136, 139, 149, 160, 174)
-g <- gl(3,5)
-levels(g) <- c("A", "B", "C")
+## Example from Shirley (1977)
+## Reaction times of mice to stimuli to their tails.
+x <- c(2.4, 3, 3, 2.2, 2.2, 2.2, 2.2, 2.8, 2, 3,
+ 2.8, 2.2, 3.8, 9.4, 8.4, 3, 3.2, 4.4, 3.2, 7.4, 9.8, 3.2, 5.8,
+ 7.8, 2.6, 2.2, 6.2, 9.4, 7.8, 3.4, 7, 9.8, 9.4, 8.8, 8.8, 3.4,
+ 9, 8.4, 2.4, 7.8)
+g <- gl(4, 10)
+
+## Shirley's test
+## one-sided test using look-up table
+shirleyWilliamsTest(x ~ g, alternative = "greater")
+
+## Chacko's global hypothesis test for 'greater'
 chackoTest(x , g)
-chaAllPairsNashimotoTest(x, g, p.adjust.method = "none")
+
+## post-hoc test, default is standard normal distribution (NPT'-test)
+summary(chaAllPairsNashimotoTest(x, g, p.adjust.method = "none"))
+
+## same but h-distribution (NPY'-test)
+chaAllPairsNashimotoTest(x, g, dist = "h")
+
+## NPM-test
+NPMTest(x, g)
+
+## Hayter-Stone test
+hayterStoneTest(x, g)
+
+## all-pairs comparisons
+hsAllPairsTest(x, g)
 }
 \references{
+Hayter, A. J.(1990) A One-Sided Studentised Range
+Test for Testing Against a Simple Ordered Alternative,
+\emph{Journal of the American Statistical Association}
+\bold{85}, 778--785.
+
 Nashimoto, K., Wright, F.T. (2007)
- Nonparametric Multiple-Comparison Methods for Simply Ordered Medians.
- \emph{Comput Stat Data Anal} \bold{51}, 5068–5076.
+Nonparametric Multiple-Comparison Methods for Simply Ordered Medians.
+\emph{Comput Stat Data Anal} \bold{51}, 5068–5076.
 }
 \seealso{
-\code{\link{Normal}}, \code{\link{chackoTest}}
+\code{\link{Normal}}, \code{\link{chackoTest}},
+ \code{\link{NPMTest}}
 }
 \keyword{htest}
 \keyword{nonparametric}

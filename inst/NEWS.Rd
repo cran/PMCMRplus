@@ -1,6 +1,36 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.7.0 (2020-10-29)}{
+ \subsection{NEW FEATURES}{
+  \itemize{
+    \item The functions \code{hayterStoneTest}
+    and \code{hsAllPairsTest} were implemented.
+    \item The function \code{toTidy} was implemented
+    based on a valuable recommendation of Indrajeet Patil.
+    \item The method for class \code{"aov"} was implemented
+    for the functions \code{osrtTest} and \code{MTest}.
+    \item The function \code{stepDownTrendTest} as well as
+    corresponding \code{print} and \code{summary} methods were
+    implemented to perform step-down tren test procedures.
+    \item the functions \code{hayterStoneTest}, \code{hsAllPairsTest}
+    and \code{NPMTest} were extended for \code{method = "boot"},
+    with which an asymetric permutation test is conducted
+    and \eqn{p}-values are returned.
+  }
+ }
+ \subsection{OTHER CHANGES}{
+   \itemize{
+     \item The function \code{chaAllPairsNashimotoTest} was
+     enhanced for NPT'-test, where p-values are calculated from the
+     standard normal distribution and NPY'-test, where the statistic(s)
+     are compared with ciritical h-values.
+     \item The function \code{chackoTest} was extended for
+     \code{alternative = c("greater","less")}.
+     \item The Rd-files of several functions were revised.
+   }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.6.1 (2020-10-21)}{
  \subsection{NEW FEATURES}{
   \itemize{

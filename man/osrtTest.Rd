@@ -4,6 +4,7 @@
 \alias{osrtTest}
 \alias{osrtTest.default}
 \alias{osrtTest.formula}
+\alias{osrtTest.aov}
 \title{One-Sided Studentized Range Test}
 \usage{
 osrtTest(x, ...)
@@ -18,6 +19,8 @@ osrtTest(x, ...)
   alternative = c("greater", "less"),
   ...
 )
+
+\method{osrtTest}{aov}(x, alternative = c("greater", "less"), ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -53,7 +56,7 @@ A list with class \code{"osrt"} that contains the following components:
  \item{method}{a character string indicating what type of test was performed.}
  \item{data.name}{a character string giving the name(s) of the data.}
  \item{statistic}{the estimated statistic(s)}
- \item{crit.value}{critical R-values for \eqn{\alpha = 0.05}.}
+ \item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
  \item{alternative}{a character string describing the alternative hypothesis.}
  \item{parameter}{the parameter(s) of the test distribution.}
 \item{dist}{a string that denotes the test distribution.}
@@ -69,21 +72,30 @@ with equal variances.
 Hayter's one-sided studentized range test (OSRT) can be used
 for testing several treatment levels with a zero control in a balanced
 one-factorial design with normally distributed variables that have a
-common variance. The null hypothesis, H: \eqn{\bar{x}_i = \bar{x}_j ~~ (i < j)}
-is tested against a simple order alternative, A: \eqn{\bar{x}_i < \bar{x}_j}, with at least
-one inequality being strict.
+common variance. The null hypothesis, H: \eqn{\mu_i = \mu_j ~~ (i < j)}
+is tested against a simple order alternative,
+A: \eqn{\mu_i < \mu_j}, with at least one inequality being strict.
 
 The test statistic is calculated as,
 \deqn{
- T = \max_{1 \le i < j \le k} \frac{\sqrt{n} \left(\bar{x}_j - \bar{x}_i \right)}{\sqrt{s_{\mathrm{in}}^2}},
+ \hat{h} = \max_{1 \le i < j \le k} \frac{ \left(\bar{x}_j - \bar{x}_i \right)}
+ {s_{\mathrm{in}} / \sqrt{n}},
 }{%
 SEE PDF.
 }
 
 with \eqn{k} the number of groups, \eqn{n = n_1, n_2, \ldots, n_k} and
 \eqn{s_{\mathrm{in}}^2} the within ANOVA variance. The null hypothesis
-is rejected, if \eqn{T > h_{k,\alpha,v}}, with \eqn{v = N - k}
+is rejected, if \eqn{\hat{h} > h_{k,\alpha,v}}, with \eqn{v = N - k}
 degree of freedom.
+
+For the unbalanced case with moderate imbalance the test statistic is
+\deqn{
+ \hat{h} = \max_{1 \le i < j \le k} \frac{ \left(\bar{x}_j - \bar{x}_i \right)}
+ {s_{\mathrm{in}} \sqrt{1/n_j + 1/n_i}},
+}{%
+SEE PDF.
+}
 
 The function does not return p-values. Instead the critical h-values
 as given in the tables of Hayter (1990) for \eqn{\alpha = 0.05} (one-sided)
@@ -95,11 +107,16 @@ Non tabulated values are linearly interpolated with the function
 \note{
 Hayter (1990) has tabulated critical h-values for balanced designs only.
 For some unbalanced designs some \eqn{k = 3} critical h-values
-can be found in Hayter et al. 2001. The function gives a warning message,
-if the design is unbalanced.
+can be found in Hayter et al. 2001. ' The function will give
+a warning for the unbalanced case and returns the
+critical value \eqn{h_{k,\alpha,v} / \sqrt{2}}.
 }
 \examples{
-osrtTest(weight ~ group, data = PlantGrowth)
+##
+md <- aov(weight ~ group, PlantGrowth)
+anova(md)
+osrtTest(md)
+MTest(md)
 }
 \references{
 Hayter, A. J.(1990) A One-Sided Studentised Range
@@ -112,4 +129,8 @@ Efficient Directional Inference Methodologies for the
 Comparisons of Three Ordered Treatment Effects.
 \emph{J Japan Statist Soc} \bold{31}, 153–174.
 }
+\seealso{
+\code{link{hayterStoneTest}} \code{\link{MTest}}
+}
+\concept{parametric}
 \keyword{htest}

@@ -53,7 +53,7 @@ A list with class \code{"osrt"} that contains the following components:
  \item{method}{a character string indicating what type of test was performed.}
  \item{data.name}{a character string giving the name(s) of the data.}
  \item{statistic}{the estimated statistic(s)}
- \item{crit.value}{critical R-values for \eqn{\alpha = 0.05}.}
+ \item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
  \item{alternative}{a character string describing the alternative hypothesis.}
  \item{parameter}{the parameter(s) of the test distribution.}
 \item{dist}{a string that denotes the test distribution.}

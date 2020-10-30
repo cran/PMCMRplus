@@ -238,9 +238,9 @@ function(x, ...)
 get.pvalues <-
     function(object, ...)
 {
-    OK <- inherits(object, c("PMCMR", "pairwise.htest"))
+    OK <- inherits(object, c("PMCMR", "pairwise.htest", "trendPMCR"))
     if (!OK)
-        stop ("Not an object of class PMCMR or pairwise.htest")
+        stop ("Not an object of class ,", sQuote("PMCMR"), ", ", sQuote("pairwise.htest"), " or ", sQuote("trendPMCMR"))
     if (!is.matrix(object$p.value))
         stop ("Matrix object$p.value not found.")
     pval <- as.numeric(object$p.value)

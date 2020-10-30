@@ -1,7 +1,7 @@
 # chackoTest.R
 # Part of the R package: PMCMR
 #
-# Copyright (C) 2017, 2018 Thorsten Pohlert
+# Copyright (C) 2017-2020 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -69,9 +69,10 @@ chackoTest <- function(x, ...) UseMethod("chackoTest")
 #' @aliases chackoTest.default
 #' @method chackoTest default
 #' @template one-way-parms
+#' @param alternative the alternative hypothesis. Defaults to \code{greater}.
 #' @export
 chackoTest.default <-
-    function(x, g, ...)
+    function(x, g, alternative = c("greater", "less"), ...)
 {
     if (is.list(x)) {
         if (length(x) < 2L)
@@ -101,6 +102,11 @@ chackoTest.default <-
             stop("all observations are in the same group")
     }
 
+        alternative <- match.arg(alternative)
+        if (alternative == "less") {
+            x <- -x
+        }
+
     rij <- rank(x)
     Ri <- tapply(rij, g, mean, na.rm=T)
     ni <- tapply(rij, g, length)
@@ -124,7 +130,7 @@ chackoTest.default <-
                 p.value = PVAL,
                 statistic = c(H = T),
                 parameter = c(df = df),
-                alternative = "greater")
+                alternative = alternative)
     class(ans) <- "htest"
     ans
 }
@@ -135,7 +141,8 @@ chackoTest.default <-
 #' @template one-way-formula
 #' @export
 chackoTest.formula <-
-    function(formula, data, subset, na.action, ...)
+    function(formula, data, subset, na.action,
+             alternative = alternative, ...)
 {
     mf <- match.call(expand.dots=FALSE)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
@@ -149,7 +156,9 @@ chackoTest.formula <-
         stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")
     names(mf) <- NULL
-    y <- do.call("chackoTest", c(as.list(mf)))
+    alternative <- match.arg(alternative)
+    y <- do.call("chackoTest", c(as.list(mf),
+                                 alternative = alternative))
     y$data.name <- DNAME
     y
 }

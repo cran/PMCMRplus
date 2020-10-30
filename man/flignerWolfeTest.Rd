@@ -70,17 +70,57 @@ A list with class \code{"htest"} containing the following components:
 }
 \description{
 Performs Fligner-Wolfe non-parametric test for
-simultaneous testing of several locations (treatment groups)
+simultaneous testing of several locations of treatment groups
 against the location of the control group.
 }
 \details{
-Let there be \eqn{k}-treatment groups and one control group, then
-the null hypothesis, H\eqn{_0: \theta_i - \theta_c = 0 ~ (1 \le i \le k)}
+For a one-factorial layout with non-normally distributed residuals
+the Fligner-Wolfe test can be used.
+
+Let there be \eqn{k-1}-treatment groups and one control group, then
+the null hypothesis, H\eqn{_0: \theta_i - \theta_c = 0 ~ (1 \le i \le k-1)}
 is tested against the alternative (greater),
-H\eqn{_\mathrm{A}: \theta_i - \theta_c > 0 ~ (1 \le i \le k)},
+A\eqn{_1: \theta_i - \theta_c > 0 ~ (1 \le i \le k-1)},
 with at least one inequality being strict.
 
-If \code{dist = Wilcoxon}, then the p-values are estimated from the  \code{\link[stats]{Wilcoxon}}
+Let \eqn{n_c} denote the sample size of the control group,
+\eqn{N^t = \sum_{i=1}^{k-1} n_i} the sum of all treatment
+sample sizes and \eqn{N = N^t + n_c}. The test statistic without taken
+ties into account is
+
+\deqn{
+ W = \sum_{j=1}^{k-1} \sum_{i=1}^{n_i} r_{ij} -
+ \frac{N^t \left(N^t + 1 \right) }{2}
+}{%
+ SEE PDF
+}
+
+with \eqn{r_{ij}} the rank of variable \eqn{x_{ij}}.
+The null hypothesis is rejected,
+if \eqn{W > W_{\alpha,m,n}} with
+\eqn{m = N^t} and \eqn{n = n_c}.
+
+In the presence of ties, the statistic is
+
+ \deqn{
+    \hat{z} = \frac{W - n_c N^t / 2}{s_W},
+ }{%
+  SEE PDF
+ }
+
+where
+\deqn{
+  \frac{n_c N^t}{12 N \left(N - 1 \right)}
+  \sum_{j=1}^g t_j \left(t_j^2 - 1\right),
+}{%
+ SEE PDF
+}
+
+with \eqn{g} the number of tied groups and \eqn{t_j}
+the number of tied values in the \eqn{j}th group. The null hypothesis
+is rejected, if \eqn{\hat{z} > z_\alpha} (as cited in EPA 2006).
+
+If \code{dist = Wilcoxon}, then the \eqn{p}-values are estimated from the  \code{\link[stats]{Wilcoxon}}
 distribution, else the \code{\link[stats]{Normal}} distribution is used. The latter can be used,
 if ties are present.
 }
@@ -118,6 +158,10 @@ flignerWolfeTest(x, g)
 
 }
 \references{
+EPA (2006) \emph{Data Quality Assessment:
+Statistical Methods for Practitioners}
+(Guideline No. EPA QA/G-9S), US-EPA.
+
 Fligner, M.A., Wolfe, D.A. (1982)
  Distribution-free tests for comparing several
  treatments with a control. \emph{Stat Neerl} \bold{36},

@@ -8,9 +8,9 @@
 \usage{
 chackoTest(x, ...)
 
-\method{chackoTest}{default}(x, g, ...)
+\method{chackoTest}{default}(x, g, alternative = c("greater", "less"), ...)
 
-\method{chackoTest}{formula}(formula, data, subset, na.action, ...)
+\method{chackoTest}{formula}(formula, data, subset, na.action, alternative = alternative, ...)
 }
 \arguments{
 \item{x}{a numeric vector of data values, or a list of numeric data
@@ -21,6 +21,8 @@ vectors.}
 \item{g}{a vector or factor object giving the group for the
 corresponding elements of \code{"x"}.
 Ignored with a warning if \code{"x"} is a list.}
+
+\item{alternative}{the alternative hypothesis. Defaults to \code{greater}.}
 
 \item{formula}{a formula of the form \code{response ~ group} where
 \code{response} gives the data values and \code{group} a vector or

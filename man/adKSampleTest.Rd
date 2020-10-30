@@ -116,4 +116,4 @@ Scholz, F.W., Stephens, M.A. (1987) K-Sample Anderson-Darling Tests.
 \code{\link[kSamples]{ad.pval}}.
 }
 \keyword{htest}
-\keyword{nonparameteric}
+\keyword{nonparametric}

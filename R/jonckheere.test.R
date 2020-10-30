@@ -196,7 +196,7 @@ jonckheereTest.default <-
     }
     ESTIMATES <- J
     names(ESTIMATES) <- "JT"
-    names(STATISTIC) <- "Jonckheere z-value"
+    names(STATISTIC) <- "z"
     RVAL <- list(statistic = STATISTIC,
                  p.value = PVAL,
                  method = "Jonckheere-Terpstra test",

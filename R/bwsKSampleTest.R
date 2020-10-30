@@ -1,7 +1,7 @@
 # bwsKSampleTest.R
 # Part of the R package: PMCMR
 #
-##  Copyright (C) 2017 Thorsten Pohlert
+##  Copyright (C) 2017-2020 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -20,13 +20,50 @@
 #' @title Murakami's k-Sample BWS Test
 #' @description
 #' Performs Murakami's k-Sample BWS Test.
-#' @details
-#' The null hypothesis, H\eqn{_0: F_1 = F_2 = \ldots = F_k}
-#' is tested against the alternative,
-#' H\eqn{_\mathrm{A}: F_i \ne F_j ~~(i \ne j)}, with at least
-#' one unequality beeing strict.
 #'
-#' The p-values are estimated through an assymptotic boot-strap method.
+#' @details
+#' Let \eqn{X_{ij} ~ (1 \le i \le k,~ 1 \le 1 \le n_i)} denote an
+#' identically and independently distributed variable that is obtained
+#' from an unknown continuous distribution \eqn{F_i(x)}. Let \eqn{R_{ij}}
+#' be the rank of \eqn{X_{ij}}, where \eqn{X_{ij}} is jointly ranked
+#' from \eqn{1} to \eqn{N, ~ N = \sum_{i=1}^k n_i}.
+#' In the \eqn{k}-sample test the null hypothesis, H: \eqn{F_i = F_j}
+#' is tested against the alternative,
+#' A: \eqn{F_i \ne F_j ~~(i \ne j)} with at least one inequality
+#' beeing strict. Murakami (2006) has generalized
+#' the two-sample Baumgartner-Weiß-Schindler test
+#' (Baumgartner et al. 1998) and proposed a
+#' modified statistic \eqn{B_k^*} defined by
+#'
+#' \deqn{
+#' B_{k}^* = \frac{1}{k}\sum_{i=1}^k
+#' \left\{\frac{1}{n_i} \sum_{j=1}^{n_i} \frac{(R_{ij} - \mathsf{E}[R_{ij}])^2}
+#'    {\mathsf{Var}[R_{ij}]}\right\},
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' where
+#'
+#' \deqn{
+#' \mathsf{E}[R_{ij}] = \frac{N + 1}{n_i + 1} j
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' and
+#'
+#' \deqn{
+#' \mathsf{Var}[R_{ij}] = \frac{j}{n_i + 1} \left(1 - \frac{j}{n_i + 1}\right)
+#' \frac{\left(N-n_i\right)\left(N+1\right)}{n_i + 2}.
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' The \eqn{p}-values are estimated via an assymptotic boot-strap method.
+#' It should be noted that the \eqn{B_k^*} detects both differences in the
+#' unknown location parameters and / or differences
+#' in the unknown scale parameters of the \eqn{k}-samples.
 #'
 #' @note
 #' One may increase the number of permutations to e.g. \code{nperm = 10000}
@@ -34,10 +71,6 @@
 #' the expense of computational time.
 #'
 #' @inherit bwsAllPairsTest references
-# @references
-# Murakami, H. (2006) K-sample rank test based on modified
-# Baumgartner statistic and its power comparison,
-# \emph{J. Jpn. Comp. Statist.} 19, 1--13.
 #'
 #' @template class-htest
 #'

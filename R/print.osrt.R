@@ -34,19 +34,29 @@ summary.osrt <- function(object, ...)
   critDist <- paste0(dist, "-crit")
 
   if (!is.matrix(object$statistic)) {
-
-    H0 <- switch(object$alternative,
-                 greater = paste("Mean(xi) - Mean(xj) <= 0"),
-                 less = paste("Mean(xi) - Mean(xj) >= 0")
-    )
+    if (grepl(pattern = "Hayter's",
+              x = object$method)) {
+      H0 <- switch(
+        object$alternative,
+        greater = paste("Mean(xi) - Mean(xj) <= 0"),
+        less = paste("Mean(xi) - Mean(xj) >= 0")
+      )
+    } else {
+      H0 <- switch(
+        object$alternative,
+        greater = paste("Med(xi) - Med(xj) <= 0"),
+        less = paste("Med(xi) - Med(xj) >= 0")
+      )
+    }
   } else {
     grp1 <- as.numeric(c(col(object$statistic)))
     grp2 <- as.numeric(c(row(object$statistic)))
     cnam <- colnames(object$statistic)
     rnam <- rownames(object$statistic)
-    H0 <- switch(object$alternative,
-                 greater = paste(rnam[grp2], "-", cnam[grp1], "<=", "0"),
-                 less = paste(rnam[grp2], "-", cnam[grp1], ">=", "0")
+    H0 <- switch(
+      object$alternative,
+      greater = paste(rnam[grp2], "-", cnam[grp1], "<=", "0"),
+      less = paste(rnam[grp2], "-", cnam[grp1], ">=", "0")
     )
     ok <- !is.na(stat)
     stat <- stat[ok]

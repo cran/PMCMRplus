@@ -16,15 +16,18 @@
 ##  A copy of the GNU General Public License is available at
 ##  http://www.r-project.org/Licenses/
 
+#' @name chaAllPairsNashimotoTest
 #' @title All-Pairs Comparisons for Simply Ordered Mean Ranksums
 #'
 #' @description
 #' Performs Nashimoto and Wright's all-pairs comparison procedure
-#' for simply ordered mean ranksums (NPY-test).
+#' for simply ordered mean ranksums (NPT'-test and NPY'-test).
+#'
 #' According to the authors, the procedure shall only be
 #' applied after Chacko's test (see \code{\link{chackoTest}}) indicates
 #' global significance.
 #'
+#' @details
 #' The modified procedure uses the property of a simple order,
 #' \eqn{\theta_m' - \theta_m \le \theta_j - \theta_i \le \theta_l' - \theta_l
 #' \qquad (l \le i \le m~\mathrm{and}~ m' \le j \le l')}.
@@ -32,35 +35,86 @@
 #' the alternative A\eqn{_{ij}: \theta_i < \theta_j} for any
 #' \eqn{1 \le i < j \le k}.
 #'
-#' In the NPT test the p-values
-#' are estimated from the standard normal distribution.
+#' The all-pairs comparisons test statistics for a balanced design are
+#' \deqn{
+#'  \hat{T}_{ij} = \max_{i \le m < m' \le j}
+#'  \frac{\left(\bar{R}_{m'} - \bar{R}_m \right)}
+#'  {\sigma_a / \sqrt{n}},
+#' }{%
+#'  SEE PDF
+#' }
 #'
-#' @details
-#' Although Nashimoto and Wright (2005) originally did not use any p-adjustment,
+#' with \eqn{n = n_i; ~ N = \sum_i^k n_i ~~ (1 \le i \le k)}, \eqn{\bar{R}_i}
+#' the mean rank for the \eqn{i}th group,
+#' and \eqn{\sigma_a = \sqrt{N \left(N + 1 \right) / 12}}.
+#'
+#' For the NPY'-test (\code{dist = "h"}), if \eqn{T_{ij} > h_{k-1,\alpha,\infty}}.
+#'
+#' For the unbalanced case with moderate imbalance the test statistic is
+#' \deqn{
+#'  \hat{T}_{ij} = \max_{i \le m < m' \le j} \frac{\left(\bar{R}_{m'} - \bar{R}_m \right)}
+#'  {\sigma_a \left(1/n_m + 1/n_{m'}\right)^{1/2}},
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' For the NPY'-test (\code{dist="h"}) the null hypothesis is rejected in an unbalanced design,
+#' if \eqn{\hat{T}_{ij} > h_{k,\alpha,\infty} / \sqrt{2}}.
+#' In case of a NPY'-test, the function does not return p-values. Instead the critical h-values
+#' as given in the tables of Hayter (1990) for \eqn{\alpha = 0.05} (one-sided)
+#' are looked up according to the number of groups (\eqn{k-1}) and
+#' the degree of freedoms (\eqn{v = \infty}).
+#'
+#' For the NPT'-test (\code{dist = "Normal"}), the null hypothesis is rejected, if
+#' \eqn{T_{ij} > \sqrt{2} t_{\alpha,\infty} = \sqrt{2} z_\alpha}. Although Nashimoto and Wright (2005) originally did not use any p-adjustment,
 #' any method as available by \code{\link{p.adjust.methods}} can
 #' be selected for the adjustment of p-values estimated from
 #' the standard normal distribution.
 #'
-#' @name chaAllPairsNashimotoTest
+#' @return
+#' Either a list of class \code{"osrt"} if \code{dist = "h"}  or a list
+#' of class \code{"PMCMR"} if \code{dist = "Normal"}.
+#' @template returnOsrt
+#' @template class-PMCMR
+#'
+#' @note
+#' The function will give a warning for the unbalanced case and returns the
+#' critical value \eqn{h_{k-1,\alpha,\infty} / \sqrt{2}} if applicable.
+#'
 #' @references
+#' Hayter, A. J.(1990) A One-Sided Studentised Range
+#' Test for Testing Against a Simple Ordered Alternative,
+#' \emph{Journal of the American Statistical Association}
+#' \bold{85}, 778--785.
+#'
 #' Nashimoto, K., Wright, F.T. (2007)
-#'  Nonparametric Multiple-Comparison Methods for Simply Ordered Medians.
-#'  \emph{Comput Stat Data Anal} \bold{51}, 5068–5076.
+#' Nonparametric Multiple-Comparison Methods for Simply Ordered Medians.
+#' \emph{Comput Stat Data Anal} \bold{51}, 5068–5076.
 #'
 #' @keywords htest nonparametric
 #'
 #' @seealso
-#'  \code{\link{Normal}}, \code{\link{chackoTest}}
-#' @template class-PMCMR
-#' @examples
-#' ## Example from Sachs (1997, p. 402)
-#' x <- c(106, 114, 116, 127, 145,
-#'        110, 125, 143, 148, 151,
-#'        136, 139, 149, 160, 174)
-#' g <- gl(3,5)
-#' levels(g) <- c("A", "B", "C")
-#' chackoTest(x , g)
-#' chaAllPairsNashimotoTest(x, g, p.adjust.method = "none")
+#'  \code{\link{Normal}}, \code{\link{chackoTest}},
+#'  \code{\link{NPMTest}}
+#'
+#' @example examples/shirleyEx.R
+# @examples
+# ## Example from Shirley (1977)
+# ## Reaction times of mice to stimuli to their tails.
+# y <- c(2.4, 3, 3, 2.2, 2.2, 2.2, 2.2, 2.8, 2, 3,
+# 2.8, 2.2, 3.8, 9.4, 8.4, 3, 3.2, 4.4, 3.2, 7.4, 9.8, 3.2, 5.8,
+# 7.8, 2.6, 2.2, 6.2, 9.4, 7.8, 3.4, 7, 9.8, 9.4, 8.8, 8.8, 3.4,
+# 9, 8.4, 2.4, 7.8)
+# g <- gl(4, 10)
+#
+# chackoTest(x , g)
+#
+# ## Default is standard normal distribution (NPT'-test)
+# summary(chaAllPairsNashimotoTest(x, g, p.adjust.method = "none"))
+#
+# ## same but h-distribution (NPY'-test)
+# chaAllPairsNashimotoTest(x, g, dist = "h")
+#
 #' @export
 chaAllPairsNashimotoTest <- function(x, ...)
     UseMethod("chaAllPairsNashimotoTest")
@@ -69,17 +123,19 @@ chaAllPairsNashimotoTest <- function(x, ...)
 #' @aliases chaAllPairsNashimotoTest.default
 #' @method chaAllPairsNashimotoTest default
 #' @template one-way-parms
-#' @param p.adjust.method method for adjusting p values
+#' @param p.adjust.method method for adjusting p values. Ignored if \code{dist = "h"}.
+#' @param alternative the alternative hypothesis. Defaults to \code{greater}.
+#' @param dist the test distribution. Defaults to \code{Normal}.
 #' @importFrom stats pnorm
-#' @importFrom stats ptukey
 #' @importFrom stats complete.cases
 #' @importFrom stats p.adjust
 #' @importFrom stats p.adjust.methods
 #' @export
 chaAllPairsNashimotoTest.default <-
-function(x, g, p.adjust.method = c(p.adjust.methods), ...){
+function(x, g, p.adjust.method = c(p.adjust.methods),
+         alternative = c("greater", "less"),
+         dist = c("Normal", "h"), ...){
     ## taken from stats::kruskal.test
-
     if (is.list(x)) {
         if (length(x) < 2L)
             stop("'x' must be a list with at least 2 elements")
@@ -108,7 +164,14 @@ function(x, g, p.adjust.method = c(p.adjust.methods), ...){
         if (k < 2)
             stop("all observations are in the same group")
     }
+
     p.adjust.method <- match.arg(p.adjust.method)
+    alternative <- match.arg(alternative)
+    dist <- match.arg(dist)
+
+    if (alternative == "less") {
+        x <- -x
+    }
 
     rij <- rank(x)
     Ri <- tapply(rij, g, mean)
@@ -119,58 +182,101 @@ function(x, g, p.adjust.method = c(p.adjust.methods), ...){
 
     sigma <- sqrt(N * (N + 1) / 12)
 
-
+    ## balanced design
     n <- ni[1]
     ## check for all equal
     ok <- sapply(2:k, function(i) ni[i] == n)
-    if (!all(ok)) {
-        warning("NPM-test is for balanced designs only. Using n = Mean(ni).")
-        n <- round(mean(ni), 0)
-    }
-
+    is.balanced <- all(ok)
 
     STAT <- matrix(NA, ncol=k-1, nrow=k-1)
+
+    if (is.balanced) {
     for (i in 1:(k-1)){
         for(j in (i+1):k){
             u <- j
             m <- i:(u-1)
             tmp <- sapply(m, function(m) {
-      #          if (p.adjust.method != "single step"){
-      #              (Ri[u] - Ri[m]) / (sqrt(2) * sigma *
-      #                                 sqrt(1 / ni[m] + 1 /ni[u]))
-      #          } else {
                     (Ri[u] - Ri[m]) /
-                        (sigma * sqrt(2) / sqrt(n))
-       #         }
+                        (sigma / sqrt(n))
             })
             STAT[j-1,i] <- max(tmp)
         }
     }
-
+    } else {
+        for (i in 1:(k-1)){
+            for(j in (i+1):k){
+                u <- j
+                m <- i:(u-1)
+                tmp <- sapply(m, function(m) {
+                    (Ri[u] - Ri[m]) /
+                        (sigma * sqrt(1/ni[m] + 1/ni[u]))
+                })
+                STAT[j-1,i] <- max(tmp)
+            }
+        }
+    }
     colnames(STAT) <- levels(g)[1:(k-1)]
     rownames(STAT) <- levels(g)[2:k]
 
-#    if (p.adjust.method == "single-step"){
-#        PVAL <- ptukey(STAT, nmeans = (k-1),
-#                       df = df, lower.tail=FALSE)
-#        DIST <- "q"
-#        METHOD <- "Nashimoto-Wright NPY'-Test for ordered means \n\t\t of non-normal data"
-#    } else {
-        PVAL <- pnorm(STAT, lower.tail=FALSE)
+
+    if (dist == "Normal") {
+        ## modify STAT
+        SQRT2 <- sqrt(2)
+        STAT <- STAT / SQRT2
+        PVAL <- pnorm(STAT, lower.tail = FALSE)
         DIST <- "z"
-        METHOD <- "Nashimoto-Wright NPT-Test for ordered means \n\t\t of non-normal data"
+        METHOD <- "Pairwise comparisons using Nashimoto-Wright's NPT'-Test"
         p <- as.vector(PVAL)
-        pad <- p.adjust(p, method = p.adjust.method, n = k * (k - 1) / 2)
-        PVAL <- matrix(pad, ncol=(k-1), nrow=(k-1))
-#    }
-    colnames(PVAL) <- colnames(STAT)
-    rownames(PVAL) <- rownames(STAT)
-    MODEL <- data.frame(x, g)
-    ans <- list(method = METHOD, data.name = DNAME, p.value = PVAL,
-                statistic = STAT, p.adjust.method = p.adjust.method,
-                model = MODEL, dist = DIST, alternative = "greater")
-    class(ans) <- "PMCMR"
-    ans
+        pad <-
+            p.adjust(p, method = p.adjust.method, n = k * (k - 1) / 2)
+        PVAL <- matrix(pad, ncol = (k - 1), nrow = (k - 1))
+
+        colnames(PVAL) <- colnames(STAT)
+        rownames(PVAL) <- rownames(STAT)
+        MODEL <- data.frame(x, g)
+        ans <- list(
+            method = METHOD,
+            data.name = DNAME,
+            p.value = PVAL,
+            statistic = STAT,
+            p.adjust.method = p.adjust.method,
+            model = MODEL,
+            dist = DIST,
+            alternative = "greater"
+        )
+        class(ans) <- "PMCMR"
+        return(ans)
+
+    } else {
+        ## h value
+        ## get critical h-value with k = k and v = Inf
+        nrows <- nrow(TabCrit$hayter.h005)
+        kk <- as.numeric(colnames(TabCrit$hayter.h005))
+
+        ##
+        k <- k - 1
+        ## check for kk
+        if (k > max(kk) | k < min(kk)) stop("No critical values for k = ", k)
+
+        hCrit <- unlist(TabCrit$hayter.h005[nrows, paste0(k)])
+        hCrit <- adjust.hCrit(hCrit, is.balanced)
+
+        METHOD <- "Pairwise comparisons using Nashimoto-Wright's NPY'-Test"
+        parameter = c(k, Inf)
+        names(parameter) <- c("k", "df")
+
+        ans <- list(
+            method = METHOD,
+            data.name = DNAME,
+            crit.value = hCrit,
+            statistic = STAT,
+            parameter = parameter,
+            alternative = alternative,
+            dist = "h"
+        )
+        class(ans) <- "osrt"
+        return(ans)
+    }
 }
 
 #' @rdname chaAllPairsNashimotoTest
@@ -180,7 +286,10 @@ function(x, g, p.adjust.method = c(p.adjust.methods), ...){
 #' @export
 chaAllPairsNashimotoTest.formula <-
 function(formula, data, subset, na.action,
-         p.adjust.method = c(p.adjust.methods), ...)
+         p.adjust.method = c(p.adjust.methods),
+         alternative = c("greater", "less"),
+         dist = c("Normal", "h"),
+         ...)
 {
     mf <- match.call(expand.dots=FALSE)
     m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0L)
@@ -194,9 +303,14 @@ function(formula, data, subset, na.action,
        stop("'formula' should be of the form response ~ group")
     DNAME <- paste(names(mf), collapse = " by ")
     p.adjust.method <- match.arg(p.adjust.method)
+    alternative <- match.arg(alternative)
+    dist <- match.arg(dist)
     names(mf) <- NULL
-    y <- do.call("chaAllPairsNashimotoTest", c(as.list(mf),
-                                     p.adjust.method))
+    y <- do.call("chaAllPairsNashimotoTest",
+                 c(as.list(mf),
+                   p.adjust.method = p.adjust.method,
+                   alternative = alternative,
+                   dist = dist))
     y$data.name <- DNAME
     y
 }
