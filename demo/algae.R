@@ -45,7 +45,7 @@ round(grp.stat, 4)
 ##
 ## test for normality of one-way ANOVA residuals
 ##
-newdat <- data.frame(g, Av2) 
+newdat <- data.frame(g, Av2)
 mod <- aov(Av2 ~ g, newdat)
 normtest <- shapiro.test(residuals(mod))
 STD <- sd(residuals(mod))
@@ -73,7 +73,7 @@ if (require(car)){
 } else {
     bartlett.test(residuals(mod) ~ g)
 }
-    
+
 ## Compare output with OECD 2006, p. 26
 summary(tamhaneDunnettTest(Av2, g, alternative = "less"))
 
@@ -86,18 +86,17 @@ summary(kwManyOneDunnTest(Av2, g, alt="less", p.adj="single"))
 summary(manyOneUTest(Av2, g, alt="less", p.adj="holm"))
 summary(vanWaerdenManyOneTest(Av2, g, alt="less", p.adj="single")) ## likely not appropriate, as var unequal
 
-## 
+##
 ## trend tests
 ##
-resp <- Av2[g == "D0"]
-trt <- g[g == "D0"]
-for (i in 2:k){
-    resp <- c(resp, Av2[g == grpn[i]])
-    trt <- c(trt, g[g == grpn[i]])
-    cat(paste0("\nTrend tests on D0 to ", grpn[i],"\n"))
-    cat("=======================")
-    print(jonckheereTest(resp, trt, altern="less", continuity=TRUE))
-    print(cuzickTest(resp, trt, altern="less", continuity=TRUE))
-    print(spearmanTest(resp, trt, altern="less"))
-}
+summary(stepDownTrendTest(Av2, g,
+                          alternative = "less",
+                          test = "jonck"))
 
+summary(stepDownTrendTest(Av2, g,
+                          alternative = "less",
+                          test = "cuzick"))
+
+summary(stepDownTrendTest(Av2, g,
+                          alternative = "less",
+                          test = "spearm"))

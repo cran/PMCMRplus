@@ -108,12 +108,42 @@ dose level with \eqn{i = m}, then the following \code{m = k - 1} hypotheses are 
 \end{array}
 }
 
+Let \eqn{R_{ij}} be the rank of \eqn{X_{ij}},
+where \eqn{X_{ij}} is jointly ranked
+from \eqn{\left\{1, 2, \ldots, N \right\}, ~~ N = \sum_{i=1}^k n_i},
+then the test statistic is
+
+\deqn{
+  t_{i} = \frac{\max_{1 \le u \le i} \left(\sum_{j=u}^i n_j \bar{R}_j / \sum_{j=u}^i n_j \right) - \bar{R}_0}
+{\sigma_{R_i} \sqrt{1/n_i + 1/n_0}},
+}{%
+ SEE PDF
+}
+
+with expected variance of
+\deqn{
+\sigma_{R_i}^2 = N_i \left(N_i + 1 \right) / 12 - T_i,
+}{%
+ SEE PDF
+}
+
+where \eqn{N_i = n_0 + n_1 + n_2 + \ldots + n_i} and
+\eqn{T_i} the ties for the \eqn{i}-th comparison is given by
+
+\deqn{
+ T_i = \sum_{j=1}^i \frac{t_j^3 - t_j}{12 \left(N_i - 1\right)}.
+}{%
+ SEE PDF
+}
+
 The procedure starts from the highest dose level (\eqn{m}) to the the lowest dose level (\eqn{1}) and
 stops at the first non-significant test. The consequent lowest effect dose
 is the treatment level of the previous test number. This function has
-included the modifications as recommended by Williams (1986).
+included the modifications as recommended by Williams (1986), i.e.
+the data are re-ranked for each of the \eqn{i}-th comparison.
 
-If \code{method = "look-up"} is selected, the function does not return p-values. Instead the critical t-values
+If \code{method = "look-up"} is selected, the function does not return p-values.
+Instead the critical \eqn{t'_{i,v,\alpha}}-values
 as given in the tables of Williams (1972) for \eqn{\alpha = 0.05} (one-sided)
 are looked up according to the degree of freedoms (\eqn{v = \infty}) and the order number of the
 dose level (\eqn{i}) and (potentially) modified according to the given extrapolation

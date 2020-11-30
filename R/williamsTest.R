@@ -1,7 +1,7 @@
 # williamsTest.R
 # Part of the R package: PMCMR
 #
-# Copyright (C) 2018 Thorsten Pohlert
+# Copyright (C) 2018-2020 Thorsten Pohlert
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -30,14 +30,41 @@
 #'
 #' \deqn{
 #' \begin{array}{ll}
-#' \mathrm{H}_{m}: \bar{x}_0 = m_1 = \ldots = m_m, & \mathrm{A}_{m}: \bar{x}_0 \ge m_1 \ge \ldots m_m, \bar{x}_0 < m_m \\
-#' \mathrm{H}_{m-1}: \bar{x}_0 = m_1 = \ldots = m_{m-1}, & \mathrm{A}_{m-1}: \bar{x}_0 \ge m_1 \ge \ldots m_{m-1}, \bar{x}_0 < m_{m-1} \\
+#' \mathrm{H}_{m}: \bar{x}_0 = m_1 = \ldots = m_m, & \mathrm{A}_{m}: \bar{x}_0 \le m_1 \le \ldots m_m, \bar{x}_0 < m_m \\
+#' \mathrm{H}_{m-1}: \bar{x}_0 = m_1 = \ldots = m_{m-1}, & \mathrm{A}_{m-1}: \bar{x}_0 \le m_1 \le \ldots m_{m-1}, \bar{x}_0 < m_{m-1} \\
 #' \vdots & \vdots \\
 #' \mathrm{H}_{1}: \bar{x}_0 = m_1, & \mathrm{A}_{1}: \bar{x}_0 < m_1,\\
 #' \end{array}
 #' }
 #'
 #' where \eqn{m_i} denotes the isotonic mean of the \eqn{i}th dose level group.
+#'
+#' William's test bases on a order restriction:
+#'
+#' \deqn{
+#' \mu_i^{*} = \max_{1\le u \le i}~\min_{i \le v \le m}~ \sum_{j=u}^v n_j \bar{x}_j^{*} ~/~ \sum_{j=u}^v n_j \qquad (1 \le i \le m),
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' where \eqn{\bar{x}_j^*} denotes the \eqn{j}-th isotonic
+#' mean estimated with isotonic regression using the
+#' pool adjacent violators algorithm (PAVA) with the vector
+#' of means \eqn{\left\{\bar{x}_1, \bar{x}_2, \ldots, \bar{x}_m\right\}^T}
+#' and the vector of weights
+#' \eqn{\left\{n_1, n_2, \ldots, n_m\right\}^T}.
+#'
+#' For the alternative hypothesis of decreasing trend,
+#' max and min are interchanged in the above Equation.
+#'
+#' The \eqn{i}-the test statistic is calculated as follows:
+#'
+#' \deqn{
+#' \bar{t}_i = \frac{\mu_m^* - \bar{x}_0}{s_{\mathrm{E}} \sqrt{1/n_m - 1/n_0}}
+#' }{%
+#'  SEE PDF
+#' }
+#'
 #' The procedure starts from the highest dose level (\eqn{m}) to the the lowest dose level (\eqn{1}) and
 #' stops at the first non-significant test. The consequent lowest effect dose
 #' is the treatment level of the previous test number.
@@ -324,3 +351,21 @@ williamsTest.formula <-
     y$data.name <- DNAME
     y
   }
+
+
+#' @rdname williamsTest
+#' @aliases williamsTest.aov
+#' @method williamsTest aov
+#' @export
+williamsTest.aov <- function(x,
+                             alternative = c("greater", "less"),
+                             ...) {
+  model <- x$model
+  DNAME <- paste(names(model), collapse = " by ")
+  names(model) <- c("x", "g")
+  alternative <- match.arg(alternative)
+  parms <- c(as.list(model), list(alternative = alternative))
+  y <- do.call("williamsTest", parms)
+  y$data.name <- DNAME
+  y
+}

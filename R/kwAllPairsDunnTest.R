@@ -99,6 +99,7 @@ function(x, g, p.adjust.method = p.adjust.methods, ...){
         if (k < 2)
             stop("all observations are in the same group")
     }
+
     p.adjust.method <- match.arg(p.adjust.method)
     x.rank <- rank(x)
     R.bar <- tapply(x.rank, g, mean,na.rm=T)
@@ -106,23 +107,12 @@ function(x, g, p.adjust.method = p.adjust.methods, ...){
     g.unique <- unique(g)
     k <- length(g.unique)
     n <- sum(R.n)
-    getties <- function(x, n) {
-        x.sorted <- sort(x)
-        pos <- 1
-        tiesum <- 0
-        while (pos <= n) {
-            val <- x.sorted[pos]
-            nt <- length(!is.na(x.sorted[x.sorted==val]))
-            pos <- pos + nt
-            if (nt > 1){
-                tiesum <- tiesum + nt^3  - nt
-            }
-        }
-        C <- tiesum / (12 * (n - 1))
-        return(C)
-    }
+
     METHOD <- "Dunn's all-pairs test"
-    C <- getties(x.rank, n)
+
+    ## get the ties
+    C <- gettiesDunn(x.rank)
+
     if (C != 0) warning("Ties are present. z-quantiles were corrected for ties.")
     compare.stats <- function(i,j) {
         dif <- abs(R.bar[i] - R.bar[j])

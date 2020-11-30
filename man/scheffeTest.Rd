@@ -62,13 +62,28 @@ data with equal group variances.
 \details{
 For all-pairs comparisons in an one-factorial layout
 with normally distributed residuals and equal variances
-Scheffe's test can be performed. A total of \eqn{m = k(k-1)/2}
-hypotheses can be tested. The null hypothesis
-H\eqn{_{ij}: \mu_i(x) = \mu_j(x)} is tested in the two-tailed test
-against the alternative
-A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
+Scheffe's test can be performed.
+Let \eqn{X_{ij}} denote a continuous random variable
+with the \eqn{j}-the realization (\eqn{1 \le j \le n_i})
+in the \eqn{i}-th group (\eqn{1 \le i \le k}). Furthermore, the total
+sample size is \eqn{N = \sum_{i=1}^k n_i}. A total of \eqn{m = k(k-1)/2}
+hypotheses can be tested: The null hypothesis is
+H\eqn{_{ij}: \mu_i = \mu_j ~~ (i \ne j)} is tested against the alternative
+A\eqn{_{ij}: \mu_i \ne \mu_j} (two-tailed). Scheffe's all-pairs test
+statistics are given by
 
-The p-values are computed from the F-distribution.
+\deqn{
+ t_{ij} \frac{\bar{X}_i - \bar{X_j}}
+ {s_{\mathrm{in}} \left(1/n_j + 1/n_i\right)^{1/2}}, ~~
+ (i \ne j)
+}{%
+ SEE PDF
+}
+
+with \eqn{s^2_{\mathrm{in}}} the within-group ANOVA variance.
+The null hypothesis is rejected if \eqn{t^2_{ij} > F_{v_{1}v_{2}\alpha}},
+with \eqn{v_1 = k - 1, ~ v_2 = N - k} degree of freedom. The p-values
+are computed from the \code{\link[stats]{FDist}} distribution.
 }
 \examples{
 fit <- aov(weight ~ feed, chickwts)

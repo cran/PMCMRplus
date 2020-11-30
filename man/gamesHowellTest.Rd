@@ -62,13 +62,44 @@ data with unequal group variances.
 \details{
 For all-pairs comparisons in an one-factorial layout
 with normally distributed residuals but unequal between-groups variances
-the Games-Howell Test can be performed. A total of \eqn{m = k(k-1)/2}
-hypotheses can be tested. The null hypothesis
-H\eqn{_{ij}: \mu_i(x) = \mu_j(x)} is tested in the two-tailed test
-against the alternative
-A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
+the Games-Howell Test can be performed.  Let \eqn{X_{ij}} denote a continuous random variable
+with the \eqn{j}-the realization (\eqn{1 \le j \le n_i})
+in the \eqn{i}-th group (\eqn{1 \le i \le k}). Furthermore, the total
+sample size is \eqn{N = \sum_{i=1}^k n_i}. A total of \eqn{m = k(k-1)/2}
+hypotheses can be tested: The null hypothesis is
+H\eqn{_{ij}: \mu_i = \mu_j ~~ (i \ne j)} is tested against the alternative
+A\eqn{_{ij}: \mu_i \ne \mu_j} (two-tailed). Games-Howell Test all-pairs
+test statistics are given by
 
-The p-values are computed from the studentized range distribution.
+\deqn{
+ t_{ij} \frac{\bar{X}_i - \bar{X_j}}
+ {\left( s^2_j / n_j + s^2_i / n_i \right)^{1/2}}, ~~
+ (i \ne j)
+}{%
+ SEE PDF
+}
+
+with \eqn{s^2_i} the variance of the \eqn{i}-th group.
+The null hypothesis is rejected (two-tailed) if
+
+\deqn{
+ \mathrm{Pr} \left\{ |t_{ij}| \sqrt{2} \ge q_{m v_{ij} \alpha} | \mathrm{H} \right\}_{ij} =
+ \alpha,
+}{%
+ SEE PDF
+}
+
+with Welch's approximate solution for calculating the degree of freedom.
+
+\deqn{
+ v_{ij} = \frac{\left( s^2_i / n_i + s^2_j / n_j \right)^2}
+ {s^4_i / n^2_i \left(n_i - 1\right) + s^4_j / n^2_j \left(n_j - 1\right)}.
+}{%
+ SEE PDF
+}
+
+The \eqn{p}-values are computed from the
+\code{\link[stats]{Tukey}} distribution.
 }
 \examples{
 fit <- aov(weight ~ feed, chickwts)
@@ -80,9 +111,10 @@ anova(fit)
 res <- gamesHowellTest(fit)
 summary(res)
 summaryGroup(res)
+
 }
 \seealso{
-\code{\link{ptukey}}
+\code{\link{Tukey}}
 }
 \concept{parametric}
 \keyword{htest}

@@ -159,16 +159,16 @@ GSTTest.default <-
       warning("Does not sum up to check sum!")
     }
 
-    getties <- function(x) {
-        n <- length(x)
-        t <- table(x)
-        C <- 1 - sum(t^3 - t) / (n^3 - n)
-        C <- min(1, C)
-        return(C)
-    }
+#    getties <- function(x) {
+#        n <- length(x)
+#        t <- table(x)
+#        C <- 1 - sum(t^3 - t) / (n^3 - n)
+#        C <- min(1, C)
+#        return(C)
+#    }
 
 
-    C <- getties(x)
+    C <- gettiesKruskal(x)
     if (C != 1) warning("Ties are present. Quantiles were corrected for ties.")
     ## Kruskal-Wallis statistic
     H <- (12 / (N * (N + 1))) *

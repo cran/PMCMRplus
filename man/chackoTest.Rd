@@ -61,7 +61,24 @@ is tested against a simple order hypothesis,
 H\eqn{_\mathrm{A}: \theta_1 \le \theta_2 \le \ldots \le
 \theta_k,~\theta_1 < \theta_k}.
 
-The p-values are estimated from the chi-square distribution.
+Let \eqn{R_{ij}} be the rank of \eqn{X_{ij}},
+where \eqn{X_{ij}} is jointly ranked
+from \eqn{\left\{1, 2, \ldots, N \right\}, ~~ N = \sum_{i=1}^k n_i},
+then the test statistic is calculated as
+\deqn{
+H = \frac{1}{\sigma_R^2} \sum_{i=1}^k n_i \left(\bar{R^*}_i - \bar{R}\right),
+}{%
+ SEE PDF
+}
+
+where \eqn{\bar{R^*}_i} is the isotonic mean of the \eqn{i}-th group
+and \eqn{\sigma_R^2 = N \left(N + 1\right) / 12} the expected variance (without ties).
+H\eqn{_0} is rejected, if \eqn{H > \chi^2_{v,\alpha}} with
+\eqn{v = k -1} degree of freedom. The p-values are estimated
+from the chi-square distribution.
+}
+\note{
+The function does neither check nor correct for ties.
 }
 \section{Source}{
 
@@ -70,17 +87,18 @@ theorem to calculate the isotonic means
 was taken from the file \code{"pava.f"}, which is included in the
 package \pkg{Iso}:
 
- Rolf Turner (2015). Iso: Functions to Perform Isotonic Regression. R
- package version 0.0-17. \url{https://CRAN.R-project.org/package=Iso}.
+ Rolf Turner (2015). Iso: Functions to Perform Isotonic Regression.
+ R package version 0.0-17.
+ \url{https://CRAN.R-project.org/package=Iso}.
 
 The file \code{"pava.f"} is a Ratfor modification of Algorithm AS 206.1:
 
 Bril, G., Dykstra, R., Pillers, C., Robertson, T. (1984)
 Statistical Algorithms: Algorithm AS 206: Isotonic
-Regression in Two Independent Variables, \emph{Appl. Statist.}
+Regression in Two Independent Variables, \emph{Appl Statist}
 \bold{34}, 352--357.
 
- The Algorith AS 206 is available from StatLib
+The Algorith AS 206 is available from StatLib
 \url{http://lib.stat.cmu.edu/apstat/}. The Royal Statistical Society
 holds the copyright to these routines,
 but has given its permission for their distribution provided that
@@ -122,7 +140,7 @@ flignerWolfeTest(x, g)
 }
 \references{
 Chacko, V. J. (1963) Testing homogeneity against ordered alternatives,
-\emph{Ann. Math. Statist.} \bold{34}, 945--956.
+\emph{Ann Math Statist} \bold{34}, 945--956.
 }
 \seealso{
 \code{\link{kruskalTest}} and \code{\link{shirleyWilliamsTest}}

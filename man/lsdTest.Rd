@@ -62,20 +62,35 @@ test for normally distributed data with equal group variances.
 \details{
 For all-pairs comparisons in an one-factorial layout
 with normally distributed residuals and equal variances
-the least signifiant difference test can be performed.
-A total of \eqn{m = k(k-1)/2}
-hypotheses can be tested. The null hypothesis
-H\eqn{_{ij}: \mu_i(x) = \mu_j(x)} is tested in the two-tailed test
-against the alternative
-A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
+the least signifiant difference test can be performed
+after a significant ANOVA F-test.
+Let \eqn{X_{ij}} denote a continuous random variable
+with the \eqn{j}-the realization (\eqn{1 \le j \le n_i})
+in the \eqn{i}-th group (\eqn{1 \le i \le k}). Furthermore, the total
+sample size is \eqn{N = \sum_{i=1}^k n_i}. A total of \eqn{m = k(k-1)/2}
+hypotheses can be tested: The null hypothesis is
+H\eqn{_{ij}: \mu_i = \mu_j ~~ (i \ne j)} is tested against the alternative
+A\eqn{_{ij}: \mu_i \ne \mu_j} (two-tailed). Fisher's LSD all-pairs test
+statistics are given by
 
-The p-values are computed from the t-distribution.
+\deqn{
+ t_{ij} \frac{\bar{X}_i - \bar{X_j}}
+ {s_{\mathrm{in}} \left(1/n_j + 1/n_i\right)^{1/2}}, ~~
+ (i \ne j)
+}{%
+ SEE PDF
+}
+
+with \eqn{s^2_{\mathrm{in}}} the within-group ANOVA variance.
+The null hypothesis is rejected if \eqn{|t_{ij}| > t_{v\alpha/2}},
+with \eqn{v = N - k} degree of freedom. The p-values (two-tailed)
+are computed from the \code{\link[stats]{TDist}} distribution.
 }
 \note{
-As there is no p-value adjustment build in, this function is equivalent
-to Fisher's protected LSD test, provided
-that the LSD test is only applied after a significant one-way ANOVA
-F-test. If one is interested in other types of LSD test (i.e.
+As there is no p-value adjustment included, this function is equivalent
+to Fisher's protected LSD test, provided that the LSD test is
+only applied after a significant one-way ANOVA F-test.
+If one is interested in other types of LSD test (i.e.
 with p-value adustment) see function \code{\link{pairwise.t.test}}.
 }
 \examples{

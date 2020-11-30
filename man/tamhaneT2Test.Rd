@@ -66,24 +66,67 @@ data with unequal variances.
 \details{
 For all-pairs comparisons in an one-factorial layout
 with normally distributed residuals but unequal groups variances
-the T2 test (or T2' test) of Tamhane can be performed. A total of \eqn{m = k(k-1)/2}
-hypotheses can be tested. The null hypothesis
-H\eqn{_{ij}: \mu_i(x) = \mu_j(x)} is tested in the two-tailed test
-against the alternative
-A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
+the T2 test (or T2' test) of Tamhane can be performed.
+Let \eqn{X_{ij}} denote a continuous random variable
+with the \eqn{j}-the realization (\eqn{1 \le j \le n_i})
+in the \eqn{i}-th group (\eqn{1 \le i \le k}). Furthermore, the total
+sample size is \eqn{N = \sum_{i=1}^k n_i}. A total of \eqn{m = k(k-1)/2}
+hypotheses can be tested: The null hypothesis is
+H\eqn{_{ij}: \mu_i = \mu_j ~~ (i \ne j)} is tested against the alternative
+A\eqn{_{ij}: \mu_i \ne \mu_j} (two-tailed). Tamhane T2 all-pairs
+test statistics are given by
+
+\deqn{
+ t_{ij} \frac{\bar{X}_i - \bar{X_j}}
+ {\left( s^2_j / n_j + s^2_i / n_i \right)^{1/2}}, ~~
+ (i \ne j)
+}{%
+ SEE PDF
+}
+
+with \eqn{s^2_i} the variance of the \eqn{i}-th group.
+The null hypothesis is rejected (two-tailed) if
+
+\deqn{
+ \mathrm{Pr} \left\{ |t_{ij}| \ge t_{v_{ij}\alpha'/2} | \mathrm{H} \right\}_{ij} =
+ \alpha.
+}{%
+ SEE PDF
+}
 
 T2 test uses Welch's approximate solution for
-calculating the degree of freedom. T2' test uses the usual
-\eqn{df = N - 2} approximation. A warning message appears
-in the modified T2' test, if none of in Tamhane (1979) given conditions for nearly balanced
-sample sizes and nearly balanced standard errors is true.
+calculating the degree of freedom.
 
-The p-values are computed from the t-distribution and adjusted
-according to Dunn-Sidak.
+\deqn{
+ v_{ij} = \frac{\left( s^2_i / n_i + s^2_j / n_j \right)^2}
+ {s^4_i / n^2_i \left(n_i - 1\right) + s^4_j / n^2_j \left(n_j - 1\right)}.
+}{%
+ SEE PDF
+}
+
+T2' test applies the following approximation for the degree of freedom
+\deqn{
+ v_{ij} = n_i + n_j - 2
+}{%
+ SEE PDF
+}
+
+The p-values are computed from the \code{\link[stats]{TDist}}-distribution
+and adjusted according to Dunn-Sidak.
+\deqn{
+ p'_{ij} = \min \left\{1, ~ (1 - (1 - p_{ij})^m)\right\}
+}{%
+ SEE PDF
+}
 }
 \note{
 T2 test is basically an all-pairs pairwise-t-test. Similar results
 can be obtained with \code{pairwise.t.test(..., var.equal=FALSE, p.adjust.mehod = FALSE)}.
+
+A warning message appears
+in the modified T2' test, if none of in Tamhane (1979) given conditions
+for nearly balanced
+sample sizes and nearly balanced standard errors is true.
 
 Thanks to Sirio Bolaños for his kind suggestion for adding T2' test
 into this function.
@@ -117,7 +160,6 @@ PADJ
 ## same without Welch's approximate solution
 summary(T2b <- tamhaneT2Test(fit, welch = FALSE))
 
-
 }
 \references{
 Tamhane, A. C. (1979) A Comparison of Procedures for Multiple Comparisons
@@ -125,7 +167,7 @@ Tamhane, A. C. (1979) A Comparison of Procedures for Multiple Comparisons
  Statistical Association} \bold{74}, 471--480.
 }
 \seealso{
-\code{\link{dunnettT3Test}}
+\code{\link{dunnettT3Test}} \code{\link{uryWigginsHochbergTest}}
 }
 \concept{parametric}
 \keyword{htest}

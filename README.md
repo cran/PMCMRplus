@@ -6,7 +6,7 @@ Description
 
 In order to use the extended functions of the R package **PMCMRplus**, 
 several additional R packages available from CRAN need to
-be imported, i.e. **mvtnorm** (Genz and Bretz and 2009, Genz et al.
+be imported, i.e. **mvtnorm** (Genz and Bretz 2009, Genz et al.
 2015), **multcompView** (Graves et al. 2015), **Rmpfr** (Maechler 2016)
 and **gmp** (Lucas et al. 2017). This will be done automatically by R's
 package management system.
@@ -133,15 +133,9 @@ package source list and the user has root (or su, sudo) priviliges,
 one can try to install precompiled `r-cran*` deb packages 
 outside of the R environment as
 
-    sudo apt-get install r-cran-rmpfr
-    sudo apt-get install r-cran-gmp
+    sudo apt-get install r-cran-pmcmrplus
 
-As by the time of writing of this README the package 
-**PMCMRplus** was not yet converted into a deb package
-by the PPA maintainer, the user must install the package from
-within R as:
-
-    install.packages("PMCMRplus")
+This will install depending dep packages for **PMCMCRplus**, too.
 
 References
 ----------
@@ -149,7 +143,7 @@ References
 L. Fousse, G. Hanrot, V. Lefevre, P. Pelissier, P. Zimmermann (2007)
 MPFR: A Multiple-precision Binary Floating-point Library with Correct
 Rounding. *ACM Trans. Math. Softw. 33*. 13.
-<http://doi.acm.org/10.1145/1236463.1236468>.
+<https://doi.acm.org/10.1145/1236463.1236468>.
 
 A. Genz, F. Bretz (2009) *Computation of Multivariate Normal and t
 Probabilities*. Lecture Notes in Statistics. Heidelberg: Springer.

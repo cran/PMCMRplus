@@ -104,7 +104,11 @@ The null hypothesis H\eqn{_{ij}: \theta_i = \theta_j} is tested against
 the alternative A\eqn{_{ij}: \theta_i < \theta_j} for any
 \eqn{1 \le i < j \le k}.
 
-The all-pairs comparisons test statistics for a balanced design are
+Let \eqn{R_{ij}} be the rank of \eqn{X_{ij}},
+where \eqn{X_{ij}} is jointly ranked
+from \eqn{\left\{1, 2, \ldots, N \right\}, ~~ N = \sum_{i=1}^k n_i},
+then the test statistics for all-pairs comparisons
+and a balanced design is calculated as
 \deqn{
  \hat{T}_{ij} = \max_{i \le m < m' \le j}
  \frac{\left(\bar{R}_{m'} - \bar{R}_m \right)}
@@ -115,7 +119,7 @@ The all-pairs comparisons test statistics for a balanced design are
 
 with \eqn{n = n_i; ~ N = \sum_i^k n_i ~~ (1 \le i \le k)}, \eqn{\bar{R}_i}
 the mean rank for the \eqn{i}th group,
-and \eqn{\sigma_a = \sqrt{N \left(N + 1 \right) / 12}}.
+and the expected variance (without ties) \eqn{\sigma_a^2 = N \left(N + 1 \right) / 12}.
 
 For the NPY'-test (\code{dist = "h"}), if \eqn{T_{ij} > h_{k-1,\alpha,\infty}}.
 
@@ -178,12 +182,11 @@ hsAllPairsTest(x, g)
 \references{
 Hayter, A. J.(1990) A One-Sided Studentised Range
 Test for Testing Against a Simple Ordered Alternative,
-\emph{Journal of the American Statistical Association}
-\bold{85}, 778--785.
+\emph{J Amer Stat Assoc} \bold{85}, 778--785.
 
 Nashimoto, K., Wright, F.T. (2007)
 Nonparametric Multiple-Comparison Methods for Simply Ordered Medians.
-\emph{Comput Stat Data Anal} \bold{51}, 5068–5076.
+\emph{Comput Stat Data Anal} \bold{51}, 5068--5076.
 }
 \seealso{
 \code{\link{Normal}}, \code{\link{chackoTest}},

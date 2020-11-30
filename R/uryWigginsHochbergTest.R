@@ -28,18 +28,51 @@
 #' For all-pairs comparisons in an one-factorial layout
 #' with normally distributed residuals but unequal groups variances
 #' the tests of Ury-Wiggins and Hochberg can be performed.
-#' A total of \eqn{m = k(k-1)/2}
-#' hypotheses can be tested. The null hypothesis
-#' H\eqn{_{ij}: \mu_i(x) = \mu_j(x)} is tested in the two-tailed test
-#' against the alternative
-#' A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
+#' Let \eqn{X_{ij}} denote a continuous random variable
+#' with the \eqn{j}-the realization (\eqn{1 \le j \le n_i})
+#' in the \eqn{i}-th group (\eqn{1 \le i \le k}). Furthermore, the total
+#' sample size is \eqn{N = \sum_{i=1}^k n_i}. A total of \eqn{m = k(k-1)/2}
+#' hypotheses can be tested: The null hypothesis is
+#' H\eqn{_{ij}: \mu_i = \mu_j ~~ (i \ne j)} is tested against the alternative
+#' A\eqn{_{ij}: \mu_i \ne \mu_j} (two-tailed). Ury-Wiggins and Hochberg
+#' all-pairs test statistics are given by
 #'
+#' \deqn{
+#'  t_{ij} \frac{\bar{X}_i - \bar{X_j}}
+#'  {\left( s^2_j / n_j + s^2_i / n_i \right)^{1/2}}, ~~
+#'  (i \ne j)
+#' }{%
+#'  SEE PDF
+#' }
 #'
-#' The p-values are computed from the t-distribution. The type of test depends
+#' with \eqn{s^2_i} the variance of the \eqn{i}-th group.
+#' The null hypothesis is rejected (two-tailed) if
+#'
+#' \deqn{
+#'  \mathrm{Pr} \left\{ |t_{ij}| \ge t_{v_{ij}\alpha'/2} | \mathrm{H} \right\}_{ij} =
+#'  \alpha,
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' with Welch's approximate equation for degree of freedom as
+#'
+#' \deqn{
+#'  v_{ij} = \frac{\left( s^2_i / n_i + s^2_j / n_j \right)^2}
+#'  {s^4_i / n^2_i \left(n_i - 1\right) + s^4_j / n^2_j \left(n_j - 1\right)}.
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' The p-values are computed from the \code{\link[stats]{TDist}}-distribution.
+#' The type of test depends
 #' on the selected p-value adjustment method (see also \code{\link{p.adjust}}):
+#'
 #' \describe{
-#' \item{bonferroni}{the Ury-Wiggins test is performed}
-#' \item{hochberg}{the Hochberg test is performed}.
+#' \item{bonferroni}{the Ury-Wiggins test is performed with Bonferroni adjusted
+#' p-values.}
+#' \item{hochberg}{the Hochberg test is performed with Hochberg's adjusted
+#' p-values}.
 #' }
 #'
 #' @references
@@ -64,7 +97,7 @@
 #' summaryGroup(res)
 #'
 #' @seealso
-#' \code{\link{dunnettT3Test}}
+#' \code{\link{dunnettT3Test}} \code{\link{tamhaneT2Test}} \code{\link[stats]{TDist}}
 #' @importFrom stats pt
 #' @importFrom stats complete.cases
 #' @importFrom stats var
@@ -137,7 +170,9 @@ function(x, g, p.adjust.method = p.adjust.methods, ...){
         tval <- dif / sqrt(A)
         df <- A^2 / (s2i[i]^2 / (ni[i]^2 * (ni[i] - 1)) +
                     s2i[j]^2 / (ni[j]^2 * (ni[j] - 1)))
-        pval <- pt(abs(tval), df = df, lower.tail = FALSE)
+        ## two sided
+        pval <- 2 * pt(abs(tval), df = df, lower.tail = FALSE)
+        pval <- min(1, pval)
         return(pval)
     }
 

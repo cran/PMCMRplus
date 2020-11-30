@@ -1,6 +1,27 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.7.1 (2020-11-29)}{
+ \subsection{BUGFIX}{
+  \itemize{
+   \item The function \code{uryWigginsHochbergTest} was
+   corrected in order to return the two-tailed p-value.
+  }
+ }
+ \subsection{OTHER CHANGES}{
+   \itemize{
+     \item In the demo \code{algae} the step-down
+     trend examples were replaced with
+     the corresponding novel function
+     \code{stepDownTrendTest}.
+     \item The method for class \code{"aov"} was implemented
+    for the function \code{williamsTest}.
+     \item The function \code{toTidy} was extended for
+     functions of two-way rank ANOVA.
+     \item Several \code{Rd} files were updated and extended.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.7.0 (2020-10-29)}{
  \subsection{NEW FEATURES}{
   \itemize{

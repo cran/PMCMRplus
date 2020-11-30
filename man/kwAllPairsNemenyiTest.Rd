@@ -71,13 +71,55 @@ For all-pairs comparisons in an one-factorial layout
 with non-normally distributed residuals Nemenyi's non-parametric test
 can be performed. A total of \eqn{m = k(k-1)/2}
 hypotheses can be tested. The null hypothesis
-H\eqn{_{ij}: \mu_i(x) = \mu_j(x)} is tested in the two-tailed test
+H\eqn{_{ij}: \theta_i(x) = \theta_j(x)} is tested in the two-tailed test
 against the alternative
-A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
+A\eqn{_{ij}: \theta_i(x) \ne \theta_j(x), ~~ i \ne j}.
 
-If \code{dist == "Tukey"} is selected, the p-values are computed
-from the studentized range distribution. If \code{dist == "Chisquare"}
-is selected, the p-values are computed from the chi-square distribution.
+Let \eqn{R_{ij}} be the rank of \eqn{X_{ij}},
+where \eqn{X_{ij}} is jointly ranked
+from \eqn{\left\{1, 2, \ldots, N \right\}, ~~ N = \sum_{i=1}^k n_i},
+then the test statistic under the absence of ties is calculated as
+
+\deqn{
+t_{ij} = \frac{\bar{R}_j - \bar{R}_i}
+{\sigma_R \left(1/n_i + 1/n_j\right)^{1/2}} \qquad \left(i \ne j\right),
+}{%
+ SEE PDF
+}
+
+with \eqn{\bar{R}_j, \bar{R}_i} the mean rank of the
+\eqn{i}-th and \eqn{j}-th group and the expected variance as
+\deqn{
+ \sigma_R^2 = N \left(N + 1\right) / 12.
+}{%
+ SEE PDF
+}
+
+A pairwise difference is significant, if \eqn{|t_{ij}|/\sqrt{2} > q_{kv}},
+with \eqn{k} the number of groups and \eqn{v = \infty}
+the degree of freedom.
+
+Sachs(1997) has given a modified approach for
+Nemenyi's test in the presence of ties for \eqn{N > 6, k > 4}
+provided that the \code{\link{kruskalTest}} indicates significance:
+In the presence of ties, the test statistic is
+corrected according to \eqn{\hat{t}_{ij} = t_{ij} / C}, with
+\deqn{
+  C = 1 - \frac{\sum_{i=1}^r t_i^3 - t_i}{N^3 - N}.
+}{%
+ SEE PDF
+}
+
+The function provides two different \code{dist}
+for \eqn{p}-value estimation:
+\describe{
+ \item{Tukey}{The \eqn{p}-values are computed from the studentized
+ range distribution (alias \code{\link[stats]{Tukey}}),
+ \eqn{\mathrm{Pr} \left\{ t_{ij} \sqrt{2} \ge q_{k\infty\alpha} | mathrm{H} \right\} = \alpha}.}
+ \item{Chisquare}{The \eqn{p}-values are computed from the
+ \code{\link[stats]{Chisquare}} distribution with \eqn{v = k - 1} degree
+ of freedom.}
+}
 }
 \examples{
 ## Data set InsectSprays
@@ -106,8 +148,8 @@ Nemenyi, P. (1963) \emph{Distribution-free Multiple Comparisons}.
 Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 
 Wilcoxon, F., Wilcox, R. A. (1964)
-\emph{Some rapid approximate statistical procedures}. Pearl River:
-Lederle Laboratories.
+\emph{Some rapid approximate statistical procedures}.
+Pearl River: Lederle Laboratories.
 }
 \seealso{
 \code{\link[stats]{Tukey}}, \code{\link[stats]{Chisquare}},

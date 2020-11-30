@@ -59,7 +59,7 @@
 #'  }
 #'
 #' where
-#' \deqn{
+#' \deqn{ s_W =
 #'   \frac{n_c N^t}{12 N \left(N - 1 \right)}
 #'   \sum_{j=1}^g t_j \left(t_j^2 - 1\right),
 #' }{%
@@ -146,13 +146,14 @@ flignerWolfeTest.default <-
     FW0 <- sum(rSj[-1]) - (Ns * (Ns + 1)) / 2
 
     ## check for ties
+    C <- gettiesFW(rij)
 
     if (dist == "Wilcoxon") {
 #        TIES <- FALSE
-        TIES <- sum(table(rij) - 1) != 0
-        if (TIES) {
-            warning("Cannot compute exact p-value with ties. You may use the normal distribution to account for ties.")
-        }
+        #TIES <- sum(table(rij) - 1) != 0
+        #if (TIES) {
+        if (C != 0) warning("Cannot compute exact p-value with ties. You may use the normal distribution to account for ties.")
+        #}
 
         PVAL <- switch(
             alternative,
@@ -172,16 +173,15 @@ flignerWolfeTest.default <-
 
     } else {
 
-
         ## are ties present
-        getties <- function(x){
-            n <- length(x)
-            t <- table(x)
-            C <- sum(t * (t^2 - 1))
-            return(C)
-        }
+#        getties <- function(x){
+#            n <- length(x)
+#            t <- table(x)
+#            C <- sum(t * (t^2 - 1))
+#            return(C)
+#        }
 
-        C <- getties(rij)
+    #    C <- gettiesFW(rij)
         if (C != 0) warning("Ties are present. z-quantiles were corrected for ties.")
         ## compute variance
         N <- nc + Ns

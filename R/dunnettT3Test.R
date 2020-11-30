@@ -27,15 +27,48 @@
 #' @details
 #' For all-pairs comparisons in an one-factorial layout
 #' with normally distributed residuals but unequal groups variances
-#' the T3 test of Dunnett can be performed. A total of \eqn{m = k(k-1)/2}
-#' hypotheses can be tested. The null hypothesis
-#' H\eqn{_{ij}: \mu_i(x) = \mu_j(x)} is tested in the two-tailed test
-#' against the alternative
-#' A\eqn{_{ij}: \mu_i(x) \ne \mu_j(x), ~~ i \ne j}.
+#' the T3 test of Dunnett can be performed.
+#' Let \eqn{X_{ij}} denote a continuous random variable
+#' with the \eqn{j}-the realization (\eqn{1 \le j \le n_i})
+#' in the \eqn{i}-th group (\eqn{1 \le i \le k}). Furthermore, the total
+#' sample size is \eqn{N = \sum_{i=1}^k n_i}. A total of \eqn{m = k(k-1)/2}
+#' hypotheses can be tested: The null hypothesis is
+#' H\eqn{_{ij}: \mu_i = \mu_j ~~ (i \ne j)} is tested against the alternative
+#' A\eqn{_{ij}: \mu_i \ne \mu_j} (two-tailed). Dunnett T3 all-pairs
+#' test statistics are given by
 #'
-#' The p-values are computed from the studentized maximum modulus distribution
+#' \deqn{
+#'  t_{ij} \frac{\bar{X}_i - \bar{X_j}}
+#'  {\left( s^2_j / n_j + s^2_i / n_i \right)^{1/2}}, ~~
+#'  (i \ne j)
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' with \eqn{s^2_i} the variance of the \eqn{i}-th group.
+#' The null hypothesis is rejected (two-tailed) if
+#'
+#' \deqn{
+#'  \mathrm{Pr} \left\{ |t_{ij}| \ge T_{v_{ij}\rho_{ij}\alpha'/2} | \mathrm{H} \right\}_{ij} =
+#'  \alpha,
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' with Welch's approximate solution for calculating the degree of freedom.
+#'
+#' \deqn{
+#'  v_{ij} = \frac{\left( s^2_i / n_i + s^2_j / n_j \right)^2}
+#'  {s^4_i / n^2_i \left(n_i - 1\right) + s^4_j / n^2_j \left(n_j - 1\right)}.
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' The \eqn{p}-values are computed from the
+#' studentized maximum modulus distribution
 #' that is the equivalent of the multivariate t distribution
-#' with \eqn{\rho = 0}. The function \code{\link[mvtnorm]{pmvt}} is used to
+#' with \eqn{\rho_{ii} = 1, ~ \rho_{ij} = 0 ~ (i \ne j)}.
+#' The function \code{\link[mvtnorm]{pmvt}} is used to
 #' calculate the \eqn{p}-values.
 #'
 #' @references
@@ -197,7 +230,6 @@ function(formula, data, subset, na.action, ...)
 #' @rdname dunnettT3Test
 #' @aliases dunnettT3Test.aov
 #' @method dunnettT3Test aov
-# @param obj A fitted model object, usually an \link[stats]{aov} fit.
 #' @export
 dunnettT3Test.aov <- function(x, ...) {
     model <- x$model

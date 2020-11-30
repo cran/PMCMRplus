@@ -33,26 +33,75 @@
 #' the H\eqn{_\mathrm{A}: F_i (x) \ne F_j(x)~ (i \ne j)} with at least
 #' one strict inequality.
 #'
-#' As the Kruskal-Wallis H-statistic is assymptotically
-#' chi-squared distributed with \eqn{v = k - 1} degree
-#' of freedom, the default test distribution is consequently
-#' \code{dist = "Chisquare"}. If \code{dist = "KruskalWallis"} is selected,
-#' an incomplete beta approximation is used for the calculation
-#' of p-values as implemented in the function
-#' \code{\link[SuppDists]{pKruskalWallis}} of the package
-#' \pkg{SuppDists}. For \code{dist = "FDist"}
-#' the proposed method of Conover and Imam (1981) is used, which is
-#' equivalent to a one-way ANOVA F-test using rank transformed data
+#' Let \eqn{R_{ij}} be the joint rank of \eqn{X_{ij}},
+#' with \eqn{R_{(1)(1)} = 1, \ldots, R_{(n)(n)} = N, ~~ N = \sum_{i=1}^k n_i},
+#' The test statistic is calculated as
+#' \deqn{
+#'  H = \sum_{i=1}^k n_i \left(\bar{R}_i - \bar{R}\right) / \sigma_R,
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' with the mean rank of the \eqn{i}-th group
+#' \deqn{
+#' \bar{R}_i = \sum_{j = 1}^{n_{i}} R_{ij} / n_i,
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' the expected value
+#' \deqn{
+#'  \bar{R} = \left(N +1\right) / 2
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' and the expected variance as
+#' \deqn{
+#'  \sigma_R^2 = N \left(N + 1\right) / 12.
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' In case of ties the statistic \eqn{H} is divided by
+#' \eqn{\left(1 - \sum_{i=1}^r t_i^3 - t_i \right) / \left(N^3 - N\right)}
+#'
+#' According to Conover and Imam (1981), the statistic \eqn{H} is related
+#' to the \eqn{F}-quantile as
+#' \deqn{
+#'  F = \frac{H / \left(k - 1\right)}
+#'      {\left(N - 1 - H\right) / \left(N - k\right)}
+#' }{%
+#'  SEE PDF
+#' }
+#' which is equivalent to a one-way ANOVA F-test using rank transformed data
 #' (see examples).
 #'
-#' @inherit friedmanTest references
+#' The function provides three different \code{dist} for \eqn{p}-value estimation:
+#' \describe{
+#'  \item{Chisquare}{\eqn{p}-values are computed from the \code{\link{Chisquare}}
+#'   distribution with \eqn{v = k - 1} degree of freedom.}
+#'  \item{KruskalWallis}{\eqn{p}-values are computed from the
+#'   \code{\link[SuppDists]{pKruskalWallis}} of the package \pkg{SuppDists}.}
+#'  \item{FDist}{\eqn{p}-values are computed from the \code{\link{FDist}} distribution
+#'   with \eqn{v_1 = k-1, ~ v_2 = N -k} degree of freedom.}
+#' }
+#'
+#' @references
+#' Conover, W.J., Iman, R.L. (1981) Rank Transformations as a Bridge
+#'  Between Parametric and Nonparametric Statistics.
+#'  \emph{Am Stat} \bold{35}, 124--129.
+#'
+#' Kruskal, W.H., Wallis, W.A. (1952) Use of Ranks in One-Criterion Variance Analysis.
+#'  \emph{J Am Stat Assoc} \bold{47}, 583--621.
+#'
+#' Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 #'
 #' @seealso
 #'  \code{\link{kruskal.test}}, \code{\link[SuppDists]{pKruskalWallis}},
 #'  \code{\link{Chisquare}}, \code{\link{FDist}}
 #'
 #' @template class-htest
-#'
 #' @concept kruskalranks
 #' @example examples/kSamples.R
 #' @export
@@ -109,20 +158,11 @@ kruskalTest.default <-
     k <- nlevels(g)
     n <- sum(R.n)
 
-    getties <- function(x) {
-        n <- length(x)
-        t <- table(x)
-        C <- 1 - sum(t^3 - t) / (n^3 - n)
-        C <- min(1, C)
-        return(C)
-    }
-
-
-    C <- getties(x.rank)
+    C <- gettiesKruskal(x.rank)
     if (C != 1) warning("Ties are present. Quantiles were corrected for ties.")
+
     ## Kruskal-Wallis statistic
-    H <- (12 / (n * (n + 1))) *
-        sum(tapply(x.rank, g, "sum")^2 / R.n) - 3 * (n + 1)
+    H <- HStat(x.rank, g)
     PSTAT <- H / C
 
     if (dist == "Chisquare"){

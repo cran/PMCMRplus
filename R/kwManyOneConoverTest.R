@@ -114,38 +114,22 @@ function(x, g, alternative = c("two.sided", "greater", "less"), p.adjust.method 
 
     ## rank version
     x.rank <- rank(x)
-    R.bar <- tapply(x.rank, g, mean,na.rm=T)
+    R.bar <- tapply(x.rank, g, mean, na.rm = TRUE)
     R.n <- tapply(!is.na(x), g, length)
-   ## k <- levels(g)
+    k <- nlevels(g)
     n <- sum(R.n)
-    getties <- function(x, n) {
-        x.sorted <- sort(x)
-        pos <- 1
-        tiesum <- 0
-        while (pos <= n) {
-            val <- x.sorted[pos]
-            nt <- length(!is.na(x.sorted[x.sorted==val]))
-            pos <- pos + nt
-            if (nt > 1){
-                tiesum <- tiesum + nt^3  - nt
-            }
-        }
-        C <- 1 - tiesum / (n^3 - n)
-        C <- min(c(1,C))
-        return(C)
-    }
 
     METHOD <- "Conover's many-to-one test"
-    C <- getties(x.rank, n)
-    if (C != 1) warning("Ties are present. Quantiles were corrected for ties.")
+
     ## Kruskal-Wallis statistic
-    H <- (12 / (n * (n + 1))) * sum(tapply(x.rank, g, "sum")^2 / R.n) -
-        3 * (n + 1)
+    H <- HStat(x.rank, g)
+    C <- gettiesKruskal(x.rank)
     H.cor <- H / C
 
     if (C == 1) {
         S2 <- n * (n + 1) / 12
     } else {
+        warning("Ties are present. Quantiles were corrected for ties.")
         S2 <-   ( 1 / (n - 1)) * (sum(x.rank^2) - (n * (((n + 1)^2) / 4)))
     }
 
@@ -157,21 +141,12 @@ function(x, g, alternative = c("two.sided", "greater", "less"), p.adjust.method 
         return(tval)
     }
 
-
     if (p.adjust.method != "single-step"){
         df <- n - k
         STATISTIC <- rep(NA, k - 1)
         for (j in 2:k) {
             STATISTIC[j-1] <- compare.stats(j)
         }
-
-        #if (alternative == "two.sided"){
-        #    PVAL <- 2 * pt(abs(STATISTIC), df=df, lower.tail = FALSE)
-        #} else if (alternative == "greater"){
-        #    PVAL <- pt(STATISTIC, df=df, lower.tail = FALSE)
-        #} else {
-        #    PVAL <- pt(STATISTIC, df=df)
-        #}
 
         PVAL <- switch(alternative,
                        "two.sided" =

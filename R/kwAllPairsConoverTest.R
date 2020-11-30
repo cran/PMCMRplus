@@ -105,35 +105,21 @@ function(x, g, p.adjust.method = c("single-step", p.adjust.methods), ...){
     g.unique <- unique(g)
     k <- length(g.unique)
     n <- sum(R.n)
-    getties <- function(x, n) {
-        x.sorted <- sort(x)
-        pos <- 1
-        tiesum <- 0
-        while (pos <= n) {
-            val <- x.sorted[pos]
-            nt <- length(!is.na(x.sorted[x.sorted==val]))
-            pos <- pos + nt
-            if (nt > 1){
-                tiesum <- tiesum + nt^3  - nt
-            }
-        }
-        C <- 1 - tiesum / (n^3 - n)
-        C <- min(c(1,C))
-        return(C)
-    }
+
     METHOD <- "Conover's all-pairs test"
-    C <- getties(x.rank, n)
-    if (C != 1) warning("Ties are present. Quantiles were corrected for ties.")
+
     ## Kruskal-Wallis statistic
-    H <- (12 / (n * (n + 1))) * sum(tapply(x.rank, g, "sum")^2 / R.n) -
-        3 * (n + 1)
+    H <- HStat(x.rank, g)
+    C <- gettiesKruskal(x.rank)
     H.cor <- H / C
 
     if (C == 1) {
         S2 <- n * (n + 1) / 12
     } else {
+        warning("Ties are present. Quantiles were corrected for ties.")
         S2 <-   ( 1 / (n - 1)) * (sum(x.rank^2) - (n * (((n + 1)^2) / 4)))
     }
+
     compare.stats <- function(i,j) {
         dif <- R.bar[i] - R.bar[j]
         B <- (1 / R.n[i] + 1 / R.n[j])

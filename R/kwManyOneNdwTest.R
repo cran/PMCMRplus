@@ -130,16 +130,7 @@ kwManyOneNdwTest.default <-
         k <- nlevels(g)
         n <- sum(R.n)
 
-	# tie function
-        getties <- function(x){
-            n <- length(x)
-            t <- table(x)
-            C <- 1 - (sum(t^3 - t)) / (n^3 - n)
-            C <- min(c(1,C))
-            return(C)
-        }
-
-        C <- getties(x)
+        C <- gettiesKruskal(x)
         if(C < 1){
             warning("Ties are present. p values are not corrected.")
         }

@@ -119,16 +119,11 @@ kwManyOneDunnTest.default <-
     k <- length(g.unique)
     n <- sum(R.n)
 
-    getties <- function(x){
-        n <- length(x)
-        t <- table(x)
-        C <- sum(t^3 - t) / (12 * (n - 1))
-        return(C)
-    }
-
     METHOD <- "Dunn's many-to-one test"
 
-    C <- getties(x.rank)
+    ## get the ties
+    C <- gettiesDunn(x.rank)
+
     if (C != 0) warning("Ties are present. z-quantiles were corrected for ties.")
     ## mean Rsum of controll is in R.bar[1]
     compare.stats <- function(j) {

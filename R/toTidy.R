@@ -66,7 +66,11 @@ toTidy <- function(mod, ...) {
   if (inherits(mod, "PMCMR") | inherits(mod, "trendPMCMR")) {
     # combine all components of the object in a single dataframe
     METH <- regex1(mod$method)
-    METH <- regex2(mod$method)
+    METH <- regex2(METH)
+    METH <- ifelse(length(METH) > 1,
+                   paste(METH, collapse = ""),
+                   METH)
+
     ans <- cbind(
       merge(
         x = matrix_to_tidy(mod$statistic, col_name = "statistic"),
@@ -83,9 +87,13 @@ toTidy <- function(mod, ...) {
       data.frame(p.adjust.method = mod$p.adjust.method)
     )
     return(ans)
+
   } else if (inherits(mod, "osrt")) {
     METH <- regex1(mod$method)
-    METH <- regex2(mod$method)
+    METH <- regex2(METH)
+    METH <- ifelse(length(METH) > 1,
+                   paste(METH, collapse = ""),
+                   METH)
 
     ans <- cbind(
       matrix_to_tidy(mod$statistic, col_name = "statistic"),

@@ -110,11 +110,11 @@ summary(aov(y ~ g + Error(b), data = dataf))
 
 }
 \references{
-Conover, W. J., Iman, R. L. (1981) Rank transformations as a bridge
- between parametric and nonparametric statistics, \emph{The American
-   Statistician} \bold{35}, 124--129.
+Conover, W.J., Iman, R.L. (1981) Rank Transformations as a Bridge
+ Between Parametric and Nonparametric Statistics.
+ \emph{Am Stat} \bold{35}, 124--129.
 
- Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
+Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 }
 \seealso{
 \code{\link{friedman.test}}

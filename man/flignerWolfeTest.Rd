@@ -109,7 +109,7 @@ In the presence of ties, the statistic is
  }
 
 where
-\deqn{
+\deqn{ s_W =
   \frac{n_c N^t}{12 N \left(N - 1 \right)}
   \sum_{j=1}^g t_j \left(t_j^2 - 1\right),
 }{%

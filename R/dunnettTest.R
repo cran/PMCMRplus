@@ -26,14 +26,41 @@
 #' @details
 #' For many-to-one comparisons in an one-factorial layout
 #' with normally distributed residuals Dunnett's test
-#' can be used. A total of \eqn{m = k-1}
-#' hypotheses can be tested. The null hypothesis
-#' H\eqn{_{i}: \mu_0(x) = \mu_i(x)} is tested in the two-tailed test
-#' against the alternative
-#' A\eqn{_{i}: \mu_0(x) \ne \mu_i(x), ~~ 1 \le i \le k-1}.
+#' can be used.
+#' Let \eqn{X_{0j}} denote a continuous random variable
+#' with the \eqn{j}-the realization of the control group
+#' (\eqn{1 \le j \le n_0}) and \eqn{X_{ij}} the \eqn{j}-the realization
+#' in the \eqn{i}-th treatment group (\eqn{1 \le i \le k}).
+#' Furthermore, the total sample size is \eqn{N = n_0 + \sum_{i=1}^k n_i}.
+#' A total of \eqn{m = k} hypotheses can be tested: The null hypothesis is
+#' H\eqn{_{i}: \mu_i = \mu_0} is tested against the alternative
+#' A\eqn{_{i}: \mu_i \ne \mu_0} (two-tailed). Dunnett's test
+#' statistics are given by
 #'
-#' The p-values for the test are calculated from the multivariate t distribution
-#' as implemented in the function \code{\link[mvtnorm]{pmvt}}.
+#' \deqn{
+#'  t_{i} \frac{\bar{X}_i - \bar{X_0}}
+#'  {s_{\mathrm{in}} \left(1/n_0 + 1/n_i\right)^{1/2}}, ~~
+#'  (1 \le i \le k)
+#' }{%
+#'  SEE PDF
+#' }
+#'
+#' with \eqn{s^2_{\mathrm{in}}} the within-group ANOVA variance.
+#' The null hypothesis is rejected if
+#' \eqn{|t_{ij}| > |T_{kv\rho\alpha}|} (two-tailed),
+#' with \eqn{v = N - k} degree of freedom and \eqn{rho} the correlation:
+#'
+#' \deqn{
+#'  \rho_{ij} = \sqrt{\frac{n_i n_j}
+#'              {\left(n_i + n_0\right) \left(n_j+ n_0\right)}} ~~
+#'              (i \ne j)
+#' .}{%
+#'  SEE PDF
+#' }
+#'
+#' The p-values are computed
+#' from the multivariate-t distribution as implemented in the function
+#' \code{\link[mvtnorm]{pmvt}} distribution.
 #'
 #' @template class-PMCMR
 #'
@@ -48,17 +75,12 @@
 #' @seealso
 #' \code{\link[mvtnorm]{pmvt}}
 #' @examples
-#' set.seed(245)
-#' mn <- c(1, 2, 2^2, 2^3, 2^4)
-#' x <- rep(mn, each=5) + rnorm(25)
-#' g <- factor(rep(1:5, each=5))
-#'
-#' fit <- aov(x ~ g - 1)
+#' fit <- aov(Y ~ DOSE, data = trout)
 #' shapiro.test(residuals(fit))
-#' bartlett.test(x ~ g - 1)
-#' anova(fit)
+#' bartlett.test(Y ~ DOSE, data = trout)
+#'
 #' ## works with fitted object of class aov
-#' summary(dunnettTest(fit, alternative = "greater"))
+#' summary(dunnettTest(fit, alternative = "less"))
 #'
 #' @keywords htest
 #' @concept parametric
