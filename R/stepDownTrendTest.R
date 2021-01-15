@@ -115,6 +115,7 @@ stepDownTrendTest.default <-
     alternative <- match.arg(alternative)
     test <- match.arg(test)
 
+
     lev <- levels(g)
 
     ## sequentially apply the tests
@@ -195,4 +196,3 @@ function(formula, data, subset, na.action,
     y$data.name <- DNAME
     y
 }
-

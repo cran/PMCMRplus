@@ -102,6 +102,9 @@ bwsTrendTest(x, g)
 ## Fligner-Wolfe test
 flignerWolfeTest(x, g)
 
+## Shan-Young-Kang test
+shanTest(x, g)
+
 }
 \references{
 Le, C. T. (1988) A new rank test against ordered alternatives

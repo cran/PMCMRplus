@@ -34,7 +34,7 @@ Grubbs, F.E. (1950) Sample criteria for testing outlying observations,
 
 Wilrich, P.-T. (2011) Critical values of Mandel's h and k,
 Grubbs and the Cochran test statistic, \emph{Adv. Stat. Anal.}.
-\url{http://dx.doi.org/10.1007/s10182-011-0185-y}.
+\doi{10.1007/s10182-011-0185-y}.
 }
 \seealso{
 \code{\link{Grubbs}}

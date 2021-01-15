@@ -56,7 +56,21 @@
 #' If \code{method = "boot"} an asymetric permutation test
 #' is conducted and \eqn{p}-values are returned.
 #'
-#' @return
+#'  If \code{method = "asympt"} is selected the asymptotic
+#' \eqn{p}-value is estimated as implemented in the
+#' function \code{pHayStonLSA} of the package \pkg{NSM3}.
+#'
+#' @source
+#' If \code{method = "asympt"} is selected, this function calls
+#' an internal probability function \code{pHS}. The GPL-2 code for
+#' this function was taken from \code{pHayStonLSA} of the
+#' the package \pkg{NSM3}:
+#'
+#' Grant Schneider, Eric Chicken and Rachel Becvarik (2020) NSM3:
+#' Functions and Datasets to Accompany Hollander, Wolfe, and
+#' Chicken - Nonparametric Statistical Methods, Third Edition. R
+#' package version 1.15. \url{https://CRAN.R-project.org/package=NSM3}
+#'
 #' @return
 #' Either a list of class \code{"PMCMR"} or a
 #' list with class \code{"osrt"} that contains the following
@@ -96,7 +110,7 @@ hsAllPairsTest <- function(x, ...) UseMethod("hsAllPairsTest")
 #' @export
 hsAllPairsTest.default <-
 function(x, g, alternative = c("greater", "less"),
-         method = c("look-up", "boot"),
+         method = c("look-up", "boot", "asympt"),
          nperm = 1E4,
          ...)
 {
@@ -183,22 +197,31 @@ function(x, g, alternative = c("greater", "less"),
     colnames(STAT) <- levels(g)[1:(k-1)]
     rownames(STAT) <- levels(g)[2:k]
 
-    if (method == "boot") {
-        ## permutation
-        hValue <- as.numeric(STAT)
-        m <- length(hValue)
-        mt <- matrix(NA, ncol = m, nrow = nperm)
-        for (i in 1:nperm) {
-            ix <- sample(l)
-            tmp <- hStat(x, ix, g)
-            mt[i,] <- as.numeric(tmp)
-        }
+    if (method == "boot" | method == "asympt") {
 
-        ## pvalues
-        PVAL <- sapply(1:m, function(j) {
-            p <- sum(mt[, j] >= hValue[j]) / nperm
-            p
-        })
+
+        if (method == "boot") {
+            ## permutation
+            hValue <- as.numeric(STAT)
+            m <- length(hValue)
+            mt <- matrix(NA, ncol = m, nrow = nperm)
+            for (i in 1:nperm) {
+                ix <- sample(l)
+                tmp <- hStat(x, ix, g)
+                mt[i, ] <- as.numeric(tmp)
+            }
+
+            ## pvalues
+            PVAL <- sapply(1:m, function(j) {
+                p <- sum(mt[, j] >= hValue[j]) / nperm
+                p
+            })
+
+        } else {
+            hValue <- as.numeric(STAT)
+            PVAL <- sapply(hValue, function(hh)
+                pHS(h = hh, k = k))
+        }
 
         ## to matrix
         P <- matrix(PVAL,
@@ -218,7 +241,7 @@ function(x, g, alternative = c("greater", "less"),
             data.name = DNAME,
             alternative = alternative,
             dist = "h",
-            p.adjust.method = "boot"
+            p.adjust.method = method
         )
         class(ans) <- "PMCMR"
         return(ans)
@@ -257,7 +280,7 @@ function(x, g, alternative = c("greater", "less"),
 hsAllPairsTest.formula <-
     function(formula, data, subset, na.action,
              alternative = c("greater", "less"),
-             method = c("look-up", "boot"),
+             method = c("look-up", "boot", "asympt"),
              nperm = 1E4,
              ...)
 {

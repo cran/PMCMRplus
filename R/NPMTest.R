@@ -63,6 +63,21 @@
 #' If \code{method = "boot"} an asymetric permutation test
 #' is conducted and \eqn{p}-values is returned.
 #'
+#' If \code{method = "asympt"} is selected the asymptotic
+#' \eqn{p}-value is estimated as implemented in the
+#' function \code{pHayStonLSA} of the package \pkg{NSM3}.
+#'
+#' @source
+#' If \code{method = "asympt"} is selected, this function calls
+#' an internal probability function \code{pHS}. The GPL-2 code for
+#' this function was taken from \code{pHayStonLSA} of the
+#' the package \pkg{NSM3}:
+#'
+#' Grant Schneider, Eric Chicken and Rachel Becvarik (2020) NSM3:
+#' Functions and Datasets to Accompany Hollander, Wolfe, and
+#' Chicken - Nonparametric Statistical Methods, Third Edition. R
+#' package version 1.15. \url{https://CRAN.R-project.org/package=NSM3}
+#'
 #' @note
 #' The function will give a warning for the unbalanced case and returns the
 #' critical value \eqn{h_{k,\alpha,\infty} / \sqrt{2}}.
@@ -111,7 +126,7 @@ NPMTest.default <-
     function(x,
              g,
              alternative = c("greater", "less"),
-             method = c("look-up", "boot"),
+             method = c("look-up", "boot", "asympt"),
              nperm = 1E4,
              ...) {
         ## taken from stats::kruskal.test
@@ -208,23 +223,41 @@ NPMTest.default <-
         colnames(STAT) <- levels(g)[1:(k - 1)]
         rownames(STAT) <- levels(g)[2:k]
 
-        if (method == "boot") {
-            ## permutation
+        if (method == "boot" | method == "asympt") {
+
             hValue <- as.numeric(STAT)
-            m <- length(hValue)
-            mt <- matrix(NA, ncol = m, nrow = nperm)
-            for (i in 1:nperm) {
-                ix <- sample(l)
-                tmp <- hStat(x, ix, g, is.balanced )
-                mt[i,] <- as.numeric(tmp)
+            ## permutation
+            if (method == "boot") {
+                m <- length(hValue)
+                mt <- matrix(NA, ncol = m, nrow = nperm)
+                for (i in 1:nperm) {
+                    ix <- sample(l)
+                    tmp <- hStat(x, ix, g, is.balanced)
+                    mt[i, ] <- as.numeric(tmp)
+                }
+
+                ## pvalues
+                PVAL <- sapply(1:m, function(j) {
+                    p <- sum(mt[, j] >= hValue[j]) / nperm
+                    p
+                })
+
+            } else {
+
+                if (!is.balanced) {
+                    warning("Design is un-balanced. Using h/sqrt(2) approximation.")
+                    hValue <- hValue * sqrt(2)
+                    cn <- colnames(STAT)
+                    rn <- rownames(STAT)
+                    STAT <- matrix(hValue, nrow = k-1, ncol = k-1, byrow = FALSE)
+                    rownames(STAT) <- rn
+                    colnames(STAT) <- cn
+                }
+
+                PVAL <- sapply(hValue, function(hh)
+                    pHS(hh, k = k))
+
             }
-
-            ## pvalues
-
-            PVAL <- sapply(1:m, function(j) {
-                p <- sum(mt[, j] >= hValue[j]) / nperm
-                p
-            })
 
             ## to matrix
             P <- matrix(PVAL,
@@ -244,7 +277,7 @@ NPMTest.default <-
                 data.name = DNAME,
                 alternative = alternative,
                 dist = "h",
-                p.adjust.method = "boot"
+                p.adjust.method = method
             )
             class(ans) <- "PMCMR"
             return(ans)
@@ -291,7 +324,7 @@ NPMTest.formula <-
              subset,
              na.action,
              alternative = c("greater", "less"),
-             method = c("look-up", "boot"),
+             method = c("look-up", "boot", "asympt"),
              nperm = 1E4,
              ...)
     {

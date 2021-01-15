@@ -128,6 +128,9 @@ bwsTrendTest(x, g)
 ## Fligner-Wolfe test
 flignerWolfeTest(x, g)
 
+## Shan-Young-Kang test
+shanTest(x, g)
+
 }
 \references{
 Jonckheere, A. R. (1954) A distribution-free k-sample test

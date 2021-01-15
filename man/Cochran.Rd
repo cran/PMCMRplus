@@ -41,7 +41,7 @@ variances as a fraction of their total. \emph{Ann. Eugen.} \bold{11}, 47--52.
 
 Wilrich, P.-T. (2011) Critical values of Mandel's h and k,
 Grubbs and the Cochran test statistic. \emph{Adv. Stat. Anal.}.
-\url{http://dx.doi.org/10.1007/s10182-011-0185-y}.
+\doi{10.1007/s10182-011-0185-y}.
 }
 \seealso{
 \code{\link{FDist}}

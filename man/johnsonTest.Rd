@@ -103,6 +103,9 @@ bwsTrendTest(x, g)
 ## Fligner-Wolfe test
 flignerWolfeTest(x, g)
 
+## Shan-Young-Kang test
+shanTest(x, g)
+
 }
 \references{
 Bortz, J. (1993). \emph{Statistik für Sozialwissenschaftler} (4th ed.).

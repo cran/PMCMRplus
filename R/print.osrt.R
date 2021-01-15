@@ -30,7 +30,13 @@ summary.osrt <- function(object, ...)
   critVal <- as.numeric(object$crit.value)
   stat <- as.numeric(object$statistic)
   dist <- object$dist
-  dec <- ifelse(stat > critVal, "reject", "accept")
+  if (grepl(pattern = "Steel",
+            x = object$method)) {
+    dec <- ifelse(stat <= critVal , "reject", "accept")
+  } else {
+    dec <- ifelse(stat > critVal, "reject", "accept")
+  }
+
   critDist <- paste0(dist, "-crit")
 
   if (!is.matrix(object$statistic)) {

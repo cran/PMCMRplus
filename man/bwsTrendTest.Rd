@@ -103,6 +103,9 @@ bwsTrendTest(x, g)
 ## Fligner-Wolfe test
 flignerWolfeTest(x, g)
 
+## Shan-Young-Kang test
+shanTest(x, g)
+
 }
 \references{
 Baumgartner, W., Weiss, P., Schindler, H. (1998) A nonparametric test for the

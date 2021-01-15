@@ -54,8 +54,23 @@
 #' are looked up according to the number of groups (\eqn{k}) and
 #' the degree of freedoms (\eqn{v = \infty}).
 #'
-#' If \code{method = "boot"} an asymetric permutation test
+#' If \code{method = "boot"} an asymptotic permutation test
 #' is conducted and a \eqn{p}-value is returned.
+#'
+#' If \code{method = "asympt"} is selected the asymptotic
+#' \eqn{p}-value is estimated as implemented in the
+#' function \code{pHayStonLSA} of the package \pkg{NSM3}.
+#'
+#' @source
+#' If \code{method = "asympt"} is selected, this function calls
+#' an internal probability function \code{pHS}. The GPL-2 code for
+#' this function was taken from \code{pHayStonLSA} of the
+#' the package \pkg{NSM3}:
+#'
+#' Grant Schneider, Eric Chicken and Rachel Becvarik (2020) NSM3:
+#' Functions and Datasets to Accompany Hollander, Wolfe, and
+#' Chicken - Nonparametric Statistical Methods, Third Edition. R
+#' package version 1.15. \url{https://CRAN.R-project.org/package=NSM3}
 #'
 #' @return
 #' Either a list of class \code{htest} or a
@@ -75,7 +90,7 @@
 #'
 #' @seealso
 #' \code{\link{osrtTest}}, \code{\link{hsAllPairsTest}},
-#' \code{\link{sample}}
+#' \code{\link{sample}}, \code{\link[NSM3]{pHayStonLSA}}
 #'
 #' @keywords htest nonparametric
 #'
@@ -95,7 +110,7 @@ hayterStoneTest <- function(x, ...) UseMethod("hayterStoneTest")
 #' @export
 hayterStoneTest.default <-
 function(x, g, alternative = c("greater", "less"),
-         method = c("look-up", "boot"),
+         method = c("look-up", "boot", "asympt"),
          nperm = 1E4,...)
 {
     if (is.list(x)) {
@@ -184,8 +199,10 @@ function(x, g, alternative = c("greater", "less"),
     parameter = c(k, Inf)
     names(parameter) <- c("k", "df")
 
-    if (method == "boot") {
+    if (method == "boot" | method == "asympt") {
         ## permutation
+
+        if (method == "boot") {
         mt <- matrix(NA, ncol = 1, nrow = nperm)
         for (i in 1:nperm) {
             ix <- sample(l)
@@ -197,6 +214,10 @@ function(x, g, alternative = c("greater", "less"),
             p <- (sum(mt[, j] >= STAT[j])) / nperm
             p
         })
+        } else {
+
+            PVAL <- pHS(h = STAT, k = k)
+        }
 
         ans <- list(
             statistic = c(h = STAT),
@@ -241,7 +262,7 @@ function(x, g, alternative = c("greater", "less"),
 hayterStoneTest.formula <-
     function(formula, data, subset, na.action,
              alternative = c("greater", "less"),
-             method = c("look-up", "boot"),
+             method = c("look-up", "boot","asympt"),
              nperm = 1E4,
              ...)
 {

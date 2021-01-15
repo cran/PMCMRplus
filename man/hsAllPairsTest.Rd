@@ -5,6 +5,17 @@
 \alias{hsAllPairsTest.default}
 \alias{hsAllPairsTest.formula}
 \title{Hayter-Stone All-Pairs Comparison Test}
+\source{
+If \code{method = "asympt"} is selected, this function calls
+an internal probability function \code{pHS}. The GPL-2 code for
+this function was taken from \code{pHayStonLSA} of the
+the package \pkg{NSM3}:
+
+Grant Schneider, Eric Chicken and Rachel Becvarik (2020) NSM3:
+Functions and Datasets to Accompany Hollander, Wolfe, and
+Chicken - Nonparametric Statistical Methods, Third Edition. R
+package version 1.15. \url{https://CRAN.R-project.org/package=NSM3}
+}
 \usage{
 hsAllPairsTest(x, ...)
 
@@ -12,7 +23,7 @@ hsAllPairsTest(x, ...)
   x,
   g,
   alternative = c("greater", "less"),
-  method = c("look-up", "boot"),
+  method = c("look-up", "boot", "asympt"),
   nperm = 10000,
   ...
 )
@@ -23,7 +34,7 @@ hsAllPairsTest(x, ...)
   subset,
   na.action,
   alternative = c("greater", "less"),
-  method = c("look-up", "boot"),
+  method = c("look-up", "boot", "asympt"),
   nperm = 10000,
   ...
 )
@@ -62,8 +73,6 @@ subset of observations to be used.}
 the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 }
 \value{
-
-
 Either a list of class \code{"PMCMR"} or a
 list with class \code{"osrt"} that contains the following
 components:
@@ -132,6 +141,10 @@ the degree of freedoms (\eqn{v = \infty}).
 
 If \code{method = "boot"} an asymetric permutation test
 is conducted and \eqn{p}-values are returned.
+
+ If \code{method = "asympt"} is selected the asymptotic
+\eqn{p}-value is estimated as implemented in the
+function \code{pHayStonLSA} of the package \pkg{NSM3}.
 }
 \examples{
 ## Example from Shirley (1977)

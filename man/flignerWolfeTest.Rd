@@ -156,6 +156,9 @@ bwsTrendTest(x, g)
 ## Fligner-Wolfe test
 flignerWolfeTest(x, g)
 
+## Shan-Young-Kang test
+shanTest(x, g)
+
 }
 \references{
 EPA (2006) \emph{Data Quality Assessment:

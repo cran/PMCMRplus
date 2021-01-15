@@ -5,6 +5,17 @@
 \alias{hayterStoneTest.default}
 \alias{hayterStoneTest.formula}
 \title{Hayter-Stone Test}
+\source{
+If \code{method = "asympt"} is selected, this function calls
+an internal probability function \code{pHS}. The GPL-2 code for
+this function was taken from \code{pHayStonLSA} of the
+the package \pkg{NSM3}:
+
+Grant Schneider, Eric Chicken and Rachel Becvarik (2020) NSM3:
+Functions and Datasets to Accompany Hollander, Wolfe, and
+Chicken - Nonparametric Statistical Methods, Third Edition. R
+package version 1.15. \url{https://CRAN.R-project.org/package=NSM3}
+}
 \usage{
 hayterStoneTest(x, ...)
 
@@ -12,7 +23,7 @@ hayterStoneTest(x, ...)
   x,
   g,
   alternative = c("greater", "less"),
-  method = c("look-up", "boot"),
+  method = c("look-up", "boot", "asympt"),
   nperm = 10000,
   ...
 )
@@ -23,7 +34,7 @@ hayterStoneTest(x, ...)
   subset,
   na.action,
   alternative = c("greater", "less"),
-  method = c("look-up", "boot"),
+  method = c("look-up", "boot", "asympt"),
   nperm = 10000,
   ...
 )
@@ -115,8 +126,12 @@ as given in the tables of Hayter (1990) for
 are looked up according to the number of groups (\eqn{k}) and
 the degree of freedoms (\eqn{v = \infty}).
 
-If \code{method = "boot"} an asymetric permutation test
+If \code{method = "boot"} an asymptotic permutation test
 is conducted and a \eqn{p}-value is returned.
+
+If \code{method = "asympt"} is selected the asymptotic
+\eqn{p}-value is estimated as implemented in the
+function \code{pHayStonLSA} of the package \pkg{NSM3}.
 }
 \examples{
 ## Example from Shirley (1977)
@@ -161,7 +176,7 @@ Distribution free multiple comparisons for monotonically ordered treatment effec
 }
 \seealso{
 \code{\link{osrtTest}}, \code{\link{hsAllPairsTest}},
-\code{\link{sample}}
+\code{\link{sample}}, \code{\link[NSM3]{pHayStonLSA}}
 }
 \keyword{htest}
 \keyword{nonparametric}

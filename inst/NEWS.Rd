@@ -1,6 +1,27 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.0 (2021-01-12)}{
+ \subsection{NEW FEATURES}{
+  \itemize{
+   \item The function{mrrTest} to conduct
+   Madhava Rao-Raghunath exact symmetry test was added.
+   \item The functions \code{hayterStoneTest},
+   \code{hsAllPairsTest} and \code{NPMTest} were extended for
+   calculating asymptotic p-values with the code
+   of \code{pHayStonLSA} of the package \pkg{NSM3}.
+  }
+ }
+}
+\section{CHANGES IN PMCMRPLUS VERSION 1.8.0 (2020-12-06)}{
+ \subsection{NEW FEATURES}{
+  \itemize{
+   \item The Shan-Young-Kang test for testing against
+   ordered alternatives
+   was implemented in function \code{shanTest}.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.7.1 (2020-11-29)}{
  \subsection{BUGFIX}{
   \itemize{
