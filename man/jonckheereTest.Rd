@@ -85,6 +85,16 @@ The p-values are estimated from the standard normal distribution.
 equivalent to
 
 \code{cor.test(x, as.numeric(g), method = "kendall", alternative = "two.sided", continuity = TRUE)}
+
+Factor labels for \code{g} must be assigned in such a way,
+that they can be increasingly ordered from zero-dose
+control to the highest dose level, e.g. integers {0, 1, 2, ..., k} or
+letters {a, b, c, ...}. Otherwise the function may not
+select the correct values for intended zero-dose control.
+
+It is safer, to i) label the factor levels as given above,
+and to ii) sort the data according to increasing dose-levels
+prior to call the function (see \code{\link{order}}, \code{\link{factor}}).
 }
 \section{Source}{
 

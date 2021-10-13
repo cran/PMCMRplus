@@ -124,6 +124,17 @@ If \code{dist = Wilcoxon}, then the \eqn{p}-values are estimated from the  \code
 distribution, else the \code{\link[stats]{Normal}} distribution is used. The latter can be used,
 if ties are present.
 }
+\note{
+Factor labels for \code{g} must be assigned in such a way,
+that they can be increasingly ordered from zero-dose
+control to the highest dose level, e.g. integers {0, 1, 2, ..., k} or
+letters {a, b, c, ...}. Otherwise the function may not
+select the correct values for intended zero-dose control.
+
+It is safer, to i) label the factor levels as given above,
+and to ii) sort the data according to increasing dose-levels
+prior to call the function (see \code{\link{order}}, \code{\link{factor}}).
+}
 \examples{
 ## Example from Sachs (1997, p. 402)
 x <- c(106, 114, 116, 127, 145,

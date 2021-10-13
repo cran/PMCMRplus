@@ -132,7 +132,7 @@ manyOneUTest.default <-
             S <- n1 + n2
             VAR <- (n1 * n2 / (S * (S - 1))) * ((S^3 - S) / 12 - getties(rankx))
             PSTAT <- (Umn - n1 * n2 / 2) / sqrt(VAR)
-            if (R[1] < R[2]){
+            if (R[1] < R[i]){
                 PSTAT <- PSTAT * (-1)
             }
             PSTAT

@@ -71,16 +71,18 @@ summary(res)
 #
 # Perform pairwise Wilcox test with Holm adjustment
 #
-summary(manyOneUTest(Y ~ DOSE, alternative = "less", p.adjust = "holm"))
+summary(manyOneUTest(Y ~ DOSE, trout,
+                     alternative = "less",
+                     p.adjust = "holm"))
 
 #
 # Perform Williams trend test
 #
-williamsTest(Y ~ DOSE, alternative = "less")
+williamsTest(Y ~ DOSE, trout, alternative = "less")
 
 #
 # Perform Shirley's test
 #
-shirleyWilliamsTest(Y ~ DOSE, alternative = "less")
+shirleyWilliamsTest(Y ~ DOSE, trout, alternative = "less")
 
 detach(trout)

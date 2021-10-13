@@ -1,6 +1,6 @@
 ##  jonckheere.test.R
 ##
-##  Copyright (C) 2015-2018 Thorsten Pohlert
+##  Copyright (C) 2015-2021 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -118,6 +118,12 @@ jonckheereTest.default <-
     n <- length(x)
     if (n < 2)
         stop("not enough observations")
+
+    ## order restriction
+    o <- order(g)
+    g <- g[o]
+    x <- x[o]
+
     nij <- tapply(x, g, length)
     X <- matrix(NA, ncol= k, nrow = max(nij))
     j <- 0

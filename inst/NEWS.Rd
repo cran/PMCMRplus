@@ -1,6 +1,25 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.2 (2021-10-12)}{
+ \subsection{OTHER CHANGES}{
+  \itemize{
+   \item An order restriction for factor levels
+   was implemented in the function \code{jonckheereTest},
+   which allows an un-sorted input.
+   \item The Rd-files were updated for all trend-test procedures with a note on how to label the factor levels
+   from zero-dose control to highest dose level.
+  }
+ }
+}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.1 (2021-09-21)}{
+ \subsection{BUGFIX}{
+  \itemize{
+   \item The function \code{manyOneUTest} was corrected
+   in order to become workable.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.9.0 (2021-01-12)}{
  \subsection{NEW FEATURES}{
   \itemize{
