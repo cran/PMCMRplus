@@ -1,7 +1,7 @@
 ## manyOneUTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017, 2018 Thorsten Pohlert
+## Copyright (C) 2017-2021 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@
 #' with any latter p-adjustment as available by \code{\link{p.adjust}}.
 #'
 #' @template class-PMCMR
+#' @example examples/kwManyOneMC.R
 #'
 #' @references
 #' OECD (ed. 2006) \emph{Current approaches in the statistical analysis
@@ -122,9 +123,15 @@ manyOneUTest.default <-
         compare.stats <-function(i){
             n1 <- n[1]
             n2 <- n[i]
-            xraw <- c(x[g==glev[1]], x[g==glev[i]])
-            rankx <- rank(xraw)
-            lev <- c(g[g==glev[1]], g[g==glev[i]])
+            ## use drop levels
+            notIdx <- c(1,i)
+            exclude <- glev[-notIdx]
+            lev <- droplevels(g, exclude = exclude)
+
+            rankx <- rank(x[!is.na(lev)])
+            ## remove NA
+            lev <- lev[!is.na(lev)]
+            ## R has length of 2
             R <- tapply(rankx, lev, sum)
             U <- c(n1* n2 + (n1 * (n1 + 1) / 2),
                    n1 * n2 + (n2 * (n2 + 1) / 2)) - R
@@ -132,7 +139,7 @@ manyOneUTest.default <-
             S <- n1 + n2
             VAR <- (n1 * n2 / (S * (S - 1))) * ((S^3 - S) / 12 - getties(rankx))
             PSTAT <- (Umn - n1 * n2 / 2) / sqrt(VAR)
-            if (R[1] < R[i]){
+            if (R[1] < R[2]){
                 PSTAT <- PSTAT * (-1)
             }
             PSTAT

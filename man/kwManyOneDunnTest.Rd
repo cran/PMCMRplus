@@ -117,6 +117,11 @@ summary(ans)
 ans <- kwManyOneNdwTest(weight ~ group, data = PlantGrowth,
                         p.adjust.method = "holm")
 summary(ans)
+
+## Many one U test
+ans <- manyOneUTest(weight ~ group, data = PlantGrowth,
+                        p.adjust.method = "holm")
+summary(ans)
 }
 \references{
 Dunn, O. J. (1964) Multiple comparisons using rank sums,

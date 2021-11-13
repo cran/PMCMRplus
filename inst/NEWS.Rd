@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.3 (2021-11-13)}{
+ \subsection{BUG FIX}{
+  \itemize{
+   \item Function \code{manyOneUTest} always returned \code{NA}.
+   This has been fixed.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.9.2 (2021-10-12)}{
  \subsection{OTHER CHANGES}{
   \itemize{

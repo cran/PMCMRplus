@@ -122,6 +122,11 @@ summary(ans)
 ans <- kwManyOneNdwTest(weight ~ group, data = PlantGrowth,
                         p.adjust.method = "holm")
 summary(ans)
+
+## Many one U test
+ans <- manyOneUTest(weight ~ group, data = PlantGrowth,
+                        p.adjust.method = "holm")
+summary(ans)
 }
 \references{
 Damico, J. A., Wolfe, D. A. (1989) Extended tables of the exact distribution of

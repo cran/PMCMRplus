@@ -88,6 +88,37 @@ Type 1 error and to calculate p-values. Otherwise,
 the p-values are calculated from the standard normal distribution
 with any latter p-adjustment as available by \code{\link{p.adjust}}.
 }
+\examples{
+## Data set PlantGrowth
+## Global test
+kruskalTest(weight ~ group, data = PlantGrowth)
+
+## Conover's many-one comparison test
+## single-step means p-value from multivariate t distribution
+ans <- kwManyOneConoverTest(weight ~ group, data = PlantGrowth,
+                             p.adjust.method = "single-step")
+summary(ans)
+
+## Conover's many-one comparison test
+ans <- kwManyOneConoverTest(weight ~ group, data = PlantGrowth,
+                             p.adjust.method = "holm")
+summary(ans)
+
+## Dunn's many-one comparison test
+ans <- kwManyOneDunnTest(weight ~ group, data = PlantGrowth,
+                             p.adjust.method = "holm")
+summary(ans)
+
+## Nemenyi's many-one comparison test
+ans <- kwManyOneNdwTest(weight ~ group, data = PlantGrowth,
+                        p.adjust.method = "holm")
+summary(ans)
+
+## Many one U test
+ans <- manyOneUTest(weight ~ group, data = PlantGrowth,
+                        p.adjust.method = "holm")
+summary(ans)
+}
 \references{
 OECD (ed. 2006) \emph{Current approaches in the statistical analysis
 of ecotoxicity data: A guidance to application}, OECD Series
