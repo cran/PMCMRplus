@@ -115,6 +115,12 @@ function(x, g, ...){
         xraw <- c(x[g==glev[i]], x[g==glev[j]])
         rankx <- rank(xraw)
         lev <- c(g[g==glev[i]], g[g==glev[j]])
+
+        ## make sure to drop unneeded levels
+        id <- !glev %in% c(glev[i], glev[j])
+        exclude <- glev[id]
+        lev <- droplevels(lev, exclude = exclude)
+
         R <- tapply(rankx, lev, sum)
         U <- c(m*nn + (m * (m + 1) / 2), m * nn + (nn * (nn + 1) / 2)) - R
         Umn <- min(U)
