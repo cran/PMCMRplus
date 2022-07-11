@@ -28,12 +28,12 @@ Ignored with a warning if \code{"x"} is a list.}
 \value{
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{lower-triangle matrix of the estimated
 quantiles of the pairwise test statistics.}
- \item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{p.adjust.method}{a character string describing the method for p-value
 adjustment.}
 \item{model}{a data frame of the input data.}
@@ -72,7 +72,7 @@ durbinAllPairsTest(y)
 }
 \references{
 Conover, W. J., Iman, R. L. (1979) \emph{On multiple-comparisons
- procedures}, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
+procedures}, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 
 Conover, W. J. (1999) \emph{Practical nonparametric Statistics},
 3rd. Edition, Wiley.

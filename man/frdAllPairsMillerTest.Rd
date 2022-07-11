@@ -25,12 +25,12 @@ Ignored with a warning if \code{"x"} is a list.}
 \value{
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{lower-triangle matrix of the estimated
 quantiles of the pairwise test statistics.}
- \item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{p.adjust.method}{a character string describing the method for p-value
 adjustment.}
 \item{model}{a data frame of the input data.}
@@ -103,13 +103,13 @@ The \eqn{p}-values are computed from the chi-square distribution.
 }
 \references{
 Bortz J., Lienert, G. A., Boehnke, K. (1990) \emph{Verteilungsfreie
-   Methoden in der Biostatistik}. Berlin: Springer.
+Methoden in der Biostatistik}. Berlin: Springer.
 
 Miller Jr., R. G. (1996) \emph{Simultaneous statistical inference}.
- New York: McGraw-Hill.
+New York: McGraw-Hill.
 
 Wike, E. L. (2006), \emph{Data Analysis. A Statistical Primer for
-   Psychology Students}. New Brunswick: Aldine Transaction.
+Psychology Students}. New Brunswick: Aldine Transaction.
 }
 \seealso{
 \code{\link{friedmanTest}}, \code{\link{friedman.test}},

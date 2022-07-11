@@ -46,7 +46,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when
@@ -55,12 +55,12 @@ the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 \value{
 A list with class \code{"htest"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{the estimated quantile of the test statistic.}
- \item{p.value}{the p-value for the test.}
- \item{parameter}{the parameters of the test statistic, if any.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{the estimated quantile of the test statistic.}
+\item{p.value}{the p-value for the test.}
+\item{parameter}{the parameters of the test statistic, if any.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{estimates}{the estimates, if any.}
 \item{null.value}{the estimate under the null hypothesis, if any.}
 }
@@ -72,25 +72,25 @@ rank dispersion test.
 \details{
 Let \eqn{x} and \eqn{y} denote two identically and independently
 distributed variables of at least ordinal scale.
- Further, let
- \eqn{\theta}{theta}, and \eqn{\lambda}{lambda} denote
- location and scale parameter of the common, but unknown distribution.
- Then for the two-tailed case, the null hypothesis
- H: \eqn{\lambda_x / \lambda_y = 1 | \theta_x = \theta_y}{%
+Further, let
+\eqn{\theta}{theta}, and \eqn{\lambda}{lambda} denote
+location and scale parameter of the common, but unknown distribution.
+Then for the two-tailed case, the null hypothesis
+H: \eqn{\lambda_x / \lambda_y = 1 | \theta_x = \theta_y}{%
  lambdaX / lambdaY = 1 | thetaX = thetaY} is
- tested against the alternative,
- A: \eqn{\lambda_x / \lambda_y \ne 1}{lambdaX / lambdaY != 1}.
+tested against the alternative,
+A: \eqn{\lambda_x / \lambda_y \ne 1}{lambdaX / lambdaY != 1}.
 
- The data are combinedly ranked according to Siegel-Tukey.
- The ranking is done by alternate extremes (rank 1 is lowest,
- 2 and 3 are the two highest, 4 and 5 are the two next lowest, etc.).
- If no ties are present, the p-values are computed from
- the Wilcoxon distribution (see \code{\link{Wilcoxon}}).
- In the case of ties, a tie correction is done according
- to Sachs (1997) and approximate p-values are computed
- from the standard normal distribution (see \code{\link{Normal}}).
+The data are combinedly ranked according to Siegel-Tukey.
+The ranking is done by alternate extremes (rank 1 is lowest,
+2 and 3 are the two highest, 4 and 5 are the two next lowest, etc.).
+If no ties are present, the p-values are computed from
+the Wilcoxon distribution (see \code{\link{Wilcoxon}}).
+In the case of ties, a tie correction is done according
+to Sachs (1997) and approximate p-values are computed
+from the standard normal distribution (see \code{\link{Normal}}).
 
- If both medians differ, one can correct for medians to
+If both medians differ, one can correct for medians to
 increase the specificity of the test.
 }
 \examples{

@@ -45,15 +45,11 @@
 #' \deqn{
 #'   t_{i} = \frac{\max_{1 \le u \le i} \left(\sum_{j=u}^i n_j \bar{R}_j / \sum_{j=u}^i n_j \right) - \bar{R}_0}
 #' {\sigma_{R_i} \sqrt{1/n_i + 1/n_0}},
-#' }{%
-#'  SEE PDF
 #' }
 #'
 #' with expected variance of
 #' \deqn{
 #' \sigma_{R_i}^2 = N_i \left(N_i + 1 \right) / 12 - T_i,
-#' }{%
-#'  SEE PDF
 #' }
 #'
 #' where \eqn{N_i = n_0 + n_1 + n_2 + \ldots + n_i} and
@@ -61,8 +57,6 @@
 #'
 #' \deqn{
 #'  T_i = \sum_{j=1}^i \frac{t_j^3 - t_j}{12 \left(N_i - 1\right)}.
-#' }{%
-#'  SEE PDF
 #' }
 #'
 #' The procedure starts from the highest dose level (\eqn{m}) to the the lowest dose level (\eqn{1}) and

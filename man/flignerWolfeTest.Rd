@@ -49,7 +49,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when
@@ -58,12 +58,12 @@ the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 \value{
 A list with class \code{"htest"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{the estimated quantile of the test statistic.}
- \item{p.value}{the p-value for the test.}
- \item{parameter}{the parameters of the test statistic, if any.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{the estimated quantile of the test statistic.}
+\item{p.value}{the p-value for the test.}
+\item{parameter}{the parameters of the test statistic, if any.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{estimates}{the estimates, if any.}
 \item{null.value}{the estimate under the null hypothesis, if any.}
 }
@@ -102,7 +102,7 @@ if \eqn{W > W_{\alpha,m,n}} with
 
 In the presence of ties, the statistic is
 
- \deqn{
+\deqn{
     \hat{z} = \frac{W - n_c N^t / 2}{s_W},
  }{%
   SEE PDF
@@ -177,9 +177,9 @@ Statistical Methods for Practitioners}
 (Guideline No. EPA QA/G-9S), US-EPA.
 
 Fligner, M.A., Wolfe, D.A. (1982)
- Distribution-free tests for comparing several
- treatments with a control. \emph{Stat Neerl} \bold{36},
- 119--127.
+Distribution-free tests for comparing several
+treatments with a control. \emph{Stat Neerl} \bold{36},
+119--127.
 }
 \seealso{
 \code{\link{kruskalTest}} and \code{\link{shirleyWilliamsTest}}

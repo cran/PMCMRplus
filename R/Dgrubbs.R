@@ -33,8 +33,8 @@
 #' @param q vector of quantiles.
 #' @param n total sample size.
 #' @param m number of Monte-Carlo replicates. Defaults to \code{10,000}.
-#' @param lower.tail  logical; if TRUE (default), probabilities are P[X <= x]
-#'          otherwise, P[X > x].
+#' @param lower.tail logical; if TRUE (default),
+#' probabilities are \eqn{P[X \leq x]} otherwise, \eqn{P[X > x]}.
 #' @param log.p logical; if TRUE, probabilities p are given as log(p).
 #' @return
 #' \code{pgrubbs} gives the distribution function

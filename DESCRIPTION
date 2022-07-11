@@ -2,8 +2,8 @@ Package: PMCMRplus
 Type: Package
 Title: Calculate Pairwise Multiple Comparisons of Mean Rank Sums
         Extended
-Version: 1.9.4
-Date: 2022-04-07
+Version: 1.9.5
+Date: 2022-07-11
 Authors@R: person(given = "Thorsten", family = "Pohlert",
                  email = "thorsten.pohlert@gmx.de",
                  comment = c(ORCID = "0000-0003-3855-3025"),
@@ -40,7 +40,7 @@ Description: For one-way layout experiments the one-way ANOVA can
              are provided.
 Depends: R (>= 3.5.0)
 Imports: mvtnorm (>= 1.0), multcompView, gmp, Rmpfr, SuppDists,
-        kSamples (>= 1.2.7), BWStest (>= 0.2.1), MASS
+        kSamples (>= 1.2.7), BWStest (>= 0.2.1), MASS, stats
 Suggests: xtable, graphics, knitr, rmarkdown, car, e1071, multcomp,
         pwr, NSM3
 SystemRequirements: gmp (>= 4.2.3), mpfr (>= 3.0.0) | file README.md
@@ -51,10 +51,10 @@ Classification/MSC-2010: 62J15, 62J10, 62G10, 62F03, 62G30
 NeedsCompilation: yes
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 License: GPL (>= 3)
-Packaged: 2022-04-07 16:54:54 UTC; thorsten
+Packaged: 2022-07-11 15:58:58 UTC; thorsten
 Author: Thorsten Pohlert [aut, cre] (<https://orcid.org/0000-0003-3855-3025>)
 Maintainer: Thorsten Pohlert <thorsten.pohlert@gmx.de>
 Repository: CRAN
-Date/Publication: 2022-04-07 18:02:30 UTC
+Date/Publication: 2022-07-11 16:30:15 UTC

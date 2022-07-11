@@ -7,8 +7,8 @@
 \format{
 The format is a 9 x 4 Matrix with Friedman type rankings:
 \describe{
- \item{rows}{reviewers, 1, 2, \ldots, 9}
- \item{columns}{groups, A, B, \ldots, D}
+\item{rows}{reviewers, 1, 2, \ldots, 9}
+\item{columns}{groups, A, B, \ldots, D}
 }
 }
 \source{

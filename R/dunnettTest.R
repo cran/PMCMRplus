@@ -58,9 +58,9 @@
 #'  SEE PDF
 #' }
 #'
-#' The p-values are computed
-#' from the multivariate-t distribution as implemented in the function
-#' \code{\link[mvtnorm]{pmvt}} distribution.
+#' The p-values are computed with the function \code{\link{pDunnett}}
+#' that is a wrapper to the the multivariate-t distribution as implemented in the function
+#' \code{\link[mvtnorm]{pmvt}}.
 #'
 #' @template class-PMCMR
 #'
@@ -73,7 +73,7 @@
 #'    of ecotoxicity data: A guidance to application - Annexes}. OECD Series
 #'    on testing and assessment, No. 54.
 #' @seealso
-#' \code{\link[mvtnorm]{pmvt}}
+#' \code{\link[mvtnorm]{pmvt}} \code{\link{pDunnett}}
 #' @examples
 #' fit <- aov(Y ~ DOSE, data = trout)
 #' shapiro.test(residuals(fit))
@@ -84,7 +84,6 @@
 #'
 #' @keywords htest
 #' @concept parametric
-#' @importFrom mvtnorm pmvt
 #' @importFrom stats var
 #' @importFrom stats complete.cases
 #' @export
@@ -155,15 +154,6 @@ function(x, g, alternative = c("two.sided", "greater", "less"), ...){
     n0 <- n[1]
     nn <- n[2:k]
     kk <- k - 1
-    corr <- matrix(0, nrow = kk, ncol = kk)
-    corr <- diag(kk)
-    for ( i in 1:(kk-1)){
-        for (j in (i+1):kk){
-            corr[i,j] <- ((nn[i] * nn[j]) /
-                          ((nn[i] + n0) * (nn[j] + n0)))^(1/2)
-            corr[j,i] <- corr[i, j]
-        }
-    }
 
     df <- length(x) - k
     STATISTIC <- rep(NA, k - 1)
@@ -173,22 +163,25 @@ function(x, g, alternative = c("two.sided", "greater", "less"), ...){
         STATISTIC[j-1] <- compare.stats(j)
     }
 
-	# Get p-values from multivariate t-distribution
+  # get p-values from novel pDunnett
     if (alternative == "two.sided") {
-        PVAL <- sapply(STATISTIC,
-                       function(x)  1 - pmvt(lower= -rep(abs(x),kk),
-                                             upper=rep(abs(x), kk), df=df,
-                                             corr=corr))
-    } else if (alternative == "greater"){
-        PVAL <- sapply(STATISTIC,
-                       function(x)  1 - pmvt(lower= -Inf,
-                                             upper=rep(x, kk), df=df,
-                                             corr=corr))
+      PVAL <- pmin(1, 2 * pDunnett(q = abs(STATISTIC),
+                               n0 = n0,
+                               n = nn,
+                               lower.tail = FALSE))
+    } else if (alternative == "greater") {
+      PVAL <- pDunnett(q = STATISTIC,
+                                   n0 = n0,
+                                   n = nn,
+                                   lower.tail = FALSE)
     } else {
-        PVAL <- sapply(STATISTIC,
-                       function(x)  1 - pmvt(lower= rep(x, kk),
-                                             upper=Inf, df=df, corr=corr))
+      PVAL <- pDunnett(q = STATISTIC,
+                       n0 = n0,
+                       n = nn,
+                       lower.tail = TRUE)
+
     }
+
 
         # Names
     LNAME <- levels(g)[2:k]

@@ -34,8 +34,8 @@
 #' @param p vector of probabilities.
 #' @param k number of groups.
 #' @param n number of replicates per group.
-#' @param lower.tail logical; if \code{TRUE} (default),
-#' probabilities are P[X <= x] otherwise, P[X > x].
+#' @param lower.tail logical; if TRUE (default),
+#' probabilities are \eqn{P[X \leq x]} otherwise, \eqn{P[X > x]}.
 #' @param log.p logical; if \code{TRUE}, probabilities
 #' are given as log(p).
 #' @return

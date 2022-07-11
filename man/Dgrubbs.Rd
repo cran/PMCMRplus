@@ -14,8 +14,8 @@ pdgrubbs(q, n, m = 10000, lower.tail = TRUE, log.p = FALSE)
 
 \item{m}{number of Monte-Carlo replicates. Defaults to \code{10,000}.}
 
-\item{lower.tail}{logical; if TRUE (default), probabilities are P[X <= x]
-otherwise, P[X > x].}
+\item{lower.tail}{logical; if TRUE (default),
+probabilities are \eqn{P[X \leq x]} otherwise, \eqn{P[X > x]}.}
 
 \item{log.p}{logical; if TRUE, probabilities p are given as log(p).}
 }

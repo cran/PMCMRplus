@@ -54,7 +54,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when
@@ -63,12 +63,12 @@ the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 \value{
 A list with class \code{"htest"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{the estimated quantile of the test statistic.}
- \item{p.value}{the p-value for the test.}
- \item{parameter}{the parameters of the test statistic, if any.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{the estimated quantile of the test statistic.}
+\item{p.value}{the p-value for the test.}
+\item{parameter}{the parameters of the test statistic, if any.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{estimates}{the estimates, if any.}
 \item{null.value}{the estimate under the null hypothesis, if any.}
 }

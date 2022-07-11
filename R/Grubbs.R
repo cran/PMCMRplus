@@ -55,7 +55,8 @@ qgrubbs <- function(p, n)
 
 #' @rdname Grubbs
 #' @param q vector of quantiles.
-#' @param lower.tail logical; if TRUE (default), probabilities are P[X <= x] otherwise, P[X > x].
+#' @param lower.tail logical; if TRUE (default),
+#' probabilities are \eqn{P[X \leq x]} otherwise, \eqn{P[X > x]}.
 #' @importFrom stats pbeta
 #' @keywords distribution
 #' @export

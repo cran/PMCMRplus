@@ -15,8 +15,8 @@ pmandelh(q, k, lower.tail = TRUE, log.p = FALSE)
 
 \item{k}{number of groups.}
 
-\item{lower.tail}{logical; if \code{TRUE} (default),
-probabilities are P[X <= x] otherwise, P[X > x].}
+\item{lower.tail}{logical; if TRUE (default),
+probabilities are \eqn{P[X \leq x]} otherwise, \eqn{P[X > x]}.}
 
 \item{log.p}{logical; if \code{TRUE}, probabilities
 are given as log(p).}
@@ -29,7 +29,7 @@ are given as log(p).}
 }
 \description{
 Distribution function and quantile function
-    for Mandel's h distribution.
+for Mandel's h distribution.
 }
 \section{Source}{
 

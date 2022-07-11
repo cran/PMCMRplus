@@ -17,7 +17,8 @@ pgrubbs(q, n, lower.tail = TRUE)
 
 \item{q}{vector of quantiles.}
 
-\item{lower.tail}{logical; if TRUE (default), probabilities are P[X <= x] otherwise, P[X > x].}
+\item{lower.tail}{logical; if TRUE (default),
+probabilities are \eqn{P[X \leq x]} otherwise, \eqn{P[X > x]}.}
 }
 \value{
 \code{pgrubbs} gives the distribution function and
@@ -25,7 +26,7 @@ pgrubbs(q, n, lower.tail = TRUE)
 }
 \description{
 Distribution function and quantile function
-    for Grubbs distribution.
+for Grubbs distribution.
 }
 \examples{
 qgrubbs(0.05, 7)

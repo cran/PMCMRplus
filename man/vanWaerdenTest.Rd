@@ -32,7 +32,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when

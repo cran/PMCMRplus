@@ -17,8 +17,8 @@ pmandelk(q, k, n, lower.tail = TRUE, log.p = FALSE)
 
 \item{n}{number of replicates per group.}
 
-\item{lower.tail}{logical; if \code{TRUE} (default),
-probabilities are P[X <= x] otherwise, P[X > x].}
+\item{lower.tail}{logical; if TRUE (default),
+probabilities are \eqn{P[X \leq x]} otherwise, \eqn{P[X > x]}.}
 
 \item{log.p}{logical; if \code{TRUE}, probabilities
 are given as log(p).}
@@ -31,7 +31,7 @@ are given as log(p).}
 }
 \description{
 Distribution function and quantile function
-    for Mandel's k distribution.
+for Mandel's k distribution.
 }
 \note{
 The functions are only appropriate for balanced designs.

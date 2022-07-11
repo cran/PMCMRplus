@@ -34,7 +34,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when
@@ -43,12 +43,12 @@ the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 \value{
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{lower-triangle matrix of the estimated
 quantiles of the pairwise test statistics.}
- \item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{p.adjust.method}{a character string describing the method for p-value
 adjustment.}
 \item{model}{a data frame of the input data.}
@@ -98,12 +98,12 @@ summaryGroup(res)
 }
 \references{
 Bortz, J. (1993) \emph{Statistik für Sozialwissenschaftler}. 4. Aufl.,
- Berlin: Springer.
+Berlin: Springer.
 
- Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
+Sachs, L. (1997) \emph{Angewandte Statistik}, New York: Springer.
 
- Scheffe, H. (1953) A Method for Judging all Contrasts in the Analysis
- of Variance, \emph{Biometrika} \bold{40}, 87--110.
+Scheffe, H. (1953) A Method for Judging all Contrasts in the Analysis
+of Variance, \emph{Biometrika} \bold{40}, 87--110.
 }
 \seealso{
 \code{\link{FDist}}, \code{\link{tukeyTest}}

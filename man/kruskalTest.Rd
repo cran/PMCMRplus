@@ -40,7 +40,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when
@@ -49,12 +49,12 @@ the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 \value{
 A list with class \code{"htest"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{the estimated quantile of the test statistic.}
- \item{p.value}{the p-value for the test.}
- \item{parameter}{the parameters of the test statistic, if any.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{the estimated quantile of the test statistic.}
+\item{p.value}{the p-value for the test.}
+\item{parameter}{the parameters of the test statistic, if any.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{estimates}{the estimates, if any.}
 \item{null.value}{the estimate under the null hypothesis, if any.}
 }
@@ -115,12 +115,12 @@ which is equivalent to a one-way ANOVA F-test using rank transformed data
 
 The function provides three different \code{dist} for \eqn{p}-value estimation:
 \describe{
- \item{Chisquare}{\eqn{p}-values are computed from the \code{\link{Chisquare}}
-  distribution with \eqn{v = k - 1} degree of freedom.}
- \item{KruskalWallis}{\eqn{p}-values are computed from the
-  \code{\link[SuppDists]{pKruskalWallis}} of the package \pkg{SuppDists}.}
- \item{FDist}{\eqn{p}-values are computed from the \code{\link{FDist}} distribution
-  with \eqn{v_1 = k-1, ~ v_2 = N -k} degree of freedom.}
+\item{Chisquare}{\eqn{p}-values are computed from the \code{\link{Chisquare}}
+distribution with \eqn{v = k - 1} degree of freedom.}
+\item{KruskalWallis}{\eqn{p}-values are computed from the
+\code{\link[SuppDists]{pKruskalWallis}} of the package \pkg{SuppDists}.}
+\item{FDist}{\eqn{p}-values are computed from the \code{\link{FDist}} distribution
+with \eqn{v_1 = k-1, ~ v_2 = N -k} degree of freedom.}
 }
 }
 \examples{
@@ -167,17 +167,17 @@ oneway.test(rank(x) ~ g, dat, var.equal = TRUE)
 }
 \references{
 Conover, W.J., Iman, R.L. (1981) Rank Transformations as a Bridge
- Between Parametric and Nonparametric Statistics.
- \emph{Am Stat} \bold{35}, 124--129.
+Between Parametric and Nonparametric Statistics.
+\emph{Am Stat} \bold{35}, 124--129.
 
 Kruskal, W.H., Wallis, W.A. (1952) Use of Ranks in One-Criterion Variance Analysis.
- \emph{J Am Stat Assoc} \bold{47}, 583--621.
+\emph{J Am Stat Assoc} \bold{47}, 583--621.
 
 Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 }
 \seealso{
 \code{\link{kruskal.test}}, \code{\link[SuppDists]{pKruskalWallis}},
- \code{\link{Chisquare}}, \code{\link{FDist}}
+\code{\link{Chisquare}}, \code{\link{FDist}}
 }
 \concept{kruskalranks}
 \keyword{htest}

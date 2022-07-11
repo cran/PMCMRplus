@@ -18,7 +18,7 @@ pcochran(q, k, n, lower.tail = TRUE, log.p = FALSE)
 \item{n}{(average) sample size of the k groups.}
 
 \item{lower.tail}{logical; if TRUE (default),
-probabilities are P[X <= x] otherwise, P[X > x].}
+probabilities are \eqn{P[X \leq x]} otherwise, \eqn{P[X > x]}.}
 
 \item{log.p}{logical; if TRUE, probabilities p are given as log(p).}
 
@@ -30,7 +30,7 @@ probabilities are P[X <= x] otherwise, P[X > x].}
 }
 \description{
 Distribution function and quantile function
-    for Cochran's distribution.
+for Cochran's distribution.
 }
 \examples{
 qcochran(0.05, 7, 3)

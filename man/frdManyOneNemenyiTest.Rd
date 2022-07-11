@@ -34,12 +34,12 @@ Ignored with a warning if \code{"x"} is a list.}
 \value{
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{lower-triangle matrix of the estimated
 quantiles of the pairwise test statistics.}
- \item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{p.adjust.method}{a character string describing the method for p-value
 adjustment.}
 \item{model}{a data frame of the input data.}
@@ -77,38 +77,43 @@ As \code{\link[mvtnorm]{pmvnorm}} applies a numerical method, the estimated
 
  y <- matrix(c(
  3.88, 5.64, 5.76, 4.25, 5.91, 4.33, 30.58, 30.14, 16.92,
- 23.19, 26.74, 10.91, 25.24, 33.52, 25.45, 18.85, 20.45, 
+ 23.19, 26.74, 10.91, 25.24, 33.52, 25.45, 18.85, 20.45,
  26.67, 4.44, 7.94, 4.04, 4.4, 4.23, 4.36, 29.41, 30.72,
  32.92, 28.23, 23.35, 12, 38.87, 33.12, 39.15, 28.06, 38.23,
- 26.65),nrow=6, ncol=6, 
+ 26.65),nrow=6, ncol=6,
  dimnames=list(1:6, LETTERS[1:6]))
 
  ## Global Friedman test
  friedmanTest(y)
 
  ## Demsar's many-one test
- frdManyOneDemsarTest(y=y, p.adjust = "bonferroni")
+ summary(frdManyOneDemsarTest(y=y, p.adjust = "bonferroni",
+                      alternative = "greater"))
 
  ## Exact many-one test
- frdManyOneExactTest(y=y, p.adjust = "bonferroni")
+ summary(frdManyOneExactTest(y=y, p.adjust = "bonferroni",
+                     alternative = "greater"))
 
  ## Nemenyi's many-one test
- frdManyOneNemenyiTest(y=y)
- 
+ summary(frdManyOneNemenyiTest(y=y, alternative = "greater"))
+
+ ## House test
+ frdHouseTest(y, alternative = "greater")
+
 }
 \references{
 Hollander, M., Wolfe, D. A., Chicken, E. (2014),
 \emph{Nonparametric Statistical Methods}. 3rd ed. New York: Wiley. 2014.
 
 Miller Jr., R. G. (1996), \emph{Simultaneous Statistical Inference}.
- New York: McGraw-Hill.
+New York: McGraw-Hill.
 
 Nemenyi, P. (1963), \emph{Distribution-free Multiple Comparisons}.
- Ph.D. thesis, Princeton University.
+Ph.D. thesis, Princeton University.
 
 Siegel, S., Castellan Jr., N. J. (1988), \emph{Nonparametric
- Statistics for the Behavioral Sciences}. 2nd ed.
- New York: McGraw-Hill.
+Statistics for the Behavioral Sciences}. 2nd ed.
+New York: McGraw-Hill.
 
 Zarr, J. H. (1999), \emph{Biostatistical Analysis}. 4th ed.
 Upper Saddle River: Prentice-Hall.

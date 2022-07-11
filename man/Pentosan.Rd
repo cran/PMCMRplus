@@ -7,9 +7,9 @@
 \format{
 A data frame with 189 obs. of  3 variables:
 \describe{
- \item{value}{numeric, test result (no unit specified)}
- \item{lab}{factor, identifier of the lab (1--7)}
- \item{material}{factor, identifier of the level of the material (A--I)}
+\item{value}{numeric, test result (no unit specified)}
+\item{lab}{factor, identifier of the lab (1--7)}
+\item{material}{factor, identifier of the level of the material (A--I)}
 }
 }
 \source{

@@ -31,7 +31,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when
@@ -40,12 +40,12 @@ the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 \value{
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{lower-triangle matrix of the estimated
 quantiles of the pairwise test statistics.}
- \item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{p.adjust.method}{a character string describing the method for p-value
 adjustment.}
 \item{model}{a data frame of the input data.}
@@ -73,10 +73,10 @@ The p-values are estimated from the studentized range distriburtion.
 \references{
 Douglas, C. E., Fligner, A. M. (1991) On distribution-free multiple
 comparisons in the one-way analysis of variance, \emph{Communications in
- Statistics - Theory and Methods} \bold{20}, 127--139.
+Statistics - Theory and Methods} \bold{20}, 127--139.
 
 Dwass, M. (1960) Some k-sample rank-order tests. In \emph{Contributions to
-  Probability and Statistics}, Edited by: I. Olkin,
+Probability and Statistics}, Edited by: I. Olkin,
 Stanford: Stanford University Press.
 
 Steel, R. G. D. (1960) A rank sum test for comparing all pairs of

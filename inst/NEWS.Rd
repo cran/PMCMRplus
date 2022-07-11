@@ -1,6 +1,22 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.5 (2022-07-10)}{
+ \subsection{NEW FEATURES}{
+  \itemize{
+   \item Functions \code{chenTest}, \code{Dunnett},
+   \code{frdHouseTest}, \code{power.dunnett.test},
+   \code{power.tukey.test} and \code{power.williams.test}
+   were added.
+  }
+ }
+ \subsection{OTHER CHANGES}{
+  \itemize{
+   \item Code in \code{init.c} was re-written based on
+   \code{tools::package_native_routine_registration_skeleton}.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.9.4 (2022-04-07)}{
  \subsection{BUG FIX}{
   \itemize{

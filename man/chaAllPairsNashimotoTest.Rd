@@ -53,7 +53,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when
@@ -64,24 +64,24 @@ Either a list of class \code{"osrt"} if \code{dist = "h"}  or a list
 of class \code{"PMCMR"} if \code{dist = "Normal"}.
 
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{the estimated statistic(s)}
- \item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
- \item{alternative}{a character string describing the alternative hypothesis.}
- \item{parameter}{the parameter(s) of the test distribution.}
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{the estimated statistic(s)}
+\item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
+\item{alternative}{a character string describing the alternative hypothesis.}
+\item{parameter}{the parameter(s) of the test distribution.}
 \item{dist}{a string that denotes the test distribution.}
 }
 There are print and summary methods available.
 
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{lower-triangle matrix of the estimated
 quantiles of the pairwise test statistics.}
- \item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{p.adjust.method}{a character string describing the method for p-value
 adjustment.}
 \item{model}{a data frame of the input data.}
@@ -190,7 +190,7 @@ Nonparametric Multiple-Comparison Methods for Simply Ordered Medians.
 }
 \seealso{
 \code{\link{Normal}}, \code{\link{chackoTest}},
- \code{\link{NPMTest}}
+\code{\link{NPMTest}}
 }
 \keyword{htest}
 \keyword{nonparametric}

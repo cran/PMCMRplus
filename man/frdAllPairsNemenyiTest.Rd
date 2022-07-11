@@ -43,12 +43,12 @@ the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 \value{
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{lower-triangle matrix of the estimated
 quantiles of the pairwise test statistics.}
- \item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{p.adjust.method}{a character string describing the method for p-value
 adjustment.}
 \item{model}{a data frame of the input data.}
@@ -121,13 +121,13 @@ The \eqn{p}-values are computed from the studentized range distribution.
 }
 \references{
 Demsar, J. (2006) Statistical comparisons of classifiers over multiple
- data sets, \emph{Journal of Machine Learning Research} \bold{7}, 1--30.
+data sets, \emph{Journal of Machine Learning Research} \bold{7}, 1--30.
 
 Miller Jr., R. G. (1996) \emph{Simultaneous statistical inference}.
- New York: McGraw-Hill.
+New York: McGraw-Hill.
 
 Nemenyi, P. (1963), \emph{Distribution-free Multiple Comparisons}.
- Ph.D. thesis, Princeton University.
+Ph.D. thesis, Princeton University.
 
 Sachs, L. (1997) \emph{Angewandte Statistik}. Berlin: Springer.
 }

@@ -6,34 +6,34 @@
 \title{Algae Growth Inhibition Data Set}
 \format{
 A data frame with 22 observations on the following 10 variables.
- \describe{
-   \item{concentration}{a numeric vector of dose value in mg / L}
-   \item{Day.0}{a numeric vector, total biomass}
-   \item{Day.0.1}{a numeric vector, total biomass}
-   \item{Day.0.2}{a numeric vector, total biomass}
-   \item{Day.1}{a numeric vector, total biomass}
-   \item{Day.1.1}{a numeric vector, total biomass}
-   \item{Day.1.2}{a numeric vector, total biomass}
-   \item{Day.2}{a numeric vector, total biomass}
-   \item{Day.2.1}{a numeric vector, total biomass}
-   \item{Day.2.2}{a numeric vector, total biomass}
- }
+\describe{
+\item{concentration}{a numeric vector of dose value in mg / L}
+\item{Day.0}{a numeric vector, total biomass}
+\item{Day.0.1}{a numeric vector, total biomass}
+\item{Day.0.2}{a numeric vector, total biomass}
+\item{Day.1}{a numeric vector, total biomass}
+\item{Day.1.1}{a numeric vector, total biomass}
+\item{Day.1.2}{a numeric vector, total biomass}
+\item{Day.2}{a numeric vector, total biomass}
+\item{Day.2.1}{a numeric vector, total biomass}
+\item{Day.2.2}{a numeric vector, total biomass}
+}
 }
 \source{
 ENV/JM/MONO(2006)18/ANN, page 24.
 }
 \description{
 A dose-response experiment was conducted using Atrazine
- at 9 different dose-levels including the zero-dose control
- and the biomass of algae (\emph{Selenastrum
-   capricornutum}) as the response variable. Three replicates
- were measured at day 0, 1 and 2. The fluorescence method (Mayer et
- al. 1997) was applied to measure biomass.
+at 9 different dose-levels including the zero-dose control
+and the biomass of algae (\emph{Selenastrum
+capricornutum}) as the response variable. Three replicates
+were measured at day 0, 1 and 2. The fluorescence method (Mayer et
+al. 1997) was applied to measure biomass.
 }
 \references{
 OECD (ed. 2006) \emph{Current approaches in the statistical analysis
-   of ecotoxicity data: A guidance to application - Annexes}, OECD Series
- on testing and assessment, No. 54, (ENV/JM/MONO(2006)18/ANN).
+of ecotoxicity data: A guidance to application - Annexes}, OECD Series
+on testing and assessment, No. 54, (ENV/JM/MONO(2006)18/ANN).
 }
 \seealso{
 \code{demo(algae)}

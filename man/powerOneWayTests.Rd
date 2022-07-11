@@ -42,11 +42,11 @@ to be performed. Defaults to \code{"kwManyOneConoverTest"}.}
 ignored if the selected error function does not use this argument.}
 
 \item{var.equal}{a logical variable indicating whether to treat the variances
-         in the samples as equal.  \code{"TRUE"}, then a simple F test for
-         the equality of means in a one-way analysis of variance is
-         performed.  If \code{"FALSE"}, an approximate method of Welch (1951)
-         is used, which generalizes the commonly known 2-sample Welch
-         test to the case of arbitrarily many samples. Defaults to \code{"TRUE"}; only relevant,
+in the samples as equal.  \code{"TRUE"}, then a simple F test for
+the equality of means in a one-way analysis of variance is
+performed.  If \code{"FALSE"}, an approximate method of Welch (1951)
+is used, which generalizes the commonly known 2-sample Welch
+test to the case of arbitrarily many samples. Defaults to \code{"TRUE"}; only relevant,
 if \code{test = "oneway.test"}, otherwise ignored.}
 
 \item{dist}{the test distribution. Only relevant for

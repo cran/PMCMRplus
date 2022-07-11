@@ -41,7 +41,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when
@@ -50,12 +50,12 @@ the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 \value{
 A list with class \code{"htest"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{the estimated quantile of the test statistic.}
- \item{p.value}{the p-value for the test.}
- \item{parameter}{the parameters of the test statistic, if any.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{the estimated quantile of the test statistic.}
+\item{p.value}{the p-value for the test.}
+\item{parameter}{the parameters of the test statistic, if any.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{estimates}{the estimates, if any.}
 \item{null.value}{the estimate under the null hypothesis, if any.}
 }
@@ -70,17 +70,17 @@ Likewise to the \code{\link{fligner.test}}, this test
 is a nonparametric test for testing the homogegeneity of
 scales in several groups.
 Let \eqn{\theta_i}{theta_i}, and \eqn{\lambda_i}{lambda_i} denote
- location and scale parameter of the \eqn{i}th group,
- then for the two-tailed case, the null hypothesis
- H: \eqn{\lambda_i / \lambda_j = 1 | \theta_i = \theta_j, ~ i \ne j}{%
+location and scale parameter of the \eqn{i}th group,
+then for the two-tailed case, the null hypothesis
+H: \eqn{\lambda_i / \lambda_j = 1 | \theta_i = \theta_j, ~ i \ne j}{%
  lambda_i / lambda_j = 1 | theta_i = theta_j, i != j} is
- tested against the alternative,
- A: \eqn{\lambda_i / \lambda_j \ne 1}{lambda_i / lambda_j != 1}
- with at least one inequality beeing strict.
+tested against the alternative,
+A: \eqn{\lambda_i / \lambda_j \ne 1}{lambda_i / lambda_j != 1}
+with at least one inequality beeing strict.
 
- The data are combinedly ranked according to Siegel-Tukey.
- The ranking is done by alternate extremes (rank 1 is lowest,
- 2 and 3 are the two highest, 4 and 5 are the two next lowest, etc.).
+The data are combinedly ranked according to Siegel-Tukey.
+The ranking is done by alternate extremes (rank 1 is lowest,
+2 and 3 are the two highest, 4 and 5 are the two next lowest, etc.).
 
 Meyer-Bahlburg (1970) showed, that the Kruskal-Wallis H-test
 can be employed on the Siegel-Tukey ranks.
@@ -116,7 +116,7 @@ spread in k unpaired samples, \emph{Metrika} \bold{15}, 23--29.
 }
 \seealso{
 \code{\link{fligner.test}}, \code{\link[SuppDists]{pKruskalWallis}},
- \code{\link{Chisquare}}, \code{\link{fligner.test}}
+\code{\link{Chisquare}}, \code{\link{fligner.test}}
 }
 \keyword{htest}
 \keyword{nonparametric}

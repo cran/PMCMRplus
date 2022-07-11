@@ -34,12 +34,12 @@ Ignored with a warning if \code{"x"} is a list.}
 \value{
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{lower-triangle matrix of the estimated
 quantiles of the pairwise test statistics.}
- \item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{p.adjust.method}{a character string describing the method for p-value
 adjustment.}
 \item{model}{a data frame of the input data.}
@@ -74,8 +74,8 @@ The function \code{frdAllPairsExactTest} uses the code
 of the file \code{pexactfrsd.R} that was a supplement to:\cr
 
 R. Eisinga, T. Heskes, B. Pelzer, M. Te Grotenhuis (2017),
- Exact p-values for Pairwise Comparison of Friedman Rank Sums,
- with Application to Comparing Classifiers, \emph{BMC Bioinformatics}, 18:68.
+Exact p-values for Pairwise Comparison of Friedman Rank Sums,
+with Application to Comparing Classifiers, \emph{BMC Bioinformatics}, 18:68.
 }
 
 \examples{
@@ -128,8 +128,8 @@ R. Eisinga, T. Heskes, B. Pelzer, M. Te Grotenhuis (2017),
 }
 \references{
 Eisinga, R., Heskes, T., Pelzer, B., Te Grotenhuis, M. (2017)
- Exact p-values for Pairwise Comparison of Friedman Rank Sums,
- with Application to Comparing Classifiers, \emph{BMC Bioinformatics}, 18:68.
+Exact p-values for Pairwise Comparison of Friedman Rank Sums,
+with Application to Comparing Classifiers, \emph{BMC Bioinformatics}, 18:68.
 }
 \seealso{
 \code{\link{friedmanTest}}, \code{\link{friedman.test}},

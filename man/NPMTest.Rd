@@ -66,7 +66,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when
@@ -74,12 +74,12 @@ the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 }
 \value{
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{the estimated statistic(s)}
- \item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
- \item{alternative}{a character string describing the alternative hypothesis.}
- \item{parameter}{the parameter(s) of the test distribution.}
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{the estimated statistic(s)}
+\item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
+\item{alternative}{a character string describing the alternative hypothesis.}
+\item{parameter}{the parameter(s) of the test distribution.}
 \item{dist}{a string that denotes the test distribution.}
 }
 There are print and summary methods available.
@@ -89,24 +89,24 @@ list with class \code{"osrt"} that contains the following
 components:
 
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{the estimated statistic(s)}
- \item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
- \item{alternative}{a character string describing the alternative hypothesis.}
- \item{parameter}{the parameter(s) of the test distribution.}
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{the estimated statistic(s)}
+\item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
+\item{alternative}{a character string describing the alternative hypothesis.}
+\item{parameter}{the parameter(s) of the test distribution.}
 \item{dist}{a string that denotes the test distribution.}
 }
 There are print and summary methods available.
 
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{lower-triangle matrix of the estimated
 quantiles of the pairwise test statistics.}
- \item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{p.adjust.method}{a character string describing the method for p-value
 adjustment.}
 \item{model}{a data frame of the input data.}
@@ -202,9 +202,9 @@ Test for Testing Against a Simple Ordered Alternative,
 \bold{85}, 778--785.
 
 Nashimoto, K., Wright, F.T. (2007)
- Nonparametric Multiple-Comparison Methods for Simply
- Ordered Medians.
- \emph{Comput Stat Data Anal} \bold{51}, 5068–5076.
+Nonparametric Multiple-Comparison Methods for Simply
+Ordered Medians.
+\emph{Comput Stat Data Anal} \bold{51}, 5068–5076.
 }
 \seealso{
 \code{\link{MTest}}

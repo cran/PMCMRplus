@@ -61,8 +61,6 @@
 #'
 #' \deqn{
 #' \bar{t}_i = \frac{\mu_m^* - \bar{x}_0}{s_{\mathrm{E}} \sqrt{1/n_m - 1/n_0}}
-#' }{%
-#'  SEE PDF
 #' }
 #'
 #' The procedure starts from the highest dose level (\eqn{m}) to the the lowest dose level (\eqn{1}) and

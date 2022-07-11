@@ -43,7 +43,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when
@@ -53,12 +53,12 @@ the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 A list with class \code{"osrt"} that contains the following components:
 
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{the estimated statistic(s)}
- \item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
- \item{alternative}{a character string describing the alternative hypothesis.}
- \item{parameter}{the parameter(s) of the test distribution.}
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{the estimated statistic(s)}
+\item{crit.value}{critical values for \eqn{\alpha = 0.05}.}
+\item{alternative}{a character string describing the alternative hypothesis.}
+\item{parameter}{the parameter(s) of the test distribution.}
 \item{dist}{a string that denotes the test distribution.}
 }
 There are print and summary methods available.
@@ -106,8 +106,6 @@ The \eqn{i}-the test statistic is calculated as follows:
 
 \deqn{
 \bar{t}_i = \frac{\mu_m^* - \bar{x}_0}{s_{\mathrm{E}} \sqrt{1/n_m - 1/n_0}}
-}{%
- SEE PDF
 }
 
 The procedure starts from the highest dose level (\eqn{m}) to the the lowest dose level (\eqn{1}) and
@@ -140,8 +138,8 @@ theorem to calculate the isotonic means
 was taken from the file \code{"pava.f"}, which is included in the
 package \pkg{Iso}:
 
- Rolf Turner (2015). Iso: Functions to Perform Isotonic Regression. R
- package version 0.0-17. \url{https://CRAN.R-project.org/package=Iso}.
+Rolf Turner (2015). Iso: Functions to Perform Isotonic Regression. R
+package version 0.0-17. \url{https://CRAN.R-project.org/package=Iso}.
 
 The file \code{pava.f} is a Ratfor modification of Algorithm AS 206.1:
 
@@ -150,7 +148,7 @@ Statistical Algorithms: Algorithm AS 206: Isotonic
 Regression in Two Independent Variables, \emph{Appl. Statist.},
 34, 352--357.
 
- The Algorith AS 206 is available from StatLib
+The Algorith AS 206 is available from StatLib
 \url{http://lib.stat.cmu.edu/apstat/}. The Royal Statistical Society
 holds the copyright to these routines,
 but has given its permission for their distribution provided that
@@ -171,11 +169,11 @@ williamsTest(x ~ g)
 }
 \references{
 Williams, D. A. (1971) A test for differences between treatment means
-  when several dose levels are compared with a zero dose control,
-  \emph{Biometrics} \bold{27}, 103--117.
+when several dose levels are compared with a zero dose control,
+\emph{Biometrics} \bold{27}, 103--117.
 
 Williams, D. A. (1972) The comparison of several dose levels with a zero
-  dose control, \emph{Biometrics} \bold{28}, 519--531.
+dose control, \emph{Biometrics} \bold{28}, 519--531.
 }
 \seealso{
 \code{\link[stats]{TDist}}, \code{\link[stats]{approx}}, \code{\link{print.osrt}},

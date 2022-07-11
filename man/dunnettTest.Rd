@@ -43,7 +43,7 @@ factor of the corresponding groups.}
 formula \code{formula}.  By default the variables are taken from
 \code{environment(formula)}.}
 
-\item{subset}{an optional vector specifying a 
+\item{subset}{an optional vector specifying a
 subset of observations to be used.}
 
 \item{na.action}{a function which indicates what should happen when
@@ -52,12 +52,12 @@ the data contain \code{NA}s.  Defaults to \code{getOption("na.action")}.}
 \value{
 A list with class \code{"PMCMR"} containing the following components:
 \describe{
- \item{method}{a character string indicating what type of test was performed.}
- \item{data.name}{a character string giving the name(s) of the data.}
- \item{statistic}{lower-triangle matrix of the estimated
+\item{method}{a character string indicating what type of test was performed.}
+\item{data.name}{a character string giving the name(s) of the data.}
+\item{statistic}{lower-triangle matrix of the estimated
 quantiles of the pairwise test statistics.}
- \item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
- \item{alternative}{a character string describing the alternative hypothesis.}
+\item{p.value}{lower-triangle matrix of the p-values for the pairwise tests.}
+\item{alternative}{a character string describing the alternative hypothesis.}
 \item{p.adjust.method}{a character string describing the method for p-value
 adjustment.}
 \item{model}{a data frame of the input data.}
@@ -102,9 +102,9 @@ with \eqn{v = N - k} degree of freedom and \eqn{rho} the correlation:
  SEE PDF
 }
 
-The p-values are computed
-from the multivariate-t distribution as implemented in the function
-\code{\link[mvtnorm]{pmvt}} distribution.
+The p-values are computed with the function \code{\link{pDunnett}}
+that is a wrapper to the the multivariate-t distribution as implemented in the function
+\code{\link[mvtnorm]{pmvt}}.
 }
 \examples{
 fit <- aov(Y ~ DOSE, data = trout)
@@ -117,15 +117,15 @@ summary(dunnettTest(fit, alternative = "less"))
 }
 \references{
 Dunnett, C. W. (1955) A multiple comparison procedure for comparing several
-  treatments with a control. \emph{Journal of the American Statistical Association}
-  \bold{50}, 1096–1121.
+treatments with a control. \emph{Journal of the American Statistical Association}
+\bold{50}, 1096–1121.
 
- OECD (ed. 2006) \emph{Current approaches in the statistical analysis
-   of ecotoxicity data: A guidance to application - Annexes}. OECD Series
-   on testing and assessment, No. 54.
+OECD (ed. 2006) \emph{Current approaches in the statistical analysis
+of ecotoxicity data: A guidance to application - Annexes}. OECD Series
+on testing and assessment, No. 54.
 }
 \seealso{
-\code{\link[mvtnorm]{pmvt}}
+\code{\link[mvtnorm]{pmvt}} \code{\link{pDunnett}}
 }
 \concept{parametric}
 \keyword{htest}
