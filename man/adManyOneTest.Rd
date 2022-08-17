@@ -82,6 +82,17 @@ The calculated p-values for \code{Pr(>|T2N|)}
 can be adjusted to account for Type I error inflation
 using any method as implemented in \code{\link{p.adjust}}.
 }
+\note{
+Factor labels for \code{g} must be assigned in such a way,
+that they can be increasingly ordered from zero-dose
+control to the highest dose level, e.g. integers {0, 1, 2, ..., k} or
+letters {a, b, c, ...}. Otherwise the function may not
+select the correct values for intended zero-dose control.
+
+It is safer, to i) label the factor levels as given above,
+and to ii) sort the data according to increasing dose-levels
+prior to call the function (see \code{\link{order}}, \code{\link{factor}}).
+}
 \examples{
 ## Data set PlantGrowth
 ## Global test

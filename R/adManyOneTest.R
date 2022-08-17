@@ -36,7 +36,7 @@
 #' @name adManyOneTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
-#'
+#' @inherit cuzickTest note
 #' @inherit adAllPairsTest references
 #'
 #' @seealso

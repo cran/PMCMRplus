@@ -73,8 +73,10 @@
 #'
 #' The p-values are calculated from the standard normal distribution.
 #' The p-values can be adjusted with any method as available
-#' by \code{\link{p.adjust}}.
+#' by \code{\link{p.adjust}} or by the step-down procedure as proposed
+#' by Chen (1999), if \code{p.adjust.method = "SD1"}.
 #'
+#' @inherit cuzickTest note
 #' @template class-PMCMR
 #'
 #' @examples
@@ -90,7 +92,7 @@
 #' g = gl(6, 3))
 #' levels(df$g) <- 0:5
 #' ans <- chenTest(x ~ g, data = df, alternative = "greater",
-#'                 p.adjust.method = "holm")
+#'                 p.adjust.method = "SD1")
 #' summary(ans)
 #'
 #' @references
@@ -122,7 +124,7 @@ chenTest.default <-
   function(x,
            g,
            alternative = c("greater", "less"),
-           p.adjust.method =  p.adjust.methods,
+           p.adjust.method =  c("SD1", p.adjust.methods),
            ...) {
     ## taken from stats::kruskal.test
 
@@ -229,7 +231,11 @@ chenTest.default <-
     pval <- pnorm(STATISTIC , lower.tail = FALSE)
 
     ## p-adjustment
+    if (p.adjust.method == "SD1") {
+      padj <- SD1p(pval)
+    } else {
     padj <- p.adjust(pval, method = p.adjust.method)
+    }
 
     ##
     if (alternative == "less") {
@@ -277,7 +283,7 @@ chenTest.formula <-
            subset,
            na.action,
            alternative = c("greater", "less"),
-           p.adjust.method = p.adjust.methods,
+           p.adjust.method = c("SD1", p.adjust.methods),
            ...)
   {
     mf <- match.call(expand.dots = FALSE)

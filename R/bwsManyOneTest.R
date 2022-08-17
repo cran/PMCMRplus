@@ -14,8 +14,7 @@
 ##
 ##  A copy of the GNU General Public License is available at
 ##  http://www.r-project.org/Licenses/
-
-
+##
 #' @title BWS Many-To-One Comparison Test
 #' @description Performs Baumgartner-Weiß-Schindler many-to-one comparison test.
 #' @details
@@ -54,17 +53,16 @@
 #' @name bwsManyOneTest
 #' @template class-PMCMR
 #' @keywords htest nonparametric
-#'
+#' @inherit cuzickTest note
 #' @references
 #' Baumgartner, W., Weiss, P., Schindler, H. (1998) A nonparametric test for the
 #' general two-sample problem, \emph{Biometrics} \bold{54}, 1129--1135.
 #'
 #' Murakami, H. (2006) K-sample rank test based on modified Baumgartner statistic and its power
-#' comparison, \emph{J. Jpn. Comp. Statist.} \bold{19}, 1--13.
+#' comparison, \emph{J Jpn Comp Statist} \bold{19}, 1--13.
 #'
-#' Neuhäuser, M. (2001) One-side two-sample and trend tests based on a modified
-#' Baumgartner-Weiss-Schindler statistic.
-#' \emph{Journal of Nonparametric Statistics} \bold{13}, 729--739.
+#' Neuhäuser, M. (2001) One-Side Two-Sample and Trend Tests Based on a Modified
+#' Baumgartner-Weiss-Schindler Statistic. \emph{J Nonparametric Stat} \bold{13}, 729--739.
 #'
 #' @examples
 #' out <- bwsManyOneTest(weight ~ group, PlantGrowth, p.adjust="holm")

@@ -39,6 +39,7 @@
 #' @keywords htest nonparametric
 #' @concept normalscores
 #'
+#' @inherit cuzickTest note
 #' @inherit normalScoresAllPairsTest references
 #'
 #' @seealso

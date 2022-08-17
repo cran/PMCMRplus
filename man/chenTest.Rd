@@ -12,7 +12,7 @@ chenTest(x, ...)
   x,
   g,
   alternative = c("greater", "less"),
-  p.adjust.method = p.adjust.methods,
+  p.adjust.method = c("SD1", p.adjust.methods),
   ...
 )
 
@@ -22,7 +22,7 @@ chenTest(x, ...)
   subset,
   na.action,
   alternative = c("greater", "less"),
-  p.adjust.method = p.adjust.methods,
+  p.adjust.method = c("SD1", p.adjust.methods),
   ...
 )
 }
@@ -126,7 +126,19 @@ The test statistic \eqn{T_i^*} is asymptotically standard normal
 
 The p-values are calculated from the standard normal distribution.
 The p-values can be adjusted with any method as available
-by \code{\link{p.adjust}}.
+by \code{\link{p.adjust}} or by the step-down procedure as proposed
+by Chen (1999), if \code{p.adjust.method = "SD1"}.
+}
+\note{
+Factor labels for \code{g} must be assigned in such a way,
+that they can be increasingly ordered from zero-dose
+control to the highest dose level, e.g. integers {0, 1, 2, ..., k} or
+letters {a, b, c, ...}. Otherwise the function may not
+select the correct values for intended zero-dose control.
+
+It is safer, to i) label the factor levels as given above,
+and to ii) sort the data according to increasing dose-levels
+prior to call the function (see \code{\link{order}}, \code{\link{factor}}).
 }
 \examples{
 ## Chen, 1999, p. 1237,
@@ -141,7 +153,7 @@ df <- data.frame(x = c(23, 22, 14,
 g = gl(6, 3))
 levels(df$g) <- 0:5
 ans <- chenTest(x ~ g, data = df, alternative = "greater",
-                p.adjust.method = "holm")
+                p.adjust.method = "SD1")
 summary(ans)
 
 }

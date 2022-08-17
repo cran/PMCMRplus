@@ -1,6 +1,21 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.6 (2022-08-17)}{
+ \subsection{NEW FEATURES}{
+  \itemize{
+   \item Function \code{chenJanTest} was added. Step-down p-adjustment
+   according to Chen (1999) was added for functions \code{chenTest} and
+   \code{chenJanTest}.
+  }
+ }
+ \subsection{BUG FIXES}{
+  \itemize{
+   \item Function \code{frdHouseTest} was fixed in such a way
+   that y, groups and blocks can be passed as vectors.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.9.5 (2022-07-10)}{
  \subsection{NEW FEATURES}{
   \itemize{

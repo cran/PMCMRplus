@@ -47,6 +47,8 @@
 #' there is no tie correction included. Therefore, the implementation of
 #' Dunn's test is superior, when ties are present.
 #'
+#' @inherit cuzickTest note
+#'
 #' @references
 #' Damico, J. A., Wolfe, D. A. (1989) Extended tables of the exact distribution of
 #' a rank statistic for treatments versus control multiple comparisons in one-way

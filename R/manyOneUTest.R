@@ -34,6 +34,7 @@
 #' the p-values are calculated from the standard normal distribution
 #' with any latter p-adjustment as available by \code{\link{p.adjust}}.
 #'
+#' @inherit cuzickTest note
 #' @template class-PMCMR
 #' @example examples/kwManyOneMC.R
 #'

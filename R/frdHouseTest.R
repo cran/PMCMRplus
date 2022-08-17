@@ -115,7 +115,7 @@ frdHouseTest.default <-
     }
 
     ## Friedman-type ranking
-    ans <- frdRanks(y)
+    ans <- frdRanks(y, groups, blocks)
     Rij <- ans$r
 
     ## number of levels including 0-control

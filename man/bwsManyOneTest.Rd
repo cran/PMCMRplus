@@ -110,6 +110,17 @@ with \code{flavor = 2}.
 The p-values can be adjusted to account for Type I error
 inflation using any method as implemented in \code{\link{p.adjust}}.
 }
+\note{
+Factor labels for \code{g} must be assigned in such a way,
+that they can be increasingly ordered from zero-dose
+control to the highest dose level, e.g. integers {0, 1, 2, ..., k} or
+letters {a, b, c, ...}. Otherwise the function may not
+select the correct values for intended zero-dose control.
+
+It is safer, to i) label the factor levels as given above,
+and to ii) sort the data according to increasing dose-levels
+prior to call the function (see \code{\link{order}}, \code{\link{factor}}).
+}
 \examples{
 out <- bwsManyOneTest(weight ~ group, PlantGrowth, p.adjust="holm")
 summary(out)
@@ -132,11 +143,10 @@ Baumgartner, W., Weiss, P., Schindler, H. (1998) A nonparametric test for the
 general two-sample problem, \emph{Biometrics} \bold{54}, 1129--1135.
 
 Murakami, H. (2006) K-sample rank test based on modified Baumgartner statistic and its power
-comparison, \emph{J. Jpn. Comp. Statist.} \bold{19}, 1--13.
+comparison, \emph{J Jpn Comp Statist} \bold{19}, 1--13.
 
-Neuhäuser, M. (2001) One-side two-sample and trend tests based on a modified
-Baumgartner-Weiss-Schindler statistic.
-\emph{Journal of Nonparametric Statistics} \bold{13}, 729--739.
+Neuhäuser, M. (2001) One-Side Two-Sample and Trend Tests Based on a Modified
+Baumgartner-Weiss-Schindler Statistic. \emph{J Nonparametric Stat} \bold{13}, 729--739.
 }
 \seealso{
 \code{\link[BWStest]{murakami_stat}}, \code{\link[BWStest]{murakami_cdf}},

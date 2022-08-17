@@ -42,6 +42,8 @@
 #' the \eqn{p}-values are computed from the \eqn{t}-distribution using
 #' any of the \eqn{p}-adjustment methods as included in \code{\link{p.adjust}}.
 #'
+#' @inherit cuzickTest note
+#'
 #' @inherit kwAllPairsConoverTest references
 #'
 #' @template class-PMCMR

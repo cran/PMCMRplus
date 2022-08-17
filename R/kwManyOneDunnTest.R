@@ -39,6 +39,7 @@
 #' the \eqn{p}-values are computed from the standard normal distribution using
 #' any of the \eqn{p}-adjustment methods as included in \code{\link{p.adjust}}.
 #'
+#' @inherit cuzickTest note
 #' @inherit kwAllPairsDunnTest references
 #'
 #' @template class-PMCMR
