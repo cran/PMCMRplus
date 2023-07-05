@@ -1,7 +1,7 @@
 ## power.williams.test.R
 ## Part of the R package: PMCMRplut
 ##
-## Copyright (C) 2022 Thorsten Pohlert
+## Copyright (C) 2022-2023 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -50,11 +50,14 @@
 #' for \eqn{\alpha = 0.05}{alpha = 0.05}, \eqn{v = \infty} degree of freedom
 #' and \eqn{\Phi}{Phi} the probability function of the standard normal function.
 #'
-#' The required sample size (balanced design) is estimated numerically
-#' (see \code{\link[stats]{optimise}}). The optimal sample size
-#' is searched within the interval of
-#' \eqn{3 \leq n \leq 120}{3 <= n <= 120} in order to minimise
-#' the squared difference between nominal power and estimated power.
+#' The required sample size (balanced design) is estimated
+#' based on the expression as given by the PASS manual, p. 595-2:
+#'
+#' \deqn{
+#' n = 2 \sigma^2 ~ \left(T_{K \alpha v} + z_{\beta} \right)^2 ~ / ~ \Delta^2
+#' }{%
+#' n = 2 * sigma^2 * (TKaplha + zBeta)^2 / Delta^2
+#' }
 #'
 #' @note
 #' The current function calculates power for \code{sig.level = 0.05}
@@ -117,24 +120,16 @@ power.williams.test <- function(n = NULL,
   }
 
   if (is.null(n)) {
-    # go for n
-    beta <- 1 - power
 
-    #' @importFrom stats optimise
-    n1 <- optimise(
-      f,
-      interval = c(3, 120),
-      sd = sd,
-      k = k,
-      delta = delta,
-      beta = beta
-    )$minimum
+    ## from PASS Manual p. 595-2
+    Beta <- 1 - power
+    TKAlpha <- getTkalpha(k)
+    #' @importFrom stats qnorm
+    n <- 2 * sd^2 * (TKAlpha + qnorm(Beta, lower.tail = FALSE))^2 / delta ^2
 
-    n <- n1
 
   } else {
     # go for power
-
     power <- pwr.fn(n, delta, sd, k)
 
   }
@@ -179,45 +174,6 @@ getTkalpha <- function(k) {
   Tcrit[k]
 }
 
-# # @export
-# getTkalpha <- function(k) {
-#
-#   ## load critical t values (are in sysdata.rda)
-#   df <- 1E6  # Originally Inf
-#   nrows <- nrow(TabCrit$williams.tk005)
-#   Tkdf <- numeric(k)
-#   dft <- as.numeric(rownames(TabCrit$williams.tk005))
-#   xx <- c(2:6, 8, 10)
-#   for (i in 2:k) {
-#     if (i <= 6 | i == 8 | i == 10) {
-#       ## here only df needs to be interpolated
-#       yt <- TabCrit$williams.tk005[, paste0(i)]
-#       yb <- TabCrit$williams.beta005[, paste0(i)]
-#
-#     } else {
-#       yt <- sapply(1:nrows, function(j) {
-#         approx(x = xx,
-#                y = TabCrit$williams.tk005[j,],
-#                xout = i)$y
-#       })
-#
-#     }
-#
-#     # @importFrom stats approx
-#     tt <- approx(x = dft, y = yt, xout = df)$y
-#
-#     Tkdf[i] <- tt
-#   }
-#
-#   Tkdf[k]
-# }
-
-
-## function to be minimised
-f <- function(n, k, delta, sd, beta) {
-  beta.est <- 1 - pwr.fn(sd = sd, delta = delta, n = n, k = k)
-  (beta.est - beta)^2
-}
 
 ## function to obtain power
 pwr.fn <- function(n, delta, sd, k) {

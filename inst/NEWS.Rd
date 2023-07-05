@@ -1,6 +1,18 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.7 (2023-07-03)}{
+  \subsection{BUG FIXES}{
+   \itemize{
+    \item The iterative procedure that was included
+   in function \code{power.williams.test} occassionally
+   failled to return reasonable values for \code{n}, when \code{power} and
+   other parameters were given (Instead, it returned the given
+   upper limit). The procedure was replaced with the analytical expression
+   as given in the PASS manual p. 595-2.
+   }
+  }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.9.6 (2022-08-17)}{
  \subsection{NEW FEATURES}{
   \itemize{

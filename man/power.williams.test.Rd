@@ -50,11 +50,14 @@ with \eqn{|\Delta|}{|Delta|} the clinically meaningful minimal difference,
 for \eqn{\alpha = 0.05}{alpha = 0.05}, \eqn{v = \infty} degree of freedom
 and \eqn{\Phi}{Phi} the probability function of the standard normal function.
 
-The required sample size (balanced design) is estimated numerically
-(see \code{\link[stats]{optimise}}). The optimal sample size
-is searched within the interval of
-\eqn{3 \leq n \leq 120}{3 <= n <= 120} in order to minimise
-the squared difference between nominal power and estimated power.
+The required sample size (balanced design) is estimated
+based on the expression as given by the PASS manual, p. 595-2:
+
+\deqn{
+n = 2 \sigma^2 ~ \left(T_{K \alpha v} + z_{\beta} \right)^2 ~ / ~ \Delta^2
+}{%
+n = 2 * sigma^2 * (TKaplha + zBeta)^2 / Delta^2
+}
 }
 \note{
 The current function calculates power for \code{sig.level = 0.05}
