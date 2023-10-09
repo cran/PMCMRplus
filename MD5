@@ -1,4 +1,4 @@
-082aa0c41b6f1ddd8c941beedaa1f107 *DESCRIPTION
+b0260be9d18f4e2939418e552228208b *DESCRIPTION
 16a9ce881fd2b4c5d70c6e2d7b0d343f *NAMESPACE
 cecac277080b176a6c052288b91a8f53 *R/Cochran.R
 3a460b09230d65fdaf523b70736729e0 *R/Dgrubbs.R
@@ -131,9 +131,9 @@ f1ce46786a3da630f1f86f59e95fb256 *demo/00Index
 4d4316c6fb18df8d96c111cfc177aafd *demo/algae.R
 9a4bc5ccc84eaa9bdbae5086c8455887 *demo/frdmcp.R
 c275d9d632ede1bdd61c46bad6e9f64a *demo/trout.R
-f6509048c9cc2ccdb6d24cd90a4104a1 *inst/NEWS.Rd
+2be3f4d8af3841f9fe9420ecb0f9055a *inst/NEWS.Rd
 19e65df33140926516e388beda03a7c7 *inst/doc/QuickReferenceGuide.Rmd
-fa63a24208d07dd1d2b27a5abcf73d27 *inst/doc/QuickReferenceGuide.html
+ec40adb5046c7238ee8256ec55ae8f52 *inst/doc/QuickReferenceGuide.html
 b3bedd7b4e6579b8ce2d784d3362f481 *man/Cochran.Rd
 4faa524f6b2c669e4f47fd62a29385b5 *man/Dgrubbs.Rd
 a70ffdd82f5d48ffb587cb3eeac91216 *man/Dunnett.Rd
@@ -251,9 +251,9 @@ c8a95aaf1fe3762c759bb6386717ead7 *man/welchManyOneTTest.Rd
 488bd818b99d5604f9b7b34eaad2acb9 *man/williamsTest.Rd
 ff40855ebff89ebe1c36cd339cc43a53 *src/crwrapf90.c
 79cc619ab95b3cdc2b3f5afd6f335eda *src/dstat.f
-482b976f8ef66a4b9d7dd5fcb1633db4 *src/getpval.f
+ba383d03c6962988a0637bfee1f8a62f *src/getpval.f
 a6054a488245237a2829f570a623bf1c *src/init.c
 7e357534fc2e0be02f5f402a47c6c7d2 *src/pava.f
 882ffe17e13c25404edca8e0fb6749b0 *src/pd.f
-40d4dfc359a44546048ac94c705675c9 *src/util.f
+7fb541fede5aee27c3a110a86d635ec9 *src/util.f
 19e65df33140926516e388beda03a7c7 *vignettes/QuickReferenceGuide.Rmd

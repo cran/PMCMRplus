@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.8 (2023-10-09)}{
+ \subsection{OTHER CHANGES}{
+  \itemize{
+   \item Data type caste from integer to double precision in Fortran
+   source was changed in order to allow portability.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.9.7 (2023-07-03)}{
   \subsection{BUG FIXES}{
    \itemize{

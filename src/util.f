@@ -12,14 +12,15 @@ C     GNU General Public License for more details.
 C
 C     You should have received a copy of the GNU General Public License
 C     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-C  
+C
       double precision function mean(x, n)
 C     This function calculates the mean
       implicit none
       integer, intent(in) :: n
       double precision, dimension(n), intent(in):: x
-      
-      mean = sum(x) / real(n, kind = 8)
+
+C     data type cast was changed
+      mean = sum(x) / dble(n)
       return
       end function
 
@@ -30,7 +31,7 @@ C     This function calculates Q, which is the sum of squares
       integer, intent(in) :: n
       double precision, dimension(n), intent(in) :: x
       double precision, intent(in) :: xmean
-      
+
 C     internal
       integer :: i
       double precision :: tmp

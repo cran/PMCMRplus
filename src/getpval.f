@@ -15,7 +15,7 @@ C     You should have received a copy of the GNU General Public License
 C     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 C
       implicit none
-      integer, intent(in):: n  
+      integer, intent(in):: n
       double precision, dimension(n), intent(in):: x
       double precision, intent(in) :: crit
 C
@@ -28,6 +28,6 @@ C     local
             cnt = cnt + 1
          end if
       end do
-      getpval = real(cnt, kind=8) / real(n, kind=8)
+      getpval = dble(cnt) / dble(n)
       return
       end function
