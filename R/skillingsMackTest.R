@@ -91,8 +91,7 @@ skillingsMackTest.default <- function(y, groups, blocks, ...)
         DNAME <- paste(deparse(substitute(y)))
         GRPNAMES <- colnames(y)
         y <- as.vector(y)
-    }
-    else {
+    } else {
       ##  if (any(is.na(groups)) || any(is.na(blocks)))
       ##      stop("NA's are not allowed in groups or blocks")
         if (any(diff(c(length(y), length(groups), length(blocks)))))
@@ -123,9 +122,22 @@ skillingsMackTest.default <- function(y, groups, blocks, ...)
     nb <- nlevels(blocks)
     ng <- nlevels(groups)
 
+    ## create auxiliary matrix
+    Y <- matrix(NA, nrow = nb, ncol = ng,
+                dimnames = list(blocks = levels(blocks),
+                                groups = levels(groups)))
+
+    ## make sure, vectors are ordered
+    o <- order(groups, blocks)
+    y <- y[o]
+    groups <- groups[o]
+    blocks <- blocks[o]
+    ## populate matrix
+    for (i in seq_along(y)) {
+      Y[blocks[i], groups[i]] <- y[i]
+    }
+
     ## Friedman type ranking
-    y <- y[order(groups, blocks)]
-    Y <- matrix(y, nrow = nb, ncol = ng, byrow = FALSE)
     R <- Y
     for (j in 1:length(R[, 1])) R[j, ] <- rank(Y[j, ], na.last="keep")
 

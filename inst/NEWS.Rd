@@ -1,6 +1,16 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.9 (2023-11-25)}{
+ \subsection{BUG FIXES}{
+  \itemize{
+   \item Function \code{skillingsMackTest} only worked as expected,
+   if \code{NA} values were explicitly given in vectors to match
+   the size of the matrix. This has been extended to work with
+   some sort of 'sparse matrices'.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.9.8 (2023-10-09)}{
  \subsection{OTHER CHANGES}{
   \itemize{
@@ -90,7 +100,7 @@
 \section{CHANGES IN PMCMRPLUS VERSION 1.9.0 (2021-01-12)}{
  \subsection{NEW FEATURES}{
   \itemize{
-   \item The function{mrrTest} to conduct
+   \item The function \code{mrrTest} to conduct
    Madhava Rao-Raghunath exact symmetry test was added.
    \item The functions \code{hayterStoneTest},
    \code{hsAllPairsTest} and \code{NPMTest} were extended for
