@@ -1,6 +1,16 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.10 (2023-12-10)}{
+ \subsection{BUG FIXES}{
+  \itemize{
+   \item Function \code{frdAllPairsConoverTest} internally
+  calculated wrong Friedmans test statistics that lead to
+  wrong pairwise tests statistics and p-values.
+  This was fixed.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.9.9 (2023-11-25)}{
  \subsection{BUG FIXES}{
   \itemize{

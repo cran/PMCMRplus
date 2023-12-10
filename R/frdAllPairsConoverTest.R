@@ -90,13 +90,13 @@ frdAllPairsConoverTest.default <-
         m <- 1 # replicates set to 1
         S2 <- m / (m * k - 1) * (sum(r ^ 2) - m * k * n *
                                      (m * k + 1) ^ 2 / 4)
-        T2 <- 1 / S2 * (sum(R.sum) - n * m * ((m * k + 1) / 2) ^ 2)
+        T2 <- (1 / S2) * (sum( (R.sum - n * m * (m * k + 1) / 2) ^ 2))
         A <- S2 * (2 * n * (m * k - 1)) / (m * n * k - k - n + 1)
         B <- 1 - T2 / (n * (m * k - 1))
 
         if (p.adjust.method != "single-step") {
             compare.stats <- function(i, j) {
-                diff <- R.sum[i] - R.sum[j]
+                diff <- R.sum[j] - R.sum[i]
                 tval <- diff / (sqrt(A) * sqrt(B))
                 tval
             }
@@ -104,7 +104,7 @@ frdAllPairsConoverTest.default <-
                                     p.adjust.method = "none")
 
             compare.levels <- function(i, j) {
-                dif <- abs(R.sum[i] - R.sum[j])
+                dif <- abs(R.sum[j] - R.sum[i])
                 tval <- dif / (sqrt(A) * sqrt(B))
                 pval <- 2 * pt(
                     q = abs(tval),
@@ -122,7 +122,7 @@ frdAllPairsConoverTest.default <-
         } else {
             ## use Tukey distribution for multiple comparisons
             compare.stats <- function(i, j) {
-                diff <- R.sum[i] - R.sum[j]
+                diff <- R.sum[j] - R.sum[i]
                 qval <- sqrt(2) * diff / (sqrt(A) * sqrt(B))
                 qval
             }
@@ -130,7 +130,7 @@ frdAllPairsConoverTest.default <-
                                     p.adjust.method = "none")
 
             compare.levels <- function(i, j) {
-                dif <- abs(R.sum[i] - R.sum[j])
+                dif <- abs(R.sum[j] - R.sum[i])
                 qval <- sqrt(2) * dif / (sqrt(A) * sqrt(B))
                 pval <-  ptukey(
                     q = qval,
