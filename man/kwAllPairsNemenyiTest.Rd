@@ -140,6 +140,10 @@ summary(ans)
 ## Nemenyi's all-pairs comparison test
 ans <- kwAllPairsNemenyiTest(count ~ spray, data = InsectSprays)
 summary(ans)
+
+## Brown-Mood all-pairs median test
+ans <- medianAllPairsTest(count ~ spray, data = InsectSprays)
+summary(ans)
 }
 \references{
 Nemenyi, P. (1963) \emph{Distribution-free Multiple Comparisons}.

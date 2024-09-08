@@ -99,6 +99,10 @@ summary(ans)
 ## Nemenyi's all-pairs comparison test
 ans <- kwAllPairsNemenyiTest(count ~ spray, data = InsectSprays)
 summary(ans)
+
+## Brown-Mood all-pairs median test
+ans <- medianAllPairsTest(count ~ spray, data = InsectSprays)
+summary(ans)
 }
 \references{
 Dunn, O. J. (1964) Multiple comparisons using rank sums,

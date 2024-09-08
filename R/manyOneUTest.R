@@ -1,7 +1,7 @@
 ## manyOneUTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2017-2021 Thorsten Pohlert
+## Copyright (C) 2017-2024 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@
 #' of ecotoxicity data: A guidance to application}, OECD Series
 #' on testing and assessment, No. 54.
 #' @seealso
-#' \code{\link{wilcox.test}}, \code{\link{pmvnorm}}, \code{\link{Normal}}
+#' \code{\link{wilcox.test}}, \code{\link[mvtnorm]{pmvnorm}}, \code{\link{Normal}}
 #' @concept wilcoxonranks
 #' @keywords htest nonparametric
 #' @export

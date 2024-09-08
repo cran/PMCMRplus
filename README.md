@@ -143,7 +143,7 @@ References
 L. Fousse, G. Hanrot, V. Lefevre, P. Pelissier, P. Zimmermann (2007)
 MPFR: A Multiple-precision Binary Floating-point Library with Correct
 Rounding. *ACM Trans. Math. Softw. 33*. 13.
-<https://doi.acm.org/10.1145/1236463.1236468>.
+<https://doi.org/10.1145/1236463.1236468>.
 
 A. Genz, F. Bretz (2009) *Computation of Multivariate Normal and t
 Probabilities*. Lecture Notes in Statistics. Heidelberg: Springer.

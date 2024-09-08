@@ -1,7 +1,7 @@
 ## kwManyOneDunnTest.R
 ## Part of the R package: PMCMR
 ##
-## Copyright (C) 2015-2018 Thorsten Pohlert
+## Copyright (C) 2015-2024 Thorsten Pohlert
 ##
 ##  This program is free software; you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -46,8 +46,11 @@
 #' @concept kruskalranks
 #' @keywords nonparametric
 #' @seealso
-#' \code{\link{pmvnorm}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
-#' \code{\link{kwManyOneConoverTest}}, \code{\link{kwManyOneNdwTest}}
+#' \code{\link[mvtnorm]{pmvnorm}},
+#' \code{\link{TDist}},
+#' \code{\link{kruskalTest}},
+#' \code{\link{kwManyOneConoverTest}},
+#' \code{\link{kwManyOneNdwTest}}
 #' @example examples/kwManyOneMC.R
 #' @export
 kwManyOneDunnTest <- function(x, ...) UseMethod("kwManyOneDunnTest")

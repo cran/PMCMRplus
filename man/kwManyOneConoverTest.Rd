@@ -145,7 +145,7 @@ Conover, W. J, Iman,  R. L. (1979) \emph{On multiple-comparisons
 procedures}, Tech. Rep. LA-7677-MS, Los Alamos Scientific Laboratory.
 }
 \seealso{
-\code{\link{pmvt}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
+\code{\link[mvtnorm]{pmvt}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
 \code{\link{kwManyOneDunnTest}}, \code{\link{kwManyOneNdwTest}}
 }
 \concept{kruskalranks}

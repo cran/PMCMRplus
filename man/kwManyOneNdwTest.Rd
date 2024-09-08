@@ -143,7 +143,7 @@ Nemenyi, P. (1963) \emph{Distribution-free Multiple Comparisons},
 Ph.D. thesis, Princeton University.
 }
 \seealso{
-\code{\link{pmvt}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
+\code{\link[mvtnorm]{pmvt}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
 \code{\link{kwManyOneDunnTest}}, \code{\link{kwManyOneConoverTest}}
 }
 \concept{kruskalranks}

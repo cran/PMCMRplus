@@ -164,6 +164,13 @@ anova(aov(rank(x) ~ g, dat))
 ## Check with oneway.test
 oneway.test(rank(x) ~ g, dat, var.equal = TRUE)
 }
+
+## Median Test asymptotic
+medianTest(x ~ g, dat)
+
+## Median Test with simulated p-values
+set.seed(112)
+medianTest(x ~ g, dat, simulate.p.value = TRUE)
 }
 \references{
 Conover, W.J., Iman, R.L. (1981) Rank Transformations as a Bridge

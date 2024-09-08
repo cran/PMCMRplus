@@ -142,7 +142,7 @@ of ecotoxicity data: A guidance to application}, OECD Series
 on testing and assessment, No. 54.
 }
 \seealso{
-\code{\link{wilcox.test}}, \code{\link{pmvnorm}}, \code{\link{Normal}}
+\code{\link{wilcox.test}}, \code{\link[mvtnorm]{pmvnorm}}, \code{\link{Normal}}
 }
 \concept{wilcoxonranks}
 \keyword{htest}

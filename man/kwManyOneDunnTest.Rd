@@ -148,8 +148,11 @@ Siegel, S., Castellan Jr., N. J. (1988) \emph{Nonparametric Statistics
 for The Behavioral Sciences}. New York: McGraw-Hill.
 }
 \seealso{
-\code{\link{pmvnorm}}, \code{\link{TDist}}, \code{\link{kruskalTest}},
-\code{\link{kwManyOneConoverTest}}, \code{\link{kwManyOneNdwTest}}
+\code{\link[mvtnorm]{pmvnorm}},
+\code{\link{TDist}},
+\code{\link{kruskalTest}},
+\code{\link{kwManyOneConoverTest}},
+\code{\link{kwManyOneNdwTest}}
 }
 \concept{kruskalranks}
 \keyword{htest}

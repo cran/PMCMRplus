@@ -166,7 +166,8 @@ many-to-one comparisons!")
               grepl("Siegel", x$method),
               grepl("Durbin", x$method),
               grepl("Anderson", x$method),
-              grepl("BWS", x$method)))){
+              grepl("BWS", x$method),
+              grepl("Mood", x$method)))){
         xmedian <- tapply(dat$x, dat$g, median)
         xQ25 <- tapply(dat$x, dat$g, function(x) quantile(x, 0.25))
         xQ75 <- tapply(dat$x, dat$g, function(x) quantile(x, 0.75))

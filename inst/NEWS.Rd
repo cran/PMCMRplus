@@ -1,6 +1,29 @@
 \name{NEWS}
 \title{PMCMRplus News}
 \encoding{UTF-8}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.12 (2024-09-07}{
+ \subsection{OTHER CHANGES}{
+  \itemize{
+   \item Package anchors for Rd \code{\\link\{\}} targets were provided
+   (issue detected by CRAN check \sQuote{Rd cross references}).
+   \item Changed \code{http} to \code{https} for content that is marked \sQuote{Moved Permanently}.
+  }
+ }
+}
+\section{CHANGES IN PMCMRPLUS VERSION 1.9.11 (2023-12-28}{
+ \subsection{NEW FEATURES}{
+  \itemize{
+   \item The functions \code{medianTest} and \code{medianAllPairsTest},
+   that perform Brown-Mood Median Test, were implemented.
+  }
+ }
+ \subsection{OTHER CHANGES}{
+  \itemize{
+   \item Function \code{adKSampleTest} was refactored in order
+   to save memory.
+  }
+ }
+}
 \section{CHANGES IN PMCMRPLUS VERSION 1.9.10 (2023-12-10)}{
  \subsection{BUG FIXES}{
   \itemize{

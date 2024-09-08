@@ -146,6 +146,13 @@ anova(aov(rank(x) ~ g, dat))
 ## Check with oneway.test
 oneway.test(rank(x) ~ g, dat, var.equal = TRUE)
 }
+
+## Median Test asymptotic
+medianTest(x ~ g, dat)
+
+## Median Test with simulated p-values
+set.seed(112)
+medianTest(x ~ g, dat, simulate.p.value = TRUE)
 }
 \references{
 Baumgartner, W., Weiss, P., Schindler, H. (1998) A nonparametric test for the
